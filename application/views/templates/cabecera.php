@@ -287,7 +287,8 @@
                   <a href="#" class="btn btn-default btn-flat">Profile</a>
                 </div>
                 <div class="pull-right">
-                  <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login/logout_ci'?>" > Cerrar Sesión</a>
+                 <!-- <a href="" class="btn btn-default btn-flat">Sign out</a> -->
                 </div>
               </li>
             </ul>
