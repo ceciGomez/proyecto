@@ -1,0 +1,24 @@
+<?php
+---pagina principal del proyecto --
+http://proyecto/index.php/c_login --> linux
+http://localhost/index.php/c_login --> windows
+
+
+---- BASE DE DATOS -----
+Nombre: Sirmi
+Tablas: users -->ver carpeta base de datos para la creacion e insercion
+
+
+
+----USUARIOS ---
+admin1 admin
+escribano1 escri
+operador1 opera
+
+
+
+
+
+
+
+?>

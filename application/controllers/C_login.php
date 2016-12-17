@@ -29,10 +29,10 @@ class C_login extends CI_Controller {
 				redirect(base_url().'index.php/c_loginadmin');
 				break;
 			case 'escribano':
-				redirect(base_url().'escribano');
+				redirect(base_url().'index.php/c_loginescri');
 				break;	
 			case 'operador':
-				redirect(base_url().'operador');
+				redirect(base_url().'index.php/c_loginop');
 				break;
 			default:		
 				$data['titulo'] = 'Login';
