@@ -21,10 +21,7 @@
       <section class="col-lg-12 connectedSortable">
          <!-- TO DO List -->
          <div class="box box-primary">
-            <div class="box-header">
-               <i class="ion ion-clipboard"></i>
-               <h3 class="box-title">Tareas  para el escribano</h3>
-            </div>
+            
             <!-- /.box-header -->
             <div class="box-body">
                <div class="info-box bg-green">
