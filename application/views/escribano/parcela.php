@@ -140,7 +140,7 @@
                                        <div class="input-group-addon">
                                           <i class="fa fa-calendar"></i>
                                        </div>
-                                       <input type="text" class="form-control pull-right" id="datepicker">
+                                       <input type="text" class="form-control pull-right" name="fecha" id="fecha">
                                     </div>
                                     <!-- /.input group -->
                                  </div>
@@ -166,3 +166,9 @@
 </div>
 <!-- /.content-wrapper -->
 
+
+   <script>
+        $( document ).ready(function() {
+            $('#fecha').datepicker();
+        });
+    </script>
