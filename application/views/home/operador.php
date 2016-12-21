@@ -3,12 +3,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Administrador
+        Operador
         <small>Bienvenido</small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Administrador</li>
+        <li class="active">Operador</li>
       </ol>
     </section>
 
@@ -26,7 +26,7 @@
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
 
-              <h3 class="box-title">Tareas Pendientes para el administrador</h3>
+              <h3 class="box-title">Tareas Pendientes para el operador</h3>
 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">
