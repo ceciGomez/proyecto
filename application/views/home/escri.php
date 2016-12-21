@@ -24,6 +24,15 @@
             
             <!-- /.box-header -->
             <div class="box-body">
+             <div class="info-box bg-teal">
+                  <span class="info-box-icon"><i class="glyphicon glyphicon-print"></i></span>
+                  <div class="info-box-content">
+                     <span class="info-box-number">Ver Minutas</span>
+                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_escribano/verMinutas"> 
+                     <i class="fa fa-play"></i>
+                     </a>
+                  </div>
+               </div>
                <div class="info-box bg-green">
                   <span class="info-box-icon"><i class="glyphicon glyphicon-print"></i></span>
                   <div class="info-box-content">

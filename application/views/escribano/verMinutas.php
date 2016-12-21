@@ -5,9 +5,9 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>
-         Crear Minuta
+         Ver Minuta
       </h1>
-      <small>Finalizar Minuta</small>
+      <small>Lista todas las  Minuta</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"></i> Parcela</a></li>
@@ -20,18 +20,18 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Responsive Hover Table</h3>
+              
 
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
 
                   <div class="input-group-btn">
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> 
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
@@ -80,7 +80,7 @@
           <!-- /.box -->
         </div>
       </div>
-
+</div>
 
      <div class="box-footer">
         <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Confirmar Minuta</a>
