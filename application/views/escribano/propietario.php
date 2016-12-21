@@ -80,10 +80,21 @@
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
                      </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Fecha de Aprobacion</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fecha de Aprobacion">
-                     </div>
+                      <!-- Date -->
+                      <div class="col-md-3">
+              <div class="form-group">
+                <label>Fecha de Aprobacion</label>
+
+                <div class="input-group date">
+                  <div class="input-group-addon">
+                    <i class="fa fa-calendar"></i>
+                  </div>
+                  <input type="text" class="form-control pull-right" id="fecha">
+                </div>
+                 </div>
+                <!-- /.input group -->
+              </div>
+              <!-- /.form group -->
                   </div>
                   <div class="form-group">
                      <div class="col-md-3">
@@ -113,3 +124,8 @@
 </div>
 <!-- /.content-wrapper -->
 
+   <script>
+        $( document ).ready(function() {
+            $('#fecha').datepicker();
+        });
+    </script>
