@@ -147,6 +147,7 @@
                               </div>
                               <div class="box-footer">
                                   <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Registrar Propietario</a>
+                                   <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
                                 
                               </div>
                            </div>
