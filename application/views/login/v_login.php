@@ -45,6 +45,10 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 		}
 		?>
     </form>
+    <a href="#">Olvidé mi contraseña</a><br>
+    <a href="<?=base_url().'index.php/c_login/registro_esc'?>" class="text-center">Registrarme</a>
+    
+    
 </div>
   
     <script src="js/index.js"></script>

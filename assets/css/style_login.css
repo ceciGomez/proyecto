@@ -39,6 +39,21 @@ label {
 color: #b3cccc; /* makes the text-black */
 }
 
+a {
+    color: #e0ebeb;
+    font-size: 12px;
+}
+
+a:hover,a:active,a:focus{
+	outline:none;
+	text-decoration:none;
+	color:#b3cccc
+}
+
+img {
+	margin-bottom: 30px;
+}
+
 input { 
 	width: 100%; 
 	/*margin-bottom: 10px;*/ 
