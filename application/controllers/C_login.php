@@ -80,6 +80,10 @@ class C_login extends CI_Controller {
 		$this->session->set_userdata('token',$token);
 		return $token;
 	}
+
+	public function registro_esc(){
+		$this->load->view('registro/v_registroEscribano');
+	}
 	
 	public function logout_ci()
 	{
