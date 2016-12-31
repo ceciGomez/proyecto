@@ -33,7 +33,7 @@
                      <form role="form">
                         <div class="box-body">
                            <div class="form-group">
-                              <div class="form-group">
+                              
                                  <div class="col-md-3">
                                     <label>Departamento</label>
                                     <select class="form-control select2" style="width: 100%;">
@@ -58,8 +58,8 @@
                                     <label for="exampleInputEmail1">Chacra</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Chacra">
                                  </div>
-                              </div>
-                              <div class="form-group">
+                             
+                            
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quinta</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Quinta">
@@ -76,8 +76,8 @@
                                     <label for="exampleInputEmail1">Parcela</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Parcela">
                                  </div>
-                              </div>
-                              <div class="form-group">
+                              
+                              
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Superficie">
@@ -87,6 +87,18 @@
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Partida">
                                  </div>
                                  <div class="col-md-3">
+                                    <label for="exampleInputEmail1">Plano Aprobado</label>
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado">
+                                 </div>
+                                     <div class="form-group col-md-3">
+                                    <label>Fecha de Plano Aprobado</label>
+                                    <div class="input-group date">
+                                       <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                       <input type="text" class="form-control pull-right" name="fechaPA" id="fechaPA">
+                                    </div>
+                                    <!-- /.input group -->
+                                 </div>
+                                 <div class="col-md-3">
                                     <label>Tipo de Propiedad</label>
                                     <select class="form-control select2" style="width: 100%;">
                                        <option selected="selected">Urbano</option>
@@ -94,12 +106,7 @@
                                        <option>Rural</option>
                                     </select>
                                  </div>
-                                 <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Plano Aprobado</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado">
-                                 </div>
-                              </div>
-                              <div class="form-group">
+                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Tomo</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tomo">
@@ -116,8 +123,9 @@
                                     <label for="exampleInputEmail1">Año</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Año">
                                  </div>
-                              </div>
-                              <div class="form-group">
+                              
+                             
+                              
                                  <div class="col-md-3">
                                     <label>Localidad</label>
                                     <select class="form-control select2" style="width: 100%;">
@@ -134,21 +142,22 @@
                                     <label for="exampleInputEmail1">Matrícula RPI</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Matrícula RPI">
                                  </div>
-                                 <div class="form-group">
+                                 <div class="form-group col-md-3">
                                     <label>Fecha de Matricula:</label>
                                     <div class="input-group date">
                                        <div class="input-group-addon">
                                           <i class="fa fa-calendar"></i>
                                        </div>
-                                       <input type="text" class="form-control pull-right" name="fecha" id="fecha">
+                                       <input type="text" class="form-control pull-right" name="fechaM" id="fechaM">
                                     </div>
                                     <!-- /.input group -->
                                  </div>
-                              </div>
+                              <div class="col-md-12">
                               <div class="box-footer">
                                   <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Registrar Propietario</a>
                                    <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
                                 
+                              </div>
                               </div>
                            </div>
                            <!-- /.box-body -->
@@ -170,6 +179,10 @@
 
    <script>
         $( document ).ready(function() {
-            $('#fecha').datepicker();
+            $('#fechaM').datepicker();
         });
+         $( document ).ready(function() {
+            $('#fechaPA').datepicker();
+        });
+
     </script>
