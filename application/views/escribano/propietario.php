@@ -24,20 +24,24 @@
                <div class="row">
                   <div class="form-group">
                      <div class="col-md-3">
-                        <label for="exampleInputEmail1">Apellido</label>
+                        <label for="exampleInputEmail1">Apellido y Nombre</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Apellido">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
-                        <label for="exampleInputEmail1">Nombres</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Nombres">
+                        <label for="exampleInputEmail1">Sexo</label>
+                        <select class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Masculino</option>
+                           <option>Femenino</option>
+                           
+                        </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="DNI">
                      </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">CUIT</label>
+                     <div class="col-md-3"> <!-- debe ser generado automaticamente -->
+                        <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="CUIT">
                      </div>
                   </div>
@@ -79,6 +83,10 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
+                         <div class="col-md-3">
+                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fecha de plano aprobado">
+                     </div>
                      </div>
                       <!-- Date -->
                       <div class="col-md-3">
