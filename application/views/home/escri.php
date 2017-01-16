@@ -36,7 +36,7 @@
                <div class="info-box bg-green">
                   <span class="info-box-icon"><i class="glyphicon glyphicon-print"></i></span>
                   <div class="info-box-content">
-                     <span class="info-box-number">Imprimir Lista Minutas</span>
+                     <span class="info-box-number">Imprimir Minutas</span>
                      <a class="btn btn-app bg-green" href="<?=base_url()?>index.php/c_loginescri"> 
                      <i class="fa fa-play"></i>
                      </a>
@@ -44,7 +44,7 @@
                </div>
               
                <!-- /.info-box-content -->
-               <div class="info-box bg-teal">
+               <!-- <div class="info-box bg-teal">
                   <span class="info-box-icon"><i class="glyphicon glyphicon-thumbs-down"></i></span>
                   <div class="info-box-content">
                      <span class="info-box-number" >Minutas Rechazadas</span>
@@ -52,9 +52,9 @@
                      <i class="fa fa-play"></i></a>
                     
                   </div>
-               </div>
+               </div> -->
                <!-- /.info-box-content -->
-               <div class="info-box bg-green">
+          <!--      <div class="info-box bg-green">
                   <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
                   <div class="info-box-content">
                      <span class="info-box-number">Buscar Minutas</span>
@@ -62,7 +62,7 @@
                      <i class="fa fa-play "></i>
                      </a>
                   </div>
-                  <!-- /.info-box-content -->
+                 
                </div>
                <div class="info-box bg-teal">
                   <span class="info-box-icon"><i class=" glyphicon glyphicon-open"></i></span>
@@ -71,8 +71,8 @@
                      <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_escribano/index">
                      <i class="fa fa-play"></i></a>
                   </div>
-                  <!-- /.info-box-content -->
-               </div>
+                
+               </div> -->
                <!-- /.box-body -->
             </div>
             <!-- /.box -->
