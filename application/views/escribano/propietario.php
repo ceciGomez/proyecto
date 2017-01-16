@@ -83,15 +83,10 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
+                         </div>
                          <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fecha de plano aprobado">
-                     </div>
-                     </div>
-                      <!-- Date -->
-                      <div class="col-md-3">
-              <div class="form-group">
-                <label>Fecha de Aprobacion</label>
+                      
 
                 <div class="input-group date">
                   <div class="input-group-addon">
