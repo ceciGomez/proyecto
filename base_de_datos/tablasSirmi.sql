@@ -1,25 +1,42 @@
-create table localidad(
-    idLocalidad int(6), 
+create table Provincia(
+  idProvincia int(2) AUTO_INCREMENT,
+  nombre varchar(30) not null,
+  PRIMARY KEY (idProvincia)
+
+);
+create table Departamento(
+    idDepartamento int(6) AUTO_INCREMENT, 
+    nombre varchar(150) not null, 
+    idProvincia int(2), 
+    PRIMARY KEY(idDepartamento), 
+    FOREIGN KEY (idProvincia) REFERENCES Provincia (idProvincia) 
+);
+
+create table Localidad(
+    idLocalidad int(6)  AUTO_INCREMENT, 
     nombre varchar(150) not null, 
     codPostal int(5) not null, 
     idDepartamento int(6), 
     PRIMARY KEY(idLocalidad), 
     FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento) 
-),
+);
 
-create table Departamento(
-    idDepartamento int(6), 
-    nombre varchar(150) not null, 
-    idProvincia int(2), 
-    PRIMARY KEY(idDepartamento), 
-    FOREIGN KEY (idProvincia) REFERENCES Provincia (idProvincia) 
-),
 
-create table usuarioSys( idUsuario int(6) not null, nomyap varchar(150) not null, usuario varchar(10) not null, contraseña varchar(100), dni int(8), telefono int (20), direccion varchar(100), email varchar(100), idLocalidad int(6), tipoUsuario CHARACTER(1), PRIMARY key (idUsuario), FOREIGN KEY (idLocalidad) REFERENCES localidad (idLocalidad) ),
+create table usuarioSys( 
+  idUsuario int(6) not null AUTO_INCREMENT, 
+  nomyap varchar(150) not null, 
+  usuario varchar(10) not null, 
+  contraseña varchar(100), dni int(8), 
+  telefono int (20), direccion varchar(100), 
+  email varchar(100), idLocalidad int(6), 
+  tipoUsuario CHARACTER(1), 
+  PRIMARY key (idUsuario), 
+  FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad) 
+  );
 
-create table usuarioEscribani
+create table usuarioEscribano
 ( 
-    idEscribano int(6) not null, 
+    idEscribano int(6) not null AUTO_INCREMENT, 
     nomyap varchar(150) not null, 
     usuario varchar(10) not null unique, 
     contraseña varchar(100), 
@@ -33,9 +50,9 @@ create table usuarioEscribani
     idUsuario int(6),
     motivoRechazo varchar(100),
     PRIMARY key (idEscribano), 
-    FOREIGN KEY (idLocalidad) REFERENCES localidad (idLocalidad) ,
+    FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad) ,
      FOREIGN KEY (idUsuario) REFERENCES usuarioSys (idUsuario) 
-),
+);
 
 create table Minuta(
     idMinuta int(8) not null AUTO_INCREMENT,
@@ -46,7 +63,7 @@ create table Minuta(
     PRIMARY key (idMinuta), 
     FOREIGN KEY (idEscribano) REFERENCES usuarioEscribano (idEscribano),
     FOREIGN KEY (idUsuario) REFERENCES usuarioSys (idUsuario)
-    )
+    );
     
     create table EstadoMinuta(
     idEstadoMinuta int(8) not null AUTO_INCREMENT,
@@ -58,10 +75,10 @@ create table Minuta(
     PRIMARY key (idEstadoMinuta), 
     FOREIGN KEY (idMinuta) REFERENCES Minuta (idMinuta),
     FOREIGN KEY (idUsuario) REFERENCES usuarioSys (idUsuario)
-    ),
+    );
 
   create table Parcela(
-    	idParcela int(8) not null AUTO_INCREMENT,
+      idParcela int(8) not null AUTO_INCREMENT,
         idDepartamento int(6) not null,
         idLocalidad int(6) not null,
         circunscripcion  varchar(8) not null,
@@ -86,36 +103,36 @@ create table Minuta(
         año int(4),
     PRIMARY key (idParcela), 
     FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento),
-   	FOREIGN KEY (idLocalidad) REFERENCES localidad (idLocalidad),
+    FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad),
     FOREIGN KEY (idMinuta) REFERENCES Minuta (idMinuta)
-    ),
+    );
 
   create table Propietario( 
-  	idParcela int(8), 
-  	titular varchar(150), 
-  	dni int(8), direccion varchar(100), 
-  	idLocalidad int(6),
-  	cuitCuil int(15), conyuge varchar(150), 
-  	fechaEscritura date, 
-  	porcentajeCondominio float, 
-  	nroUfUc varchar(10), 
-  	tipoUfUc CHARACTER(1), 
-  	planoAprobado varchar(10), 
-  	fechaPlanoAprobado date, 
-  	porcentajeUfUc float, 
-  	poligonos varchar(50), 
-  	FOREIGN KEY (idParcela) REFERENCES Parcela (idParcela), 
-  	FOREIGN KEY (idLocalidad) REFERENCES localidad (idLocalidad) 
-  	),
+    idParcela int(8), 
+    titular varchar(150), 
+    dni int(8), direccion varchar(100), 
+    idLocalidad int(6),
+    cuitCuil int(15), conyuge varchar(150), 
+    fechaEscritura date, 
+    porcentajeCondominio float, 
+    nroUfUc varchar(10), 
+    tipoUfUc CHARACTER(1), 
+    planoAprobado varchar(10), 
+    fechaPlanoAprobado date, 
+    porcentajeUfUc float, 
+    poligonos varchar(50), 
+    FOREIGN KEY (idParcela) REFERENCES Parcela (idParcela), 
+    FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad) 
+    );
   
   create table Pedidos(
-    idPedido int(6),
+    idPedido int(6) AUTO_INCREMENT,
     idEscribano int(8),
     descripcion varchar(200),
     fechaPedido datetime,
     estadoPedido CHARACTER(1),
     rtaPedido varchar(200),
-    fecaRta datetime,
+    fechaRta datetime,
     idUsuario int(6),
     PRIMARY KEY (idPedido),
     

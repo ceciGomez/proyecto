@@ -33,19 +33,14 @@
                      <form role="form">
                         <div class="box-body">
                            <div class="form-group">
+                              <div class="form-group">
+
+
+      
+
+
+
                               
-                                 <div class="col-md-3">
-                                    <label>Departamento</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                       <option selected="selected">San Fernando</option>
-                                       <option>General Guemes</option>
-                                       <option>Almirante Brown</option>
-                                       <option>Bermejo</option>
-                                       <option>San Lorenzo</option>
-                                       <option>Comandante Fernandez</option>
-                                       <option>25 de mayo</option>
-                                    </select>
-                                 </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Circunscripción">
@@ -123,7 +118,16 @@
                                     <label for="exampleInputEmail1">Año</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Año">
                                  </div>
-                              
+                                 <div class="col-md-3">
+                                    <label>Provincia</label>
+                                    <select class="form-control select2" style="width: 100%;">
+                                       <?php foreach ($provincias as $value):?>
+          <option value="<?php echo $value->idProvincia;?>">
+            <?php echo $value->nombre; ?>          
+          </option>
+          <?php endforeach ?>
+                                    </select>
+                                 </div>
                              
                               
                                  <div class="col-md-3">

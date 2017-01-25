@@ -22,6 +22,9 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data["provincias"] = $this->M_direccion->getProvincias();
+		$data["departamentos"] = $this->M_direccion->getDepartamentos();
+		$data["localidades"] = $this->M_direccion->getLocalidades();
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/parcela',$data);
@@ -53,6 +56,7 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/minuta',$data);
 		$this->load->view('templates/pie',$data);
 	}
+
 	public function verMinutas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
