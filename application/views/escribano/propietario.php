@@ -30,19 +30,19 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Masculino</option>
-                           <option>Femenino</option>
-                           
+                        <select id="cuit-combobox" class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Seleccionar</option>
+                           <option value="27">Femenino</option>
+                           <option value="20">Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="DNI">
+                        <input type="text" class="form-control" id="dni" placeholder="DNI">
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="CUIT">
+                        <input type="text" class="form-control" id="cuit" placeholder="CUIT">
                      </div>
                   </div>
                   <div class="form-group">
@@ -132,4 +132,17 @@
         $( document ).ready(function() {
             $('#fecha').datepicker();
         });
+    </script>
+    <script>
+      $("#cuit-combobox").on("focusout", function () {
+        $("#cuit").val( $(this).val());
+         });
+
+    </script>
+    <script>
+      $("#dni").on("focusout", function () {
+        var business = $("#cuit").val();
+        $("#cuit").val( business+" "+$(this).val());
+         });
+
     </script>
