@@ -25,24 +25,25 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Apellido">
+                        <input type="text" pattern="[a-zA-Z]{5}" class="form-control" id="inputTextBox" max="10" placeholder="Apellido" name="nya">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Masculino</option>
-                           <option>Femenino</option>
-                           
+                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Seleccionar</option>
+                           <option value="27">Femenino</option>
+                           <option value="20">Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="DNI">
+                        <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" 
+                       onKeyUp="limitText(this,8);"/>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="CUIT">
+                        <input type="text" class="form-control" id="cuit" placeholder="CUIT">
                      </div>
                   </div>
                   <div class="form-group">
@@ -68,7 +69,12 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Escritura</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fecha de Escritura">
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                         </div>
+                          <input type="text" class="form-control pull-right" id="fecha-escritura" placeholder="Fecha de Escritura">
+                     </div>
                      </div>
                   </div>
                   <div class="form-group">
@@ -83,18 +89,16 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
+                     </div>
+                    <div class="col-md-3">
+                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
                          </div>
-                         <div class="col-md-3">
-                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>
-                      
-
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                          <input type="text" class="form-control pull-right" id="fecha-plano-aprobado" placeholder="Fecha Plano Aprobado">
+                     </div>
                   </div>
-                  <input type="text" class="form-control pull-right" id="fecha">
-                </div>
-                 </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
@@ -127,9 +131,64 @@
    </section>
 </div>
 <!-- /.content-wrapper -->
-
+     <!--Muestra el calendario para fecha de escritura-->
    <script>
         $( document ).ready(function() {
-            $('#fecha').datepicker();
+            $('#fecha-escritura').datepicker();
         });
     </script>
+     <!--Muestra el calendario para fecha de plano aprobado-->
+    <script>
+        $( document ).ready(function() {
+            $('#fecha-plano-aprobado').datepicker();
+        });
+    </script>
+    <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
+    <script>
+      $("#sexo-combobox").on("focusout", function () {
+        $("#cuit").val( $(this).val()+" "+$("#dni").val());
+         });
+
+    </script>
+    <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
+    <script>
+      $("#dni").on("focusout", function () {
+        var business = $("#cuit").val();
+        $("#cuit").val( $("#sexo-combobox").val()+" "+$(this).val());
+         });
+
+    </script>
+    <!--Limita campo dni a ingresar solo números-->
+     <script>
+    function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+     </script>
+     <!--Limita campo dni a 8 números-->
+     <script language="javascript" type="text/javascript">
+    function limitText(limitField, limitNum) {
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+      }
+    }
+   </script>
+    <script>
+        $(document).ready(function(){
+        $("#inputTextBox").keypress(function(event){
+        var inputValue = event.charCode;
+        if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)){
+            event.preventDefault();
+        }
+        });
+      });
+    </script>
+      <script language="javascript" type="text/javascript">
+          $('input[name="nya"]').keypress(function() {
+            if (this.value.length >= 10 {
+            return false;
+          }
+         });
+      </script>
