@@ -79,7 +79,6 @@ create table Minuta(
 
   create table Parcela(
       idParcela int(8) not null AUTO_INCREMENT,
-        idDepartamento int(6) not null,
         idLocalidad int(6) not null,
         circunscripcion  varchar(8) not null,
         seccion CHARACTER(1) not null,
@@ -102,7 +101,6 @@ create table Minuta(
         finca int(5),
         año int(4),
     PRIMARY key (idParcela), 
-    FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento),
     FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad),
     FOREIGN KEY (idMinuta) REFERENCES Minuta (idMinuta)
     );
