@@ -98,6 +98,5 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>assets/dist/js/demo.js"></script>
 
-
 </body>
 </html>
