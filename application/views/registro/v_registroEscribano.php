@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,6 +17,10 @@
   <link rel="stylesheet" href="<?=base_url()?>assets/css/AdminLTE.min.css">
   <!-- iCheck -->
   <link rel="stylesheet" href="<?=base_url()?>assets/css/blue.css">
+
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+
   <script type="text/javascript">
  function NumbersOnly(e) {
     var unicode = e.charCode ? e.charCode : e.keyCode;
@@ -32,78 +37,129 @@
 function IsArrows (e) {
        return (e.keyCode >= 37 && e.keyCode <= 40); 
 }
-  </script>
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
+
+
+/*funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
+$(document).ready(function(){
+   $("#Provincia").change(function () {
+           $("#Provincia option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            miprovincia=$('#Provincia').val();
+            $.post("http://localhost/proyecto/index.php/c_registro/departamento", { miprovincia: miprovincia}, function(data){
+            $("#Departamento").html(data);
+            });            
+        });
+   })
+});
+
+
+$(document).ready(function(){
+   $("#Departamento").change(function () {
+           $("#Departamento option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            midepartamento=$('#Departamento').val();
+            $.post("http://localhost/proyecto/index.php/c_registro/localidad", { midepartamento: midepartamento}, function(data){
+            $("#Localidad").html(data);
+            });            
+        });
+   })
+});
+/*fin de la funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
+</script>
+
 </head>
-<body class="hold-transition register-page">
+<body class="hold-transition register-page" >
 <div class="register-box">
   <div class="register-logo">
-    <a href="../../index2.html"><b>Registro</b>Escribano</a>
+  <b>Registro</b>Escribano</a>
   </div>
 
   <div class="register-box-body">
     <p class="login-box-msg">Registrar nuevo Escribano</p>
 
-    <form action="../../index.html" method="post">
+  
+     <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
+          <form method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nombre">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Nombre" name="nombre" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
       </div>
        <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Apellido">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        <input type="text" class="form-control" placeholder="Apellido" name="apellido" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
       </div>
-      <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Correo">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-      </div>
-      <div class="form-group has-feedback">
-        <input type="text" id="number" class="form-control" placeholder="Dni" maxlength="8" onkeypress="return NumbersOnly(event);"
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
-      </div>
-       <div class="form-group">
 
-                <div class="input-group">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
-                  </div>
-                  <input type="text" class="form-control" data-inputmask="'alias': 'dd/mm/aaaa'" data-mask>
-                </div>
-                <!-- /.input group -->
-              </div>
-              <!-- /.form group -->
+        <div class="form-group has-feedback">
+        <input type="text" id="number" class="form-control" placeholder="DNI"  name="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
+      </div>
+
+        <div class="form-group has-feedback">
+        <input type="text" id="number" class="form-control" placeholder="Nro Matricula" name="nro_matricula" maxlength="8" onkeypress="return NumbersOnly(event);">
+      </div>
+
+      <div class="form-group has-feedback">
+        <input type="email" class="form-control" placeholder="Correo" style="text-transform:uppercase;"  name="correo"onkeyup="javascript:this.value=this.value.toUpperCase();">
+      </div>
+    
       <div class="form-group">
       <label>Teléfono:</label>
               <div class="input-group">
                   <div class="input-group-addon">
                     <i class="fa fa-phone"></i>
                   </div>
-                  <input type="text" class="form-control" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                  <input type="text" class="form-control" name="telefono" data-inputmask='"mask": "(999) 999-9999"' data-mask>
                 </div>
                 <!-- /.input group -->
        </div>
-       <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Dirección">
+      <div> 
+        <?php 
+        $id_prov=0;
+         ?>
+        Provincia
+            <select name="Provincia" id="Provincia">
+              <option value="">Selecciona una Provincia</option>
+              <?php  foreach ($provincias as $p){ ?>
+                 <option value=
+                  <?php
+                  $id_prov+=1;
+                  echo "'$id_prov' > $p->nombre"; }?></option>
+            
+
+          </select>
+       </div>
+       <div>
+       
+       <br>
+
+       <div> 
+        Departamento
+            <select name="Departamento" id="Departamento">
+                <option value="">Selecciona un Departamento</option>
+            </select>
+       </div>
+       <div>
+
+       <br>
+
+        Localidad
+          <select name="Localidad" id="Localidad">
+               <option value="">Selecciona una Localidad </option>
+          </select>
        </div>
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Localidad">
+                  <input type="text" class="form-control" placeholder="Dirección" name="direccion" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
        </div>
               <!-- /.form group -->
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Usuario">
+                  <input type="text" class="form-control" placeholder="Usuario"  name="usuario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
        </div>       
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Contraseña">
-        <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Repetir contraseña">
-        <span class="glyphicon glyphicon-log-in form-control-feedback"></span>
+        <input type="password" class="form-control" placeholder="Repetir contraseña"  name="repe_constraseña" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
       </div>
       <div class="row">
         
@@ -111,6 +167,8 @@ function IsArrows (e) {
         <div class="col-xs-4">
           <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
         </div>
+
+          <?=form_close()?>
         <!-- /.col -->
       </div>
     </form>
