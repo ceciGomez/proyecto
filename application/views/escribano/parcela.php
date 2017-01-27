@@ -108,7 +108,7 @@
                               </div>
                               <div class="col-md-3">
                                  <label>Provincia</label>
-                                 <select class="form-control select2" style="width: 100%;">
+                                 <select name="Provincia"  id="Provincia" class="form-control select2" style="width: 100%;">
                                     <?php  foreach ($provincias as $value):?>
                                     <option value="<?php echo $value->idProvincia;?>">
                                        <?php 
@@ -120,26 +120,23 @@
                               </div>
                               <div class="col-md-3">
                                  <label>Departamento</label>
-                                 <select class="form-control select2" style="width: 100%;">
-                                    <?php  foreach ($departamentos as $value):?>
-                                    <option value="<?php echo $value->idDepartamento;?>">
-                                       <?php 
-                                          $idDpto = $value->idDepartamento; 
-                                          $data["localidadesPorDpto"] = $this->M_direccion->getLocalidadesPorDpto($idDpto);
-                                          echo $value->nombre; ?>          
+                                 <select name="Departamento" id="Departamento" class="form-control select2" style="width: 100%;">
+                                    
+                                    <option value="">
+                                                
                                     </option>
-                                    <?php endforeach ?>
+                                    
                                  </select>
                               </div>
                               <div class="col-md-3">
                                  <label>Localidad</label>
-                                 <select class="form-control select2" style="width: 100%;">
-                                    <?php  foreach ($localidades as $value):?>
-                                    <option value="<?php echo $value->idLocalidad;?>">
+                                 <select 
+          <select name="Localidad" id="Localidad" class="form-control select2" style="width: 100%;">
+                                    
+                                    <option value="">
                                        <?php 
                                           echo $value->nombre; ?>          
                                     </option>
-                                    <?php endforeach ?>
                                  </select>
                               </div>
                               <div class="col-md-3">
@@ -190,5 +187,40 @@
        $('#fechaPA').datepicker();
    });
    
+</script>
+
+
+  <script type="text/javascript">
+
+/*funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
+$(document).ready(function(){
+   $("#Provincia").change(function () {
+           $("#Provincia option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            miprovincia=$('#Provincia').val();
+            $.post("<?=base_url()?>/index.php/c_registro/datosDir", { miprovincia: miprovincia}, function(data){
+            $("#Departamento").html(data);
+            });            
+        });
+   })
+});
+
+
+$(document).ready(function(){
+   $("#Departamento").change(function () {
+           $("#Departamento option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            midepartamento=$('#Departamento').val();
+            $.post("<?=base_url()?>/index.php/c_registro/datosDir", { midepartamento: midepartamento}, function(data){
+            $("#Localidad").html(data);
+            });            
+        });
+   })
+});
+/*fin de la funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
 </script>
 
