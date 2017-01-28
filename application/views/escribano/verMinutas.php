@@ -46,11 +46,13 @@
                   <td>12-05-2016</td>
                   <td><span class="label label-success">Aprobado</span></td>
                   <td>Ver detalle de Minuta</td>
-                  <td><button><i class="fa fa-pencil"></i></button>
-                      <button><i class="fa fa-eye"></i></button>
-                      <button><i class="fa fa-users"></i></button>
-                      <button><i class="fa fa-print"></i></button>
-                      
+                  <td>
+                  <div class="btn-group">
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/editarMinuta'?>"><button><i class="fa fa-pencil"></i></button></a> 
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verUnaMinuta'?>">  <button><i class="fa fa-eye"></i></button></a> 
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verPropietarios'?>">  <button><i class="fa fa-users"></i></button></a> 
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/imprimirMinuta'?>">  <button><i class="fa fa-print"></i></button></a> 
+                      </div>  
                   </td>
                 </tr>
                 <tr>
@@ -59,11 +61,13 @@
                   <td>11-7-2014</td>
                   <td><span class="label label-warning">Pendiente</span></td>
                  <td>Falta cargar datos de propietario</td>
-                  <td><button><i class="fa fa-pencil"></i></button>
-                      <button><i class="fa fa-eye"></i></button>
-                      <button><i class="fa fa-users"></i></button>
-                      <button><i class="fa fa-print"></i></button>
-                      
+                  <td>
+                  <div class="btn-group">
+                  <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/editarMinuta'?>"><button><i class="fa fa-pencil"></i></button></a> 
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verUnaMinuta'?>">  <button><i class="fa fa-eye"></i></button></a>
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verPropietarios'?>">  <button><i class="fa fa-users"></i></button></a>
+                    <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/imprimirMinuta'?>">  <button><i class="fa fa-print"></i></button></a>
+                      </div>
                   </td>
                 </tr>
                 <tr>
@@ -72,11 +76,12 @@
                   <td>11-7-2014</td>
                   <td><span class="label label-success">Aprobado</span></td>
                  <td>Ver detalle de Minuta</td>
-                  <td><button><i class="fa fa-pencil"></i></button>
-                      <button><i class="fa fa-eye"></i></button>
-                      <button><i class="fa fa-users"></i></button>
-                      <button><i class="fa fa-print"></i></button>
-                      
+                  <td><div class="btn-group">
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/editarMinuta'?>"><button><i class="fa fa-pencil"></i></button></a> 
+                     <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verUnaMinuta'?>"> <button><i class="fa fa-eye"></i></button></a>
+                     <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verPropietarios'?>"> <button><i class="fa fa-users"></i></button></a>
+                     <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/imprimirMinuta'?>"> <button><i class="fa fa-print"></i></button></a>
+                      </div>
                   </td>
                 </tr>
                 <tr>
@@ -85,10 +90,11 @@
                   <td>11-9-2015</td>
                   <td><span class="label label-danger">Rechazado</span></td>
                   <td>No existe la parcela cargada</td>
-                  <td><button><i class="fa fa-pencil"></i></button>
-                      <button><i class="fa fa-eye"></i></button>
-                      <button><i class="fa fa-users"></i></button>
-                      <button><i class="fa fa-print"></i></button>
+                  <td>
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/editarMinuta'?>"><i class="fa fa-pencil"></i></a> 
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verUnaMinuta'?>"><i class="fa fa-eye"></i></a>
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verPropietarios'?>"><i class="fa fa-users"></i></a>
+                      <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/imprimirMinuta'?>"><i class="fa fa-print"></i></a>
                       
                   </td>
                 </tr>
