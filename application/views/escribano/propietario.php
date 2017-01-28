@@ -20,29 +20,44 @@
          <div class="box-header with-border">
             <h3 class="box-title">Registrar Propietario</h3>
             <!-- /.box-header -->
+            <div class="form-group">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      Persona
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      Empresa
+                    </label>
+                  </div>                 
+                </div>
             <div class="box-body">
                <div class="row">
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Apellido">
+                        <input type="text" pattern="[a-zA-Z]{5}" class="form-control" id="inputTextBox" max="10" placeholder="Apellido" name="nya">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Masculino</option>
-                           <option>Femenino</option>
-                           
+                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Seleccionar</option>
+                           <option value="27">Femenino</option>
+                           <option value="20">Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="DNI">
+                        <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" 
+                       onKeyUp="limitText(this,8);"/>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="CUIT">
+                        <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
                      </div>
                   </div>
                   <div class="form-group">
@@ -68,7 +83,12 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Escritura</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fecha de Escritura">
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
+                         </div>
+                          <input type="text" class="form-control pull-right" id="fecha-escritura" placeholder="Fecha de Escritura">
+                     </div>
                      </div>
                   </div>
                   <div class="form-group">
@@ -83,18 +103,16 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
+                     </div>
+                    <div class="col-md-3">
+                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
+                          <div class="input-group date">
+                            <div class="input-group-addon">
+                             <i class="fa fa-calendar"></i>
                          </div>
-                         <div class="col-md-3">
-                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>
-                      
-
-                <div class="input-group date">
-                  <div class="input-group-addon">
-                    <i class="fa fa-calendar"></i>
+                          <input type="text" class="form-control pull-right" id="fecha-plano-aprobado" placeholder="Fecha Plano Aprobado">
+                     </div>
                   </div>
-                  <input type="text" class="form-control pull-right" id="fecha">
-                </div>
-                 </div>
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
@@ -127,9 +145,90 @@
    </section>
 </div>
 <!-- /.content-wrapper -->
-
+     <!--Muestra el calendario para fecha de escritura-->
    <script>
         $( document ).ready(function() {
-            $('#fecha').datepicker();
+            $('#fecha-escritura').datepicker();
         });
     </script>
+     <!--Muestra el calendario para fecha de plano aprobado-->
+    <script>
+        $( document ).ready(function() {
+            $('#fecha-plano-aprobado').datepicker();
+        });
+    </script>
+    <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
+    <script>
+      $("#sexo-combobox").on("focusout", function () {
+      	if($("#dni").val()!=""){
+        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }}
+       // $("#cuit").val( $("#sexo-combobox").val()+" "+business);
+         });
+
+    </script>
+    <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
+    <script>
+      $("#dni").on("focusout", function () {
+      	if($("#dni").val()!=""){
+        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }} else {
+       	$("#cuit").val("");
+       }     
+         });
+
+    </script>
+    <!--Limita campo dni a ingresar solo números-->
+     <script>
+    function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+     </script>
+     <!--Limita campo dni a 8 números-->
+     <script language="javascript" type="text/javascript">
+    function limitText(limitField, limitNum) {
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+      }
+    }
+   </script>
+    <script>
+        $(document).ready(function(){
+        $("#inputTextBox").keypress(function(event){
+        var inputValue = event.charCode;
+        if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)){
+            event.preventDefault();
+        }
+        });
+      });
+    </script>
+      <script language="javascript" type="text/javascript">
+          $('input[name="nya"]').keypress(function() {
+            if (this.value.length >= 10 {
+            return false;
+          }
+         });
+      </script>

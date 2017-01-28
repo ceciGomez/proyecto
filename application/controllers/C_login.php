@@ -81,9 +81,6 @@ class C_login extends CI_Controller {
 		return $token;
 	}
 
-	public function registro_esc(){
-		$this->load->view('registro/v_registroEscribano');
-	}
 	
 	public function logout_ci()
 	{

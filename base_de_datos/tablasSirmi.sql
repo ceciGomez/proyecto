@@ -106,6 +106,7 @@ create table Minuta(
     );
 
   create table Propietario( 
+    idPropietario int(8) not null AUTO_INCREMENT,
     idParcela int(8), 
     titular varchar(150), 
     dni int(8), direccion varchar(100), 
@@ -119,6 +120,7 @@ create table Minuta(
     fechaPlanoAprobado date, 
     porcentajeUfUc float, 
     poligonos varchar(50), 
+    PRIMARY key (idPropietario), 
     FOREIGN KEY (idParcela) REFERENCES Parcela (idParcela), 
     FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad) 
     );

@@ -56,7 +56,7 @@ class M_direccion extends CI_Model
 	}
 
 	//Obtener Localidades de un departamento en particular.
-	public function getUnaLocalidade($idDepartamento)
+	public function getLocalidadesPorDpto($idDepartamento)
 	{
 		try {
 			$this->db->where('idDepartamento', $idDepartamento);
