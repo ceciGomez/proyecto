@@ -20,6 +20,20 @@
          <div class="box-header with-border">
             <h3 class="box-title">Registrar Propietario</h3>
             <!-- /.box-header -->
+            <div class="form-group">
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      Persona
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      Empresa
+                    </label>
+                  </div>                 
+                </div>
             <div class="box-body">
                <div class="row">
                   <div class="form-group">
@@ -43,7 +57,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
-                        <input type="text" class="form-control" id="cuit" placeholder="CUIT">
+                        <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
                      </div>
                   </div>
                   <div class="form-group">
@@ -146,15 +160,41 @@
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo-combobox").on("focusout", function () {
-        $("#cuit").val( $(this).val()+" "+$("#dni").val());
+      	if($("#dni").val()!=""){
+        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }}
+       // $("#cuit").val( $("#sexo-combobox").val()+" "+business);
          });
 
     </script>
     <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
     <script>
       $("#dni").on("focusout", function () {
-        var business = $("#cuit").val();
-        $("#cuit").val( $("#sexo-combobox").val()+" "+$(this).val());
+      	if($("#dni").val()!=""){
+        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }} else {
+       	$("#cuit").val("");
+       }     
          });
 
     </script>
