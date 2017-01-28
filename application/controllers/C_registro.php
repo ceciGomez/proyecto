@@ -35,7 +35,7 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[UsuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
-			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[UsuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula's) );
+			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[UsuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
 			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[UsuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
 
