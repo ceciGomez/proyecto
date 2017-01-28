@@ -19,23 +19,51 @@ class C_registro extends CI_Controller {
 	
 	public function index()
 	{	
-		 $data['provincias'] = $this->db->get("provincia")->result();
+		 $data['provincias'] = $this->db->get("Provincia")->result();
 		$this->load->view('registro/v_registroEscribano',$data);
 					
 		
 	}
 
 	public function registro_esc()
-	{
+	{		
+				 $this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nombre', 'nombre', 'required',array('required' => 'Debes ingresar una Nombre ') );
+
+			    $this->form_validation->set_rules('apellido', 'apellido', 'required',array('required' => 'Debes ingresar un apellido ') );
+
+			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[UsuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+
+			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[UsuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
+
+			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[UsuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			    $this->form_validation->set_rules('provincia', 'provincia', 'required',array('required' => 'Debes seleccionar una Provincia ') );
+
+			    $this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes seleccionar una Localidad ') );
+
+			    $this->form_validation->set_rules('departamento', 'departamento', 'required',array('required' => 'Debes seleccionar un Departamento ') );
+
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[UsuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required',array('required' => 'Debes ingresar una contraseña ') );
+
+				$this->form_validation->set_rules('repecontraseña', 'repecontraseña','required|matches[contraseña]',array('required' => 'Debes ingresar una contraseña ', 'matches'=>'La contraseña no coincide') );
 		
-			/*if($this->form_validation->run() == FALSE)
-			{
+		
+			if($this->form_validation->run() == FALSE)
+			{	
 				$this->index();
 			}else{
-				*/
+				
 				$datos_usuarios= array (
 					'nomyap' => $this->input->post('nombre').$this->input->post('apellido'),
-					'matricula' => $this->input->post('nro_matricula'),
+					'matricula' => $this->input->post('nroMatricula'),
 					'dni' => $this->input->post('DNI'),
 					'email' => $this->input->post('correo'),
 					//$departamento = $this->input->post('departamento');
@@ -43,13 +71,15 @@ class C_registro extends CI_Controller {
 					'telefono' => $this->input->post('telefono'),
 					'usuario' => $this->input->post('usuario'),
 					'contraseña' => sha1($this->input->post('contraseña')), 
-					//'repe_contraseña' => sha1($this->input->post('repe_contraseña')),
+					'estadoAprobacion'=>'p',
+					'motivoRechazo'=>'',
+					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				print_r($datos_usuarios);
 
 				$this->db->insert("usuarioescribano", $datos_usuarios);
-			/*}
-				
+			}
+			/*
 				switch ($this->session->userdata('perfil')) {
 			case '':
 				$data['token'] = $this->token();
@@ -81,12 +111,12 @@ class C_registro extends CI_Controller {
 		
 		//$departamentos=$this->db->get("departamento")->result();
 	   	
-	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
+	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
 	
-		$id_dep=0;
+		
 		foreach ($departamentos as $d ) {
-				$id_dep+=1;
-				echo"<option value='$id_dep'>$d->nombre</option>";
+				
+				echo"<option value='$d->idDepartamento'>$d->nombre</option>";
 			
 		}
 	}
@@ -97,7 +127,7 @@ class C_registro extends CI_Controller {
 		
 		//$departamentos=$this->db->get("departamento")->result();
 	   	
-	   	$localidades=$this->db->get_where('localidad', array('idDepartamento'=>$id_dep))->result();
+	   	$localidades=$this->db->get_where('Localidad', array('idDepartamento'=>$id_dep))->result();
 	
 		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
 		foreach ($localidades as $l ) {
@@ -106,7 +136,6 @@ class C_registro extends CI_Controller {
 			
 		}
 	}
-
 
 
 	}
