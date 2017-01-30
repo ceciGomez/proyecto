@@ -4,13 +4,13 @@ INSERT INTO `usuariosys` (`idUsuario`, `nomyap`, `usuario`, `contraseña`, `dni`
 ('3', 'Ana Medina', 'amedina', 'amedina', '12558878', '0303457', 'Monteagudo 23', 'amedina@hotmail.com', '3', 'A')
 
 
-INSERT INTO `usuarioescribano` (`idEscribano`, `nomyap`, `usuario`, `contraseña`, `dni`, `telefono`, `direccion`, `email`, `matricula`, `estadoAprobacion`, `idLocalidad`, `idUsuario`, `motivoRechazo`) VALUES 
+INSERT INTO `usuarioEscribano` (`idEscribano`, `nomyap`, `usuario`, `contraseña`, `dni`, `telefono`, `direccion`, `email`, `matricula`, `estadoAprobacion`, `idLocalidad`, `idUsuario`, `motivoRechazo`) VALUES 
 ('1', 'Andrea Moreno', 'amoreno', 'amoreno', '12457897', '0303456', 'Arbo y Blanco 550', 'amoreno@arnet.com.ar', '12345', NULL, '4', '1', NULL), 
 ('2', 'Fabricio Acosta', 'facosta', 'facosta', '15889966', '0303459', 'J. D. Perón 1445', 'facosta@google.com', '4587', NULL, '6', '2', NULL),
 ('3', 'Margarita Sosa', 'msosa', 'msosa', '13889966', '0303457', 'Av. Alvear 45', 'msosa@hotmail.com', '4587', NULL, '1', '2', NULL)
 
 
-INSERT INTO `minuta` (`idMinuta`, `idEscribano`, `idUsuario`, `fechaIngresoSys`, `fechaEdicion`) VALUES 
+INSERT INTO `Minuta` (`idMinuta`, `idEscribano`, `idUsuario`, `fechaIngresoSys`, `fechaEdicion`) VALUES 
 ('1', '1', '1', '2016-11-01 00:00:00', NULL), 
 ('2', '2', '1', '2016-11-02 00:00:00', NULL),
 ('3', '1', '2', '2016-11-04 00:00:00', NULL),
@@ -23,7 +23,7 @@ INSERT INTO `minuta` (`idMinuta`, `idEscribano`, `idUsuario`, `fechaIngresoSys`,
 ('10', '3', '2', '2017-01-05 00:00:00', NULL)
 
 
-INSERT INTO `parcela` (`idParcela`, `idLocalidad`, `circunscripcion`, `seccion`, `chacra`, `quinta`, `fraccion`, `manzana`, `parcela`, `superficie`, `partida`, `tipoPropiedad`, `planoAprobado`, `fechaPlanoAprobado`, `descripcion`, `idMinuta`, `nroMatriculaRPI`, `fechaMatriculaRPI`, `tomo`, `folio`, `finca`, `año`) VALUES 
+INSERT INTO `Parcela` (`idParcela`, `idLocalidad`, `circunscripcion`, `seccion`, `chacra`, `quinta`, `fraccion`, `manzana`, `parcela`, `superficie`, `partida`, `tipoPropiedad`, `planoAprobado`, `fechaPlanoAprobado`, `descripcion`, `idMinuta`, `nroMatriculaRPI`, `fechaMatriculaRPI`, `tomo`, `folio`, `finca`, `año`) VALUES 
 ('1', '1', 'II', 'A', '20', '15', NULL, '2', '5', '200,00', '0', 'U', '20/115/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la parcela 6 y al NO calle Arturo Illia', '1', '123456', '2005-11-05', '1', '2', '6', '2005'),
 ('2', '1', 'II', 'A', '20', '15', NULL, '2', '6', '200,00', '0', 'U', '20/115/05', '2005-11-02', 'Linda por su frente NE con la parcela 7 , al SE con la parcela 8 y al NO calle Arturo Illia', '1', '123457', '2005-11-05', '1', '2', '6', '2005'),
 ('3', '1', 'I', 'C', '105', NULL, NULL, '21', '1', '300,00', '0', 'U', '20/075/12', '2012-01-22', 'Linda por su frente NE con la parcela 9 , al SE con la parcela 16 y al NO calle Remedios de Escalada', '2', '65448', '2012-05-27', '164', '42', '5', '2012'),
@@ -39,7 +39,7 @@ INSERT INTO `parcela` (`idParcela`, `idLocalidad`, `circunscripcion`, `seccion`,
 ('13', '1', 'I', 'B', '12', '65', NULL, '5', '13', '200.00', '0', 'U', '20/120/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', '9', '1239', '2005-11-05', '1', '2', '6', '2005'),
 ('14', '1', 'II', 'A', '14', '12', NULL, '21', '14', '200.00', '0', 'U', '20/121/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', '10', '1230', '2005-11-05', '1', '2', '6', '2005')
 
-INSERT INTO `propietario` (`idPropietario`, `idParcela`, `titular`, `dni`, `direccion`, `idLocalidad`, `cuitCuil`, `conyuge`, `fechaEscritura`, `porcentajeCondominio`, `nroUfUc`, `tipoUfUc`, `planoAprobado`, `fechaPlanoAprobado`, `porcentajeUfUc`, `poligonos`) VALUES 
+INSERT INTO `Propietario` (`idPropietario`, `idParcela`, `titular`, `dni`, `direccion`, `idLocalidad`, `cuitCuil`, `conyuge`, `fechaEscritura`, `porcentajeCondominio`, `nroUfUc`, `tipoUfUc`, `planoAprobado`, `fechaPlanoAprobado`, `porcentajeUfUc`, `poligonos`) VALUES 
 ('1','1', 'Roberto Acosta', '31567894', 'Julio A. Roca 123', '1', NULL, NULL, '2006-11-05', '100', NULL, NULL, NULL, NULL, NULL, NULL),
 ('2','2', 'Andrea Acosta', '33009947', 'Julio A. Roca 123', '1', NULL, NULL, '2006-11-05', '100', NULL, NULL, NULL, NULL, NULL, NULL),
 ('3','3', 'Raul Oviedo', '24555678', 'Liniers 55', '1', NULL, NULL, '2006-11-05', '50', NULL, NULL, NULL, NULL, NULL, NULL),
@@ -62,7 +62,7 @@ INSERT INTO `propietario` (`idPropietario`, `idParcela`, `titular`, `dni`, `dire
 ('20','13', 'Federico Leiva', '45879687', 'Cervantes 54', '1', NULL, NULL, '2006-11-05', '50',  NULL, NULL, NULL, NULL, NULL, NULL),
 ('21','14', 'Marisel Muñoz', '25887746', 'Rivadavia 445', '1', NULL, NULL, '2006-11-05', '100',  NULL, NULL, NULL, NULL, NULL, NULL)
 
-INSERT INTO `estadominuta` (`idEstadoMinuta`, `idMinuta`, `estadoMinuta`, `motivoRechazo`, `fechaEstado`, `idUsuario`) VALUES 
+INSERT INTO `EstadoMinuta` (`idEstadoMinuta`, `idMinuta`, `estadoMinuta`, `motivoRechazo`, `fechaEstado`, `idUsuario`) VALUES 
 ('1', '7', 'R', 'La unidad Funcional "21 F" no Existe en el Plano indicado.', '2016-11-11 00:00:00', '2'), 
 ('2', '1', 'A', NULL, '2017-01-01 00:00:00', '1'),
 ('3', '2', 'A', NULL, '2017-01-01 00:00:00', '2'), 
@@ -77,6 +77,6 @@ INSERT INTO `estadominuta` (`idEstadoMinuta`, `idMinuta`, `estadoMinuta`, `motiv
 ('12', '9', 'P', NULL, NULL, NULL),
 ('13', '10', 'P', NULL, NULL, NULL)
 
-INSERT INTO `pedidos` (`idPedido`, `idEscribano`, `descripcion`, `fechaPedido`, `estadoPedido`, `rtaPedido`, `fechaRta`, `idUsuario`) VALUES 
+INSERT INTO `Pedidos` (`idPedido`, `idEscribano`, `descripcion`, `fechaPedido`, `estadoPedido`, `rtaPedido`, `fechaRta`, `idUsuario`) VALUES 
 ('1', '3', 'Prueba solicitud consulta 1', '2016-11-15 00:00:00', 'C', 'Prueba respuesta consulta 1', '2017-01-01 00:00:00', '2'), 
 ('2', '1', 'Prueba solicitud consulta 2', '2016-12-05 00:00:00', 'P', NULL, NULL, NULL)
