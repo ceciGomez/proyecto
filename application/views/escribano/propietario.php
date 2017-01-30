@@ -39,7 +39,7 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text" pattern="[a-zA-Z]{5}" class="form-control" id="inputTextBox" max="10" placeholder="Apellido" name="nya">
+                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="20">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
@@ -56,7 +56,7 @@
                        onKeyUp="limitText(this,8);"/>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
-                        <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
+                        <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
                      </div>
                   </div>
