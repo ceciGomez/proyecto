@@ -19,6 +19,7 @@ class C_registro extends CI_Controller {
 	
 	public function index()
 	{	
+		 $data['exito']= FALSE; 
 		 $data['provincias'] = $this->db->get("Provincia")->result();
 		$this->load->view('registro/v_registroEscribano',$data);
 					
@@ -33,11 +34,11 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('apellido', 'apellido', 'required',array('required' => 'Debes ingresar un apellido ') );
 
-			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[UsuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[usuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
-			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[UsuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
+			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[usuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
-			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[UsuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[usuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
 
 			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
 
@@ -49,7 +50,7 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
 			   
-				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[UsuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
 			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required',array('required' => 'Debes ingresar una contraseña ') );
 
@@ -62,7 +63,7 @@ class C_registro extends CI_Controller {
 			}else{
 				
 				$datos_usuarios= array (
-					'nomyap' => $this->input->post('nombre').$this->input->post('apellido'),
+					'nomyap' => $this->input->post('nombre').' '.$this->input->post('apellido'),
 					'matricula' => $this->input->post('nroMatricula'),
 					'dni' => $this->input->post('DNI'),
 					'email' => $this->input->post('correo'),
@@ -75,9 +76,12 @@ class C_registro extends CI_Controller {
 					'motivoRechazo'=>'',
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
-				print_r($datos_usuarios);
-
-				$this->db->insert("usuarioescribano", $datos_usuarios);
+				
+				$this->db->insert("usuarioEscribano", $datos_usuarios);
+				$data['exito']= TRUE; 
+				$data['provincias'] = $this->db->get("Provincia")->result();
+				$this->load->view('registro/v_registroEscribano',$data);
+		
 			}
 			/*
 				switch ($this->session->userdata('perfil')) {
@@ -101,6 +105,8 @@ class C_registro extends CI_Controller {
 				break;		
 		}
 		¨*/
+		//Cargo de nuevo la vista del formulario, pero esta vez con el mensaje de exito
+		
 		
 		}
 
