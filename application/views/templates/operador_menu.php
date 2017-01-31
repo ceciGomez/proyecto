@@ -27,7 +27,18 @@
       <ul class="sidebar-menu">
         <li class="header">Menu Operador</li>
         
-              
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Administrar Registraciones</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?=base_url().'index.php/c_loginop/reg_pen'?>"><i class="fa fa-circle-o"></i> Registraciones Pendientes</a></li>
+          </ul>
+        </li>   
+
         <li class="treeview">
           <a href="#">
             <i class="fa fa-edit"></i> <span>Administrar Minutas</span>

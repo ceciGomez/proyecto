@@ -106,12 +106,13 @@ create table Minuta(
     );
 
   create table Propietario( 
-    idPropietario int(8) not null AUTO_INCREMENT,
+    idPropietario int(8) not null AUTO_INCREMENT, -- se agrego este campo paraa indexar la tabla
     idParcela int(8), 
     titular varchar(150), 
     dni int(8), direccion varchar(100), 
     idLocalidad int(6),
-    cuitCuil int(15), conyuge varchar(150), 
+    cuitCuil varchar(15), --se canbio a varchar para que el ingreso permite los caracteres '-' 
+    conyuge varchar(150), 
     fechaEscritura date, 
     porcentajeCondominio float, 
     nroUfUc varchar(10), 
