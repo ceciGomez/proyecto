@@ -63,7 +63,7 @@ class C_registro extends CI_Controller {
 			}else{
 				
 				$datos_usuarios= array (
-					'nomyap' => $this->input->post('nombre').$this->input->post('apellido'),
+					'nomyap' => $this->input->post('nombre').' '.$this->input->post('apellido'),
 					'matricula' => $this->input->post('nroMatricula'),
 					'dni' => $this->input->post('DNI'),
 					'email' => $this->input->post('correo'),
@@ -77,7 +77,7 @@ class C_registro extends CI_Controller {
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				
-				$this->db->insert("usuarioescribano", $datos_usuarios);
+				$this->db->insert("usuarioEscribano", $datos_usuarios);
 			}
 			/*
 				switch ($this->session->userdata('perfil')) {

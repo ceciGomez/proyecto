@@ -44,9 +44,11 @@
                    <?php  foreach ($esc_pen as $ep){ 
                       
                   
-                  echo " <li> $ep->nomyap   <br>                              
-                     <button> Aceptar</button>
-                    <button>Rechazar</button>   
+                  echo " <li> Nombre y Apellido : $ep->nomyap | DNI: $ep->dni | Matricula $ep->matricula       
+                  <button align='right' >Detalles </button> 
+                  <button align='right'> Aceptar</button>
+                  <button align='right'>Rechazar</button>   
+                    
                         </li>"; } ?>
             
                    
@@ -55,9 +57,7 @@
               </ul>
             </div>
             <!-- /.box-body -->
-            <div class="box-footer clearfix no-border">
-              <button type="button" class="btn btn-default pull-right"><i class="fa fa-plus"></i> Add item</button>
-            </div>
+           
           </div>
           <!-- /.box -->
 
