@@ -42,14 +42,15 @@
               <ul class="todo-list">
                 
                    <?php  foreach ($esc_pen as $ep){ 
+                    ?>
                       
                   
-                  echo " <li> Nombre y Apellido : $ep->nomyap | DNI: $ep->dni | Matricula $ep->matricula       
+                  <li> Nombre y Apellido : <?php  echo "$ep->nomyap | DNI: $ep->dni | Matricula $ep->matricula "; ?>     
                   <button align='right' >Detalles </button> 
                   <button align='right'> Aceptar</button>
                   <button align='right'>Rechazar</button>   
                     
-                        </li>"; } ?>
+                        </li> <?php } ?>
             
                    
                 

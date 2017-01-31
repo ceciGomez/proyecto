@@ -78,6 +78,10 @@ class C_registro extends CI_Controller {
 				);
 				
 				$this->db->insert("usuarioEscribano", $datos_usuarios);
+				$data['exito']= TRUE; 
+				$data['provincias'] = $this->db->get("Provincia")->result();
+				$this->load->view('registro/v_registroEscribano',$data);
+		
 			}
 			/*
 				switch ($this->session->userdata('perfil')) {
@@ -102,9 +106,7 @@ class C_registro extends CI_Controller {
 		}
 		¨*/
 		//Cargo de nuevo la vista del formulario, pero esta vez con el mensaje de exito
-		$data['exito']= TRUE; 
-		$data['provincias'] = $this->db->get("Provincia")->result();
-		$this->load->view('registro/v_registroEscribano',$data);
+		
 		
 		}
 

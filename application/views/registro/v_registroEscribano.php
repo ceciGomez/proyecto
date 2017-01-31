@@ -90,7 +90,7 @@ $(document).ready(function(){
     <p class="login-box-msg">Registrar nuevo Escribano</p>
    <div align='center'>
        <?php if( $exito ==TRUE) { ?>
-          <img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > El escribano se registro exitosamente, solicitud pendiente de revisión.
+        <img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > El escribano se registro exitosamente, solicitud pendiente de revisión.
         <?php } ?>
         <br>
     </div>
