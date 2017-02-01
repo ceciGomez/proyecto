@@ -23,13 +23,13 @@
             <div class="form-group">
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" onclick="persona()" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="empresa()">
                       Empresa
                     </label>
                   </div>                 
@@ -63,7 +63,7 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Conyuge</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Conyuge">
+                        <input type="text" class="form-control" id="conyuge" placeholder="Conyuge">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Dirección</label>
@@ -99,6 +99,14 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Numero de UC/UF</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Numero de UC/UF">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="exampleInputEmail1">Tipo UF/UC</label>
+                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Seleccionar</option>
+                           <option >C</option>
+                           <option >F</option>
+                        </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
@@ -232,3 +240,22 @@
           }
          });
       </script>
+      <script language="javascript">
+<!--
+		function empresa() { 		 
+  		  document.getElementById("sexo-combobox").disabled = true; 
+  		   document.getElementById("dni").disabled = true; 
+ 		  document.getElementById("conyuge").disabled = true; 
+ 		 
+		}
+-->
+		</script>
+		<script language="javascript">
+<!--
+		function persona() { 		 
+  		  document.getElementById("sexo-combobox").disabled = false;  	
+  		  document.getElementById("dni").disabled = false; 
+ 		  document.getElementById("conyuge").disabled = false; 	 
+		}
+-->
+		</script>
