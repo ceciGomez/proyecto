@@ -55,28 +55,13 @@ $(document).ready(function(){
            //console.log( $('#Provincia').val());
            //pado el numero de pronvicia, es decir el id
             miprovincia=$('#Provincia').val();
-            $.post("<?=base_url()?>index.php/c_registro/departamento", { miprovincia: miprovincia}, function(data){
-            $("#Departamento").html(data);
-            });            
-        });
-   })
-});
-
-
-$(document).ready(function(){
-   $("#Departamento").change(function () {
-           $("#Departamento option:selected").each(function () {
-         
-           //console.log( $('#Provincia').val());
-           //pado el numero de pronvicia, es decir el id
-            midepartamento=$('#Departamento').val();
-            $.post("<?=base_url()?>index.php/c_registro/localidad", { midepartamento: midepartamento}, function(data){
+            $.post("<?=base_url()?>index.php/c_registro/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
             $("#Localidad").html(data);
             });            
         });
    })
 });
-/*fin de la funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
+
 </script>
 
 </head>
@@ -98,27 +83,27 @@ $(document).ready(function(){
      <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
           <form method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nombre" name="nombre" style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
-         <p><?=form_error('nombre')?></p>
+        <input type="text" class="form-control" placeholder="NOMBRE" name="nombre" <?php echo "value='$nombre'" ?> style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+          <div style="color:red;" ><p><?=form_error('nombre')?></p></div>
       </div>
        <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Apellido" name="apellido" style="text-transform:uppercase;"  onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
-           <p><?=form_error('apellido')?></p>
+        <input type="text" class="form-control" placeholder="APELLIDO" name="apellido" <?php echo "value='$apellido'" ?>style="text-transform:uppercase;"  onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+         <div style="color:red;" >   <p><?=form_error('apellido')?></p></div>
       </div>
 
         <div class="form-group has-feedback">
-        <input type="text" id="number" class="form-control" placeholder="DNI"  name="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
-         <p><?=form_error('DNI')?></p>
+        <input type="text" id="number" class="form-control" placeholder="DNI"  name="DNI"<?php echo "value='$dni'" ?> maxlength="8" onkeypress="return NumbersOnly(event);">
+        <div style="color:red;" >  <p><?=form_error('DNI')?></p></div>
       </div>
 
         <div class="form-group has-feedback">
-        <input type="text" id="number" class="form-control" placeholder="Nro Matricula" name="nroMatricula" maxlength="8" onkeypress="return NumbersOnly(event);">
-         <p><?=form_error('nroMatricula')?></p>
+        <input type="text" id="number" class="form-control" placeholder="NÚMERO DE MATRICULA" name="nroMatricula" <?php echo "value='$nroMatricula'" ?> maxlength="8" onkeypress="return NumbersOnly(event);">
+        <div style="color:red;" ><p  ><?=form_error('nroMatricula')?></p></div> 
       </div>
 
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Correo" style="text-transform:uppercase;"  name="correo"onkeyup="javascript:this.value=this.value.toUpperCase();">
-         <p><?=form_error('correo')?></p>
+        <input type="email" class="form-control" placeholder="CORREO"   name="correo"  <?php echo "value='$correo'" ?>>
+          <div style="color:red;" ><p><?=form_error('correo')?></p></div>
       </div>
     
       <div class="form-group">
@@ -127,11 +112,11 @@ $(document).ready(function(){
                   <div class="input-group-addon">
                     <i class="fa fa-phone"></i>
                   </div>
-                  <input type="text" class="form-control" name="telefono" data-inputmask='"mask": "(054) 999-9999999"' data-mask>
+                  <input type="number" id="number" maxlength="15" class="form-control"  placeholder="+54" name="telefono" <?php echo "value='$telefono'" ?> onkeypress="return NumbersOnly(event);">  
                 </div>
                 <!-- /.input group -->
        </div>
-        <p><?=form_error('telefono')?></p>
+        <div style="color:red;" > <p><?=form_error('telefono')?></p></div>
       <div> 
         <?php 
         $id_prov=0;
@@ -147,45 +132,34 @@ $(document).ready(function(){
             
 
           </select>
-           <p><?=form_error('provincia')?></p>
+            <div style="color:red;" ><p><?=form_error('provincia')?></p></div>
        </div>
        <div>
        
-       <br>
-
-       <div> 
-        Departamento
-            <select name="departamento" id="Departamento">
-                <option value="">Selecciona un Departamento</option>
-            </select>
-             <p><?=form_error('departamento')?></p>
-       </div>
-       <div>
-
        <br>
 
         Localidad
           <select name="localidad" id="Localidad">
                <option value="">Selecciona una Localidad </option>
           </select>
-           <p><?=form_error('localidad')?></p>
+            <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
        </div>
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Direccion" name="direccion" maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                   <p><?=form_error('direccion')?></p>
+                  <input type="text" class="form-control" placeholder="DIRECCIÓN" name="direccion" <?php echo "value='$direccion'" ?>maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <div style="color:red;" ><p><?=form_error('direccion')?></p></div>
        </div>
               <!-- /.form group -->
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Usuario"  name="usuario" maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-                   <p><?=form_error('usuario')?></p>
+                  <input type="text" class="form-control" placeholder="USUARIO"  name="usuario"  <?php echo "value='$usuario'" ?>maxlength="100"  >
+                    <div style="color:red;" ><p><?=form_error('usuario')?></p></div>
        </div>       
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-        <p><?=form_error('contraseña')?></p>
+        <input type="password" class="form-control" placeholder="CONTRASEÑA" name="contraseña" maxlength="100" >
+        <div style="color:red;" > <p><?=form_error('contraseña')?></p></div>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Repetir contraseña"  name="repecontraseña" maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
-           <p><?=form_error('repecontraseña')?></p>
+        <input type="password" class="form-control" placeholder="REPETIR CONTRASEÑA"  name="repecontraseña" maxlength="100" >
+           <div style="color:red;" > <p><?=form_error('repecontraseña')?></p>
       </div>
       <div class="row">
         
