@@ -23,13 +23,13 @@
             <div class="form-group">
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" onclick="persona()" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="empresa()">
                       Empresa
                     </label>
                   </div>                 
@@ -39,7 +39,7 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text" pattern="[a-zA-Z]{5}" class="form-control" id="inputTextBox" max="10" placeholder="Apellido" name="nya">
+                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="20">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
@@ -56,14 +56,18 @@
                        onKeyUp="limitText(this,8);"/>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
-                        <label for="exampleInputEmail1">CUIT -- debe ser generado automaticamente--</label>
+                        <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
+                     </div>
+                     <div class="col-md-3"> <!-- debe ser generado automaticamente -->
+                        <label for="exampleInputEmail1">CUIL</label>
+                        <input type="text" class="form-control" id="cuit" placeholder="CUIL" disabled >
                      </div>
                   </div>
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Conyuge</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Conyuge">
+                        <input type="text" class="form-control" id="conyuge" placeholder="Conyuge">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Dirección</label>
@@ -94,11 +98,19 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Porcentaje de Condominio</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Porcentaje de Condominio">
+                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Numero de UC/UF</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Numero de UC/UF">
+                     </div>
+                     <div class="col-md-3">
+                        <label for="exampleInputEmail1">Tipo UF/UC</label>
+                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
+                           <option selected="selected">Seleccionar</option>
+                           <option >C</option>
+                           <option >F</option>
+                        </select>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
@@ -116,16 +128,18 @@
                 <!-- /.input group -->
               </div>
               <!-- /.form group -->
-                  </div>
+                </div>
+                   <div class="row">
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Porcentaje de UF/UC</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Porcentaje de UF/UC">
+                        <input type="text" step="any" class="form-control" name="porcentaje_uf" id="porcentaje_uf" placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Poligonos</label>
                         <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Poligonos">
                      </div>
+                  </div>
                   </div>
                   <!-- /.form-group -->
                </div>
@@ -232,3 +246,51 @@
           }
          });
       </script>
+      <script language="javascript">
+<!--
+		function empresa() { 		 
+  		  document.getElementById("sexo-combobox").disabled = true; 
+  		   document.getElementById("dni").disabled = true; 
+ 		  document.getElementById("conyuge").disabled = true; 
+ 		 
+		}
+-->
+		</script>
+		<script language="javascript">
+<!--
+		function persona() { 		 
+  		  document.getElementById("sexo-combobox").disabled = false;  	
+  		  document.getElementById("dni").disabled = false; 
+ 		  document.getElementById("conyuge").disabled = false; 	 
+		}
+-->
+		</script>
+		<!--Valida el porentaje-->
+		<script language="javascript">
+		$('#porcentaje_condominio').keyup(function (e) {
+    	  commaOnly($(this),'float');
+ 		   });
+		$('#porcentaje_uf').keyup(function (e) {
+    	  commaOnly($(this),'float');
+ 		   });
+
+ 		 	  function commaOnly(input,format){         
+       			 var value = input.val();
+       			 var values = value.split("");
+      		 	 var update = "";
+      		 	 var transition = "";
+      		 	 var expression=/(^\d+$)|(^\d+\.\d+$)|[,\.]/;
+      		 	 var finalExpression=/^([1-9][0-9]*[,\.]?\d{0,2})$/;
+           	
+       		 for(id in values){           
+       	  	   if (expression.test(values[id])==true && values[id]!=''){
+       	  	       transition+=''+values[id].replace('.',',');
+       	  	       if(finalExpression.test(transition)==true)
+       	  	       {
+       	 	            update+=''+values[id].replace('.',',');
+      	 	         }
+      	 	     }
+     		   }
+     		   input.val(update);
+   			 }
+		</script>
