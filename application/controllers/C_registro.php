@@ -17,10 +17,41 @@ class C_registro extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index()
+	public function index($exito=false)
 	{	
-		 $data['exito']= FALSE; 
-		 $data['provincias'] = $this->db->get("Provincia")->result();
+		//busco todas las provjncias
+		$data['exito']= $exito; 
+	    $data['provincias'] = $this->db->get("Provincia")->result();
+		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
+		if($this->input->post()){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['nombre'] = $this->input->post('nombre');
+			$data['apellido']=$this->input->post('apellido');
+			$data['nroMatricula'] = $this->input->post('nroMatricula');
+			$data['dni'] = $this->input->post('DNI');
+			$data['correo'] = $this->input->post('correo');
+			$data['telefono'] =(integer)$this->input->post('telefono');
+			$data['usuario'] = $this->input->post('usuario');
+			$data['direccion'] = $this->input->post('direccion');
+
+		
+
+		}else{
+			$data['nombre']='';
+			$data['apellido']='';
+			$data['dni']='';
+			$data{'nroMatricula'}='';
+			$data{'correo'}='';
+			$data{'telefono'}='';
+			$data{'direccion'}='';
+			$data{'usuario'}='';
+			$data{'contraseña'}='';
+			$data{'repeContraseña'}='';
+
+
+		}
+		
+		 
 		$this->load->view('registro/v_registroEscribano',$data);
 					
 		
@@ -46,8 +77,6 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes seleccionar una Localidad ') );
 
-			    $this->form_validation->set_rules('departamento', 'departamento', 'required',array('required' => 'Debes seleccionar un Departamento ') );
-
 			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
 			   
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
@@ -59,6 +88,7 @@ class C_registro extends CI_Controller {
 		
 			if($this->form_validation->run() == FALSE)
 			{	
+				
 				$this->index();
 			}else{
 				
@@ -68,20 +98,21 @@ class C_registro extends CI_Controller {
 					'dni' => $this->input->post('DNI'),
 					'email' => $this->input->post('correo'),
 					//$departamento = $this->input->post('departamento');
-					'idLocalidad' => $this->input->post('Localidad'),
-					'telefono' => $this->input->post('telefono'),
+					'idLocalidad' => $this->input->post('localidad'),
+					'telefono' =>(integer) $this->input->post('telefono'),
 					'usuario' => $this->input->post('usuario'),
 					'contraseña' => sha1($this->input->post('contraseña')), 
+					'direccion' =>$this->input->post('direccion'),
 					'estadoAprobacion'=>'p',
 					'motivoRechazo'=>'',
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				
 				$this->db->insert("usuarioEscribano", $datos_usuarios);
-				$data['exito']= TRUE; 
+				$exito= TRUE; 
 				$data['provincias'] = $this->db->get("Provincia")->result();
-				$this->load->view('registro/v_registroEscribano',$data);
-		
+				$this->index($exito);
+			
 			}
 			/*
 				switch ($this->session->userdata('perfil')) {
@@ -127,14 +158,22 @@ class C_registro extends CI_Controller {
 		}
 	}
 
-		public function localidad()
+		public function mostrarLocalidad()
 	{
-		$id_dep=$_POST["midepartamento"];
-		
-		//$departamentos=$this->db->get("departamento")->result();
-	   	
-	   	$localidades=$this->db->get_where('Localidad', array('idDepartamento'=>$id_dep))->result();
+		$id_prov=$_POST["miprovincia"];
 	
+		/*$this->db->select('SELECT L.idLocalidad, L.nombre FROM Departamento D JOIN Localidad L ON D.idDepartamento= L.idLocalidad WHERE D.idProvincia=$id_prov');
+		$localidades = $this->db->get()->result();  
+		//$departamentos=$this->db->get("departamento")->result();*/
+		$localidades=array();
+	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
+	   	foreach ($departamentos as $d ) {
+	   		$loc=$this->db->get_where('Localidad', array('idDepartamento'=>$d->idDepartamento))->result();
+	   		$resg=$localidades;
+	   		$localidades=array_merge($resg,$loc);
+	   		
+	   	}
+	   	
 		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
 		foreach ($localidades as $l ) {
 				
