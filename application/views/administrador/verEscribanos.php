@@ -78,7 +78,7 @@
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="#"><button><i class="fa fa-pencil"></i></button></a> 
-                                 <a class="btn btn-sm " href="#"> <button><i class="fa fa-print"></i></button></a>
+                                 <a class="btn btn-sm " href="#"> <button><i class="fa fa-remove"></i></button></a>
                               </div>
                            </td>
                         </tr>
