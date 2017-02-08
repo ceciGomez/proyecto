@@ -125,7 +125,11 @@ class C_escribano extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
-		var_dump($data["minuta"]);
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		$data["unEscribano"] = $this->M_escribano->getUnEscribano($idEscribano);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		//var_dump($data["parcelas"]);
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verUnaMinuta',$data);
