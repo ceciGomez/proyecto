@@ -22,6 +22,7 @@
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 
   <script type="text/javascript">
+//funcion que solo permite numeros
  function NumbersOnly(e) {
     var unicode = e.charCode ? e.charCode : e.keyCode;
     if (unicode != 8) {
@@ -37,7 +38,14 @@
 function IsArrows (e) {
        return (e.keyCode >= 37 && e.keyCode <= 40); 
 }
-
+//funcion que solo permite letras
+function validar(e) { 
+tecla = (document.all) ? e.keyCode : e.which;
+if (tecla==8) return true; 
+patron =/[A-Za-z\s]/; 
+te = String.fromCharCode(tecla); 
+return patron.test(te); 
+}
 
 /*funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
 $(document).ready(function(){
@@ -47,28 +55,13 @@ $(document).ready(function(){
            //console.log( $('#Provincia').val());
            //pado el numero de pronvicia, es decir el id
             miprovincia=$('#Provincia').val();
-            $.post("http://localhost/proyecto/index.php/c_registro/departamento", { miprovincia: miprovincia}, function(data){
-            $("#Departamento").html(data);
-            });            
-        });
-   })
-});
-
-
-$(document).ready(function(){
-   $("#Departamento").change(function () {
-           $("#Departamento option:selected").each(function () {
-         
-           //console.log( $('#Provincia').val());
-           //pado el numero de pronvicia, es decir el id
-            midepartamento=$('#Departamento').val();
-            $.post("http://localhost/proyecto/index.php/c_registro/localidad", { midepartamento: midepartamento}, function(data){
+            $.post("<?=base_url()?>index.php/c_registro/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
             $("#Localidad").html(data);
             });            
         });
    })
 });
-/*fin de la funcion ajax que llena el combo dependiendo de la categoria seleccionada*/
+
 </script>
 
 </head>
@@ -80,27 +73,37 @@ $(document).ready(function(){
 
   <div class="register-box-body">
     <p class="login-box-msg">Registrar nuevo Escribano</p>
-
+   <div align='center'>
+       <?php if( $exito ==TRUE) { ?>
+        <img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > El escribano se registro exitosamente, solicitud pendiente de revisión.
+        <?php } ?>
+        <br>
+    </div>
   
      <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
           <form method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Nombre" name="nombre" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="text" class="form-control" placeholder="NOMBRE" name="nombre" <?php echo "value='$nombre'" ?> style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+          <div style="color:red;" ><p><?=form_error('nombre')?></p></div>
       </div>
        <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="Apellido" name="apellido" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="text" class="form-control" placeholder="APELLIDO" name="apellido" <?php echo "value='$apellido'" ?>style="text-transform:uppercase;"  onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+         <div style="color:red;" >   <p><?=form_error('apellido')?></p></div>
       </div>
 
         <div class="form-group has-feedback">
-        <input type="text" id="number" class="form-control" placeholder="DNI"  name="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
+        <input type="text" id="number" class="form-control" placeholder="DNI"  name="DNI"<?php echo "value='$dni'" ?> maxlength="8" onkeypress="return NumbersOnly(event);">
+        <div style="color:red;" >  <p><?=form_error('DNI')?></p></div>
       </div>
 
         <div class="form-group has-feedback">
-        <input type="text" id="number" class="form-control" placeholder="Nro Matricula" name="nro_matricula" maxlength="8" onkeypress="return NumbersOnly(event);">
+        <input type="text" id="number" class="form-control" placeholder="NÚMERO DE MATRICULA" name="nroMatricula" <?php echo "value='$nroMatricula'" ?> maxlength="8" onkeypress="return NumbersOnly(event);">
+        <div style="color:red;" ><p  ><?=form_error('nroMatricula')?></p></div> 
       </div>
 
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" placeholder="Correo" style="text-transform:uppercase;"  name="correo"onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="email" class="form-control" placeholder="CORREO"   name="correo"  <?php echo "value='$correo'" ?>>
+          <div style="color:red;" ><p><?=form_error('correo')?></p></div>
       </div>
     
       <div class="form-group">
@@ -109,57 +112,54 @@ $(document).ready(function(){
                   <div class="input-group-addon">
                     <i class="fa fa-phone"></i>
                   </div>
-                  <input type="text" class="form-control" name="telefono" data-inputmask='"mask": "(999) 999-9999"' data-mask>
+                  <input type="number" id="number" maxlength="15" class="form-control"  placeholder="+54" name="telefono" <?php echo "value='$telefono'" ?> onkeypress="return NumbersOnly(event);">  
                 </div>
                 <!-- /.input group -->
        </div>
+        <div style="color:red;" > <p><?=form_error('telefono')?></p></div>
       <div> 
         <?php 
         $id_prov=0;
          ?>
         Provincia
-            <select name="Provincia" id="Provincia">
+            <select name="provincia" id="Provincia">
               <option value="">Selecciona una Provincia</option>
               <?php  foreach ($provincias as $p){ ?>
                  <option value=
                   <?php
-                  $id_prov+=1;
-                  echo "'$id_prov' > $p->nombre"; }?></option>
+                 
+                  echo "' $p->idProvincia' > $p->nombre"; }?></option>
             
 
           </select>
+            <div style="color:red;" ><p><?=form_error('provincia')?></p></div>
        </div>
        <div>
        
        <br>
 
-       <div> 
-        Departamento
-            <select name="Departamento" id="Departamento">
-                <option value="">Selecciona un Departamento</option>
-            </select>
-       </div>
-       <div>
-
-       <br>
-
         Localidad
-          <select name="Localidad" id="Localidad">
+          <select name="localidad" id="Localidad">
                <option value="">Selecciona una Localidad </option>
           </select>
+            <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
        </div>
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Dirección" name="direccion" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                  <input type="text" class="form-control" placeholder="DIRECCIÓN" name="direccion" <?php echo "value='$direccion'" ?>maxlength="100" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                    <div style="color:red;" ><p><?=form_error('direccion')?></p></div>
        </div>
               <!-- /.form group -->
        <div class="form-group">
-                  <input type="text" class="form-control" placeholder="Usuario"  name="usuario" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+                  <input type="text" class="form-control" placeholder="USUARIO"  name="usuario"  <?php echo "value='$usuario'" ?>maxlength="100"  >
+                    <div style="color:red;" ><p><?=form_error('usuario')?></p></div>
        </div>       
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Contraseña" name="contraseña" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="password" class="form-control" placeholder="CONTRASEÑA" name="contraseña" maxlength="100" >
+        <div style="color:red;" > <p><?=form_error('contraseña')?></p></div>
       </div>
       <div class="form-group has-feedback">
-        <input type="password" class="form-control" placeholder="Repetir contraseña"  name="repe_constraseña" style="text-transform:uppercase;" onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="password" class="form-control" placeholder="REPETIR CONTRASEÑA"  name="repecontraseña" maxlength="100" >
+           <div style="color:red;" > <p><?=form_error('repecontraseña')?></p>
       </div>
       <div class="row">
         

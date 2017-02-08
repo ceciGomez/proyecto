@@ -5,12 +5,12 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>
-         Ver Escribanos
+         Ver Operadores
       </h1>
-      <small>Lista todos los Escribanos</small>
+      <small>Lista todos los Operadores</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginadmin"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active">Ver Escribanos</li>
+         <li class="active">Ver Operadores</li>
       </ol>
    </section>
    <!-- Main content -->
@@ -29,7 +29,7 @@
                   </div> -->
                </div>
                 <div class="box-header with-border">
-                     <h3 class="box-title">Escribanos de SIRMI</h3>
+                     <h3 class="box-title">Operadores de SIRMI</h3>
                   </div>
              
              
@@ -38,7 +38,6 @@
                      <thead>
                         <tr>
                            <th>Nombre y Apellido</th>
-                           <th>Matrícula</th>
                            <th>Usuario</th>
                            <th>DNI</th>
                            <th>Teléfono</th>
@@ -49,12 +48,11 @@
                      </thead>
                      <tbody>
                        
-                        <?php foreach ($escribanos as $value) :
+                        <?php foreach ($operadores as $value) :
                         //var_dump($value) 
                         ?>
                         <tr>
                            <td colspan="" rowspan="" headers=""> <?php echo $value->nomyap;?> </td>
-                           <td colspan="" rowspan="" headers=""> <?php echo $value->matricula;?> </td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->usuario;?> </td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->dni;?> </td>
                            <td colspan="" rowspan="" headers=""><?php if($value->telefono == NULL){
@@ -78,7 +76,7 @@
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="#"><button><i class="fa fa-pencil"></i></button></a> 
-
+                                 <a class="btn btn-sm " href="#"> <button><i class="fa fa-remove"></i></button></a>
                               </div>
                            </td>
                         </tr>

@@ -112,7 +112,7 @@
                                     <?php  foreach ($provincias as $value):?>
                                     <option value="<?php echo $value->idProvincia;?>">
                                        <?php 
-                                          $idProv = $value->idProvincia; 
+                                          $id_prov = $value->idProvincia; 
                                           echo $value->nombre; ?>          
                                     </option>
                                     <?php endforeach ?>
@@ -200,7 +200,7 @@ $(document).ready(function(){
            //console.log( $('#Provincia').val());
            //pado el numero de pronvicia, es decir el id
             miprovincia=$('#Provincia').val();
-            $.post("<?=base_url()?>/index.php/c_registro/datosDir", { miprovincia: miprovincia}, function(data){
+            $.post("<?=base_url()?>/index.php/c_escribano/departamento", { miprovincia: miprovincia}, function(data){
             $("#Departamento").html(data);
             });            
         });
@@ -215,7 +215,7 @@ $(document).ready(function(){
            //console.log( $('#Provincia').val());
            //pado el numero de pronvicia, es decir el id
             midepartamento=$('#Departamento').val();
-            $.post("<?=base_url()?>/index.php/c_registro/datosDir", { midepartamento: midepartamento}, function(data){
+            $.post("<?=base_url()?>/index.php/c_escribano/localidad", { midepartamento: midepartamento}, function(data){
             $("#Localidad").html(data);
             });            
         });

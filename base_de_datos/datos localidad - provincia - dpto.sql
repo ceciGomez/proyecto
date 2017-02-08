@@ -23,6 +23,11 @@ SET time_zone = "+00:00";
 --
 -- Dumping data for table `Departamento`
 --
+INSERT INTO `Provincia` (`idProvincia`, `nombre`) VALUES
+(1, 'Chaco'),
+(2, 'Santa Fe'),
+(3, 'Formosa'),
+(4, 'Corrientes');
 
 INSERT INTO `Departamento` (`idDepartamento`, `nombre`, `idProvincia`) VALUES
 (1, 'Almirante Brown', 1),
@@ -56,11 +61,7 @@ INSERT INTO `Localidad` (`idLocalidad`, `nombre`, `codPostal`, `idDepartamento`)
 -- Dumping data for table `Provincia`
 --
 
-INSERT INTO `Provincia` (`idProvincia`, `nombre`) VALUES
-(1, 'Chaco'),
-(2, 'Santa Fe'),
-(3, 'Formosa'),
-(4, 'Corrientes');
+
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
