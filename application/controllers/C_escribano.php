@@ -148,13 +148,18 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
-	public function imprimirMinuta()
+	public function imprimirMinuta($param="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		$data["unEscribano"] = $this->M_escribano->getUnEscribano($idEscribano);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/imprimirMinuta',$data);
