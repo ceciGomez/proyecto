@@ -108,7 +108,7 @@ class M_escribano extends CI_Model
 				idParcela,
 				titular,
 				dni,
-				direccion,
+				concat(direccion, ' - ', l.nombre) as direccion,
 				p.idLocalidad as idLocalidad,
 				cuitCuil,
 				conyuge,
@@ -120,7 +120,8 @@ class M_escribano extends CI_Model
 				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
 				porcentajeUfUc,
 				poligonos
-				FROM Propietario p
+				FROM Propietario p inner join Localidad l
+				on l.idLocalidad = p.idLocalidad
 				where p.idParcela = $idParcela
 			"); 
 			return $query->result();
