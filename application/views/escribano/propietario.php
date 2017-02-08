@@ -246,18 +246,17 @@
           }
          });
       </script>
-      <script language="javascript">
-<!--
+      <!--Deshabilita campos sexo, dni y conyuge-->
+      <script language="javascript"><!--
 		function empresa() { 		 
   		  document.getElementById("sexo-combobox").disabled = true; 
   		   document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
  		 
-		}
--->
+		}-->
 		</script>
-		<script language="javascript">
-<!--
+		<!--Habilita campos sexo, dni y conyuge-->
+		<script language="javascript"><!--
 		function persona() { 		 
   		  document.getElementById("sexo-combobox").disabled = false;  	
   		  document.getElementById("dni").disabled = false; 
@@ -265,7 +264,7 @@
 		}
 -->
 		</script>
-		<!--Valida el porentaje-->
+		<!--Valida el porcentaje-->
 		<script language="javascript">
 		$('#porcentaje_condominio').keyup(function (e) {
     	  commaOnly($(this),'float');

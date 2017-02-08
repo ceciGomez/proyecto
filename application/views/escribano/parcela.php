@@ -33,17 +33,10 @@
                      <form role="form">
                         <div class="box-body">
                            <div class="form-group">
-                              <div class="form-group">
-
-
-      
-
-
-
-                              
+                              <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Circunscripción">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Circunscripción" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Sección</label>
@@ -51,13 +44,13 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Chacra</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Chacra">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Chacra" onKeyDown="limitText(this,8);">
                                  </div>
                              
                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quinta</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Quinta">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Quinta" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
@@ -79,7 +72,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Partida">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Partida" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Plano Aprobado</label>
@@ -104,15 +97,15 @@
                              
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Tomo</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Tomo">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Tomo" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Folio</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Folio">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Folio" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Finca</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Finca">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Finca" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
@@ -190,3 +183,10 @@
         });
 
     </script>
+    <script language="javascript" type="text/javascript">
+    function limitText(limitField, limitNum) {
+    if (limitField.value.length > limitNum) {
+        limitField.value = limitField.value.substring(0, limitNum);
+      }
+    }
+   </script>
