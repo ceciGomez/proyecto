@@ -74,7 +74,9 @@
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/editarMinuta'?>"><button><i class="fa fa-pencil"></i></button></a> 
-                                 <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verUnaMinuta'?>"> <button><i class="fa fa-eye"></i></button></a>
+
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/verUnaMinuta/<?php echo $value->idMinuta?>"> <button><i class="fa fa-eye"></i></button></a>
+
                                  <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/verPropietarios'?>"> <button><i class="fa fa-users"></i></button></a>
                                  <a class="btn btn-sm " href="<?=base_url().'index.php/c_escribano/imprimirMinuta'?>"> <button><i class="fa fa-print"></i></button></a>
                               </div>

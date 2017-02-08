@@ -117,13 +117,15 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/editarMinuta',$data);
 		$this->load->view('templates/pie',$data);
 	}
-	public function verUnaMinuta()
+	public function verUnaMinuta($param="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
+		var_dump($data["minuta"]);
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verUnaMinuta',$data);
