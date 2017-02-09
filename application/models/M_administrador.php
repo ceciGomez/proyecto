@@ -21,4 +21,32 @@ class M_administrador extends CI_Model
 		$escribanos =$this->db->get("usuarioEscribano")->result();
 		return $escribanos;
 	}
-}
+
+	public function getUnOperador($idUsuario)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT *
+				FROM usuarioSys u
+				where u.idUsuario = $idUsuario
+				");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}	
+		}
+
+	public function actualizarOperador($operador,$id)
+	{
+		try{
+			$this->db->where('idUsuario',$id);
+			return $this->db->UPDATE('usuarioSys',$operador);
+
+			} catch (Exception $e) {
+			return false;
+		}
+
+		}
+	}
+
+
