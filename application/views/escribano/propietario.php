@@ -52,8 +52,7 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
-                        <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" 
-                       onKeyUp="limitText(this,8);"/>
+                        <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" onKeyUp="limitText(this,8);"/>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
@@ -61,7 +60,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuit" placeholder="CUIL" disabled >
+                        <input type="text" class="form-control" id="cuil" placeholder="CUIL" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,11);" onKeyUp="limitText(this,11);" disabled/>
                      </div>
                   </div>
                   <div class="form-group">
@@ -239,9 +238,10 @@
         });
       });
     </script>
+    <!--Limita campo nombre y apellido a 10 caracteres-->
       <script language="javascript" type="text/javascript">
           $('input[name="nya"]').keypress(function() {
-            if (this.value.length >= 10 {
+            if (this.value.length >= 10) {
             return false;
           }
          });
@@ -252,8 +252,8 @@
   		  document.getElementById("sexo-combobox").disabled = true; 
   		   document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
- 		 
-		}-->
+ 		  document.getElementById("cuil").disabled = false; 
+		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
 		<script language="javascript"><!--
@@ -261,6 +261,7 @@
   		  document.getElementById("sexo-combobox").disabled = false;  	
   		  document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
+ 	 	  document.getElementById("cuil").disabled = true; 
 		}
 -->
 		</script>

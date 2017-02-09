@@ -30,6 +30,7 @@
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
+                      <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
                      <form role="form">
                         <div class="box-body">
                            <div class="form-group">
@@ -40,7 +41,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Sección</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Sección">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" onkeyup="changeToUpperCase(this)" placeholder="Sección" maxlength="1">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Chacra</label>
@@ -54,7 +55,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fracción">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fracción" pattern="![^a-zA-Z0-9]">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Manzana</label>
@@ -76,7 +77,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Plano Aprobado</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="22/222/22 - 22/222/RE">
                                  </div>
                                      <div class="form-group col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
@@ -111,16 +112,7 @@
                                     <label for="exampleInputEmail1">Año</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Año">
                                  </div>
-                                 <div class="col-md-3">
-                                    <label>Provincia</label>
-                                    <select class="form-control select2" style="width: 100%;">
-                                       <?php foreach ($provincias as $value):?>
-          <option value="<?php echo $value->idProvincia;?>">
-            <?php echo $value->nombre; ?>          
-          </option>
-          <?php endforeach ?>
-                                    </select>
-                                 </div>
+                               
                              
                               
                                  <div class="col-md-3">
@@ -189,4 +181,10 @@
         limitField.value = limitField.value.substring(0, limitNum);
       }
     }
+   </script>
+   <script >
+    function changeToUpperCase(el)
+ {
+     el.value =el.value.trim().toUpperCase();
+ }
    </script>

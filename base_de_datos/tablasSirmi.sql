@@ -79,7 +79,6 @@ create table Minuta(
 
   create table Parcela(
       idParcela int(8) not null AUTO_INCREMENT,
-        idDepartamento int(6) not null,
         idLocalidad int(6) not null,
         circunscripcion  varchar(8) not null,
         seccion CHARACTER(1) not null,
@@ -102,17 +101,18 @@ create table Minuta(
         finca int(5),
         año int(4),
     PRIMARY key (idParcela), 
-    FOREIGN KEY (idDepartamento) REFERENCES Departamento (idDepartamento),
     FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad),
     FOREIGN KEY (idMinuta) REFERENCES Minuta (idMinuta)
     );
 
   create table Propietario( 
+    idPropietario int(8) not null AUTO_INCREMENT, -- se agrego este campo paraa indexar la tabla
     idParcela int(8), 
     titular varchar(150), 
     dni int(8), direccion varchar(100), 
     idLocalidad int(6),
-    cuitCuil int(15), conyuge varchar(150), 
+    cuitCuil varchar(15), --se canbio a varchar para que el ingreso permite los caracteres '-' 
+    conyuge varchar(150), 
     fechaEscritura date, 
     porcentajeCondominio float, 
     nroUfUc varchar(10), 
@@ -121,6 +121,7 @@ create table Minuta(
     fechaPlanoAprobado date, 
     porcentajeUfUc float, 
     poligonos varchar(50), 
+    PRIMARY key (idPropietario), 
     FOREIGN KEY (idParcela) REFERENCES Parcela (idParcela), 
     FOREIGN KEY (idLocalidad) REFERENCES Localidad (idLocalidad) 
     );
