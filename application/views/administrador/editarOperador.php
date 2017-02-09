@@ -26,12 +26,17 @@
             <form role="form" method="POST" action="<?=base_url()?>index.php/c_administrador/actualizarOperador/<?php echo $operador[0]->idUsuario  ?>">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Nombre y Apellido</label>
-                  <input type="text" class="form-control" value="<?php echo $operador[0]->nomyap ?>" id="nomyap" placeholder="Nombre y Apellido">
-                </div>
-                <div class="form-group">
                   <label for="exampleInputPassword1">id</label>
-                  <input type="text" class="form-control" id="idUsuario" value="<?php echo $operador[0]->idUsuario ?>" placeholder="id">
+                  <input type="text" class="form-control" id="idUsuario" value="<?php echo $operador[0]->idUsuario ?>" placeholder="id" name="idUsuarioVisible" disabled="" >
+                </div>
+                 <div class="form-group">
+                  <label for="exampleInputPassword1">id</label>
+                  <input type="hidden" class="form-control" id="idUsuario" value="<?php echo $operador[0]->idUsuario ?>" placeholder="id" name="idUsuario" >
+                </div>
+                
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Nombre y Apellido</label>
+                  <input type="text" class="form-control" value="<?php echo $operador[0]->nomyap ?>" name="nomyap" id="nomyap" placeholder="Nombre y Apellido">
                 </div>
                </div>
              
