@@ -55,7 +55,7 @@ class C_administrador extends CI_Controller {
 
 		$data['titulo'] = 'Bienvenido Administrador';
 		$data["operador"] = $this->M_administrador->getUnOperador($param);
-		var_dump($data["operador"]);
+		//var_dump($data["operador"]);
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/admin_menu',$data);
 		$this->load->view('administrador/editarOperador',$data);
@@ -71,6 +71,7 @@ class C_administrador extends CI_Controller {
 		
 		$data["operador"] = $this->M_administrador->getUnOperador($param);
 		$operadorAct= array(
+			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'idUsuario' => $this->input->post("idUsuario") );
 
@@ -78,10 +79,17 @@ class C_administrador extends CI_Controller {
 		$ctrl=$this->M_administrador->actualizarOperador($operadorAct,$id);
 
 		$data['titulo'] = 'Bienvenido Administrador';
-		$this->load->view('templates/cabecera',$data);
-		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/editarOperador',$data);
-		$this->load->view('templates/pie',$data);
+		
+
+		//Si se inserto correcto la vble $ctrl devuelve true y redirije a la pagina con los mismos datos
+		//deberia ir a la pagina de veroperador 
+		if ($ctrl) {
+			redirect('c_administrador/editarOperador/'.$id,'refresh');
+
+		} else {
+			//Si no se guardo correctamente entonces queda en la pagina para realizar los cambios
+			redirect('','refresh');
+		}
 	}
 	
 	
