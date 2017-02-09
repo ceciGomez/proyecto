@@ -46,8 +46,8 @@
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
                            <option selected="selected">Seleccionar</option>
-                           <option value="27">Femenino</option>
-                           <option value="20">Masculino</option>
+                           <option >Femenino</option>
+                           <option >Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
