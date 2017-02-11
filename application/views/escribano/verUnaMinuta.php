@@ -120,9 +120,9 @@
               <td><?php echo $key->fechaPlanoAprobado ?></td>
               <td><?php echo $key->poligonos ?></td>
               <td><?php echo $key->porcentajeUfUc ?> %</td>
-            <?php  } ?>
             </tr>
             </tbody>
+            <?php  } ?>
           </table>
         </div>
         <!-- /.col -->
