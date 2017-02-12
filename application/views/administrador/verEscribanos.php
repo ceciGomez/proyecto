@@ -41,8 +41,6 @@
                            <th>Matrícula</th>
                            <th>Usuario</th>
                            <th>DNI</th>
-                           <th>Teléfono</th>
-                           <th>Dirección</th>
                            <th>e-mail</th>
                            <th>Localidad</th>
                         </tr>
@@ -57,16 +55,6 @@
                            <td colspan="" rowspan="" headers=""> <?php echo $value->matricula;?> </td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->usuario;?> </td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->dni;?> </td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->telefono == NULL){
-                              echo "-";
-                            } else{
-                            echo $value->telefono;
-                              } ?></td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->direccion == NULL){
-                              echo "-";
-                            } else{
-                            echo $value->direccion;
-                              } ?></td>
                            <td colspan="" rowspan="" headers=""><?php if($value->email == NULL){
                               echo "-";
                             } else{
@@ -78,7 +66,7 @@
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="#"><button><i class="fa fa-pencil"></i></button></a> 
-
+                                 <a class="btn btn-sm " href="#"><button><i class="fa fa-remove"></i></button></a> 
                               </div>
                            </td>
                         </tr>
