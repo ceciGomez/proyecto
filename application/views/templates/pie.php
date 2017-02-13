@@ -85,6 +85,13 @@
 <script src="<?=base_url()?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>assets/dist/js/demo.js"></script>
+
+
+
+<script src="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.js"></script>
+  <link rel="stylesheet" type="text/css"  href="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.min.css">
+
+<script src="<?=base_url()?>assets/plugins/bootstrap-3.3.5/js/modal.js"></script>
 </body>
 </html>
 
