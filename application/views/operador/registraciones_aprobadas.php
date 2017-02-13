@@ -25,7 +25,7 @@
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3 class="box-title">Usuarios Pendientes de Aprobación</h3>
+              <h3 class="box-title">Usuarios Aprobados</h3>
 
                <form >
                     <h3>Filtrar lista</h3>
@@ -77,9 +77,9 @@
                             <td>  <?php  echo "$ep->matricula"; ?></td>
 
                             <td>
-                            <button   type="button"  class="btn btn-warning" >Detalles </button> 
-                            <button type="button" class="btn btn-success"> Aceptar</button>
-                            <button  type="button" class="btn btn-danger">Rechazar</button>
+                            
+                            <button type="button" class="btn btn-success"> Modificar</button>
+                            <button  type="button" class="btn btn-danger">Eliminar</button>
                             </td>
                            
                           </tr>
@@ -91,7 +91,6 @@
                         </tbody>
                  </table>
 
-  
                   <script type="text/javascript">
 
                    
