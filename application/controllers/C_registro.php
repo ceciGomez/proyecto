@@ -21,7 +21,7 @@ class C_registro extends CI_Controller {
 	{	
 		//busco todas las provjncias
 		$data['exito']= $exito; 
-	    $data['provincias'] = $this->db->get("Provincia")->result();
+	    $data['provincias'] = $this->db->get("provincia")->result();
 		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
 		if($this->input->post()){
 			//seteo los demas input segun lo que ingreso anteriormente
