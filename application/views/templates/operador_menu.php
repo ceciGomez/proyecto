@@ -36,6 +36,8 @@
           </a>
           <ul class="treeview-menu">
             <li><a href="<?=base_url().'index.php/c_loginop/reg_pen'?>"><i class="fa fa-circle-o"></i> Registraciones Pendientes</a></li>
+             <li><a href="<?=base_url().'index.php/c_loginop/reg_apro'?>"><i class="fa fa-circle-o"></i> Registraciones Aprobadas</a></li>
+              <li><a href="<?=base_url().'index.php/c_loginop/reg_rech'?>"><i class="fa fa-circle-o"></i> Registraciones Rechazadas</a></li>
           </ul>
         </li>   
 
