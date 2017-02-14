@@ -31,25 +31,26 @@
                     <h3>Filtrar lista</h3>
                     <br>
                      <div class="form-group">
-                    <div>
+                    
                         <label>Nombre y Apellido :</label>
-                        <input type='text' value='' class='filter' data-column-index='0'>
-                    </div>
+                       <div><input type='text' value='' class='filter' data-column-index='0'> </div>
+                       
+                
                     <br>
-                     <div>
+                   
                         <label>Usuario :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'>
-                    </div>
+                       <div>  <input type='text' value='' class='filter' data-column-index='1'> </div>
+                   
                     <br>
-                     <div>
+                     
                         <label>DNI :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                    </div>
+                        <div> <input type='text' value='' class='filter' data-column-index='2'> </div>
+                    
                     <br>
-                    <div>
+                  
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'>
-                    </div>
+                        <div> <input type='text' value='' class='filter' data-column-index='3'> </div>
+                  
                   </div>
                 </form>
 
@@ -188,7 +189,7 @@
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                            "sEmptyTable":     "Ningún escribano con solicitud pendiente de aprobación",
                             "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
