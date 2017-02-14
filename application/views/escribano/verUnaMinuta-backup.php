@@ -3,17 +3,15 @@
 <!-- Content Header (Page header) -->
 <section class="content-header">
    <h1>
-      Imprimir Minuta
+      Ver Minuta
    </h1>
    <ol class="breadcrumb">
       <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Minuta</li>
    </ol>
 </section>
-<!-- Main content -->
-   <section class="content-body">
          <!-- Main content -->
-    <section class="invoice">
+<section class="invoice">
       <!-- title row -->     
         <div class="col-xs-12">
           <h2 class="page-header">
@@ -82,20 +80,12 @@
 
             </address>
           </div>
-          <div class="col-sm-12 invoice-col">
-             <address>
-            <strong>Descripcion de Parcela</strong><br>
-             <?php echo $value->descripcion?> <br>
-            
 
-            </address>
-        </div>
         <!-- /.col -->
     
        </div>
       <!-- /.row -->
-      <?php $data["propietarios"] = $this->M_escribano->getPropietarios($value->idParcela);
-       ?>
+      <?php $data["propietarios"] = $this->M_escribano->getPropietarios($value->idParcela); ?>
       <!-- Table row -->
       <div class="row">
         <div class="col-xs-12 table-responsive">
@@ -130,33 +120,19 @@
               <td><?php echo $key->poligonos ?></td>
               <td><?php echo $key->porcentajeUfUc ?> %</td>
             </tr>
-            <?php  } ?>
             </tbody>
+            <?php  } ?>
           </table>
         </div>
         <!-- /.col -->
       </div>
        <?php  } ?>
       <!-- /.row -->
-   
-   
-
-
+ 
      <div class="box-footer">
         <a class="btn btn-primary" href="#" >Regresar</a>
         <a class="btn btn-primary" href="#" >Imprimir</a>
         <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
      </div>
-</div>
 </section>
-<!-- /.content-wrapper -->
-<script>
-   $( document ).ready(function() {
-       $('#fechaM').datepicker();
-   });
-    $( document ).ready(function() {
-       $('#fechaPA').datepicker();
-   });
-   
-</script>
-
+</div>

@@ -21,7 +21,7 @@ class C_registro extends CI_Controller {
 	{	
 		//busco todas las provjncias
 		$data['exito']= $exito; 
-	    $data['provincias'] = $this->db->get("Provincia")->result();
+	    $data['provincias'] = $this->db->get("provincia")->result();
 		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
 		if($this->input->post()){
 			//seteo los demas input segun lo que ingreso anteriormente
@@ -108,9 +108,9 @@ class C_registro extends CI_Controller {
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				
-				$this->db->insert("usuarioEscribano", $datos_usuarios);
+				$this->db->insert("usuarioescribano", $datos_usuarios);
 				$exito= TRUE; 
-				$data['provincias'] = $this->db->get("Provincia")->result();
+				$data['provincias'] = $this->db->get("provincia")->result();
 				$this->index($exito);
 			
 			}
@@ -148,7 +148,7 @@ class C_registro extends CI_Controller {
 		
 		//$departamentos=$this->db->get("departamento")->result();
 	   	
-	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
 	
 		
 		foreach ($departamentos as $d ) {
@@ -166,9 +166,9 @@ class C_registro extends CI_Controller {
 		$localidades = $this->db->get()->result();  
 		//$departamentos=$this->db->get("departamento")->result();*/
 		$localidades=array();
-	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
 	   	foreach ($departamentos as $d ) {
-	   		$loc=$this->db->get_where('Localidad', array('idDepartamento'=>$d->idDepartamento))->result();
+	   		$loc=$this->db->get_where('localidad', array('idDepartamento'=>$d->idDepartamento))->result();
 	   		$resg=$localidades;
 	   		$localidades=array_merge($resg,$loc);
 	   		

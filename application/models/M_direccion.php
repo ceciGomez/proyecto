@@ -14,7 +14,7 @@ class M_direccion extends CI_Model
 	public function getProvincias(){
 		try {
 			$query= $this->db->query("SELECT *
-			  	FROM Provincia p
+			  	FROM provincia p
 			  	");
 			return $query->result();
 		 } catch (Exception $e) {
@@ -24,7 +24,7 @@ class M_direccion extends CI_Model
 	public function getDepartamentos(){
 		try {
 			$query= $this->db->query("SELECT *
-			  	FROM Departamento l
+			  	FROM departamento l
 			  	");
 			return $query->result();
 		 } catch (Exception $e) {
@@ -34,7 +34,7 @@ class M_direccion extends CI_Model
 	public function getLocalidades(){
 		try {
 			$query= $this->db->query("SELECT *
-			  	FROM Localidad l
+			  	FROM localidad l
 			  	");
 			return $query->result();
 		 } catch (Exception $e) {
@@ -47,7 +47,7 @@ class M_direccion extends CI_Model
 	{
 		try {
 			$this->db->where('idProvincia', $idProv);
-			return $this->db->get('Departamento')->result();
+			return $this->db->get('departamento')->result();
 			
 		} catch (Exception $e) {
 			return false;
@@ -60,7 +60,7 @@ class M_direccion extends CI_Model
 	{
 		try {
 			$this->db->where('idDepartamento', $idDepartamento);
-			return $this->db->get('Localidad')->result();
+			return $this->db->get('localidad')->result();
 			
 		} catch (Exception $e) {
 			return false;
