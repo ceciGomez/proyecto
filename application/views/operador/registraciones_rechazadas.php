@@ -55,7 +55,7 @@
 
 
 
-                  <table id="reg_pen"  >
+                  <table id="reg_rech"  >
                         <thead>
                           <tr>
                             <th>Nombre y Apellido</th>
@@ -95,10 +95,9 @@
                    $(document).ready(function(){
 
                     //crea la tabla
-                    var dtable=$('#reg_pen').DataTable(
+                    var dtable=$('#reg_rech').DataTable(
                         {
                            scrollY: 400,
-                             searching: false,
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
@@ -135,8 +134,12 @@
                          $('.filter').val('');
                     }); 
 
+                      //quitar el campo de busqueda por defecto
+                      document.getElementById('reg_pen_filter').style.display='none';
 
-
+                      $(document.body).animate({opacity: 0.3}, 400);
+                      $("html, body").animate({ scrollTop: 0 }, 400);
+                      $(document.body).animate({opacity: 1}, 400);   
                     } );
 
 

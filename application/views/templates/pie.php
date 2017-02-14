@@ -91,7 +91,7 @@
 <script src="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.js"></script>
   <link rel="stylesheet" type="text/css"  href="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.min.css">
 
-<script src="<?=base_url()?>assets/plugins/bootstrap-3.3.5/js/modal.js"></script>
+<script src="<?=base_url()?>assets/plugins/modal/bootstrap-modal.js"></script>
 </body>
 </html>
 
