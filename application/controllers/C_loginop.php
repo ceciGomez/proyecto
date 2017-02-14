@@ -79,6 +79,14 @@ class C_loginop extends CI_Controller {
 
       }
       
+      public function eliminar_esc(){
+      	$idEscribano=$_POST["idEscribano"];
+      		
+
+		$this->db->where('idEscribano', $idEscribano);
+		$this->db->delete('usuarioescribano'); 
+
+      }
 		
 
 	public function reg_apro()
@@ -108,7 +116,7 @@ class C_loginop extends CI_Controller {
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_pendientes',$data);
+		$this->load->view('operador/registraciones_rechazadas',$data);
 		$this->load->view('templates/pie',$data);
 	}
 

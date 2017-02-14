@@ -31,28 +31,28 @@
                     <h3>Filtrar lista</h3>
                     <br>
                      <div class="form-group">
-                    <div>
+                    
                         <label>Nombre y Apellido :</label>
-                        <input type='text' value='' class='filter' data-column-index='0'>
-                    </div>
+                       <div><input type='text' value='' class='filter' data-column-index='0'> </div>
+                       
+                
                     <br>
-                     <div>
+                   
                         <label>Usuario :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'>
-                    </div>
+                       <div>  <input type='text' value='' class='filter' data-column-index='1'> </div>
+                   
                     <br>
-                     <div>
+                     
                         <label>DNI :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                    </div>
+                        <div> <input type='text' value='' class='filter' data-column-index='2'> </div>
+                    
                     <br>
-                    <div>
+                  
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'>
-                    </div>
+                        <div> <input type='text' value='' class='filter' data-column-index='3'> </div>
+                  
                   </div>
                 </form>
-
 
 
                   <table id="reg_rech"  >
@@ -76,9 +76,15 @@
                             <td>  <?php  echo "$ep->dni"; ?></td>
                             <td>  <?php  echo "$ep->matricula"; ?></td>
 
+                          
                             <td>
-                            <button  type="button" class="btn btn-danger">Eliminar</button>
+                            
+                             <button   type="button"   class="btn btn-warning" data-toggle="modal"onclick="detalles(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
+                        
+                          <button   type="button"   class="btn btn-danger" data-toggle="modal"  onclick="guardar_esc(<?php echo "$ep->idEscribano"; ?>)" href="#Eliminar" >Eliminar </button> 
                             </td>
+                           
+                          </tr>
                            
                           </tr>
 
@@ -102,7 +108,7 @@
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                            "sEmptyTable":     "Ningún escribano con solicitud rechazada",
                             "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -135,13 +141,32 @@
                     }); 
 
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('reg_pen_filter').style.display='none';
+                      document.getElementById('reg_rech_filter').style.display='none';
 
                       $(document.body).animate({opacity: 0.3}, 400);
                       $("html, body").animate({ scrollTop: 0 }, 400);
                       $(document.body).animate({opacity: 1}, 400);   
                     } );
 
+                      idEscribano='';
+                   function guardar_esc(idEscr){
+                      idEscribano=idEscr;
+                      console.log(idEscribano);
+                   }
+
+                    //Función de detalles
+                      function detalles( idEscribano){
+                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_esc").html(data);
+            });
+                  }
+                  //eliminar escribano de la bd
+
+                   function eliminar( ){
+                    $.post("<?=base_url()?>index.php/c_loginop/eliminar_esc",{idEscribano:idEscribano}, function(data){
+                     
+            });
+                  }
 
 
          </script>
