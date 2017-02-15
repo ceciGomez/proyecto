@@ -96,8 +96,8 @@ class C_loginop extends CI_Controller {
 			redirect(base_url().'index.php/c_login');
 		}
 
-		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'a'))->result();
-		$data['esc_pen']=$esc_pen;
+		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'a'))->result();
+		$data['esc_apro']=$esc_apro;
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/operador_menu',$data);
@@ -111,8 +111,8 @@ class C_loginop extends CI_Controller {
 			redirect(base_url().'index.php/c_login');
 		}
 
-		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'r'))->result();
-		$data['esc_pen']=$esc_pen;
+		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'r'))->result();
+		$data['esc_rech']=$esc_rech;
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera',$data);
 		$this->load->view('templates/operador_menu',$data);

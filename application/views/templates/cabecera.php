@@ -9,6 +9,16 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
 
+   <style type="text/css">
+                     .modal-header{
+                        background-color:#222d32;
+                          }
+                          .modal-content {
+                        overflow:hidden;
+                          }
+   </style>
+
+
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">

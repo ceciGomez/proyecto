@@ -27,29 +27,24 @@
 
               <h3 class="box-title">Usuarios Pendientes de Aprobación</h3>
 
-               <form >
-                    <h3>Filtrar lista</h3>
-                    <br>
-                     <div class="form-group">
+              
+                <div class="form-group">
                     
                         <label>Nombre y Apellido :</label>
-                       <div><input type='text' value='' class='filter' data-column-index='0'> </div>
-                       
+                      <input type='text' value='' class='filter' data-column-index='0'> 
                 
-                    <br>
-                   
+                                      
                         <label>Usuario :</label>
-                       <div>  <input type='text' value='' class='filter' data-column-index='1'> </div>
+                        <input type='text' value='' class='filter' data-column-index='1'>
                    
-                    <br>
-                     
+                      
                         <label>DNI :</label>
-                        <div> <input type='text' value='' class='filter' data-column-index='2'> </div>
+                         <input type='text' value='' class='filter' data-column-index='2'> 
                     
-                    <br>
+                    
                   
                         <label>Matricula :</label>
-                        <div> <input type='text' value='' class='filter' data-column-index='3'> </div>
+                        <input type='text' value='' class='filter' data-column-index='3'> 
                   
                   </div>
                 </form>
@@ -78,11 +73,13 @@
                             <td>  <?php  echo "$ep->dni"; ?></td>
                             <td>  <?php  echo "$ep->matricula"; ?></td>
 
-                            <td>
-                            <button   type="button"   class="btn btn-warning" data-toggle="modal"  onclick="detalles(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
-
-                            <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="guardar_esc(<?php echo "$ep->idEscribano"; ?>)" href="#Aceptar"> Aceptar</button>
-                            <button  type="button"  class="btn btn-danger" onclick="guardar_esc(<?php echo "$ep->idEscribano"; ?>)" data-toggle="modal" href="#Rechazar">Rechazar</button>
+                           <td>
+                            
+                            <button   type="button"   class="btn btn-warning" data-toggle="modal"  onclick="ventana_det(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
+ 
+                            <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_acep(<?php echo "$ep->idEscribano"; ?>)" href="#Aceptar"> Aceptar</button>
+                            
+                            <button  type="button"  class="btn btn-danger" onclick="ventana_rech(<?php echo "$ep->idEscribano"; ?>)" data-toggle="modal" href="#Rechazar">Rechazar</button>
                             </td>
                            
                           </tr>
@@ -100,7 +97,7 @@
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title">Detalles</h3>
+                                  <h3 class="modal-title" style="color:white" >Detalles</h3>
                                  </div>
                                  <div class="modal-body">
                                           <table class="table"  >
@@ -135,11 +132,27 @@
                       <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title">Aceptar/h3>
+                          <h3 class="modal-title" style="color:white" >Aceptar Registración</h3>
                          </div>
                          <div class="modal-body">
-                          Confirmar aceptar solicitud de registracion del Escribano:
+                          <h3>Confirmar aceptar solicitud de registracion del Escribano:</h3>
+                              <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_acep" >
 
+                                              </tbody >
+                                            </table >
                          </div>
 
                          <div class="modal-footer">
@@ -156,10 +169,27 @@
                       <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title">Rechazar</h3>
+                          <h3 class="modal-title" style="color:white">Rechazar Registración</h3>
                          </div>
                          <div class="modal-body">
-                          Confirmar rechazar registración del Escribano
+                          <h3>Confirmar rechazar registración del Escribano</h3>
+                            <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_rech" >
+
+                                              </tbody >
+                                            </table >
                            <div>
                               <label style="display: block;">Ingrese motivo de rechazo :</label>
                                 <textarea id="motivoRechazo" rows="10" cols="100" ></textarea>
@@ -229,29 +259,38 @@
                       $(document.body).animate({opacity: 1}, 400);   
                   
                     } );
-                  idEscribano='';
-                   function guardar_esc(idEscr){
-                      idEscribano=idEscr;
-                      console.log(idEscribano);
-                   }
-
-                  function detalles( idEscribano){
+                  idEsc='';
+                  function ventana_det( idEscribano){
                     $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
             });
                   }
 
-                   function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_loginop/aceptar_esc",{idEscribano:idEscribano}, function(data){
-                     
+                  function ventana_acep( idEscribano){
+                    idEsc=idEscribano;
+                    
+                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_acep").html(data);
             });
-                      console.log(idEscribano);
                   }
 
+                  function ventana_rech( idEscribano){
+                    idEsc=idEscribano;
+                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_rech").html(data);
+            });
+                  }
+
+                   function aceptar( ){
+                    $.post("<?=base_url()?>index.php/c_loginop/aceptar_esc",{idEscribano:idEsc}, function(data){
+                     
+            });
+                  }
+                     
+
                    function rechazar( ){
-                       var motivoRechazo=document.getElementById('motivoRechazo').value;
-                       
-                    $.post("<?=base_url()?>index.php/c_loginop/rechazar_esc",{idEscribano:idEscribano,motivoRechazo:motivoRechazo}, function(data){
+                     var motivoRechazo=document.getElementById('motivoRechazo').value;
+                    $.post("<?=base_url()?>index.php/c_loginop/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
                       
             });
                   }
