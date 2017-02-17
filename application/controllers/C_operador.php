@@ -3,7 +3,7 @@
 /**
  * 
  */
-class C_loginop extends CI_Controller {
+class C_operador extends CI_Controller {
 	
 	public function __construct() {
 		parent::__construct();
@@ -14,10 +14,10 @@ class C_loginop extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_operador');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('home/operador',$data);
 		$this->load->view('templates/pie',$data);
@@ -27,14 +27,14 @@ class C_loginop extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_operador');
 		}
 
 		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'p'))->result();
 		$data['esc_pen']=$esc_pen;
 		
 		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('operador/registraciones_pendientes',$data);
 		$this->load->view('templates/pie',$data);
@@ -93,13 +93,13 @@ class C_loginop extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_operador');
 		}
 
 		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'a'))->result();
 		$data['esc_apro']=$esc_apro;
 		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('operador/registraciones_aprobadas',$data);
 		$this->load->view('templates/pie',$data);
@@ -108,13 +108,13 @@ class C_loginop extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_operador');
 		}
 
 		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'r'))->result();
 		$data['esc_rech']=$esc_rech;
 		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('operador/registraciones_rechazadas',$data);
 		$this->load->view('templates/pie',$data);
