@@ -26,7 +26,7 @@
             <div class="box-header">
               <i class="ion ion-clipboard"></i>
 
-              <h3 class="box-title">Tareas Pendientes</h3>
+              <h3 class="box-title">Tareas Pendientes para el administrador</h3>
 
               <div class="box-tools pull-right">
                 <ul class="pagination pagination-sm inline">

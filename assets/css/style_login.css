@@ -35,9 +35,28 @@ body {
 }
 .login h1 { color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.3); letter-spacing:1px; text-align:center; }
 
+label {
+color: #b3cccc; /* makes the text-black */
+}
+
+a {
+    color: #e0ebeb;
+    font-size: 12px;
+}
+
+a:hover,a:active,a:focus{
+	outline:none;
+	text-decoration:none;
+	color:#b3cccc
+}
+
+img {
+	margin-bottom: 30px;
+}
+
 input { 
 	width: 100%; 
-	margin-bottom: 10px; 
+	/*margin-bottom: 10px;*/ 
 	background: rgba(0,0,0,0.3);
 	border: none;
 	outline: none;
