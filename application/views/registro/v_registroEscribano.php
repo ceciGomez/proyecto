@@ -8,7 +8,15 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-    <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
+
+   <style type="text/css">
+                     .modal-header{
+                        background-color:#222d32;
+                          }
+                          .modal-content {
+                        overflow:hidden;
+                          }
+   </style>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
   <!-- Ionicons -->
@@ -18,8 +26,12 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="<?=base_url()?>assets/css/blue.css">
 
-
+  <!--Se requiere para la ventana modal -->
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+  
+  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
+
+  
 
   <script type="text/javascript">
 //funcion que solo permite numeros
@@ -65,7 +77,33 @@ $(document).ready(function(){
 </script>
 
 </head>
+
+
 <body class="hold-transition register-page" >
+
+                    <div class="modal" id="Registro">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h3 class="modal-title" style="color:white" >Registro Escribano</h3>
+                                 </div>
+                                 <div class="modal-body">
+                                         <?php if( $exito ==TRUE) { ?>
+                                          <div><img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > <h3> El escribano se registro exitosamente, solicitud pendiente de revisión.</h3></div>
+                                           <?php } else{ ?>
+                                           <div> <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > <label><h3>El escribano no se pudo registrar, compruebe que los campos de registración sean correctos.</h3></label></div>
+
+                                           <?php } ?>
+
+                                     </div>
+
+                                 <div class="modal-footer">
+                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                                 </div>
+                              </div>
+                            </div>
+                  </div>
 <div class="register-box">
   <div class="register-logo">
   <b>Registro</b>Escribano</a>
@@ -73,17 +111,11 @@ $(document).ready(function(){
 
   <div class="register-box-body">
     <p class="login-box-msg">Registrar nuevo Escribano</p>
-   <div align='center'>
-       <?php if( $exito ==TRUE) { ?>
-        <img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > El escribano se registro exitosamente, solicitud pendiente de revisión.
-        <?php } ?>
-        <br>
-    </div>
   
      <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
-          <form method="post">
+
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" placeholder="NOMBRE" name="nombre" <?php echo "value='$nombre'" ?> style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
+        <input type="text" class="form-control " placeholder="NOMBRE" name="nombre" <?php echo "value='$nombre'" ?> style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
           <div style="color:red;" ><p><?=form_error('nombre')?></p></div>
       </div>
        <div class="form-group has-feedback">
@@ -165,7 +197,7 @@ $(document).ready(function(){
         
         <!-- /.col -->
         <div class="col-xs-4">
-          <button type="submit" class="btn btn-primary btn-block btn-flat">Registrar</button>
+          <button type="submit" class="btn btn-primary btn-block btn-flat" data-toggle="modal" >Registrar</button>
         </div>
 
           <?=form_close()?>
@@ -282,7 +314,18 @@ $(document).ready(function(){
     $(".timepicker").timepicker({
       showInputs: false
     });
+
   });
+ 
+  //Script para que la modal aparezca cuando apenas abris
+     $(document).ready(function()
+   {
+      <?php if ($hizo_post) {  ?>
+      $("#Registro").modal("show");
+    <?php } ?>
+   });
+
+     
 </script>
 </body>
 </html>

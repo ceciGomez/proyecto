@@ -30,7 +30,7 @@ class C_operador extends CI_Controller {
 			redirect(base_url().'index.php/c_login_operador');
 		}
 
-		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'p'))->result();
+		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'P'))->result();
 		$data['esc_pen']=$esc_pen;
 		
 		$data['titulo'] = 'Bienvenido Operador';
@@ -58,7 +58,7 @@ class C_operador extends CI_Controller {
       public function aceptar_esc(){
       	$idEscribano=$_POST["idEscribano"];
       		$data = array(
-               'estadoAprobacion' => "a",
+               'estadoAprobacion' => "A",
               
             );
 
@@ -70,7 +70,7 @@ class C_operador extends CI_Controller {
       		$idEscribano=$_POST["idEscribano"];
       		$motivoRechazo=$_POST["motivoRechazo"];
       		$data = array(
-               'estadoAprobacion' => "r",
+               'estadoAprobacion' => "R",
               	'motivoRechazo' =>"$motivoRechazo"
             );
 
@@ -96,7 +96,7 @@ class C_operador extends CI_Controller {
 			redirect(base_url().'index.php/c_login_operador');
 		}
 
-		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'a'))->result();
+		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'A'))->result();
 		$data['esc_apro']=$esc_apro;
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_operador',$data);
@@ -111,7 +111,7 @@ class C_operador extends CI_Controller {
 			redirect(base_url().'index.php/c_login_operador');
 		}
 
-		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'r'))->result();
+		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'R'))->result();
 		$data['esc_rech']=$esc_rech;
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_operador',$data);

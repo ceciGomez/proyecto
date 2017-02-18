@@ -17,13 +17,14 @@ class C_registro extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index($exito=false)
+	public function index($exito=FALSE, $hizo_post=FALSE)
 	{	
 		//busco todas las provjncias
 		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
 	    $data['provincias'] = $this->db->get("provincia")->result();
 		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
-		if($this->input->post()){
+		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['nombre'] = $this->input->post('nombre');
 			$data['apellido']=$this->input->post('apellido');
@@ -58,7 +59,8 @@ class C_registro extends CI_Controller {
 	}
 
 	public function registro_esc()
-	{		
+	{			$hizo_post=TRUE;	
+
 				 $this->load->helper(array('form', 'url'));
 
 			    $this->form_validation->set_rules('nombre', 'nombre', 'required',array('required' => 'Debes ingresar una Nombre ') );
@@ -79,9 +81,9 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
 			   
-				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required',array('required' => 'Debes ingresar una contraseña ') );
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
 
 				$this->form_validation->set_rules('repecontraseña', 'repecontraseña','required|matches[contraseña]',array('required' => 'Debes ingresar una contraseña ', 'matches'=>'La contraseña no coincide') );
 		
@@ -89,7 +91,7 @@ class C_registro extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->index();
+				$this->index(FALSE,TRUE);
 			}else{
 				
 				$datos_usuarios= array (
@@ -103,15 +105,15 @@ class C_registro extends CI_Controller {
 					'usuario' => $this->input->post('usuario'),
 					'contraseña' => sha1($this->input->post('contraseña')), 
 					'direccion' =>$this->input->post('direccion'),
-					'estadoAprobacion'=>'p',
+					'estadoAprobacion'=>'P',
 					'motivoRechazo'=>'',
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				
 				$this->db->insert("usuarioescribano", $datos_usuarios);
-				$exito= TRUE; 
+				
 				$data['provincias'] = $this->db->get("provincia")->result();
-				$this->index($exito);
+				$this->index(TRUE,TRUE);
 			
 			}
 			/*
