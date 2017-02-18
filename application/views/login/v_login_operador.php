@@ -2,7 +2,7 @@
 <html >
 <head>
   <meta charset="UTF-8">
-  <title>Login Form</title>
+  <title>Login Operador</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -13,24 +13,24 @@
 </head>
 
 <?php
-$username = array('name' => 'username', 'placeholder' => 'Usuario');
-$password = array('name' => 'password',	'placeholder' => 'Contraseña');
+$usuario = array('name' => 'usuario', 'placeholder' => 'Usuario');
+$contraseña = array('name' => 'contraseña',	'placeholder' => 'Contraseña');
 $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'Iniciar sesión');
 ?>
 
 <body>
   <div class="login">
-	<img src="<?php echo base_url('images/logo.png'); ?>" />
-		<?=form_open(base_url().'index.php/c_login/new_user')?>
+	<img src="<?php echo base_url('images/logo_operador.png'); ?>" />
+		<?=form_open(base_url().'index.php/c_login_operador/new_user')?>
     <form method="post">
     	<!-- <input type="text" name="u" placeholder="Usuario" required="required" />
         <input type="password" name="p" placeholder="Contraseña" required="required" />
         <button type="submit" class="btn btn-primary btn-block btn-large">Ingresar.</button> -->
-					<?=form_open(base_url().'index.php/c_login/new_user')?>
-					<label for="username">Usuario:</label>
-					<?=form_input($username)?><p><?=form_error('username')?></p>
-					<label for="password">Contraseña:</label>
-					<?=form_password($password)?><p><?=form_error('password')?></p>
+					<?=form_open(base_url().'index.php/c_login_operador/new_user')?>
+					<label for="usuario">Usuario:</label>
+					<?=form_input($usuario)?><p><?=form_error('usuario')?></p>
+					<label for="contraseña">Contraseña:</label>
+					<?=form_password($contraseña)?><p><?=form_error('contraseña')?></p>
 					<?=form_hidden('token',$token)?>
 					<button type="submit" class="btn btn-primary btn-block btn-large"><?=form_submit($submit)?></button>
 					<?=form_close()?>

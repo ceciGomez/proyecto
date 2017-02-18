@@ -27,31 +27,28 @@
 
               <h3 class="box-title">Usuarios Aprobados</h3>
 
-               <form >
-                    <h3>Filtrar lista</h3>
-                    <br>
-                     <div class="form-group">
-                    <div>
+                <div class="form-group">
+                    
                         <label>Nombre y Apellido :</label>
-                        <input type='text' value='' class='filter' data-column-index='0'>
-                    </div>
-                    <br>
-                     <div>
+                      <input type='text' value='' class='filter' data-column-index='0'> 
+                
+                                      
                         <label>Usuario :</label>
                         <input type='text' value='' class='filter' data-column-index='1'>
-                    </div>
-                    <br>
-                     <div>
+                   
+                      
                         <label>DNI :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                    </div>
-                    <br>
-                    <div>
+                         <input type='text' value='' class='filter' data-column-index='2'> 
+                    
+                    
+                  
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'>
-                    </div>
+                        <input type='text' value='' class='filter' data-column-index='3'> 
+                  
                   </div>
                 </form>
+                <br>
+                <br>
 
 
 
@@ -67,7 +64,7 @@
                         </thead>
 
                         <tbody >
-                            <?php  foreach ($esc_pen as $ep){ 
+                            <?php  foreach ($esc_apro as $ep){ 
                          ?>
                       
                           <tr>
@@ -76,10 +73,12 @@
                             <td>  <?php  echo "$ep->dni"; ?></td>
                             <td>  <?php  echo "$ep->matricula"; ?></td>
 
+                           
                             <td>
                             
-                            <button type="button" class="btn btn-success"> Modificar</button>
-                            <button  type="button" class="btn btn-danger">Eliminar</button>
+                             <button   type="button"   class="btn btn-warning" data-toggle="modal"onclick="ventana_det(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
+                        
+                          <button   type="button"   class="btn btn-danger" data-toggle="modal"  onclick="ventana_eli(<?php echo "$ep->idEscribano"; ?>)" href="#Eliminar" >Eliminar </button> 
                             </td>
                            
                           </tr>
@@ -90,6 +89,81 @@
                        
                         </tbody>
                  </table>
+
+
+                         <div class="modal" id="Detalles">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
+                                 </div>
+                                 <div class="modal-body">
+                                          <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_esc" >
+
+                                              </tbody >
+                                            </table >
+                                     </div>
+
+                                 <div class="modal-footer">
+                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+
+          
+
+                <div class="modal" id="Eliminar">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar eliminar escribano de la Base de Datos</h3>
+                         <br>
+                          <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_eli" >
+
+                                              </tbody >
+                                            </table >
+                         </div>
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary" onclick="eliminar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+
 
                   <script type="text/javascript">
 
@@ -104,7 +178,7 @@
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún dato disponible en esta tabla",
+                            "sEmptyTable":     "Ningún escribano con solicitud aprobada",
                             "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -137,7 +211,7 @@
                     }); 
 
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('reg_pen_filter').style.display='none';
+                      document.getElementById('reg_apro_filter').style.display='none';
                       
                       $(document.body).animate({opacity: 0.3}, 400);
                       $("html, body").animate({ scrollTop: 0 }, 400);
@@ -145,6 +219,27 @@
                     } );
 
 
+                    idEsc='';
+                   function ventana_eli (idEscribano){
+                      idEsc=idEscribano;
+                      $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_eli").html(data);
+                   }
+                    )};
+
+                    //Función de detalles
+                      function ventana_det( idEscribano){
+                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_esc").html(data);
+            });
+                        }
+                  //eliminar escribano de la bd
+
+                   function eliminar( ){
+                    $.post("<?=base_url()?>index.php/c_loginop/eliminar_esc",{idEscribano:idEsc}, function(data){
+                     
+            });
+                  }
 
          </script>
 

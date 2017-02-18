@@ -9,17 +9,26 @@ class C_escribano extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index($param="")
-	{	
-			
-		$this->CrearMinuta();
-	}
-
+	
+	public function index()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+		$data['titulo'] = 'Bienvenido Escribano';
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('home/escri',$data);
+		$this->load->view('templates/pie',$data);
+		//$this->CrearMinuta();
+	}	
+		
 	public function CrearMinuta()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["provincias"] = $this->M_direccion->getProvincias();
@@ -27,7 +36,7 @@ class C_escribano extends CI_Controller {
 		//$data["localidades"] = $this->M_direccion->getLocalidades();
 
 
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/parcela',$data);
 		$this->load->view('templates/pie',$data);
@@ -153,10 +162,10 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
 		$this->load->view('templates/pie',$data);
@@ -166,10 +175,10 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/minuta',$data);
 		$this->load->view('templates/pie',$data);
@@ -179,12 +188,12 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minutas"] = $this->M_escribano->getMinutas();
 
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verMinutas',$data);
 		$this->load->view('templates/pie',$data);
@@ -193,10 +202,10 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/editarMinuta',$data);
 		$this->load->view('templates/pie',$data);
@@ -205,7 +214,7 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
@@ -214,7 +223,7 @@ class C_escribano extends CI_Controller {
 		$idMinuta = $data["minuta"][0]->idMinuta;
 		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
 		//var_dump($data["parcelas"]);
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verUnaMinuta',$data);
 		$this->load->view('templates/pie',$data);
@@ -223,10 +232,10 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verPropietarios',$data);
 		$this->load->view('templates/pie',$data);
@@ -236,7 +245,7 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
@@ -244,7 +253,7 @@ class C_escribano extends CI_Controller {
 		$data["unEscribano"] = $this->M_escribano->getUnEscribano($idEscribano);
 		$idMinuta = $data["minuta"][0]->idMinuta;
 		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
-		$this->load->view('templates/cabecera',$data);
+		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/imprimirMinuta',$data);
 		$this->load->view('templates/pie',$data);
