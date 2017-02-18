@@ -67,11 +67,11 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('apellido', 'apellido', 'required',array('required' => 'Debes ingresar un apellido ') );
 
-			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[usuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[usuarioescribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
-			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[usuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
+			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[usuarioescribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
-			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[usuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[usuarioescribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
 
 			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
 
@@ -81,11 +81,11 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
 			   
+
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
 			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
 
-				$this->form_validation->set_rules('repecontraseña', 'repecontraseña','required|matches[contraseña]',array('required' => 'Debes ingresar una contraseña ', 'matches'=>'La contraseña no coincide') );
 		
 		
 			if($this->form_validation->run() == FALSE)
