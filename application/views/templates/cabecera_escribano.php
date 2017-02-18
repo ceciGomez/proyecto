@@ -7,7 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
+
 
    <style type="text/css">
                      .modal-header{
@@ -42,7 +43,6 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css" />
 
     <script src="<?=base_url()?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
