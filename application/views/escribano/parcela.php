@@ -30,54 +30,54 @@
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
-                      <?=form_open(base_url().'index.php/c_registro/registro_esc')?>
+                      <?=form_open(base_url().'index.php/c_escribano/registro_parcela')?>
                      <form role="form">
                         <div class="box-body">
                            <div class="form-group">
                               <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Circunscripción" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" placeholder="Circunscripción" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Sección</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" onkeyup="changeToUpperCase(this)" placeholder="Sección" maxlength="1">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="seccion" onkeyup="changeToUpperCase(this)" placeholder="Sección" maxlength="1">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Chacra</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Chacra" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="chacra" placeholder="Chacra" onKeyDown="limitText(this,8);">
                                  </div>
                              
                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quinta</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Quinta" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="quinta" placeholder="Quinta" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Fracción" pattern="![^a-zA-Z0-9]">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" placeholder="Fracción" pattern="![^a-zA-Z0-9]">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Manzana</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Manzana">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" placeholder="Manzana">
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Parcela">
+                                    <label for="exampleInputEmail1">Parcela</label>parcela
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="" placeholder="Parcela">
                                  </div>
                               
                               
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Superficie">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="superficie" placeholder="Superficie">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Partida" onKeyDown="limitText(this,8);">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="partida" placeholder="Partida" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Plano Aprobado</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="22/222/22 - 22/222/RE">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="planoAprobado" placeholder="22/222/22 - 22/222/RE">
                                  </div>
                                      <div class="form-group col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
@@ -89,7 +89,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label>Tipo de Propiedad</label>
-                                    <select class="form-control select2" style="width: 100%;">
+                                    <select class="form-control select2" name="tipoPropiedad" style="width: 100%;">
                                        <option selected="selected">Urbano</option>
                                        <option>Urbano</option>
                                        <option>Rural</option>
@@ -98,26 +98,26 @@
                              
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Tomo</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Tomo" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="tomo" placeholder="Tomo" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Folio</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Folio" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="folio" placeholder="Folio" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Finca</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Finca" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="finca" placeholder="Finca" onKeyDown="limitText(this,8);">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Año">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" año placeholder="Año">
                                  </div>
                                
                              
                               
                                  <div class="col-md-3">
                                     <label>Localidad</label>
-                                    <select class="form-control select2" style="width: 100%;">
+                                    <select class="form-control select2" name="localidad" style="width: 100%;">
                                        <option selected="selected">Resistencia</option>
                                        <option>Barranqueras</option>
                                        <option>Saenz Peña</option>
@@ -125,11 +125,11 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Descripción de la Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Descripción de la Parcela">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="descripcionParcela" placeholder="Descripción de la Parcela">
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Matrícula RPI</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Matrícula RPI">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="matriculaRpi" placeholder="Matrícula RPI">
                                  </div>
                                  <div class="form-group col-md-3">
                                     <label>Fecha de Matricula:</label>

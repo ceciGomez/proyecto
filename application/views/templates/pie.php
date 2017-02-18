@@ -2,7 +2,7 @@
    <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
    </div>
-   <strong>Copyright &copy; 2016 <a> Grupo Catastrofe</a> </strong>
+   <strong>Copyright &copy; 2016 <a> Grupo Catastro</a> </strong>
    <p>Sistema desarrollado para la materia "Proyecto" - Ing. en Sistemas de Información</p>
    <p><strong>Universidad Tecnológica Nacional </strong>- Facultad Regional Resistencia</p>
 </footer>
