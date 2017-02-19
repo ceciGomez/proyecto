@@ -153,7 +153,7 @@
             </div>
             <!-- /.row -->
          </div>
-  
+  </div>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>
@@ -256,12 +256,7 @@
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
-		<script language="javascript"><!--
-
- 		 
-		}
--->
-		</script>
+		
 		<script language="javascript">
 <!--
 
@@ -275,7 +270,7 @@
 		</script>
 		<!--Valida el porcentaje-->
 
-		}
+		
 		</script>
 		<!--Valida el porentaje-->
 
