@@ -24,7 +24,7 @@ class C_escribano extends CI_Controller {
 		//$this->CrearMinuta();
 	}	
 		
-	public function CrearMinuta()
+	public function CrearMinuta($exito=FALSE, $hizo_post=FALSE)
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
@@ -32,8 +32,50 @@ class C_escribano extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["provincias"] = $this->M_direccion->getProvincias();
-		//$data["departamentos"] = $this->M_direccion->getDepartamentos();
-		//$data["localidades"] = $this->M_direccion->getLocalidades();
+
+		if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['circunscripcion'] = $this->input->post('circunscripcion');
+			$data['seccion']=$this->input->post('seccion');
+			$data['chacra'] = $this->input->post('chacra');
+			$data['quinta'] = $this->input->post('quinta');
+			$data['fraccion'] = $this->input->post('fraccion');
+			$data['manzana'] =(integer)$this->input->post('manzana');
+			$data['parcela'] = $this->input->post('parcela');
+			$data['planoAprobado'] = $this->input->post('planoAprobado');			
+			$data['fechaPA'] = $this->input->post('fechaPA');
+			$data['tipoPropiedad'] = $this->input->post('tipoPropiedad');
+			$data['tomo'] = $this->input->post('tomo');
+			$data['folio'] = $this->input->post('folio');
+			$data['finca'] = $this->input->post('finca');
+			$data['año'] = $this->input->post('año');
+			$data['localidad'] = $this->input->post('localidad');
+			$data['descripcionParcela'] = $this->input->post('descripcionParcela');
+			$data['matriculaRpi'] = $this->input->post('matriculaRpi');
+			$data['fechaM'] = $this->input->post('fechaM');
+		
+
+		}else{
+			$data['circunscripcion']='';
+			$data['seccion']='';
+			$data['chacra']='';
+			$data{'quinta'}='';
+			$data{'fraccion'}='';
+			$data{'manzana'}='';
+			$data{'parcela'}='';
+			$data{'planoAprobado'}='';
+			$data{'fechaPA'}='';
+			$data{'tipoPropiedad'}='';
+			$data{'tomo'}='';
+			$data{'folio'}='';
+			$data{'finca'}='';
+			$data{'año'}='';
+			$data{'localidad'}='';
+			$data{'descripcionParcela'}='';
+			$data{'matriculaRpi'}='';
+			$data{'fechaM'}='';
+
+		}
 
 
 		$this->load->view('templates/cabecera_escribano',$data);
@@ -42,15 +84,19 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
-	public function registro_parcela()
-	{		
+	public function registro_parcela()	{
+
+				$hizo_post=TRUE;	
+
 				 $this->load->helper(array('form', 'url'));
+
+				 $localidad = $this->input->post('localidad');
 
 			    $this->form_validation->set_rules('circunscripcion', 'circunscripcion', 'required',array('required' => 'Debes ingresar una circunscripcion ') );
 
 			    $this->form_validation->set_rules('seccion', 'seccion', 'required',array('required' => 'Debes ingresar una sección ') );
 
-			    $this->form_validation->set_rules('chacra', 'chacra', 'required|is_unique[usuarioEscribano.dni]',array('required' => 'Debes ingresar una chacra ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+			    $this->form_validation->set_rules('chacra', 'chacra', 'required',array('required' => 'Debes ingresar una chacra ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
 			    $this->form_validation->set_rules('quinta', 'quinta', 'required|is_unique[usuarioEscribano.matricula]',array('required' => 'Debes ingresar una quinta ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
@@ -68,7 +114,7 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('fechaPA', 'fechaPA', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
-				$this->form_validation->set_rules('tipoPropiedad', 'tipoPropiedad','required|matches[contraseña]',array('required' => 'Debes ingresar un tipo de propiedad ', 'matches'=>'La contraseña no coincide') );
+				$this->form_validation->set_rules('tipoPropiedad', 'tipoPropiedad','required',array('required' => 'Debes ingresar un tipo de propiedad ') );
 
 				$this->form_validation->set_rules('tomo', 'tomo', 'required',array('required' => 'Debes ingresar un tomo') );
 
@@ -78,7 +124,7 @@ class C_escribano extends CI_Controller {
 
 				$this->form_validation->set_rules('año', 'año', 'required',array('required' => 'Debes ingresar un año ') );
 
-				$this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes ingresar una localidad ') );
+				$this->form_validation->set_rules('localidad', 'localidad', 'required|callback_select_validate');
 
 				$this->form_validation->set_rules('descripcionParcela', 'descripcionParcela', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
@@ -90,10 +136,10 @@ class C_escribano extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->index();
+				$this->CrearMinuta(FALSE,TRUE);
 			}else{
 				
-				$datos_usuarios= array (
+				$datos_parcela= array (
 					'circunscripcion' => $this->input->post('circunscripcion'),
 					'seccion' => $this->input->post('seccion'),
 					'chacra' => $this->input->post('chacra'),
@@ -117,7 +163,7 @@ class C_escribano extends CI_Controller {
 					''=>'',
 				);
 				
-				$this->db->insert("usuarioEscribano", $datos_usuarios);
+				$this->db->insert("parcela", $datos_parcela);
 				$exito= TRUE; 
 				$data['provincias'] = $this->db->get("Provincia")->result();
 				$this->index($exito);
@@ -125,6 +171,14 @@ class C_escribano extends CI_Controller {
 			}
 		
 		}
+
+		function select_validate($abcd)
+{
+// 'none' is the first option that is default "-------Choose City-------"
+if($localidad==""){
+$this->form_validation->set_message('select_validate', 'Debes seleccionar una Localidad');
+return false;
+} }
 
 		public function departamento()
 	{
