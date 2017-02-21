@@ -220,21 +220,21 @@
                     idEsc='';
                    function ventana_eli (idEscribano){
                       idEsc=idEscribano;
-                      $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_eli").html(data);
                    }
                     )};
 
                     //Función de detalles
                       function ventana_det( idEscribano){
-                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
             });
                         }
                   //eliminar escribano de la bd
 
                    function eliminar( ){
-                    $.post("<?=base_url()?>index.php/c_loginop/eliminar_esc",{idEscribano:idEsc}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/eliminar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }
