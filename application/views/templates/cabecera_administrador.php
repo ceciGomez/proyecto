@@ -69,7 +69,7 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>SIRMi</span>
+      <span class="logo-mini"><b>S</b>irmi</span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>SIRMi</b>
       </span>
@@ -146,7 +146,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"> <?php echo $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -154,8 +154,8 @@
                 <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - [PERFIL]
-                  <small>Miembro desde Nov. 2012</small>
+                  <?php echo $this->session->userdata('nomyap') ?> - [<?php echo $this->session->userdata('perfil') ?>]
+                  <small>Miembro desde  <?php echo $this->session->userdata('fechaReg') ?></small>
                 </p>
               </li>
              
