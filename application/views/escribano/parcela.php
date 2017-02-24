@@ -37,46 +37,46 @@
                               <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" placeholder="Circunscripción" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('circunscripcion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Sección</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="seccion" onkeyup="changeToUpperCase(this)" placeholder="Sección" maxlength="1">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="seccion" <?php echo "value='$seccion'" ?>  onkeyup="changeToUpperCase(this)" placeholder="Sección" maxlength="1">
                                     <div style="color:red;" ><p><?=form_error('seccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Chacra</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="chacra" placeholder="Chacra" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="chacra" <?php echo "value='$chacra'" ?> placeholder="Chacra" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('chacra')?></p></div>
                                  </div>
                              
                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quinta</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="quinta" placeholder="Quinta" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="quinta" <?php echo "value='$quinta'" ?> placeholder="Quinta" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('quinta')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" placeholder="Fracción" pattern="![^a-zA-Z0-9]">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" <?php echo "value='$fraccion'" ?> placeholder="Fracción" pattern="![^a-zA-Z0-9]">
                                     <div style="color:red;" ><p><?=form_error('fraccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Manzana</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" placeholder="Manzana">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" <?php echo "value='$manzana'" ?> placeholder="Manzana">
                                     <div style="color:red;" ><p><?=form_error('manzana')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Parcela</label>parcela
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="" placeholder="Parcela">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" <?php echo "value='$parcela'" ?> placeholder="Parcela">
                                     <div style="color:red;" ><p><?=form_error('parcela')?></p></div>
                                  </div>
                               
                               
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="superficie" placeholder="Superficie">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="superficie" <?php echo "value='$parcela'" ?> placeholder="Superficie">
                                     <div style="color:red;" ><p><?=form_error('superficie')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -86,21 +86,21 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Plano Aprobado</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="planoAprobado" placeholder="22/222/22 - 22/222/RE">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22 - 22/222/RE">
                                     <div style="color:red;" ><p><?=form_error('planoAprobado')?></p></div>
                                  </div>
                                      <div class="form-group col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                       <input type="text" class="form-control pull-right" name="fechaPA" id="fechaPA">                                       
+                                       <input type="text" class="form-control pull-right" name="fechaPA" <?php echo "value='$fechaPA'" ?> id="fechaPA">                                       
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaPA')?></p></div>
                                     <!-- /.input group -->
                                  </div>
                                  <div class="col-md-3">
                                     <label>Tipo de Propiedad</label>
-                                    <select class="form-control select2" name="tipoPropiedad" style="width: 100%;">
+                                    <select class="form-control select2" name="tipoPropiedad" <?php echo "value='$tipoPropiedad'" ?> style="width: 100%;">
                                        <option selected="selected">Urbano</option>
                                        <option>Urbano</option>
                                        <option>Rural</option>
@@ -110,28 +110,28 @@
                              
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Tomo</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="tomo" placeholder="Tomo" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="tomo" <?php echo "value='$tomo'" ?> placeholder="Tomo" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('tomo')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Folio</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="folio" placeholder="Folio" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="folio" <?php echo "value='$folio'" ?> placeholder="Folio" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('folio')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Finca</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="finca" placeholder="Finca" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" name="finca" <?php echo "value='$finca'" ?> placeholder="Finca" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('finca')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" año placeholder="Año">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="año" <?php echo "value='$año'" ?> placeholder="Año">
                                     <div style="color:red;" ><p><?=form_error('año')?></p></div>
                                  </div>                              
                                                         
                                  <div class="col-md-3">
                                     <label>Localidad</label>
-                                    <select class="form-control select2" name="localidad" style="width: 100%;">
+                                    <select class="form-control select2" name="localidad" <?php echo "value='$localidad'" ?> style="width: 100%;">
                                        <option value="">Localidad</option>
                                        <option value="1">Resistencia</option>
                                        <option>Barranqueras</option>
@@ -141,12 +141,12 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Descripción de la Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="descripcionParcela" placeholder="Descripción de la Parcela">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="descripcionParcela" <?php echo "value='$descripcionParcela'" ?> placeholder="Descripción de la Parcela">
                                     <div style="color:red;" ><p><?=form_error('descripcionParcela')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Matrícula RPI</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="matriculaRpi" placeholder="Matrícula RPI">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="matriculaRpi" <?php echo "value='$matriculaRpi'" ?> placeholder="Matrícula RPI">
                                     <div style="color:red;" ><p><?=form_error('matriculaRpi')?></p></div>
                                  </div>
                                  <div class="form-group col-md-3">
@@ -155,7 +155,7 @@
                                        <div class="input-group-addon">
                                           <i class="fa fa-calendar"></i>
                                        </div>
-                                       <input type="text" class="form-control pull-right" name="fechaM" id="fechaM">
+                                       <input type="text" class="form-control pull-right" name="fechaM" <?php echo "value='$fechaM'" ?> id="fechaM">
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaM')?></p></div>
                                     <!-- /.input group -->

@@ -30,6 +30,8 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["provincias"] = $this->M_direccion->getProvincias();
 
@@ -98,9 +100,9 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('chacra', 'chacra', 'required',array('required' => 'Debes ingresar una chacra ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
-			    $this->form_validation->set_rules('quinta', 'quinta', 'required|is_unique[usuarioEscribano.matricula]',array('required' => 'Debes ingresar una quinta ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
+			    $this->form_validation->set_rules('quinta', 'quinta', 'required',array('required' => 'Debes ingresar una quinta ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
-			    $this->form_validation->set_rules('fraccion', 'fraccion', 'required|is_unique[usuarioEscribano.email]',array('required' => 'Debes ingresar una fracción ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+			    $this->form_validation->set_rules('fraccion', 'fraccion', 'required',array('required' => 'Debes ingresar una fracción ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
 
 			    $this->form_validation->set_rules('manzana', 'manzana', 'required',array('required' => 'Debes ingresar una manzana ') );
 
@@ -110,7 +112,7 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('partida', 'partida', 'required',array('required' => 'Debes ingresar una partida ') );
 			   
-				 $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required|is_unique[usuarioEscribano.usuario]',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+				 $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
 			    $this->form_validation->set_rules('fechaPA', 'fechaPA', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
@@ -124,7 +126,9 @@ class C_escribano extends CI_Controller {
 
 				$this->form_validation->set_rules('año', 'año', 'required',array('required' => 'Debes ingresar un año ') );
 
-				$this->form_validation->set_rules('localidad', 'localidad', 'required|callback_select_validate');
+				$this->form_validation->set_rules('localidad','localidad','required|callback_check_default');
+
+  				$this->form_validation->set_message('check_default', 'Debes seleccionar una Localidad');
 
 				$this->form_validation->set_rules('descripcionParcela', 'descripcionParcela', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
@@ -172,13 +176,10 @@ class C_escribano extends CI_Controller {
 		
 		}
 
-		function select_validate($abcd)
+	function check_default()
 {
-// 'none' is the first option that is default "-------Choose City-------"
-if($localidad==""){
-$this->form_validation->set_message('select_validate', 'Debes seleccionar una Localidad');
-return false;
-} }
+  return $post_string == '0' ? FALSE : TRUE;
+}
 
 		public function departamento()
 	{
