@@ -59,7 +59,7 @@
                 </form>
 
 
-
+                <div class="box-body table-responsive no-padding"> 
                   <table id="reg_pen" class="table-bordered" style="display: none"  >
                         <thead>
                           <tr>
@@ -104,7 +104,7 @@
                        
                         </tbody>
                  </table>
-
+                </div>
         
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">

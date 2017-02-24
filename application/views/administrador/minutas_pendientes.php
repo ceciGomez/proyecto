@@ -4,11 +4,11 @@
     <section class="content-header">
       <h1>
         
-        <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
+        <small>Bienvenido Administrador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Operador</li>
+        <li class="active">Administrador</li>
       </ol>
     </section>
 
@@ -52,7 +52,7 @@
                 </form>
                 <br><br>
 
-                <div>
+                 <div class="box-body table-responsive no-padding">   
                   <table id="min_pen"  class="table-bordered" style="display: none">
                         <thead>
                           <tr>
@@ -266,33 +266,33 @@
 
 
                      function ventana_escribano( idEscribano){
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
             });
                         }
 
                     idEstMin=''
                     function ventana_det(idMinuta){
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#det").html(data);
             });
                   }
                    function ventana_acep(idMinuta,idEstadoMinuta){
                     idEstMin=idEstadoMinuta;
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#acep_min").html(data);
             });
                   }
 
              function ventana_rech(idMinuta,idEstadoMinuta){
                    idEstMin=idEstadoMinuta;
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                    $.post("<?=base_url()?>index.php/c_adminstrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#rech_min").html(data);
             });
                   }
 
                function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_operador/aceptar_min",{idEstadoMinuta:idEstMin}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_min",{idEstadoMinuta:idEstMin}, function(data){
                      
             });
                   }
@@ -300,7 +300,7 @@
 
                    function rechazar( ){
                      var motivoRechazo=document.getElementById('motivoRechazo').value;
-                    $.post("<?=base_url()?>index.php/c_operador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo}, function(data){
                       
             });
                   }

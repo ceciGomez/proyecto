@@ -60,7 +60,7 @@
                 <br>
 
 
-
+                <div class="box-body table-responsive no-padding"> 
                   <table id="reg_apro" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
@@ -102,6 +102,7 @@
                        
                         </tbody>
                  </table>
+                </div>
 
 
                          <div class="modal" id="Detalles">

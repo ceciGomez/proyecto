@@ -4,11 +4,11 @@
     <section class="content-header">
        <h1>
         
-        <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
+        <small>Bienvenido Administrador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Operador</li>
+        <li class="active">Administrador</li>
       </ol>
     </section>
 
@@ -53,8 +53,8 @@
                 </form>
 
 
-
-                  <table id="min" class="table-bordered" style="display: none" >
+                   <div class="box-body table-responsive no-padding">               
+                         <table id="min" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
                           <th>Fecha Ingreso al Sistema</th>
@@ -101,6 +101,8 @@
                        
                         </tbody>
                  </table>
+                 </div>
+
                          <div class="modal" id="Escribano">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
