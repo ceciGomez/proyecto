@@ -60,7 +60,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-
+                        <input type="text" class="form-control" id="cuil" placeholder="CUIL" disabled >
                      </div>
                   </div>
                   <div class="form-group">
