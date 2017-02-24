@@ -104,6 +104,60 @@ class C_administrador extends CI_Controller {
 			redirect('','refresh');
 		}
 	}
+
+	public function eliminar_operador(){
+      	$idUsuario=$_POST["idUsuario"];
+      		
+
+		$this->db->where('idUsuario', $idUsuario);
+		$this->db->delete('usuariosys'); 
+
+      }
+
+
+
+
+
+		public function departamento()
+	{
+		$id_prov=$_POST["miprovincia"];
+		
+		//$departamentos=$this->db->get("departamento")->result();
+	   	
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
+	
+		
+		foreach ($departamentos as $d ) {
+				
+				echo"<option value='$d->idDepartamento'>$d->nombre</option>";
+			
+		}
+	}
+
+		public function mostrarLocalidad()
+	{
+		$id_prov=$_POST["miprovincia"];
+	
+		/*$this->db->select('SELECT L.idLocalidad, L.nombre FROM Departamento D JOIN Localidad L ON D.idDepartamento= L.idLocalidad WHERE D.idProvincia=$id_prov');
+		$localidades = $this->db->get()->result();  
+		//$departamentos=$this->db->get("departamento")->result();*/
+		$localidades=array();
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
+	   	foreach ($departamentos as $d ) {
+	   		$loc=$this->db->get_where('localidad', array('idDepartamento'=>$d->idDepartamento))->result();
+	   		$resg=$localidades;
+	   		$localidades=array_merge($resg,$loc);
+	   		
+	   	}
+	   	
+		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
+		foreach ($localidades as $l ) {
+				
+				echo"<option value='$l->idLocalidad'>$l->nombre</option>";
+			
+		}
+	}
+
 	
 	
 }
