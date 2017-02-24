@@ -260,24 +260,20 @@ class C_operador extends CI_Controller {
 			if ($idUsuario!=null){
 			$usuario=$this->db->get_where('usuariosys', array('idUsuario'=>$idUsuario))->row();
 				 echo " <tr>
-                          <td>$e->idEstadoMinuta</td>  
-                        	<td>  $e->estadoMinuta</td>
+				 		    <td>  $e->fechaEstado</td>
+  							<td>  $e->estadoMinuta</td>
                             <td> $e->motivoRechazo</td>
-                            <td>  $e->fechaEstado</td>
-                            <td> $e->idUsuario</td>
-                          	<td> $usuario->nomyap</td>
+ 							<td> $usuario->nomyap</td>
                        </tr>
                          "; 
 	
 					}
 			else {
 				 echo " <tr>
-                          <td>$e->idEstadoMinuta</td>  
-                        	<td>  $e->estadoMinuta</td>
+                         <td>  $e->fechaEstado</td>
+  							<td>  $e->estadoMinuta</td>
                             <td> $e->motivoRechazo</td>
-                            <td>  $e->fechaEstado</td>
-                            <td> $e->idUsuario</td>
-                          	<td>       </td>
+ 							<td> </td>
                        </tr>	";
 			}
 
