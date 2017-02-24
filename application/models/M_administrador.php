@@ -47,6 +47,19 @@ class M_administrador extends CI_Model
 		}
 
 		}
+
+
+	public function actualizarEscribano($escribano,$id)
+	{
+		try{
+			$this->db->where('idEscribano',$id);
+			return $this->db->UPDATE('usuarioEscribano',$escribano);
+
+			} catch (Exception $e) {
+			return false;
+		}
+
+		}
 	}
 
 

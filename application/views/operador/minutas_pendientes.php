@@ -52,7 +52,7 @@
                 </form>
                 <br><br>
 
-                <div>
+                <div class="box-body table-responsive no-padding"> 
                   <table id="min_pen"  class="table-bordered" style="display: none">
                         <thead>
                           <tr>

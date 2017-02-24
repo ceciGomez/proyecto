@@ -53,7 +53,7 @@
                 </form>
 
 
-
+                <div class="box-body table-responsive no-padding"> 
                   <table id="min" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
@@ -101,6 +101,7 @@
                        
                         </tbody>
                  </table>
+                 </div>
                          <div class="modal" id="Escribano">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
