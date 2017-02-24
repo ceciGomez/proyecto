@@ -1,4 +1,5 @@
 <!-- Content Wrapper. Contains page content -->
+
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -12,6 +13,21 @@
    </ol>
 </section>
 <!-- Main content -->
+<script type="text/javascript">
+  $(document).ready(function(){
+   $("#Provincia").change(function () {
+           $("#Provincia option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            miprovincia=$('#Provincia').val();
+            $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+            $("#Localidad").html(data);
+            });            
+        });
+   })
+});
+</script>
 <section class="content">
       <div class="row">
         <!-- left column -->
@@ -19,22 +35,9 @@
           <!-- general form elements -->
           <div class="box box-primary">
             
-            <!-- /.box-header -->
-            <!-- form start -->
-            <form role="form" method="POST" action="<?=base_url()?>index.php/c_administrador/actualizarOperador/<?php echo $operador[0]->idUsuario  ?>">
-              <div class="box-body">
-                <!--
-                <div class="form-group">
-                  <label for="exampleInputPassword1">id</label>
-                  <input type="text" class="form-control" id="idUsuario" value="<?php echo $operador[0]->idUsuario ?>" placeholder="id" name="idUsuarioVisible" disabled="" >
-                </div>
+           <?=form_open(base_url().'index.php/c_administrador/actualizarOperador')?>
                 
                  <div class="form-group">
-                  <label for="exampleInputText1">id</label>
-                  <input type="text" class="form-control" id="idUsuario" value="<?php echo $operador[0]->idUsuario ?>" placeholder="id" name="idUsuario" disabled="" >
-                </div>-->
-                
-                  <div class="form-group">
                   <label for="exampleInputEmail1">Nombre y Apellido</label>
                   <input type="text" class="form-control" value="<?php echo $operador[0]->nomyap ?>" name="nomyap" id="nomyap" placeholder="Nombre y Apellido">
                   </div>
@@ -74,22 +77,41 @@
                  $id_prov=0;
                   ?>
                   <label for="exampleInputEmail1">Provincia</label>
-                 <select name="provincia" id="Provincia">
-                 <option value="">Selecciona una Provincia</option>
-                 <?php  foreach ($provincias as $p){ ?>
-                 <option value=
-                  <?php
-                 
-                  echo "' $p->idProvincia' > $p->nombre"; }?></option>
-            
-                 </div>
+                <div> 
+                            <?php 
+                            $provincias = $this->db->get("provincia")->result();
+                                  $id_prov=0;
+                                    ?>
+                                 Provincia
+                                      <select name="provincia" id="Provincia">
+                                            <option value="">Selecciona una Provincia</option>
+                                            <?php  foreach ($provincias as $p){ ?>
+                                               <option value=
+                                                <?php
+                                               
+                                                echo "' $p->idProvincia' > $p->nombre"; }?></option>
+                                          
+
+                                        </select>
+                                          <div style="color:red;" ><p><?=form_error('provincia')?></p></div>
+                                     </div>
+                                     <div>
+                                     
+                                     <br>
+
+                                      Localidad
+                                        <select name="localidad" id="Localidad">
+                                             <option value="">Selecciona una Localidad </option>
+                                        </select>
+                                          <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                                     </div>
              
 
-              <div class="box-footer">
+              
                 <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-              </div>
+              
 
-            </form>
+          <?=form_close()?>
           </div>
         </div>
       </div>

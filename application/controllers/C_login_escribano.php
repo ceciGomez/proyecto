@@ -29,7 +29,6 @@ class C_login_escribano extends CI_Controller {
 				redirect(base_url().'index.php/c_escribano');
 				break;
 			default:		
-					
 				$data['titulo'] = 'Login';
 				$this->load->view('login/v_login_escribano',$data);
 				break;		
