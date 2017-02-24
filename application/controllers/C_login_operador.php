@@ -39,8 +39,9 @@ class C_login_operador extends CI_Controller {
 	{
 		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
 		{
-            $this->form_validation->set_rules('usuario', 'nombre de usuario', 'required|trim|min_length[2]|max_length[150]');
-            $this->form_validation->set_rules('contraseña', 'contraseña', 'required|trim|min_length[5]|max_length[150]');
+             $this->form_validation->set_rules('usuario', 'nombre de usuario', 'required|min_length[2]|max_length[150]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=>'El usuario ingresado debe ser de al menos 2 digitos','max_length'=> 'El usuario ingresado debe ser de menos de 120 digitos'));
+            $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[5]|max_length[150]',array('required' => 'Debes ingresar una Contraseña ','min_length'=>'La contraseña ingresada debe ser de al menos 2 digitos','max_length'=> 'La contraseña ingresada debe ser de menos de 120 digitos'));
+ 
  
             //lanzamos mensajes de error si es que los hay
             
