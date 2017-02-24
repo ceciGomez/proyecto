@@ -45,7 +45,7 @@ class C_escribano extends CI_Controller {
 			$data['manzana'] =$this->input->post('manzana');
 			$data['parcela'] = $this->input->post('parcela');
 			$data['planoAprobado'] = $this->input->post('planoAprobado');			
-			$data['fechaPA'] = $this->input->post('fechaPA');
+			$data['fechaPlanoAprobado'] = $this->input->post('fechaPlanoAprobado');
 			$data['tipoPropiedad'] = $this->input->post('tipoPropiedad');
 			$data['tomo'] = $this->input->post('tomo');
 			$data['folio'] = $this->input->post('folio');
@@ -53,9 +53,9 @@ class C_escribano extends CI_Controller {
 			$data['año'] = $this->input->post('año');
 			$data['localidad'] = $this->input->post('localidad');
 			echo $data['localidad'] ;
-			$data['descripcionParcela'] = $this->input->post('descripcionParcela');
-			$data['matriculaRpi'] = $this->input->post('matriculaRpi');
-			$data['fechaM'] = $this->input->post('fechaM');
+			$data['descripcion'] = $this->input->post('descripcion');
+			$data['nroMatriculaRPI'] = $this->input->post('nroMatriculaRPI');
+			$data['fechaMatriculaRPI'] = $this->input->post('fechaMatriculaRPI');
 		
 
 		}else{
@@ -67,16 +67,16 @@ class C_escribano extends CI_Controller {
 			$data{'manzana'}='';
 			$data{'parcela'}='';
 			$data{'planoAprobado'}='';
-			$data{'fechaPA'}='';
+			$data{'fechaPlanoAprobado'}='';
 			$data{'tipoPropiedad'}='';
 			$data{'tomo'}='';
 			$data{'folio'}='';
 			$data{'finca'}='';
 			$data{'año'}='';
 			$data{'localidad'}='';
-			$data{'descripcionParcela'}='';
-			$data{'matriculaRpi'}='';
-			$data{'fechaM'}='';
+			$data{'descripcion'}='';
+			$data{'nroMatriculaRPI'}='';
+			$data{'fechaMatriculaRPI'}='';
 
 		}
 
@@ -115,7 +115,7 @@ class C_escribano extends CI_Controller {
 			   
 				 $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
-			    $this->form_validation->set_rules('fechaPA', 'fechaPA', 'required',array('required' => 'Debes ingresar una fecha  ') );
+			    $this->form_validation->set_rules('fechaPlanoAprobado', 'fechaPlanoAprobado', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
 				$this->form_validation->set_rules('tipoPropiedad', 'tipoPropiedad','required|callback_check_propiedad');
 
@@ -133,11 +133,11 @@ class C_escribano extends CI_Controller {
 
   				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una Localidad');
 
-				$this->form_validation->set_rules('descripcionParcela', 'descripcionParcela', 'required',array('required' => 'Debes ingresar una descripcion ') );
+				$this->form_validation->set_rules('descripcion', 'descripcion', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
-				$this->form_validation->set_rules('matriculaRpi', 'matricualRpi', 'required',array('required' => 'Debes ingresar una matricula ') );
+				$this->form_validation->set_rules('nroMatriculaRPI', 'matricualRpi', 'required',array('required' => 'Debes ingresar una matricula ') );
 
-				$this->form_validation->set_rules('fechaM', 'fechaM', 'required',array('required' => 'Debes ingresar una fecha ') );
+				$this->form_validation->set_rules('fechaMatriculaRPI', 'fechaMatriculaRPI', 'required',array('required' => 'Debes ingresar una fecha ') );
 		
 		
 			if($this->form_validation->run() == FALSE)
@@ -147,27 +147,27 @@ class C_escribano extends CI_Controller {
 			}else{
 				
 				$datos_parcela= array (
+					'idLocalidad' => 2,
 					'circunscripcion' => $this->input->post('circunscripcion'),
 					'seccion' => $this->input->post('seccion'),
 					'chacra' => $this->input->post('chacra'),
 					'quinta' => $this->input->post('correo'),
 					'fraccion' => $this->input->post('fraccion'),
-					'manzana' =>(integer) $this->input->post('manzana'),
+					'manzana' => $this->input->post('manzana'),
 					'parcela' => $this->input->post('parcela'),
-					'superficie' => sha1($this->input->post('superficie')), 
-					'partida' =>$this->input->post('partida'),
-					'planoAprobado' => $this->input->post('planoAprobado'),
-					'fechaPA' => $this->input->post('fechaPA'),
+					'superficie' => ($this->input->post('superficie')), 
+					'partida' =>$this->input->post('partida'),					
 					'tipoPropiedad' => $this->input->post('tipoPropiedad'),
+					'planoAprobado' => $this->input->post('planoAprobado'),
+					'fechaPlanoAprobado' => $this->input->post('fechaPlanoAprobado'),
+					'descripcion' => $this->input->post('descripcion'),					
+					'idMinuta' => 2,					
+					'nroMatriculaRPI' => $this->input->post('nroMatriculaRPI'),
+					'fechaMatriculaRPI' => $this->input->post('fechaMatriculaRPI'),
 					'tomo' => $this->input->post('tomo'),
 					'folio' => $this->input->post('folio'),
 					'finca' => $this->input->post('finca'),
-					'año' => $this->input->post('año'),
-					'localidad' => $this->input->post('localidad'),
-					'descripcionParcela' => $this->input->post('descripcionParcela'),
-					'matriculaRpi' => $this->input->post('matriculaRpi'),
-					'fechaM' => $this->input->post('fechaM'),
-					''=>'',
+					'año' => $this->input->post('año'),		
 				);
 				
 				$this->db->insert("parcela", $datos_parcela);
