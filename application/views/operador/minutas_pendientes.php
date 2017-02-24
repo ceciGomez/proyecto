@@ -3,8 +3,8 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Operador
-        <small>Bienvenido</small>
+        
+        <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -14,7 +14,10 @@
 
     <!-- Main content -->
     <section class="content">
-    
+      <div class="box-header" style="display:block;margin:0 auto 0 auto;" >
+
+              <h3 class="box-title"  >Minutas pendientes de Aprobación</h3>
+              </div>
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
@@ -23,44 +26,41 @@
 
           <!-- TO DO List -->
           <div class="box box-primary">
-            <div class="box-header">
 
-              <h3 class="box-title">Usuarios Pendientes de Aprobación</h3>
+              <br>
+              <br>
 
-              
+               <h4 class="box-title"  >Filtrar resultados por:</h4>
                 <div class="form-group">
                     
-                        <label>ID Minuta :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
+                       
                 
-                                      
-                        <label>ID Escribano :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                   
-                      
-                        <label>Nombre y Apellido de Escribano :</label>
-                         <input type='text' value='' class='filter' data-column-index='3'> 
+                          <label>Fecha Ingreso :</label>
+                        <input  type="text"  class='filter' data-column-index='0'> 
+                          <label>Fecha Edición :</label>
+                        <input type='text' value='' class='filter' data-column-index='1'> 
+                        <label> Escribano :</label>
+                         <input type='text' value='' class='filter' data-column-index='2'> 
+                          <label>Matricula :</label>
+                         <input type='text' value='' class='filter' data-column-index='2'>
                     
                     
                   
-                        <label>Fecha Ingreso :</label>
-                        <input type='text' value='' class='filter' data-column-index='4'> 
+                      
                   
                   </div>
                 </form>
+                <br><br>
 
-
-
-                  <table id="min_pen"  width="2000px" >
+                <div>
+                  <table id="min_pen"  class="table-bordered" style="display: none">
                         <thead>
                           <tr>
-                            <th>ID Minuta</th>
-                             <th>Operaciones</th>
-                            <th> ID Escribano</th>
-                            <th>Nombre y Apellido Escribano</th>
-                            <th>Fecha Ingreso al Sistema</th>
+                              <th>Fecha Ingreso al Sistema</th>
                             <th>Fecha de Edición</th>
-                            <th>Estado</th>
+                            <th>Nombre y Apellido Escribano</th>
+                            <th>Número de Matricula</th>
+                             <th>Operaciones</th>
                             
                             
                           </tr>
@@ -69,22 +69,24 @@
                         <tbody >
                             <?php 
                             foreach ($minutas as $mi){ 
+                              $date=new DateTime($mi->fechaIngresoSys);
+                              $date_formated=$date->format('d/m/Y ');
+
                          ?>
-                      
+                     
                           <tr>
-                            <td>  <?php  echo "$mi->idMinuta"; ?></td>
-                            <td>
+                            <td>  <?php  echo "$date_formated"; ?></td>
+                            <td>  <?php  echo "$mi->fechaEdicion"; ?></td>
+                            <td>  <?php  echo "$mi->nomyap"; ?> <button type="button"  class="btn btn-primary"  data-toggle="modal" onclick="ventana_escribano(<?php echo "$mi->idEscribano"; ?>)" href="#Escribano"> Ver</button></td>
+                           <td>  <?php  echo "$mi->matricula"; ?></td>
+
+                          
+                             <td>
                              <button type="button"  class="btn btn-warning"  data-toggle="modal" onclick="ventana_det(<?php echo "$mi->idMinuta"; ?>)" href="#Detalles"> Detalles</button>
                             <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_acep(<?php echo "$mi->idMinuta"; ?>,<?php echo "$mi->idEstadoMinuta"; ?>)" href="#Aceptar"> Aceptar</button>
                              <button type="button"  class="btn btn-danger"  data-toggle="modal" onclick="ventana_rech(<?php echo "$mi->idMinuta"; ?>,<?php echo "$mi->idEstadoMinuta"; ?>)" href="#Rechazar"> Rechazar</button>
 
                             </td>
-                            <td>  <?php  echo "$mi->idEscribano"; ?></td>
-                            <td>  <?php  echo "$mi->nomyap"; ?></td>
-                            <td>  <?php  echo "$mi->fechaIngresoSys"; ?></td>
-                            <td>  <?php  echo "$mi->fechaEdicion"; ?></td>
-                            <td>  <?php  echo "$mi->estadoMinuta"; ?></td>
-
 
                           
                           
@@ -98,7 +100,42 @@
                         </tbody>
                  </table>
 
-        
+              </div>
+                        <div class="modal" id="Escribano">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
+                                 </div>
+                                 <div class="modal-body">
+                                          <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_esc" >
+
+                                              </tbody >
+                                            </table >
+                                     </div>
+
+                                 <div class="modal-footer">
+                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                                 </div>
+                              </div>
+                            </div>
+                          </div>
+
+
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
@@ -106,6 +143,7 @@
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h3 class="modal-title" style="color:white" >Detalles de Minuta</h3>
                                  </div>
+                                
                                  <div class="modal-body" id="det" >
                                            
                                      </div>
@@ -178,8 +216,7 @@
                     //crea la tabla
                     var dtable=$('#min_pen').DataTable(
                         {
-                           scrollY: 400,
-                            'scrollX':true,
+                           autoWidht:false,
 
                              language: {
                                 "sProcessing":     "Procesando...",
@@ -223,8 +260,17 @@
                       $(document.body).animate({opacity: 0.3}, 400);
                       $("html, body").animate({ scrollTop: 0 }, 400);
                       $(document.body).animate({opacity: 1}, 400);   
+                      $( "#min_pen" ).show();
                   
                     } );
+
+
+                     function ventana_escribano( idEscribano){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_esc").html(data);
+            });
+                        }
+
                     idEstMin=''
                     function ventana_det(idMinuta){
                     $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
