@@ -52,6 +52,7 @@ class C_escribano extends CI_Controller {
 			$data['finca'] = $this->input->post('finca');
 			$data['año'] = $this->input->post('año');
 			$data['localidad'] = $this->input->post('localidad');
+			echo $data['localidad'] ;
 			$data['descripcionParcela'] = $this->input->post('descripcionParcela');
 			$data['matriculaRpi'] = $this->input->post('matriculaRpi');
 			$data['fechaM'] = $this->input->post('fechaM');

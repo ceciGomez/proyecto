@@ -102,8 +102,8 @@
                                     <label>Tipo de Propiedad</label>
                                     <select class="form-control select2" name="tipoPropiedad" <?php echo "value='$tipoPropiedad'" ?> style="width: 100%;">
                                        <option value="">Tipo propiedad</option>
-                                       <option value="1">Urbano</option>
-                                       <option value="2">Rural</option>
+                                       <option value="Urbano" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Urbano" ? TRUE : FALSE )); ?>>Urbano</option>
+                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Rural" ? TRUE : FALSE )); ?>>Rural</option>
                                     </select>
                                     <div style="color:red;" ><p><?=form_error('tipoPropiedad')?></p></div>
                                  </div>
@@ -131,11 +131,11 @@
                                                         
                                  <div class="col-md-3">
                                     <label>Localidad</label>
-                                    <select class="form-control select2" name="localidad" <?php echo "value='$localidad'" ?> style="width: 100%;">
+                                    <select class="form-control select2" name="localidad" style="width: 100%;">   
                                        <option value="">Localidad</option>
-                                       <option value="1">Resistencia</option>
-                                       <option value="2">Barranqueras</option>
-                                       <option value="3">Saenz Peña</option>
+                                       <option value="Resistencia" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Resistencia" ? TRUE : FALSE )); ?>>Resistencia</option>
+                                       <option value="Barranqueras" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Barranqueras" ? TRUE : FALSE )); ?>>Barranqueras</option>
+                                       <option value="Saenz Peña" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Saenz Peña" ? TRUE : FALSE )); ?>>Saenz Peña</option>
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
