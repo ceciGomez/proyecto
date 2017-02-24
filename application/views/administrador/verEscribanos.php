@@ -10,7 +10,7 @@
       </h1>
       <small>Lista todos los Escribanos</small>
       <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_loginadmin"><i class="fa fa-dashboard"></i> Home</a></li>
+         <li><a href="<?=base_url()?>index.php/c_administrador" ><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Ver Escribanos</li>
       </ol>
    </section>

@@ -11,7 +11,7 @@
       </h1>
  
    <ol class="breadcrumb">
-      <li><a href="<?=base_url()?>index.php/c_loginadmin>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a  href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
       <li class="active">Editar Operador</li>
    </ol>
 </section>
