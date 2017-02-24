@@ -54,10 +54,11 @@ class C_login_administrador extends CI_Controller {
 				if($check_user == TRUE)
 				{
 					$data = array(
-	                'is_logued_in' 	=> 		TRUE,
-	                'perfil' 	=> 		'administrador',
-	                'id_usuario' 	=> 		$check_user->idUsuario,
-	                'username' 		=> 		$check_user->usuario
+	                'is_logued_in' 	=> 	TRUE,
+	                'perfil' 	=> 	'administrador',
+	                'id_usuario' 	=> 	$check_user->idUsuario,
+	                'nompyap' 	=> 	$check_user->nompyap,
+			'fechaReg' 	=> 	$check_user->fechaReg
             		);		
 					$this->session->set_userdata($data);
 					$this->index();
