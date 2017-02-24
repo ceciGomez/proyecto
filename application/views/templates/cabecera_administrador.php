@@ -7,6 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/AdminLTE.min.css">
+  
   <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
 
    <style type="text/css">
@@ -25,7 +27,6 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?=base_url()?>assets/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/skins/_all-skins.min.css">
