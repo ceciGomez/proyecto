@@ -42,7 +42,7 @@ class C_escribano extends CI_Controller {
 			$data['chacra'] = $this->input->post('chacra');
 			$data['quinta'] = $this->input->post('quinta');
 			$data['fraccion'] = $this->input->post('fraccion');
-			$data['manzana'] =(integer)$this->input->post('manzana');
+			$data['manzana'] =$this->input->post('manzana');
 			$data['parcela'] = $this->input->post('parcela');
 			$data['planoAprobado'] = $this->input->post('planoAprobado');			
 			$data['fechaPA'] = $this->input->post('fechaPA');
@@ -116,7 +116,9 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('fechaPA', 'fechaPA', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
-				$this->form_validation->set_rules('tipoPropiedad', 'tipoPropiedad','required',array('required' => 'Debes ingresar un tipo de propiedad ') );
+				$this->form_validation->set_rules('tipoPropiedad', 'tipoPropiedad','required|callback_check_propiedad');
+
+				$this->form_validation->set_message('check_propiedad', 'Debes seleccionar una Propiedad');
 
 				$this->form_validation->set_rules('tomo', 'tomo', 'required',array('required' => 'Debes ingresar un tomo') );
 
@@ -126,9 +128,9 @@ class C_escribano extends CI_Controller {
 
 				$this->form_validation->set_rules('año', 'año', 'required',array('required' => 'Debes ingresar un año ') );
 
-				$this->form_validation->set_rules('localidad','localidad','required|callback_check_default');
+				$this->form_validation->set_rules('localidad','localidad','required|callback_check_localidad');
 
-  				$this->form_validation->set_message('check_default', 'Debes seleccionar una Localidad');
+  				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una Localidad');
 
 				$this->form_validation->set_rules('descripcionParcela', 'descripcionParcela', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
@@ -176,10 +178,21 @@ class C_escribano extends CI_Controller {
 		
 		}
 
-	function check_default()
-{
-  return $post_string == '0' ? FALSE : TRUE;
-}
+	function check_localidad($post_string){
+		if($post_string==""){
+  			return FALSE;}
+  		else{
+  	   return TRUE;
+    }
+   }
+
+   function check_propiedad($post_string){
+		if($post_string==""){
+  			return FALSE;}
+  		else{
+  	   return TRUE;
+    }
+   }
 
 		public function departamento()
 	{

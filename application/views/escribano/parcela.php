@@ -101,9 +101,9 @@
                                  <div class="col-md-3">
                                     <label>Tipo de Propiedad</label>
                                     <select class="form-control select2" name="tipoPropiedad" <?php echo "value='$tipoPropiedad'" ?> style="width: 100%;">
-                                       <option selected="selected">Urbano</option>
-                                       <option>Urbano</option>
-                                       <option>Rural</option>
+                                       <option value="">Tipo propiedad</option>
+                                       <option value="1">Urbano</option>
+                                       <option value="2">Rural</option>
                                     </select>
                                     <div style="color:red;" ><p><?=form_error('tipoPropiedad')?></p></div>
                                  </div>
@@ -134,8 +134,8 @@
                                     <select class="form-control select2" name="localidad" <?php echo "value='$localidad'" ?> style="width: 100%;">
                                        <option value="">Localidad</option>
                                        <option value="1">Resistencia</option>
-                                       <option>Barranqueras</option>
-                                       <option>Saenz Peña</option>
+                                       <option value="2">Barranqueras</option>
+                                       <option value="3">Saenz Peña</option>
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
