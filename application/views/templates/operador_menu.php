@@ -49,9 +49,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Aprobar Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Crear Usuarios</a></li>
+            <li><a href="<?=base_url().'index.php/c_operador/ver_minutasPendientes'?>"><i class="fa fa-circle-o"></i>Minutas Pendientes</a></li>
+            <li><a href="<?=base_url().'index.php/c_operador/ver_minutas'?>"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
           </ul>
         </li>
 
