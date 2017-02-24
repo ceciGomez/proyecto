@@ -1,165 +1,196 @@
-
-
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-   <!-- Content Header (Page header) -->
-   <section class="content-header">
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
       <h1>
-         Ver Operadores
+        
+        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
       </h1>
-      <small>Lista todos los Operadores</small>
       <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_loginadmin"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active">Ver Operadores</li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li class="active">Operador</li>
       </ol>
-   </section>
-   <!-- Main content -->
-   <section class="content">
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+    
+      <!-- Main row -->
       <div class="row">
-         <div class="col-xs-12">
-            <div class="box">
-               <div class="box-header">
-                  <!-- <div class="box-tools">
-                     <div class="input-group input-group-sm" ;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
-                        <div class="input-group-btn">
-                           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
-                <div class="box-header with-border">
-                     <h3 class="box-title">Operadores de SIRMI</h3>
-                  </div>
-              <div class="form-group">
+        <!-- Left col -->
+        <section class="col-lg-12 connectedSortable">
+         
+
+          <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">Operadores</h3>
+
+                <div class="form-group">
                 <br>
                 <br>
-                 <label>Filtrar Operadores  por :</label>
+                 <label>Filtrar Operadores por :</label>
                  <br>
                  <br>
-                      <label>Nombre y Apellido :</label>
+                      <label>Fecha Registración :</label>
                       <input type='text' value='' class='filter' data-column-index='0'> 
                     
-                        <label>Usuario :</label>
+                        <label>DNI :</label>
                       <input type='text' value='' class='filter' data-column-index='1'> 
                 
                                       
-                        <label>DNI :</label>
+                        <label>Operador :</label>
                         <input type='text' value='' class='filter' data-column-index='2'>
                    
                       
-                        <label>Teléfono :</label>
+                        <label>Usuario :</label>
                          <input type='text' value='' class='filter' data-column-index='3'> 
                     
 <br>
                         <div>
                  <br>
-                        <label>Dirección :</label>
-                        <input type='text' value='' class='filter' data-column-index='4'> 
-                        
-
-                        <label>Email :</label>
+                        <label>Telefono :</label>
                         <input type='text' value='' class='filter' data-column-index='5'> 
+                        <label>Email :</label>
+                        <input type='text' value='' class='filter' data-column-index='6'> 
+                        <label>Dirección :</label>
+                        <input type='text' value='' class='filter' data-column-index='7'> 
+                         <label>Localidad :</label>
+                        <input type='text' value='' class='filter' data-column-index='8'> 
                         </div>
+
                   
                   </div>
                 </form>
                 <br>
                 <br>
-             
-               <div class="box-body table-responsive no-padding">
-                  <table  id="usuarios" class="table table-hover" class="table-bordered" style="display: none">
-                     <thead>
-                        <tr>
-                           <th>Nombre y Apellido</th>
-                           <th>Usuario</th>
-                           <th>DNI</th>
-                           <th>Teléfono</th>
-                           <th>Dirección</th>
-                           <th>e-mail</th>
+
+
+
+                  <table id="operadores" class="table-bordered" style="display: none" >
+                        <thead>
+                          <tr>
+                            <th>Fecha Registración</th>
+                            <th>DNI</th>
+                            <th>Operador</th>
+                            <th>Usuario</th>
+                            <th>Teléfono</th>
+                            <th>Email</th>
+                            <th>Dirección</th>
                            <th>Localidad</th>
                            <th>Operaciones</th>
-                        </tr>
-                     </thead>
-                     <tbody>
-                       
-                        <?php foreach ($operadores as $value) :
-                        //var_dump($value) 
-                        ?>
-                        <tr>
-                           <td colspan="" rowspan="" headers=""> <?php echo $value->nomyap;?> </td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->usuario;?> </td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->dni;?> </td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->telefono == NULL){
-                              echo "-";
-                            } else{
-                            echo $value->telefono;
-                              } ?></td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->direccion == NULL){
-                              echo "-";
-                            } else{
-                            echo $value->direccion;
-                              } ?></td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->email == NULL){
-                              echo "-";
-                            } else{
-                            echo $value->email;
-                              } ?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->idLocalidad;?> </td>
 
-                                                                           
+
+                          </tr>
+                        </thead>
+
+                        <tbody >
+                            <?php  foreach ($operadores as $op){ 
+                              $date=new DateTime($op->fechaReg);
+                              $date_formated=$date->format('d/m/Y ');
+                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$op->idLocalidad))->row();
+
+                         ?>
+                      
+                          <tr>
+                              <td>  <?php  echo "$date_formated"; ?></td>
+                            <td>  <?php  echo "$op->dni"; ?></td>
+                            <td>  <?php  echo "$op->nomyap"; ?></td>
+                            <td>  <?php  echo "$op->usuario"; ?></td>
+                            <td>  <?php  echo "$op->telefono"; ?></td>
+                           <td>  <?php  echo "$op->email"; ?></td>
+                           <td>  <?php  echo "$op->direccion"; ?></td>
+                           <td>  <?php  echo "$localidad->nombre"; ?></td>
+                           
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $value->idUsuario?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
-                                 <a class="btn btn-sm "  data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$value->idUsuario"; ?>)"> <button><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
+                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$op->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
                               </div>
                            </td>
-                        </tr>
-                        <?php endforeach ?>
-                     
-                     </tbody>
-                  </table>
-               </div>
-               <!-- /.box-body -->
-            </div>
-         </div>
-      </div>
-   </section>
-</div>
+                           
+                          </tr>
 
-                        <div class="modal" id="Eliminar">
+                          <?php
+                        }
+                        ?>
+                       
+                        </tbody>
+                 </table>
+
+
+                         <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Eliminar Operador</h3>
+                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
                                  </div>
                                  <div class="modal-body">
-                                           <div> <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > <label><h3>Confirmar eliminar el operador de la Base de Datos.</h3></label></div>
-                                     </div> 
+                                          <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_esc" >
+
+                                              </tbody >
+                                            </table >
+                                     </div>
 
                                  <div class="modal-footer">
-                                   <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                                    <a href="" class="btn btn-primary" onclick="eliminar_operador()">Aceptar</a>
+                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
                                  </div>
                               </div>
                             </div>
                           </div>
-<script type="text/javascript">
+
+          
+
+                <div class="modal" id="Eliminar">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar eliminar Operador de la Base de Datos</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary" onclick="eliminar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <script type="text/javascript">
 
                    
                    $(document).ready(function(){
 
                     //crea la tabla
-                    var dtable=$('#usuarios').DataTable(
+                    var dtable=$('#operadores').DataTable(
                         {
                            autoWidht:false,
                              language: {
                                 "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ usuarios",
+                            "sLengthMenu":     "Mostrar _MENU_ Operadores",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún operador  encontrado",
-                            "sInfo":           "Mostrando oeprador del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sEmptyTable":     "Ningún Operador encontrado ",
+                            "sInfo":           "Mostrando Operadores del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -191,24 +222,48 @@
                     }); 
 
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('usuarios_filter').style.display='none';
-                      $( "#usuarios" ).show();  
-                       
+                      document.getElementById('operadores_filter').style.display='none';
+                      
+                       $( "#operadores" ).show();  
                     } );
-                      idUsuario='';
-                      function ventana_eli (idUsu){
-                      idUsuario=idUsu;
-                      };
-                   
-                    function eliminar_operador (){
-                     console.log(idUsuario);
-                      $.post("<?=base_url()?>index.php/c_administrador/eliminar_operador",{idUsuario:idUsuario}, function(data){
+
+
+                    idUsr='';
+                   function ventana_eli (idUsuario){
+                      idUsr=idUsuario;
                      
                    }
-                    )};
+                   
 
-                  
+                    //Función de detalles
+                      function ventana_det( idEscribano){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_esc").html(data);
+            });
+                        }
+                  //eliminar escribano de la bd
+
+                   function eliminar( ){
+                    $.post("<?=base_url()?>index.php/c_administrador/eliminar_op",{idUsuario:idUsr}, function(data){
+                     
+            });
+                  }
 
          </script>
-<!-- /.content-wrapper -->
 
+           
+          </div>
+          <!-- /.box -->
+
+       
+
+        </section>
+        <!-- /.Left col -->
+      
+      </div>
+      <!-- /.row (main row) -->
+
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
