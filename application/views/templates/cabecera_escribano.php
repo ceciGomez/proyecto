@@ -9,7 +9,6 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
 
-
    <style type="text/css">
                      .modal-header{
                         background-color:#222d32;
@@ -18,7 +17,18 @@
                         overflow:hidden;
                           }
    </style>
+    <!-- CSS para quitar las flechas de los input number -->
+   <style type="text/css">
+      .form-control{
+      -moz-appearance:textfield;
+        }
 
+      .form-control::-webkit-outer-spin-button,
+      .form-control::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+     margin: 0;
+    }
+</style>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
@@ -49,8 +59,6 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
 
     <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.min.js"></script>
-
-
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   
