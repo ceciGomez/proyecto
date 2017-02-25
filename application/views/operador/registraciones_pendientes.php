@@ -7,7 +7,7 @@
         <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a  href="<?=base_url()?>index.php/c_operador"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Operador</li>
       </ol>
     </section>
@@ -59,7 +59,7 @@
                 </form>
 
 
-
+                <div class="box-body table-responsive no-padding"> 
                   <table id="reg_pen" class="table-bordered" style="display: none"  >
                         <thead>
                           <tr>
@@ -104,7 +104,7 @@
                        
                         </tbody>
                  </table>
-
+                </div>
         
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">

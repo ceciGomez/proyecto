@@ -10,7 +10,7 @@
       </h1>
       <small>Lista todos los Escribanos</small>
       <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_loginadmin"><i class="fa fa-dashboard"></i> Home</a></li>
+         <li><a href="<?=base_url()?>index.php/c_administrador" ><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Ver Escribanos</li>
       </ol>
    </section>
@@ -127,8 +127,8 @@
                            
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $es->idUsuario?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
-                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$es->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarEscribano/<?php echo $es->idEscribano?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
+                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$es->idEscribano"; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               </div>
                            </td>
                            
@@ -142,51 +142,17 @@
                  </table>
 
 
-                         <div class="modal" id="Detalles">
-                            <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                 <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
-                                 </div>
-                                 <div class="modal-body">
-                                          <table class="table"  >
-                                            <thead>
-                                              <tr>
-                                                <th>Nombre y Apellido</th>
-                                                <th>Usuario</th>
-                                                <th>DNI</th>
-                                                <th>Matricula</th>
-                                                 <th>Direccion</th>
-                                                 <th>Email</th>
-                                                 <th>Telefono</th>
-                                                 <th>Estado de Aprobacion</th>
-                                               </tr>
-                                             </thead> 
-                                               <tbody id="det_esc" >
-
-                                              </tbody >
-                                            </table >
-                                     </div>
-
-                                 <div class="modal-footer">
-                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                                 </div>
-                              </div>
-                            </div>
-                          </div>
-
-          
+                        
 
                 <div class="modal" id="Eliminar">
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
+                          <h3 class="modal-title" style="color:white"> Eliminar Escribano</h3>
                          </div>
                          <div class="modal-body">
-                         <h3> Confirmar eliminar Operador de la Base de Datos</h3>
+                         <h3> Confirmar eliminar Escribano de la Base de Datos</h3>
                         
 
                          <div class="modal-footer">
@@ -250,23 +216,18 @@
                     } );
 
 
-                    idUsr='';
-                   function ventana_eli (idUsuario){
-                      idUsr=idUsuario;
+                    idEsc='';
+                   function ventana_eli (idEscribano){
+                      idEsc=idEscribano;
                      
                    }
                    
 
-                    //Función de detalles
-                      function ventana_det( idEscribano){
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
-                      $("#det_esc").html(data);
-            });
-                        }
+                   
                   //eliminar escribano de la bd
 
                    function eliminar( ){
-                    $.post("<?=base_url()?>index.php/c_administrador/eliminar_op",{idUsuario:idUsr}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/eliminar_es",{idEscribano:idEsc}, function(data){
                      
             });
                   }

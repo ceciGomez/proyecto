@@ -11,8 +11,8 @@
       </h1>
  
    <ol class="breadcrumb">
-      <li><a  href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Editar Operador</li>
+      <li><a href="<?=base_url()?>index.php/c_administrador>"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li class="active">Editar Escribano</li>
    </ol>
 </section>
 <!-- Main content -->
@@ -38,51 +38,64 @@
           <!-- general form elements -->
           <div class="box box-primary">
             
-           <?=form_open(base_url().'index.php/c_administrador/actualizarOperador')?>
+           <?=form_open(base_url().'index.php/c_administrador/actualizarEscribano')?>
                 
                 <div class="form-group has-feedback">
                   <label >Nombre y Apellido</label>
                   <br>
-                  <input type="text"  value="<?php echo $operador[0]->nomyap ?>" name="nomyap" id="nomyap" placeholder="Nombre y Apellido">
+                  <input type="text"  value="<?php echo $escribano[0]->nomyap ?>" name="nomyap" id="nomyap" placeholder="Nombre y Apellido">
                 </div>
 
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">Usuario</label>
                   <br>
-                  <input type="text"  value="<?php echo $operador[0]->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
+                  <input type="text"  value="<?php echo $escribano[0]->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
                  </div>
 
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">Contraseña</label>
                   <br>
-                  <input type="password"  value="<?php echo $operador[0]->contraseña ?>" name="contraseña" id="contraseña" placeholder="Contraseña">
+                  <input type="password"  value="<?php echo $escribano[0]->contraseña ?>" name="contraseña" id="contraseña" placeholder="Contraseña">
                   </div>
 
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">DNI</label>
                   <br>
-                  <input type="text" value="<?php echo $operador[0]->dni ?>" name="dni" id="dni" placeholder="dni">
+                  <input type="text" value="<?php echo $escribano[0]->dni ?>" name="dni" id="dni" placeholder="dni">
                  </div>
+
+                 <div class="form-group has-feedback">
+                  <label for="exampleInputEmail1">Matricula</label>
+                  <br>
+                  <input type="text" value="<?php echo $escribano[0]->matricula ?>" name="matricula" id="matricula" placeholder="matricula">
+                 </div>
+
+                   <div class="form-group has-feedback">
+                  <label for="exampleInputEmail1">Estado</label>
+                  <br>
+                  <input type="text" value="<?php echo $escribano[0]->estadoAprobacion ?>" name="estadoAprobacion" id="estadoAprobacion" placeholder="estadoAprobacion">
+                 </div>
+
                  
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">Teléfono</label>
                   <br>
-                  <input type="text"  value="<?php echo $operador[0]->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
+                  <input type="text"  value="<?php echo $escribano[0]->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
                   </div>
 
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">Dirección</label>
                   <br>
-                  <input type="text" value="<?php echo $operador[0]->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
+                  <input type="text" value="<?php echo $escribano[0]->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                  </div>
 
                 <div class="form-group has-feedback">
                   <label for="exampleInputEmail1">e-mail</label>
                   <br>
-                  <input type="text"  value="<?php echo $operador[0]->email ?>" name="email" id="email" placeholder="email">
+                  <input type="text"  value="<?php echo $escribano[0]->email ?>" name="email" id="email" placeholder="email">
                   </div>
                   <div>
-                     <input type="hidden"  value="<?php echo $operador[0]->idUsuario ?>" name="idUsuario" id="idUsuario" placeholder="idUsuario">
+                     <input type="hidden"  value="<?php echo $escribano[0]->idEscribano ?>" name="idEscribano" id="idEscribano" placeholder="idEscribano">
                   </div>
 
                  <div> 
