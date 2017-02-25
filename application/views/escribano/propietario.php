@@ -45,9 +45,9 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Seleccionar</option>
-                           <option >Femenino</option>
-                           <option >Masculino</option>
+                           <option value="0" selected="selected">Seleccionar</option>
+                           <option value="27" >Femenino</option>
+                           <option value="20" >Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
@@ -170,7 +170,7 @@
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo-combobox").on("focusout", function () {
-      	if($("#dni").val()!=""){
+      	if($("#dni").val()!="" ){
         var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
@@ -190,7 +190,7 @@
     <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
     <script>
       $("#dni").on("focusout", function () {
-      	if($("#dni").val()!=""){
+      	if($("#dni").val()!=""  && $("#sexo-combobox").val()!=0 ){
         var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
