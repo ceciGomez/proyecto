@@ -39,7 +39,7 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="20">
+                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="100">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
@@ -226,14 +226,14 @@
     }
    </script>
     <script>
-        $(document).ready(function(){
-        $("#inputTextBox").keypress(function(event){
-        var inputValue = event.charCode;
-        if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)){
-            event.preventDefault();
-        }
-        });
-      });
+        $(document).on('keypress', '#inputTextBox', function (event) {
+         var regex = new RegExp("^[a-zA-Z ]+$");
+          var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+           event.preventDefault();
+           return false;
+          }
+       });
     </script>
     <!--Limita campo nombre y apellido a 10 caracteres-->
       <script language="javascript" type="text/javascript">
