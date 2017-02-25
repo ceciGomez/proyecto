@@ -1,15 +1,15 @@
-Ver Minutas:
+﻿Ver Minutas:
 agregar tooltips en verMinutas para: ver, editar, verPropietarios, imprimir
 estados pendientes --> no puede editarse por el escribano.
 
 Registración:
-	tomo: no acepta nro negativos
-	Año: acepta texto (no deberia) --> cambiar a tipo entero. No puede ser superior al año actual.
+	
+	Año:  No puede ser superior al año actual.
 	Que pase a minuscula los apellidos y nombres.
 	No acepta letra Z en campo nomyap de propietario --> letras que no acepta --> ver conyuge
-	cambiar el tamaño del campo a por lo menos 60. 20 es poco
+	
 
-	Cuit no anda.
+	
 	Chequear los porcentajes en propietarios --> no hace faltaa por que se puede vender menos que el 100%
 
 	No cargo minuta. --> despues cargo pero sobreescribio una que ya existia.

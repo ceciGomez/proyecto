@@ -33,8 +33,7 @@
                       <?=form_open(base_url().'index.php/C_escribano/registro_parcela')?>
                      <form method="post">
                         <div class="box-body">
-                           <div class="form-group">
-                              <div class="form-group">                             
+                           <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
                                     <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
@@ -130,7 +129,7 @@
                                   <div class="col-md-3">
                                     <label>Departamento</label>
                                     <select class="form-control select2" name="departamento" style="width: 100%;">   
-                                       <option value="">Departamento</option>
+                                       <option value="">Localidad</option>
                                        <option value="San Fernando" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Resistencia" ? TRUE : FALSE )); ?>>Resistencia</option>
                                        <option value="San Juan" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Barranqueras" ? TRUE : FALSE )); ?>>Barranqueras</option>
                                        <option value="San La Muerte" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Saenz Peña" ? TRUE : FALSE )); ?>>Saenz Peña</option>
@@ -175,7 +174,7 @@
                                 
                               </div>
                               </div>
-                           </div>
+                           
                            <!-- /.box-body -->
                         </div>
                      </form>
