@@ -145,9 +145,11 @@ class C_escribano extends CI_Controller {
 				
 				$this->CrearMinuta(FALSE,TRUE);
 			}else{
+				$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
+				$query = $this->db->query($sql, array($this->input->post('localidad')));
 				
 				$datos_parcela= array (
-					'idLocalidad' => 2,
+					'idLocalidad' => $query,
 					'circunscripcion' => $this->input->post('circunscripcion'),
 					'seccion' => $this->input->post('seccion'),
 					'chacra' => $this->input->post('chacra'),
