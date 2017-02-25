@@ -2,12 +2,12 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
-        Operador
-        <small>Bienvenido</small>
+       <h1>
+        
+        <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a  href="<?=base_url()?>index.php/c_operador"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Operador</li>
       </ol>
     </section>
@@ -27,33 +27,44 @@
 
               <h3 class="box-title">Usuarios Rechazados</h3>
 
-              <div class="form-group">
-                    
-                        <label>Nombre y Apellido :</label>
+             
+               <div class="form-group">
+                <br>
+                <br>
+                 <label>Filtrar Escribanos por :</label>
+                 <br>
+                 <br>
+                      <label>Fecha Registración :</label>
                       <input type='text' value='' class='filter' data-column-index='0'> 
+                    
+                        <label>Escribano :</label>
+                      <input type='text' value='' class='filter' data-column-index='1'> 
                 
                                       
                         <label>Usuario :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'>
+                        <input type='text' value='' class='filter' data-column-index='2'>
                    
                       
                         <label>DNI :</label>
-                         <input type='text' value='' class='filter' data-column-index='2'> 
+                         <input type='text' value='' class='filter' data-column-index='3'> 
                     
-                    
-                  
+<br>
+                        <div>
+                 <br>
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'> 
+                        <input type='text' value='' class='filter' data-column-index='4'> 
+                        </div>
                   
                   </div>
                 </form>
 
 
-
-                  <table id="reg_rech"  >
+                <div class="box-body table-responsive no-padding"> 
+                  <table id="reg_rech" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
-                            <th>Nombre y Apellido</th>
+                            <th>fechaReg</th>
+                            <th>Escribano</th>
                             <th>Usuario</th>
                             <th>DNI</th>
                             <th>Matricula</th>
@@ -63,9 +74,12 @@
 
                         <tbody >
                             <?php  foreach ($esc_rech as $ep){ 
+                               $date=new DateTime($ep->fechaReg);
+                              $date_formated=$date->format('d/m/Y ');
                          ?>
                       
                           <tr>
+                          <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$ep->nomyap"; ?></td>
                             <td>  <?php  echo "$ep->usuario"; ?></td>
                             <td>  <?php  echo "$ep->dni"; ?></td>
@@ -87,7 +101,7 @@
                        
                         </tbody>
                  </table>
-
+                </div>
 
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
@@ -171,7 +185,7 @@
                     //crea la tabla
                     var dtable=$('#reg_rech').DataTable(
                         {
-                           scrollY: 400,
+                           autoWidht:false,
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
@@ -211,30 +225,29 @@
                       //quitar el campo de busqueda por defecto
                       document.getElementById('reg_rech_filter').style.display='none';
                       
-                      $(document.body).animate({opacity: 0.3}, 400);
-                      $("html, body").animate({ scrollTop: 0 }, 400);
-                      $(document.body).animate({opacity: 1}, 400);   
+                     $( "#reg_rech" ).show(); 
+
                     } );
 
 
                     idEsc='';
                    function ventana_eli (idEscribano){
                       idEsc=idEscribano;
-                      $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_eli").html(data);
                    }
                     )};
 
                     //Función de detalles
                       function ventana_det( idEscribano){
-                    $.post("<?=base_url()?>index.php/c_loginop/detalles_esc",{idEscribano:idEscribano}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
             });
                         }
                   //eliminar escribano de la bd
 
                    function eliminar( ){
-                    $.post("<?=base_url()?>index.php/c_loginop/eliminar_esc",{idEscribano:idEsc}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/eliminar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }

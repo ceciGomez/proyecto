@@ -46,7 +46,7 @@ class M_escribano extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.*, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv
+				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv
 				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
 				inner join departamento d
@@ -81,12 +81,12 @@ class M_escribano extends CI_Model
 					when  'R' then 'Rural'
 					when  'S' then 'Suburbano' else '-' end  as tipoPropiedad,
 				p.planoAprobado as planoAprobado,
-				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				concat(substring(p.fechaPlanoAprobado, 9, 2), '/' ,substring(p.fechaPlanoAprobado, 6, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
 				p.descripcion as descripcion,
 				p.idMinuta,
 				p.nroMatriculaRPI as nroMatriculaRPI,
 			
-				concat(substring(p.fechaMatriculaRPI, 6, 2), '/' ,substring(p.fechaMatriculaRPI, 9, 2) , '/', substring(p.fechaMatriculaRPI, 1, 4)) as	fechaMatriculaRPI,
+				concat(substring(p.fechaMatriculaRPI, 9, 2), '/' ,substring(p.fechaMatriculaRPI, 6, 2) , '/', substring(p.fechaMatriculaRPI, 1, 4)) as	fechaMatriculaRPI,
 				p.tomo as tomo,
 				p.folio as folio,
 				p.finca as finca,

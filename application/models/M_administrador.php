@@ -12,13 +12,13 @@ class M_administrador extends CI_Model
 
 	public function getOperadores(){
 
-		$operadores =$this->db->get("usuarioSys")->result();
+		$operadores =$this->db->get("usuariosys")->result();
 		return $operadores;
 	}
 
 	public function getEscribanos(){
 
-		$escribanos =$this->db->get("usuarioEscribano")->result();
+		$escribanos =$this->db->get("usuarioescribano")->result();
 		return $escribanos;
 	}
 
@@ -27,7 +27,7 @@ class M_administrador extends CI_Model
 		try {
 			$query = $this->db->query("
 				SELECT *
-				FROM usuarioSys u
+				FROM usuariosys u
 				where u.idUsuario = $idUsuario
 				");
 			return $query->result();
@@ -40,7 +40,20 @@ class M_administrador extends CI_Model
 	{
 		try{
 			$this->db->where('idUsuario',$id);
-			return $this->db->UPDATE('usuarioSys',$operador);
+			return $this->db->UPDATE('usuariosys',$operador);
+
+			} catch (Exception $e) {
+			return false;
+		}
+
+		}
+
+
+	public function actualizarEscribano($escribano,$id)
+	{
+		try{
+			$this->db->where('idEscribano',$id);
+			return $this->db->UPDATE('usuarioEscribano',$escribano);
 
 			} catch (Exception $e) {
 			return false;

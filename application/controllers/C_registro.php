@@ -93,7 +93,8 @@ class C_registro extends CI_Controller {
 				
 				$this->index(FALSE,TRUE);
 			}else{
-				
+				$datetime_variable = new DateTime();
+				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 				$datos_usuarios= array (
 					'nomyap' => $this->input->post('nombre').' '.$this->input->post('apellido'),
 					'matricula' => $this->input->post('nroMatricula'),
@@ -107,6 +108,7 @@ class C_registro extends CI_Controller {
 					'direccion' =>$this->input->post('direccion'),
 					'estadoAprobacion'=>'P',
 					'motivoRechazo'=>'',
+					'fechaReg'=>$datetime_formatted,
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				

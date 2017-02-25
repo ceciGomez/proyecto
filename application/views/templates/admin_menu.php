@@ -8,7 +8,8 @@
           <img src="<?=base_url()?>assets/dist/img/user.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Escribano Pierce</p>
+          <p><?php echo $this->session->userdata('nomyap') ?></p>
+          <p><?php echo $this->session->userdata('perfil') ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -39,6 +40,20 @@
             <li><a href="<?=base_url()?>index.php/c_administrador/verOperadores"><i class="fa fa-circle-o"></i> Ver Operadores</a></li>
             <li><a href="<?=base_url()?>index.php/c_administrador/verEscribanos"><i class="fa fa-circle-o"></i> Ver Escribanos</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Crear Usuarios</a></li>
+          </ul>
+        </li>
+
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Administrar Minutas</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?=base_url()?>index.php/c_administrador/ver_minutas"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/ver_minutasPendientes"><i class="fa fa-circle-o"></i> Ver Minutas Pendientes</a></li>
+            
           </ul>
         </li>
 
