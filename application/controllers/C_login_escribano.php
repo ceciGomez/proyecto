@@ -56,7 +56,9 @@ class C_login_escribano extends CI_Controller {
 	                'is_logued_in' 	=> 		TRUE,
 	                'perfil' 	=> 		'escribano',
 	                'id_usuario' 	=> 		$check_user->idEscribano,
-	                'username' 		=> 		$check_user->usuario
+	                'username' 		=> 		$check_user->usuario,
+	                 'nomyap' 	=> 	$check_user->nomyap,
+					'fechaReg' 	=> 	$check_user->fechaReg
             		);		
 					$this->session->set_userdata($data);
 					$this->index();

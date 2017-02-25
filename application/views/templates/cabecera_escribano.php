@@ -154,8 +154,7 @@
 
                 <p>
                   
-                  <?php echo  $this->session->userdata('nomyap') ?>- <?php echo $this->session->userdata('perfil');
-                  var_dump( $this->session->userdata('nomyap') ); ?>
+                  <?php echo  $this->session->userdata('nomyap') ?>- <?php echo $this->session->userdata('perfil'); ?>
                   <small>Miembro desde <?php echo  $this->session->userdata('fechaReg') ?></small>
                 </p>
               </li>

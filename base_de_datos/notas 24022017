@@ -1,0 +1,41 @@
+Ver Minutas:
+agregar tooltips en verMinutas para: ver, editar, verPropietarios, imprimir
+estados pendientes --> no puede editarse por el escribano.
+
+Registración:
+	tomo: no acepta nro negativos
+	Año: acepta texto (no deberia) --> cambiar a tipo entero. No puede ser superior al año actual.
+	Que pase a minuscula los apellidos y nombres.
+	No acepta letra Z en campo nomyap de propietario --> letras que no acepta --> ver conyuge
+	cambiar el tamaño del campo a por lo menos 60. 20 es poco
+
+	Cuit no anda.
+	Chequear los porcentajes en propietarios --> no hace faltaa por que se puede vender menos que el 100%
+
+	No cargo minuta. --> despues cargo pero sobreescribio una que ya existia.
+	Respetar los tamañaos. Si la seccion es una letra, que solo se pueda ingresar una letra. Cuales son los maximos y cuales son los minimos.
+
+	Matricula debe ser numérica, esta aceptando letras actualmente.
+
+Propietarios: generar tabla de propietarios idexada por dni y buscar por dni antes de la insercion
+	--> cambiar sirmi_x_ever <---
+	Buscar base de datos nacional de personas y utilizar esa, darle la opcion de modifcar los datos al escribano.
+
+Registro de escribanos:
+	los chequeos de escribano repetido estan bien -->>> BIEN AHI PABLOOOOOOOOOOOOOO Eeeeaaa
+
+ADMINISTRADOR:
+	ver operadores por estadao, activo o inactivos para poder darle la opcion de que lo habiliten nuevamente.
+	
+OPERADOR:
+	Hacer una sola pantalla para registraciones pendientes aprobados y que filtre por estado.
+
+	Hacer mensajito para eliminar escribano de que tiene cosas asociados
+
+	Mostrar escribanos que esten dados de baja, identificarlos con algun tipo de color por ejemplo para mostrar y para que ese usuario no pueda ser utilizado.
+
+	No es necesario ver el detalle de los escribano en ver minutas
+
+	La que esta rechazada que te muestre el estado, a lo sumo se puede ver el motivo de rechazo.
+	Filtrar por estado. MINUTAS.
+
