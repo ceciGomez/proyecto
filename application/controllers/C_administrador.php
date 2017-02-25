@@ -12,7 +12,7 @@ class C_administrador extends CI_Controller {
 
 	public function index()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}

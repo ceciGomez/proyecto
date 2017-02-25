@@ -172,7 +172,6 @@ class C_escribano extends CI_Controller {
 				
 				$this->db->insert("parcela", $datos_parcela);
 				$exito= TRUE; 
-				$data['provincias'] = $this->db->get("Provincia")->result();
 				$this->index($exito);
 			
 			}
