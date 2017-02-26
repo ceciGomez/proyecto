@@ -7,6 +7,7 @@ class C_escribano extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+        $this->load->model('M_escribano');
     }
 	
 	
@@ -16,7 +17,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-		$data['titulo'] = 'Bienvenido Escribano';
+		$data['titulo'] = 'Bienvenido Escribano';		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('home/escri',$data);
@@ -30,6 +31,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
+        
+		$data['departamentos'] = $this->M_escribano->getDepartamentos();
 		$data['exito']= $exito; 
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';

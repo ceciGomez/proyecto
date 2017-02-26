@@ -137,6 +137,17 @@ class M_escribano extends CI_Model
 		}
 	}
 
+		public function getDepartamentos()
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre
+				FROM departamento");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 }
 
