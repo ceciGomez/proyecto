@@ -26,29 +26,29 @@
             <div class="box-header">
 
               <h3 class="box-title">Lista de Minutas</h3>
-
-              
-                <div class="form-group">
+                 <div class="box-body">
+                  <div class="form-group">                
+                   <div class="form-group">
                        <label>Filtrar Minutas por :</label>
                        <br>
-
+                        <div class="col-md-3">
                         <label>Fecha Ingreso :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                
-                                      
+                        <input type='text' value='' class='filter' data-column-index='0'> 
+                        </div>
+                        <div class="col-md-3">              
                         <label>Fecha Edición :</label>
                         <input type='text' value='' class='filter' data-column-index='1'>
-                   
-                
+                        </div>
+                        <div class="col-md-3">
                         <label>Escribano :</label>
                         <input type='text' value='' class='filter' data-column-index='2'>
-                  
+                        </div>
+                        <div class="col-md-3">
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'> 
-
-
-
-                  
+                        <input type='text' value='' class='filter' data-column-index='3'>                        
+                          </div>
+                        </div>
+                    </div>
                   </div>
                 </form>
 
