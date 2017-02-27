@@ -137,6 +137,30 @@ class M_escribano extends CI_Model
 		}
 	}
 
+		public function getDepartamentos()
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre, idDepartamento
+				FROM departamento");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+   //Recibe el departamento seleccionado para buscar las localidades correspondientes
+		public function getLocalidades($idDepartamento)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre, idDepartamento
+				FROM localidad
+				WHERE idDepartamento=$idDepartamento");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 }
 

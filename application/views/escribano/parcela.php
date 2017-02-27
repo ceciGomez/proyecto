@@ -36,7 +36,7 @@
                            <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control"  id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('circunscripcion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -128,21 +128,18 @@
                                  </div>                              
                                   <div class="col-md-3">
                                     <label>Departamento</label>
-                                    <select class="form-control select2" name="departamento" style="width: 100%;">   
-                                       <option value="">Localidad</option>
-                                       <option value="San Fernando" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Resistencia" ? TRUE : FALSE )); ?>>Resistencia</option>
-                                       <option value="San Juan" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Barranqueras" ? TRUE : FALSE )); ?>>Barranqueras</option>
-                                       <option value="San La Muerte" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Saenz Peña" ? TRUE : FALSE )); ?>>Saenz Peña</option>
-                                    </select>
-                                     <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                                    <select class="form-control select2 departamentos" id="departamentos"name="departamentos" style="width: 100%;">
+                                       <option selected="selected">Selecciona departamento</Option>
+                                        <?php foreach($departamentos as $each){ ?>
+                                        <option value="<?php echo $each->idDepartamento; ?>"><?php echo $each->nombre; ?></option>';
+                                       <?php } ?>
+                                     <div style="color:red;" ><p><?=form_error('departamento')?></p></div>
+                                         </select>
                                  </div>                      
                                  <div class="col-md-3">
                                     <label>Localidad</label>
-                                    <select class="form-control select2" name="localidad" style="width: 100%;">   
-                                       <option value="">Localidad</option>
-                                       <option value="Resistencia" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Resistencia" ? TRUE : FALSE )); ?>>Resistencia</option>
-                                       <option value="Barranqueras" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Barranqueras" ? TRUE : FALSE )); ?>>Barranqueras</option>
-                                       <option value="Saenz Peña" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Saenz Peña" ? TRUE : FALSE )); ?>>Saenz Peña</option>
+                                    <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
+                                       <option value="">Seleccione localidad</option>
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
@@ -208,15 +205,38 @@
       }
     }
    </script>
+      <!-- Cambia la letra ingresada a mayuscula-->
    <script >
     function changeToUpperCase(el)
- {
+       {
      el.value =el.value.trim().toUpperCase();
- }
+       }
    </script>
    <script type="text/javascript">
       function isNumberKey(evt){
     var charCode = (evt.which) ? evt.which : event.keyCode;
     return !(charCode > 31 && (charCode < 48 || charCode > 57));
-}
+      }
    </script>
+   <!-- Llena lista de localidades dependiendo del departamento seleccionado -->
+   <script>
+   $(document).on('change','.departamentos',function(){
+      var iddepartamento = $(".departamentos").val();
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){        
+             $("#localidades").empty();
+             $("#localidades").append("<option>Seleccione localidad</option>");
+            var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });           
+         }
+      });
+   });
+   </script>
+
+
