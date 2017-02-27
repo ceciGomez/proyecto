@@ -200,6 +200,12 @@ class C_escribano extends CI_Controller {
     }
    }
 
+    function cargarLocalidades(){
+    	$id_departamento=$this->input->post('id_departamento');
+   		echo json_encode($this->M_escribano->getLocalidades($id_departamento));
+  
+   }
+
 		public function departamento()
 	{
 		$id_prov=$_POST["miprovincia"];
