@@ -72,9 +72,10 @@
                               } ?></td>
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
-                              <?php if ($value->estadoMinuta == 'A'): ?>
+                              <?php if ($value->estadoMinuta == 'A' or $value->estadoMinuta == 'P'): ?>
                                 <a class="btn btn-sm " href="#" disabled="" title="Editar Minuta"><button><i class="fa fa-pencil"></i></button></a> 
-                              <?php endif ?> <?php if ($value->estadoMinuta != 'A'): ?>
+                              <?php endif ?> 
+                              <?php if ($value->estadoMinuta == 'R'): ?>
                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/editarMinuta/"<?php echo $value->idMinuta?> title="Editar Minuta" ><button><i class="fa fa-pencil" ></i></button></a> 
                               <?php endif ?>
 
