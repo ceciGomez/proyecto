@@ -60,6 +60,9 @@ class M_escribano extends CI_Model
 			return false;
 		}
 	}
+
+	
+
 	public function getParcelas($idMinuta)
 	{
 		try {
