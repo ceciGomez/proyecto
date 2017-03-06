@@ -7,6 +7,7 @@ class C_escribano extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+        $this->load->model('M_escribano');
     }
 	
 	
@@ -16,7 +17,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-		$data['titulo'] = 'Bienvenido Escribano';
+		$data['titulo'] = 'Bienvenido Escribano';		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('home/escri',$data);
@@ -30,6 +31,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
+        
+		$data['departamentos'] = $this->M_escribano->getDepartamentos();
 		$data['exito']= $exito; 
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
@@ -145,9 +149,11 @@ class C_escribano extends CI_Controller {
 				
 				$this->CrearMinuta(FALSE,TRUE);
 			}else{
+				$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
+				$query = $this->db->query($sql, array($this->input->post('localidad')));
 				
 				$datos_parcela= array (
-					'idLocalidad' => 2,
+					'idLocalidad' => $query,
 					'circunscripcion' => $this->input->post('circunscripcion'),
 					'seccion' => $this->input->post('seccion'),
 					'chacra' => $this->input->post('chacra'),
@@ -172,7 +178,6 @@ class C_escribano extends CI_Controller {
 				
 				$this->db->insert("parcela", $datos_parcela);
 				$exito= TRUE; 
-				$data['provincias'] = $this->db->get("Provincia")->result();
 				$this->index($exito);
 			
 			}
@@ -193,6 +198,12 @@ class C_escribano extends CI_Controller {
   		else{
   	   return TRUE;
     }
+   }
+
+    function cargarLocalidades(){
+    	$id_departamento=$this->input->post('id_departamento');
+   		echo json_encode($this->M_escribano->getLocalidades($id_departamento));
+  
    }
 
 		public function departamento()
@@ -234,6 +245,7 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
@@ -297,13 +309,15 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/verUnaMinuta',$data);
 		$this->load->view('templates/pie',$data);
 	}
-		public function verPropietarios()
+		public function verPropietarios($param="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data['propietarios'] = $this->M_escribano->getPropietarios($param);
+		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verPropietarios',$data);

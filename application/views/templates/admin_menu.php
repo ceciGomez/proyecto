@@ -8,7 +8,8 @@
           <img src="<?=base_url()?>assets/dist/img/user.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Administrador Pierce</p>
+          <p><?php echo $this->session->userdata('nomyap') ?></p>
+          <p><?php echo $this->session->userdata('perfil') ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>

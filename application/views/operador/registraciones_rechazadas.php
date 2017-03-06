@@ -13,50 +13,48 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
-    
-      <!-- Main row -->
-      <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-         
-
-          <!-- TO DO List -->
-          <div class="box box-primary">
-            <div class="box-header">
-
-              <h3 class="box-title">Usuarios Rechazados</h3>
-
-             
-               <div class="form-group">
-                <br>
-                <br>
-                 <label>Filtrar Escribanos por :</label>
-                 <br>
-                 <br>
-                      <label>Fecha Registración :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                    
-                        <label>Escribano :</label>
-                      <input type='text' value='' class='filter' data-column-index='1'> 
-                
-                                      
-                        <label>Usuario :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                   
-                      
-                        <label>DNI :</label>
-                         <input type='text' value='' class='filter' data-column-index='3'> 
-                    
-<br>
-                        <div>
-                 <br>
-                        <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='4'> 
+   <!-- Main content -->
+   <section class="content">
+   <!-- Main row -->
+   <div class="row">
+      <!-- Left col -->
+      <section class="col-lg-12 connectedSortable">
+         <section class="content">
+            <div class="row">
+               <!-- left column -->
+               <div class="col-md-12">
+                  <!-- general form elements -->
+                  <div class="box box-primary">
+                     <div class="box-header ">
+                        <h3 class="box-title">Usuarios rechazados</h3>
+                     </div>
+                       <div class="box-body">
+                       <div class="form-group">        
+                       <label>Filtrar Escribanos por :</label>
+                       <br>
+                       <br>
+                        <div class="col-md-3">
+                        <label>Fecha registracion :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='0'> 
                         </div>
-                  
+                        <div class="col-md-3">              
+                        <label>Escribano :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='1'>
+                        </div>
+                        <div class="col-md-3">
+                        <label>Usuario :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='2'>
+                        </div>
+                        <div class="col-md-3">
+                        <label class="control-label">Dni :</label>
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='3'>                        
+                        </div>         
+                         <div class="col-md-3">
+                        <label>Matricula :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='4'>                        
+                        </div>               
+                    </div>
                   </div>
-                </form>
 
 
                 <div class="box-body table-responsive no-padding"> 
@@ -258,8 +256,10 @@
           </div>
           <!-- /.box -->
 
-       
-
+            </div>
+             
+          </div>
+         </section>
         </section>
         <!-- /.Left col -->
       

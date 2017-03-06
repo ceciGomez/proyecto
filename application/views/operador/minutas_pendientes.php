@@ -21,33 +21,38 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-         
+        <section class="col-lg-12 connectedSortable">         
 
           <!-- TO DO List -->
           <div class="box box-primary">
 
               <br>
               <br>
-
+               <div class="box-header ">
                <h4 class="box-title"  >Filtrar resultados por:</h4>
-                <div class="form-group">
-                    
+               </div>
+                <div class="box-body">
+                  <div class="form-group">   
+                    <div class="form-group">                 
                        
-                
-                          <label>Fecha Ingreso :</label>
-                        <input  type="text"  class='filter' data-column-index='0'> 
-                          <label>Fecha Edición :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'> 
-                        <label> Escribano :</label>
-                         <input type='text' value='' class='filter' data-column-index='2'> 
-                          <label>Matricula :</label>
-                         <input type='text' value='' class='filter' data-column-index='2'>
-                    
-                    
-                  
-                      
-                  
+                    <div class="col-md-3">
+                     <label>Fecha Ingreso :</label>
+                        <input  type="text"  class='form-control input-sm filter' data-column-index='0'> 
+                        </div>
+                     <div class="col-md-3">
+                         <label>Fecha Edición :</label>
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='1'> 
+                     </div>
+                     <div class="col-md-3">
+                         <label> Escribano :</label>
+                         <input type='text' value='' class='form-control input-sm filter' data-column-index='2'> 
+                     </div>
+                     <div class="col-md-3">
+                        <label>Matricula :</label>
+                         <input type='text' value='' class='form-control input-sm filter' data-column-index='2'>    
+                      </div> 
+                     </div>                                
+                    </div>           
                   </div>
                 </form>
                 <br><br>

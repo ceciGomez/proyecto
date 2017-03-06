@@ -19,16 +19,19 @@ class C_login_administrador extends CI_Controller {
 	
 	public function index()
 	{	
+				
 		switch ($this->session->userdata('perfil')) {
 			case '':
 				$data['token'] = $this->token();
 				$data['titulo'] = 'Login';
 				$this->load->view('login/v_login_administrador',$data);
+
 				break;
-			case 'administrador':
+			case 'Administrador':
 				redirect(base_url().'index.php/c_administrador');
 				break;
-			default:		
+			default:
+				$data['token'] = "";	
 				$data['titulo'] = 'Login';
 				$this->load->view('login/v_login_administrador',$data);
 				break;		
@@ -37,6 +40,7 @@ class C_login_administrador extends CI_Controller {
 
 	public function new_user()
 	{
+
 		if($this->input->post('token') && $this->input->post('token') == $this->session->userdata('token'))
 		{
            $this->form_validation->set_rules('usuario', 'nombre de usuario', 'required|min_length[2]|max_length[150]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=>'El usuario ingresado debe ser de al menos 2 digitos','max_length'=> 'El usuario ingresado debe ser de menos de 120 digitos'));

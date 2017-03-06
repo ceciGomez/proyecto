@@ -154,7 +154,7 @@
                 <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $this->session->userdata('nomyap') ?> - [<?php echo $this->session->userdata('perfil') ?>]
+                  <?php echo $this->session->userdata('nomyap') ?>  [<?php echo $this->session->userdata('perfil') ?>]
                   <small>Miembro desde  <?php echo $this->session->userdata('fechaReg') ?></small>
                 </p>
               </li>

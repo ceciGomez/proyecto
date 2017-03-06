@@ -33,11 +33,10 @@
                       <?=form_open(base_url().'index.php/C_escribano/registro_parcela')?>
                      <form method="post">
                         <div class="box-body">
-                           <div class="form-group">
-                              <div class="form-group">                             
+                           <div class="form-group">                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control"  id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('circunscripcion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -47,14 +46,13 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Chacra</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="chacra" <?php echo "value='$chacra'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="chacra" <?php echo "value='$chacra'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('chacra')?></p></div>
-                                 </div>
-                             
+                                 </div>                             
                             
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Quinta</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="quinta" <?php echo "value='$quinta'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="quinta" <?php echo "value='$quinta'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('quinta')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -81,7 +79,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('partida')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -89,7 +87,7 @@
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22 - 22/222/RE">
                                     <div style="color:red;" ><p><?=form_error('planoAprobado')?></p></div>
                                  </div>
-                                     <div class="form-group col-md-3">
+                                  <div class=" col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
@@ -110,32 +108,38 @@
                              
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Tomo</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="tomo" <?php echo "value='$tomo'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="tomo" <?php echo "value='$tomo'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('tomo')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Folio</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="folio" <?php echo "value='$folio'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="folio" <?php echo "value='$folio'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('folio')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Finca</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" name="finca" <?php echo "value='$finca'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" mmin="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="finca" <?php echo "value='$finca'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('finca')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="año" <?php echo "value='$año'" ?> placeholder="Ej: 2.001">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="año" <?php echo "value='$año'" ?> placeholder="Sin punto">
                                     <div style="color:red;" ><p><?=form_error('año')?></p></div>
                                  </div>                              
-                                                        
+                                  <div class="col-md-3">
+                                    <label>Departamento</label>
+                                    <select class="form-control select2 departamentos" id="departamentos"name="departamentos" style="width: 100%;">
+                                       <option selected="selected">Selecciona departamento</Option>
+                                        <?php foreach($departamentos as $each){ ?>
+                                        <option value="<?php echo $each->idDepartamento; ?>"><?php echo $each->nombre; ?></option>';
+                                       <?php } ?>
+                                     <div style="color:red;" ><p><?=form_error('departamento')?></p></div>
+                                         </select>
+                                 </div>                      
                                  <div class="col-md-3">
                                     <label>Localidad</label>
-                                    <select class="form-control select2" name="localidad" style="width: 100%;">   
-                                       <option value="">Localidad</option>
-                                       <option value="Resistencia" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Resistencia" ? TRUE : FALSE )); ?>>Resistencia</option>
-                                       <option value="Barranqueras" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Barranqueras" ? TRUE : FALSE )); ?>>Barranqueras</option>
-                                       <option value="Saenz Peña" <?php echo set_select('add_fields_type','input', ( !empty($localidad) && $localidad == "Saenz Peña" ? TRUE : FALSE )); ?>>Saenz Peña</option>
+                                    <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
+                                       <option value="">Seleccione localidad</option>
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
@@ -146,7 +150,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Matrícula RPI</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="nroMatriculaRPI" <?php echo "value='$nroMatriculaRPI'" ?> placeholder="Entero">
+                                    <input type="text" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="nroMatriculaRPI" <?php echo "value='$nroMatriculaRPI'" ?> placeholder="Entero">
                                     <div style="color:red;" ><p><?=form_error('nroMatriculaRPI')?></p></div>
                                  </div>
                                  <div class="form-group col-md-3">
@@ -167,7 +171,7 @@
                                 
                               </div>
                               </div>
-                           </div>
+                           
                            <!-- /.box-body -->
                         </div>
                      </form>
@@ -201,9 +205,38 @@
       }
     }
    </script>
+      <!-- Cambia la letra ingresada a mayuscula-->
    <script >
     function changeToUpperCase(el)
- {
+       {
      el.value =el.value.trim().toUpperCase();
- }
+       }
    </script>
+   <script type="text/javascript">
+      function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode;
+    return !(charCode > 31 && (charCode < 48 || charCode > 57));
+      }
+   </script>
+   <!-- Llena lista de localidades dependiendo del departamento seleccionado -->
+   <script>
+   $(document).on('change','.departamentos',function(){
+      var iddepartamento = $(".departamentos").val();
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){        
+             $("#localidades").empty();
+             $("#localidades").append("<option>Seleccione localidad</option>");
+            var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });           
+         }
+      });
+   });
+   </script>
+
+
