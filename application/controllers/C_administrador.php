@@ -25,7 +25,7 @@ class C_administrador extends CI_Controller {
 	
 	public function verOperadores()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -42,7 +42,7 @@ class C_administrador extends CI_Controller {
 	
 	public function verEscribanos()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -60,7 +60,7 @@ class C_administrador extends CI_Controller {
 
 	public function editarOperador($param="")
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -77,7 +77,7 @@ class C_administrador extends CI_Controller {
 
 	public function actualizarOperador()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -123,7 +123,7 @@ class C_administrador extends CI_Controller {
 
 	public function editarEscribano($param="")
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -140,7 +140,7 @@ class C_administrador extends CI_Controller {
 
 	public function actualizarEscribano()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -190,7 +190,7 @@ class C_administrador extends CI_Controller {
 
 	public function reg_pen()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -256,7 +256,7 @@ class C_administrador extends CI_Controller {
 
 	public function reg_apro()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -272,7 +272,7 @@ class C_administrador extends CI_Controller {
 
 	public function reg_rech()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_operador');
 		}
@@ -288,7 +288,7 @@ class C_administrador extends CI_Controller {
 
 	public function ver_minutasPendientes()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
@@ -399,7 +399,7 @@ class C_administrador extends CI_Controller {
 
       public function ver_minutas()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'administrador')
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
