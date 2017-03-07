@@ -62,7 +62,8 @@ class C_login_administrador extends CI_Controller {
 	                'perfil' 	=> 	'Administrador',
 	                'id_usuario' 	=> 	$check_user->idUsuario,
 	                'nomyap' 	=> 	$check_user->nomyap,
-					'fechaReg' 	=> 	$check_user->fechaReg
+					'fechaReg' 	=> 	$check_user->fechaReg,
+					'foto' => $check_user->foto
             		);		
 					$this->session->set_userdata($data);
 					$this->index();
