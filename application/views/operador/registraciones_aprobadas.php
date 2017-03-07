@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-       <h1>
+      <h1>
         
         <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
@@ -13,7 +13,7 @@
     </section>
 
     <!-- Main content -->
-     <section class="content">
+   <section class="content">
    <!-- Main row -->
    <div class="row">
       <!-- Left col -->
@@ -25,45 +25,41 @@
                   <!-- general form elements -->
                   <div class="box box-primary">
                      <div class="box-header ">
-                        <h3 class="box-title">Usuarios pendientes de aprobación</h3>
+                        <h3 class="box-title">Usuarios aprobados</h3>
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
                     
                        <div class="box-body">
-                       <div class="form-group">  
-               
-                       <label>Filtrar Escribanos por :</label>
+                       <div class="form-group">        
+                       <label>Filtrar Minutas por :</label>
                        <br>
                        <br>
-                       <div class="col-md-3">
-                      <label>Fecha Registración :</label>
-                      <input type='text' value='' class='form-control input-sm filter'  data-column-index='0'> 
-                      </div>
-                      <div class="col-md-3">
-                     <label>Escribano :</label>
-                      <input type='text' value='' class='form-control input-sm filter'  data-column-index='1'> 
-                      </div>                     
-                        <div class="col-md-3">           
-                        <label>Usuario :</label>
+                        <div class="col-md-3">
+                        <label>Fecha Ingreso :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='0'> 
+                        </div>
+                        <div class="col-md-3">              
+                        <label>Fecha Edición :</label>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='1'>
+                        </div>
+                        <div class="col-md-3">
+                        <label>Escribano :</label>
                         <input type='text' value='' class='form-control input-sm filter'  data-column-index='2'>
                         </div>
-                       <div class="col-md-3">
-                        <label>DNI :</label>
-                       <input type='text' value='' class='form-control input-sm filter'  data-column-index='3'> 
-                       </div>
                         <div class="col-md-3">
+                        <label class="control-label">Dni :</label>
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='3'>                        
+                        </div>         
+                         <div class="col-md-3">
                         <label>Matricula :</label>
-                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='4'> 
-                        </div>
+                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='4'>                        
+                        </div>               
                     </div>
                   </div>
-                 
-               
-
 
                 <div class="box-body table-responsive no-padding"> 
-                  <table id="reg_pen" class="table-bordered" style="display: none"  >
+                  <table id="reg_apro" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
                             <th>fechaReg</th>
@@ -76,27 +72,24 @@
                         </thead>
 
                         <tbody >
-                            <?php 
-                            foreach ($esc_pen as $ep){ 
+                            <?php  foreach ($esc_apro as $ep){ 
                               $date=new DateTime($ep->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
                          ?>
                       
                           <tr>
-                             <td>  <?php  echo "$date_formated"; ?></td>
+                              <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$ep->nomyap"; ?></td>
                             <td>  <?php  echo "$ep->usuario"; ?></td>
                             <td>  <?php  echo "$ep->dni"; ?></td>
                             <td>  <?php  echo "$ep->matricula"; ?></td>
 
-
-                           <td>
+                           
+                            <td>
                             
-                            <button   type="button"   class="btn btn-warning" data-toggle="modal"  onclick="ventana_det(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
- 
-                            <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_acep(<?php echo "$ep->idEscribano"; ?>)" href="#Aceptar"> Aceptar</button>
-                            
-                            <button  type="button"  class="btn btn-danger" onclick="ventana_rech(<?php echo "$ep->idEscribano"; ?>)" data-toggle="modal" href="#Rechazar">Rechazar</button>
+                             <button   type="button"   class="btn btn-warning" data-toggle="modal"onclick="ventana_det(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
+                        
+                          <button   type="button"   class="btn btn-danger" data-toggle="modal"  onclick="ventana_eli(<?php echo "$ep->idEscribano"; ?>)" href="#Eliminar" >Eliminar </button> 
                             </td>
                            
                           </tr>
@@ -108,13 +101,14 @@
                         </tbody>
                  </table>
                 </div>
-        
+
+
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Detalles</h3>
+                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
                                  </div>
                                  <div class="modal-body">
                                           <table class="table"  >
@@ -143,17 +137,19 @@
                             </div>
                           </div>
 
-                         
-                 <div class="modal" id="Aceptar">
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
+          
+
+                <div class="modal" id="Eliminar">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white" >Aceptar Registración</h3>
+                          <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
                          </div>
                          <div class="modal-body">
-                          <h3>Confirmar aceptar solicitud de registracion del Escribano:</h3>
-                              <table class="table"  >
+                         <h3> Confirmar eliminar escribano de la Base de Datos</h3>
+                         <br>
+                          <table class="table"  >
                                             <thead>
                                               <tr>
                                                 <th>Nombre y Apellido</th>
@@ -166,7 +162,7 @@
                                                  <th>Estado de Aprobacion</th>
                                                </tr>
                                              </thead> 
-                                               <tbody id="det_acep" >
+                                               <tbody id="det_eli" >
 
                                               </tbody >
                                             </table >
@@ -174,69 +170,27 @@
 
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                          <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                          <a href="" class="btn btn-primary" onclick="eliminar()">Aceptar</a>
                          </div>
                       </div>
                     </div>
                   </div>
 
 
-                 <div class="modal" id="Rechazar">
-                    <div class="modal-dialog modal-lg">
-                      <div class="modal-content">
-                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white">Rechazar Registración</h3>
-                         </div>
-                         <div class="modal-body">
-                          <h3>Confirmar rechazar registración del Escribano</h3>
-                            <table class="table"  >
-                                            <thead>
-                                              <tr>
-                                                <th>Nombre y Apellido</th>
-                                                <th>Usuario</th>
-                                                <th>DNI</th>
-                                                <th>Matricula</th>
-                                                 <th>Direccion</th>
-                                                 <th>Email</th>
-                                                 <th>Telefono</th>
-                                                 <th>Estado de Aprobacion</th>
-                                               </tr>
-                                             </thead> 
-                                               <tbody id="det_rech" >
-
-                                              </tbody >
-                                            </table >
-                           <div>
-                              <label style="display: block;">Ingrese motivo de rechazo :</label>
-                                <textarea id="motivoRechazo" rows="10" cols="100" ></textarea>
-                          </div>
-                           
-                         </div>
-
-                         <div class="modal-footer">
-                          <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                          <a href="" class="btn btn-primary" onclick="rechazar()">Aceptar</a>
-                         </div>
-                      </div>
-                    </div>
-                  </div>
-                      
                   <script type="text/javascript">
-            
-                   
 
+                   
                    $(document).ready(function(){
 
                     //crea la tabla
-                    var dtable=$('#reg_pen').DataTable(
+                    var dtable=$('#reg_apro').DataTable(
                         {
-                             autoWidht:false,
+                           autoWidht:false,
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún escribano con solicitud pendiente de aprobación",
+                            "sEmptyTable":     "Ningún escribano con solicitud aprobada",
                             "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
@@ -254,7 +208,7 @@
                                 } );
                            
 
-                    //para el filtrado
+                              //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
@@ -269,54 +223,42 @@
                     }); 
 
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('reg_pen_filter').style.display='none';
-                      $( "#reg_pen" ).show(); 
-                  
+                      document.getElementById('reg_apro_filter').style.display='none';
+                      
+                       $( "#reg_apro" ).show();  
                     } );
-                  idEsc='';
-                  function ventana_det( idEscribano){
+
+
+                    idEsc='';
+                   function ventana_eli (idEscribano){
+                      idEsc=idEscribano;
+                      $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_eli").html(data);
+                   }
+                    )};
+
+                    //Función de detalles
+                      function ventana_det( idEscribano){
                     $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
             });
-                  }
+                        }
+                  //eliminar escribano de la bd
 
-                  function ventana_acep( idEscribano){
-                    idEsc=idEscribano;
-                    
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
-                      $("#det_acep").html(data);
-            });
-                  }
-
-                  function ventana_rech( idEscribano){
-                    idEsc=idEscribano;
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
-                      $("#det_rech").html(data);
-            });
-                  }
-
-                   function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_operador/aceptar_esc",{idEscribano:idEsc}, function(data){
+                   function eliminar( ){
+                    $.post("<?=base_url()?>index.php/c_operador/eliminar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }
-                     
 
-                   function rechazar( ){
-                     var motivoRechazo=document.getElementById('motivoRechazo').value;
-                    $.post("<?=base_url()?>index.php/c_operador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
-                      
-            });
-                  }
          </script>
 
            
-            </div>
+      </div>
           <!-- /.box -->
-           </div>
           </div>
-       </section>
-
+       </div>
+        </section>
         </section>
         <!-- /.Left col -->
       

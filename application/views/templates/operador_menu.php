@@ -8,7 +8,8 @@
           <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
-          <p>Operador Pierce</p>
+          <p><?php echo $this->session->userdata('nomyap') ?></p>
+          <p><?php echo $this->session->userdata('perfil') ?></p>
           <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
         </div>
       </div>
@@ -35,7 +36,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?=base_url().'index.php/c_loginop/reg_pen'?>"><i class="fa fa-circle-o"></i> Registraciones Pendientes</a></li>
+            <li><a href="<?=base_url().'index.php/c_operador/reg_pen'?>"><i class="fa fa-circle-o"></i> Registraciones Pendientes</a></li>
+             <li><a href="<?=base_url().'index.php/c_operador/reg_apro'?>"><i class="fa fa-circle-o"></i> Registraciones Aprobadas</a></li>
+              <li><a href="<?=base_url().'index.php/c_operador/reg_rech'?>"><i class="fa fa-circle-o"></i> Registraciones Rechazadas</a></li>
           </ul>
         </li>   
 
@@ -47,9 +50,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Aprobar Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Crear Usuarios</a></li>
+            <li><a href="<?=base_url().'index.php/c_operador/ver_minutasPendientes'?>"><i class="fa fa-circle-o"></i>Minutas Pendientes</a></li>
+            <li><a href="<?=base_url().'index.php/c_operador/ver_minutas'?>"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
           </ul>
         </li>
 

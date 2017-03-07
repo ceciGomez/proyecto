@@ -2,12 +2,12 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h1>
+       <h1>
         
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
+        <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Operador</li>
       </ol>
     </section>
@@ -25,90 +25,73 @@
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3 class="box-title">Operadores</h3>
+              <h3 class="box-title">Usuarios Rechazados</h3>
 
-                <div class="form-group">
+             
+               <div class="form-group">
                 <br>
                 <br>
-                 <label>Filtrar Operadores por :</label>
+                 <label>Filtrar Escribanos por :</label>
                  <br>
                  <br>
                       <label>Fecha Registración :</label>
                       <input type='text' value='' class='filter' data-column-index='0'> 
                     
-                        <label>DNI :</label>
+                        <label>Escribano :</label>
                       <input type='text' value='' class='filter' data-column-index='1'> 
                 
                                       
-                        <label>Operador :</label>
+                        <label>Usuario :</label>
                         <input type='text' value='' class='filter' data-column-index='2'>
                    
                       
-                        <label>Usuario :</label>
+                        <label>DNI :</label>
                          <input type='text' value='' class='filter' data-column-index='3'> 
                     
 <br>
                         <div>
                  <br>
-                        <label>Telefono :</label>
-                        <input type='text' value='' class='filter' data-column-index='5'> 
-                        <label>Email :</label>
-                        <input type='text' value='' class='filter' data-column-index='6'> 
-                        <label>Dirección :</label>
-                        <input type='text' value='' class='filter' data-column-index='7'> 
-                         <label>Localidad :</label>
-                        <input type='text' value='' class='filter' data-column-index='8'> 
+                        <label>Matricula :</label>
+                        <input type='text' value='' class='filter' data-column-index='4'> 
                         </div>
-
                   
                   </div>
                 </form>
-                <br>
-                <br>
 
 
 
-                  <table id="operadores" class="table-bordered" style="display: none" >
+                  <table id="reg_rech" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
-                            <th>Fecha Registración</th>
-                            <th>DNI</th>
-                            <th>Operador</th>
+                            <th>fechaReg</th>
+                            <th>Escribano</th>
                             <th>Usuario</th>
-                            <th>Teléfono</th>
-                            <th>Email</th>
-                            <th>Dirección</th>
-                           <th>Localidad</th>
-                           <th>Operaciones</th>
-
-
+                            <th>DNI</th>
+                            <th>Matricula</th>
+                             <th>Operaciones</th>
                           </tr>
                         </thead>
 
                         <tbody >
-                            <?php  foreach ($operadores as $op){ 
-                              $date=new DateTime($op->fechaReg);
+                            <?php  foreach ($esc_rech as $ep){ 
+                               $date=new DateTime($ep->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
-                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$op->idLocalidad))->row();
-
                          ?>
                       
                           <tr>
-                              <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$op->dni"; ?></td>
-                            <td>  <?php  echo "$op->nomyap"; ?></td>
-                            <td>  <?php  echo "$op->usuario"; ?></td>
-                            <td>  <?php  echo "$op->telefono"; ?></td>
-                           <td>  <?php  echo "$op->email"; ?></td>
-                           <td>  <?php  echo "$op->direccion"; ?></td>
-                           <td>  <?php  echo "$localidad->nombre"; ?></td>
+                          <td>  <?php  echo "$date_formated"; ?></td>
+                            <td>  <?php  echo "$ep->nomyap"; ?></td>
+                            <td>  <?php  echo "$ep->usuario"; ?></td>
+                            <td>  <?php  echo "$ep->dni"; ?></td>
+                            <td>  <?php  echo "$ep->matricula"; ?></td>
+
                            
-                           <td colspan="" rowspan="" headers="">
-                              <div class="btn-group">
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
-                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$op->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
-                              </div>
-                           </td>
+                            <td>
+                            
+                             <button   type="button"   class="btn btn-warning" data-toggle="modal"onclick="ventana_det(<?php echo "$ep->idEscribano"; ?>)" href="#Detalles" >Detalles </button> 
+                        
+                          <button   type="button"   class="btn btn-danger" data-toggle="modal"  onclick="ventana_eli(<?php echo "$ep->idEscribano"; ?>)" href="#Eliminar" >Eliminar </button> 
+                            </td>
                            
                           </tr>
 
@@ -164,8 +147,26 @@
                           <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
                          </div>
                          <div class="modal-body">
-                         <h3> Confirmar eliminar Operador de la Base de Datos</h3>
-                        
+                         <h3> Confirmar eliminar escribano de la Base de Datos</h3>
+                         <br>
+                          <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_eli" >
+
+                                              </tbody >
+                                            </table >
+                         </div>
 
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
@@ -182,15 +183,15 @@
                    $(document).ready(function(){
 
                     //crea la tabla
-                    var dtable=$('#operadores').DataTable(
+                    var dtable=$('#reg_rech').DataTable(
                         {
                            autoWidht:false,
                              language: {
                                 "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ Operadores",
+                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún Operador encontrado ",
-                            "sInfo":           "Mostrando Operadores del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sEmptyTable":     "Ningún escribano con solicitud aprobada",
+                            "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -222,18 +223,20 @@
                     }); 
 
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('operadores_filter').style.display='none';
+                      document.getElementById('reg_rech_filter').style.display='none';
                       
-                       $( "#operadores" ).show();  
+                     $( "#reg_rech" ).show(); 
+
                     } );
 
 
-                    idUsr='';
-                   function ventana_eli (idUsuario){
-                      idUsr=idUsuario;
-                     
+                    idEsc='';
+                   function ventana_eli (idEscribano){
+                      idEsc=idEscribano;
+                      $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_eli").html(data);
                    }
-                   
+                    )};
 
                     //Función de detalles
                       function ventana_det( idEscribano){
@@ -244,7 +247,7 @@
                   //eliminar escribano de la bd
 
                    function eliminar( ){
-                    $.post("<?=base_url()?>index.php/c_administrador/eliminar_op",{idUsuario:idUsr}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/eliminar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }

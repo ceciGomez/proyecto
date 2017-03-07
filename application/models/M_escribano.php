@@ -16,9 +16,9 @@ class M_escribano extends CI_Model
 					SELECT m.idMinuta as idMinuta, idEscribano, 
 		concat(substring(fechaIngresoSys, 6, 2), '/' ,substring(fechaIngresoSys, 9, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
 					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
-					from Minuta m inner join 
-					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from EstadoMinuta group by idMinuta) as x
-					on x.idMinuta = m.idMinuta left join EstadoMinuta em 
+					from minuta m inner join 
+					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x
+					on x.idMinuta = m.idMinuta left join estadominuta em 
 					on em.idEstadoMinuta = x.idEstadoMinuta and em.idMinuta = x.idMinuta 
 					order by m.idMinuta
 				  	");
@@ -32,7 +32,7 @@ class M_escribano extends CI_Model
 		try {
 			$query = $this->db->query("
 				SELECT idMinuta, idEscribano, idUsuario, fechaIngresoSys, fechaEdicion
-				FROM Minuta m
+				FROM minuta m
 				where m.idMinuta = $idMinuta
 				");
 			return $query->result();
@@ -46,9 +46,13 @@ class M_escribano extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.*, l.nombre  as nombreLocalidad
-				FROM usuarioEscribano u inner join Localidad  l
+				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv
+				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
+				inner join departamento d
+				on d.idDepartamento = l.idDepartamento
+				inner join provincia p
+				on p.idProvincia = d.idProvincia
 				WHERE idEscribano = $idEscribano
 				");
 			return $query->result();
@@ -56,6 +60,9 @@ class M_escribano extends CI_Model
 			return false;
 		}
 	}
+
+	
+
 	public function getParcelas($idMinuta)
 	{
 		try {
@@ -77,20 +84,21 @@ class M_escribano extends CI_Model
 					when  'R' then 'Rural'
 					when  'S' then 'Suburbano' else '-' end  as tipoPropiedad,
 				p.planoAprobado as planoAprobado,
-				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				concat(substring(p.fechaPlanoAprobado, 9, 2), '/' ,substring(p.fechaPlanoAprobado, 6, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
 				p.descripcion as descripcion,
 				p.idMinuta,
 				p.nroMatriculaRPI as nroMatriculaRPI,
 			
-				concat(substring(p.fechaMatriculaRPI, 6, 2), '/' ,substring(p.fechaMatriculaRPI, 9, 2) , '/', substring(p.fechaMatriculaRPI, 1, 4)) as	fechaMatriculaRPI,
+				concat(substring(p.fechaMatriculaRPI, 9, 2), '/' ,substring(p.fechaMatriculaRPI, 6, 2) , '/', substring(p.fechaMatriculaRPI, 1, 4)) as	fechaMatriculaRPI,
 				p.tomo as tomo,
 				p.folio as folio,
 				p.finca as finca,
 				p.año as año,
 				l.nombre as nombreLocalidad, d.nombre as nombreDpto
-				FROM Parcela p inner join Localidad l
+				
+				FROM parcela p inner join localidad l
 				on p.idLocalidad = l.idLocalidad
-				inner join Departamento d 
+				inner join departamento d 
 				on d.idDepartamento = l.idDepartamento
 				WHERE $idMinuta = p.idMinuta 
 
@@ -119,8 +127,10 @@ class M_escribano extends CI_Model
 				planoAprobado,
 				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
 				porcentajeUfUc,
-				poligonos
-				FROM Propietario p inner join Localidad l
+				poligonos,
+				p.tipoPropietario as tipoPropietario
+
+				FROM propietario p inner join localidad l
 				on l.idLocalidad = p.idLocalidad
 				where p.idParcela = $idParcela
 			"); 
@@ -130,6 +140,30 @@ class M_escribano extends CI_Model
 		}
 	}
 
+		public function getDepartamentos()
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre, idDepartamento
+				FROM departamento");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+   //Recibe el departamento seleccionado para buscar las localidades correspondientes
+		public function getLocalidades($idDepartamento)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre, idDepartamento
+				FROM localidad
+				WHERE idDepartamento=$idDepartamento");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 }
 

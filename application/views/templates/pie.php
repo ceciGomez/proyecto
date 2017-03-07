@@ -2,7 +2,7 @@
    <div class="pull-right hidden-xs">
       <b>Version</b> 1.0.0
    </div>
-   <strong>Copyright &copy; 2016 <a> Grupo Catastrofe</a> </strong>
+   <strong>Copyright &copy; 2016 <a> Grupo Catastro</a> </strong>
    <p>Sistema desarrollado para la materia "Proyecto" - Ing. en Sistemas de Información</p>
    <p><strong>Universidad Tecnológica Nacional </strong>- Facultad Regional Resistencia</p>
 </footer>
@@ -85,6 +85,13 @@
 <script src="<?=base_url()?>assets/dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?=base_url()?>assets/dist/js/demo.js"></script>
+
+
+
+<script src="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.js"></script>
+  <link rel="stylesheet" type="text/css"  href="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.min.css">
+
+<script src="<?=base_url()?>assets/plugins/modal/bootstrap-modal.js"></script>
 </body>
 </html>
 

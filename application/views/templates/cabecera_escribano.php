@@ -7,7 +7,7 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
 
    <style type="text/css">
                      .modal-header{
@@ -17,7 +17,18 @@
                         overflow:hidden;
                           }
    </style>
+    <!-- CSS para quitar las flechas de los input number -->
+   <style type="text/css">
+      .form-control{
+      -moz-appearance:textfield;
+        }
 
+      .form-control::-webkit-outer-spin-button,
+      .form-control::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+     margin: 0;
+    }
+</style>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
@@ -42,15 +53,12 @@
   <!-- bootstrap wysihtml5 - text editor -->
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
 
-  <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.min.css" />
 
     <script src="<?=base_url()?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
 
     <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.min.js"></script>
-
-
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   
@@ -68,7 +76,7 @@
     <!-- Logo -->
     <a href="#" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><b>A</b>SIRMi</span>
+      <span class="logo-mini"><b>S</b>irmi  </span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><b>SIRMi</b>
       </span>
@@ -96,7 +104,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Equipo de Soporte
@@ -144,17 +152,18 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
+              <span class="hidden-xs">  <?php echo  $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
 
                 <p>
-                  Alexander Pierce - [PERFIL]
-                  <small>Miembro desde Nov. 2012</small>
+                  
+                  <?php echo  $this->session->userdata('nomyap') ?>- <?php echo $this->session->userdata('perfil'); ?>
+                  <small>Miembro desde <?php echo  $this->session->userdata('fechaReg') ?></small>
                 </p>
               </li>
              
@@ -164,7 +173,7 @@
                   <a href="#" class="btn btn-default btn-flat">Perfil de usuario</a>
                 </div>
                 <div class="pull-right">
-                <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login/logout_ci'?>" > Cerrar Sesión</a>
+                <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login_escribano/logout_ci'?>" > Cerrar Sesión</a>
                  <!-- <a href="" class="btn btn-default btn-flat">Sign out</a> -->
                 </div>
               </li>

@@ -17,13 +17,14 @@ class C_registro extends CI_Controller {
         parent::__construct();
     }
 	
-	public function index($exito=false)
+	public function index($exito=FALSE, $hizo_post=FALSE)
 	{	
 		//busco todas las provjncias
 		$data['exito']= $exito; 
-	    $data['provincias'] = $this->db->get("Provincia")->result();
+		$data['hizo_post']=$hizo_post;
+	    $data['provincias'] = $this->db->get("provincia")->result();
 		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
-		if($this->input->post()){
+		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['nombre'] = $this->input->post('nombre');
 			$data['apellido']=$this->input->post('apellido');
@@ -58,18 +59,19 @@ class C_registro extends CI_Controller {
 	}
 
 	public function registro_esc()
-	{		
+	{			$hizo_post=TRUE;	
+
 				 $this->load->helper(array('form', 'url'));
 
 			    $this->form_validation->set_rules('nombre', 'nombre', 'required',array('required' => 'Debes ingresar una Nombre ') );
 
 			    $this->form_validation->set_rules('apellido', 'apellido', 'required',array('required' => 'Debes ingresar un apellido ') );
 
-			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[usuarioEscribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+			    $this->form_validation->set_rules('DNI', 'DNI', 'required|is_unique[usuarioescribano.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
 
-			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[usuarioEscribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
+			    $this->form_validation->set_rules('nroMatricula', 'nroMatricula', 'required|is_unique[usuarioescribano.matricula]',array('required' => 'Debes ingresar un Nro de Matricula ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
 
-			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[usuarioEscribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+			    $this->form_validation->set_rules('correo', 'correo', 'required|is_unique[usuarioescribano.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
 
 			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
 
@@ -79,19 +81,20 @@ class C_registro extends CI_Controller {
 
 			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
 			   
-				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required',array('required' => 'Debes ingresar una contraseña ') );
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuarioEscribano.usuario]|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-				$this->form_validation->set_rules('repecontraseña', 'repecontraseña','required|matches[contraseña]',array('required' => 'Debes ingresar una contraseña ', 'matches'=>'La contraseña no coincide') );
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
 		
 		
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->index();
+				$this->index(FALSE,TRUE);
 			}else{
-				
+				$datetime_variable = new DateTime();
+				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 				$datos_usuarios= array (
 					'nomyap' => $this->input->post('nombre').' '.$this->input->post('apellido'),
 					'matricula' => $this->input->post('nroMatricula'),
@@ -103,15 +106,16 @@ class C_registro extends CI_Controller {
 					'usuario' => $this->input->post('usuario'),
 					'contraseña' => sha1($this->input->post('contraseña')), 
 					'direccion' =>$this->input->post('direccion'),
-					'estadoAprobacion'=>'p',
+					'estadoAprobacion'=>'P',
 					'motivoRechazo'=>'',
+					'fechaReg'=>$datetime_formatted,
 					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
 				);
 				
-				$this->db->insert("usuarioEscribano", $datos_usuarios);
-				$exito= TRUE; 
-				$data['provincias'] = $this->db->get("Provincia")->result();
-				$this->index($exito);
+				$this->db->insert("usuarioescribano", $datos_usuarios);
+				
+				$data['provincias'] = $this->db->get("provincia")->result();
+				$this->index(TRUE,TRUE);
 			
 			}
 			/*
@@ -148,7 +152,7 @@ class C_registro extends CI_Controller {
 		
 		//$departamentos=$this->db->get("departamento")->result();
 	   	
-	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
 	
 		
 		foreach ($departamentos as $d ) {
@@ -166,9 +170,9 @@ class C_registro extends CI_Controller {
 		$localidades = $this->db->get()->result();  
 		//$departamentos=$this->db->get("departamento")->result();*/
 		$localidades=array();
-	   	$departamentos=$this->db->get_where('Departamento', array('idProvincia'=>$id_prov))->result();
+	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
 	   	foreach ($departamentos as $d ) {
-	   		$loc=$this->db->get_where('Localidad', array('idDepartamento'=>$d->idDepartamento))->result();
+	   		$loc=$this->db->get_where('localidad', array('idDepartamento'=>$d->idDepartamento))->result();
 	   		$resg=$localidades;
 	   		$localidades=array_merge($resg,$loc);
 	   		

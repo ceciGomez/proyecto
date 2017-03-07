@@ -39,15 +39,15 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="20">
+                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="100">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Seleccionar</option>
-                           <option >Femenino</option>
-                           <option >Masculino</option>
+                           <option value="0" selected="selected">Seleccionar</option>
+                           <option value="27" >Femenino</option>
+                           <option value="20" >Masculino</option>
                         </select>
                      </div>
                      <div class="col-md-3">
@@ -60,7 +60,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-
+                        <input type="text" class="form-control" id="cuil" placeholder="CUIL" disabled >
                      </div>
                   </div>
                   <div class="form-group">
@@ -153,7 +153,7 @@
             </div>
             <!-- /.row -->
          </div>
-  
+  </div>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>
@@ -170,7 +170,7 @@
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo-combobox").on("focusout", function () {
-      	if($("#dni").val()!=""){
+      	if($("#dni").val()!="" ){
         var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
@@ -190,7 +190,7 @@
     <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
     <script>
       $("#dni").on("focusout", function () {
-      	if($("#dni").val()!=""){
+      	if($("#dni").val()!=""  && $("#sexo-combobox").val()!=0 ){
         var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
@@ -226,14 +226,14 @@
     }
    </script>
     <script>
-        $(document).ready(function(){
-        $("#inputTextBox").keypress(function(event){
-        var inputValue = event.charCode;
-        if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)){
-            event.preventDefault();
-        }
-        });
-      });
+        $(document).on('keypress', '#inputTextBox', function (event) {
+         var regex = new RegExp("^[a-zA-Z ]+$");
+          var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+           event.preventDefault();
+           return false;
+          }
+       });
     </script>
     <!--Limita campo nombre y apellido a 10 caracteres-->
       <script language="javascript" type="text/javascript">
@@ -256,12 +256,7 @@
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
-		<script language="javascript"><!--
-
- 		 
-		}
--->
-		</script>
+		
 		<script language="javascript">
 <!--
 
@@ -275,7 +270,7 @@
 		</script>
 		<!--Valida el porcentaje-->
 
-		}
+		
 		</script>
 		<!--Valida el porentaje-->
 

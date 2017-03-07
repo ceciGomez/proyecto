@@ -1,5 +1,3 @@
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -50,7 +48,8 @@
                         <tr>
                            <td colspan="" rowspan="" headers=""><?php echo $value->idMinuta;?></td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->fechaIngresoSys;?></td>
-                           <td colspan="" rowspan="" headers=""><?php if ($value->estadoMinuta == 'A')  {?>
+                           <td colspan="" rowspan="" headers="">
+                           <?php if ($value->estadoMinuta == 'A')  {?>
                              <span class="label label-success">Aprobado</span>
                           <?php } 
                           else {
@@ -73,12 +72,17 @@
                               } ?></td>
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
-                                 <a class="btn btn-sm " href= href="<?=base_url()?>index.php/c_escribano/editaraMinuta/<?php echo $value->idMinuta?>"><button><i class="fa fa-pencil"></i></button></a> 
+                              <?php if ($value->estadoMinuta == 'A' or $value->estadoMinuta == 'P'): ?>
+                                <a class="btn btn-sm " href="#" disabled="" title="Editar Minuta"><button><i class="fa fa-pencil"></i></button></a> 
+                              <?php endif ?> 
+                              <?php if ($value->estadoMinuta == 'R'): ?>
+                                <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/editarMinuta/"<?php echo $value->idMinuta?> title="Editar Minuta" ><button><i class="fa fa-pencil" ></i></button></a> 
+                              <?php endif ?>
 
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/verUnaMinuta/<?php echo $value->idMinuta?>"> <button><i class="fa fa-eye"></i></button></a>
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/verUnaMinuta/<?php echo $value->idMinuta?>" title="Ver Detalle de minuta"> <button><i class="fa fa-eye"></i></button></a>
 
-                                 <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_escribano/verPropietarios/<?php echo $value->idMinuta?>"> <button><i class="fa fa-users"></i></button></a>
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/imprimirMinuta/<?php echo $value->idMinuta?>"> <button><i class="fa fa-print"></i></button></a>
+                                 <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_escribano/verPropietarios/<?php echo $value->idMinuta?>" title="Ver Propietarios"> <button><i class="fa fa-users"></i></button></a>
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/imprimirMinuta/<?php echo $value->idMinuta?>" title="Imprimir"> <button><i class="fa fa-print"></i></button></a>
                               </div>
                            </td>
                         </tr>

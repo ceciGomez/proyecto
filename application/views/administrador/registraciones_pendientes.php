@@ -7,62 +7,59 @@
         <small>Bienvenido Operador : <?php echo$this->session->userdata('username') ?></small>
       </h1>
       <ol class="breadcrumb">
-        <li><a  href="<?=base_url()?>index.php/c_operador"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Operador</li>
       </ol>
     </section>
 
     <!-- Main content -->
-     <section class="content">
-   <!-- Main row -->
-   <div class="row">
-      <!-- Left col -->
-      <section class="col-lg-12 connectedSortable">
-         <section class="content">
-            <div class="row">
-               <!-- left column -->
-               <div class="col-md-12">
-                  <!-- general form elements -->
-                  <div class="box box-primary">
-                     <div class="box-header ">
-                        <h3 class="box-title">Usuarios pendientes de aprobación</h3>
-                     </div>
-                     <!-- /.box-header -->
-                     <!-- form start -->
-                    
-                       <div class="box-body">
-                       <div class="form-group">  
-               
-                       <label>Filtrar Escribanos por :</label>
-                       <br>
-                       <br>
-                       <div class="col-md-3">
+    <section class="content">
+    
+      <!-- Main row -->
+      <div class="row">
+        <!-- Left col -->
+        <section class="col-lg-12 connectedSortable">
+         
+
+          <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+
+              <h3 class="box-title">Usuarios Pendientes de Aprobación</h3>
+
+              
+               <div class="form-group">
+                <br>
+                <br>
+                 <label>Filtrar Escribanos por :</label>
+                 <br>
+                 <br>
                       <label>Fecha Registración :</label>
-                      <input type='text' value='' class='form-control input-sm filter'  data-column-index='0'> 
-                      </div>
-                      <div class="col-md-3">
-                     <label>Escribano :</label>
-                      <input type='text' value='' class='form-control input-sm filter'  data-column-index='1'> 
-                      </div>                     
-                        <div class="col-md-3">           
+                      <input type='text' value='' class='filter' data-column-index='0'> 
+                    
+                        <label>Escribano :</label>
+                      <input type='text' value='' class='filter' data-column-index='1'> 
+                
+                                      
                         <label>Usuario :</label>
-                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='2'>
-                        </div>
-                       <div class="col-md-3">
+                        <input type='text' value='' class='filter' data-column-index='2'>
+                   
+                      
                         <label>DNI :</label>
-                       <input type='text' value='' class='form-control input-sm filter'  data-column-index='3'> 
-                       </div>
-                        <div class="col-md-3">
+                         <input type='text' value='' class='filter' data-column-index='3'> 
+                    
+<br>
+                        <div>
+                 <br>
                         <label>Matricula :</label>
-                        <input type='text' value='' class='form-control input-sm filter'  data-column-index='4'> 
+                        <input type='text' value='' class='filter' data-column-index='4'> 
                         </div>
-                    </div>
+                  
                   </div>
-                 
-               
+                </form>
 
 
-                <div class="box-body table-responsive no-padding"> 
+
                   <table id="reg_pen" class="table-bordered" style="display: none"  >
                         <thead>
                           <tr>
@@ -107,7 +104,7 @@
                        
                         </tbody>
                  </table>
-                </div>
+
         
                          <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
@@ -311,11 +308,10 @@
          </script>
 
            
-            </div>
-          <!-- /.box -->
-           </div>
           </div>
-       </section>
+          <!-- /.box -->
+
+       
 
         </section>
         <!-- /.Left col -->

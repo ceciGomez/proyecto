@@ -13,139 +13,93 @@
       </ol>
    </section>
    <!-- Main content -->
-   <section class="content-body">
-   <!-- Main content -->
-   <section class="invoice">
-      <!-- title row -->     
-      <div class="col-xs-12">
-         <h2 class="page-header">
-            <i class="fa fa-globe"></i> Datos de Minuta Nro: <?php echo $minuta[0]->idMinuta ?>
-            <small class="pull-right"><u>Fecha:</u> <?php echo date("d/m/Y H:i:s") ?></small>
+   <section class="content">
+      <article>
+         <!-- Titulo -->
+         <small class="pull-right"><u>Fecha:</u> <?php echo date("d/m/Y H:i:s") ?></small>
+         <h2 class="page-header" align="center"><i><b>Minuta de Inscripción de Titulo</b></i>
          </h2>
+         <p align="justify">
+            Departamento  <strong><?php echo $unEscribano[0]->nombreDpto?>.</strong>
+            - Provincia de <strong><?php echo $unEscribano[0]->nombreProv?>.</strong><br> 
+            <u>FUNCIONARIO AUTORIZANTE: </u> Esc: <strong> <?php echo $unEscribano[0]->nomyap?>.</strong><br><br>
+            <?php foreach ($parcelas as $value) { ?> 
+            <u>NOMENCLATURA CATASTRAL: </u>
+            CIRCUNSCRIPCION: <strong><?php echo $value->circunscripcion ?></strong>
+            SECCION: <strong><?php echo $value->seccion ?></strong>
+            CHACRA: <strong><?php echo $value->chacra?></strong>
+            MANZANA: <strong><?php echo $value->manzana ?></strong>
+            PARCELA: <strong><?php echo $value->parcela ?></strong> <br>
+            <br>
+            Superficie:   <strong><?php echo $value->superficie ?> mts. </strong>
+            Tipo Propiedad: <strong><?php echo $value->tipoPropiedad ?> </strong> <br>
+            <u>Plano:</u>
+            Nro de Plano aprobado:  <strong><?php echo $value->planoAprobado ?> </strong> 
+            Fecha:  <strong><?php echo $value->fechaPlanoAprobado ?> </strong> 
+            <u>Localidad:</u> <strong><?php echo $value->nombreLocalidad ?> </strong><br>
+<br>
+            <u>INSCRIPCION: </u>
+            NRO MATRICULA: <strong> <?php echo $value->nroMatriculaRPI ?></strong>
+            FECHA:  <strong> <?php echo $value->fechaMatriculaRPI ?></strong>
+            TOMO:  <strong> <?php echo $value->tomo ?></strong>
+            FOLIO:  <strong> <?php echo $value->folio ?></strong>
+            FINCA:  <strong> <?php echo $value->finca ?></strong>
+            AÑO:  <strong> <?php echo $value->año ?></strong>
+            <br>
+
+            <u>DESCRIPCION: </u><strong><?php echo $value->descripcion?></strong>.<br><br>
+            <?php $data["propietarios"] = $this->M_escribano->getPropietarios($value->idParcela); ?>
+            <?php foreach ( $data["propietarios"] as $key) { 
+               $nroProp = 0;
+               ?>
+            <?php if ($key->tipoPropietario == 'A'): ?> <u> ADQUIRIENTE: </u><?php endif ?>
+            <?php if ($key->tipoPropietario == 'T'): ?> <u>TRANSMITENTE: </u><?php endif ?>
+            
+            <?php if ($key->nroUfUc != NULL): ?>NRO UF/UC: <strong> 
+               <?php echo $key->nroUfUc ?> - <?php echo $key->tipoUfUc; endif?></strong>
+
+            <?php if ($key->fechaEscritura != NULL) : ?>  Fecha de Escritura: <strong> 
+               <?php echo $key->fechaEscritura ; endif?></strong>
+
+            <?php if ($key->titular != NULL): ?>Nombre y Apellido: <strong> 
+               <?php echo $key->titular ; endif?>.</strong>
+
+            <?php if ($key->porcentajeCondominio != NULL): ?>PORCENTAJE DE CONDOMINIO: <strong> 
+               <?php echo $key->porcentajeCondominio; echo '%'; endif?></strong>
+           
+            <?php if ($key->cuitCuil != NULL): ?>Cuit - Cuil: <strong> 
+               <?php echo $key->cuitCuil ; endif?></strong>
+
+            <?php if ($key->direccion != NULL): ?>Direccion: <strong> 
+               <?php echo $key->direccion; endif ?></strong>
+
+            <?php if ($key->planoAprobado != NULL) :?> Plano Aprobado: <strong> 
+               <?php echo $key->planoAprobado ; endif?>.</strong>
+
+            <?php if ($key->fechaPlanoAprobado != NULL): ?>Fecha de Plano Aprobado: <strong>
+               <?php echo $key->fechaPlanoAprobado ; endif?></strong>
+
+            <?php if ($key->poligonos != NULL) : ?>Poligonos: <strong>
+               <?php echo $key->poligonos ; endif?></strong>
+
+            <?php if ($key->porcentajeUfUc != NULL):?>Porcentaje de Uf/Uc: <strong> 
+               <?php echo $key->porcentajeUfUc; echo '%' ; endif?></strong><br>
+
+            <?php if ($key->conyuge != NULL):?>Asentimiento Conyugal: <strong> 
+               <?php echo $key->conyuge ; endif?> </strong>
+            <br>
+            <?php  } ?>
+            <?php  } ?>
+         </p>
+      </article>
+      <div class="row col-sm-12">
+         <a class="btn btn-primary" href="javascript:window.history.back();">Volver</a>
+         <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/imprimirMinuta/<?php echo $value->idMinuta?>" >Imprimir</a>
+         
       </div>
-      <!-- /.col -->
-      <!-- info row -->
-      <div class="row invoice-info">
-         <div class="col-sm-12 invoice-col">
-            <u>Datos Escribano: </u>
-            <address>
-               <strong><?php echo $unEscribano[0]->nomyap?></strong><br>
-               <?php echo $unEscribano[0]->direccion?><br>
-               <?php echo $unEscribano[0]->nombreLocalidad?> - Chaco<br>
-               Telefono: <?php echo $unEscribano[0]->telefono?><br>
-               Email: <?php echo $unEscribano[0]->email?>
-            </address>
-         </div>
-         <!-- /.col -->
-      </div>
-      <?php foreach ($parcelas as $value) { ?>
-      <div class="row invoice-info">
-         <div class="col-sm-12 invoice-col">
-            <u>Datos Parcela</u>: <?php echo $value->idParcela ?>
-         </div>
-         <div class="col-sm-4 invoice-col">
-            <address>
-               <strong>Nomenclatura Catastral</strong><br>
-               Departamento: <?php echo $value->nombreDpto ?> <br>
-               Circunscripcion:  <?php echo $value->circunscripcion ?> <br>
-               Sección: <?php echo $value->seccion ?> <br>
-               Chacra:  <?php echo $value->chacra ?>  <br>
-               Quinta:   <?php echo $value->quinta ?>  <br>
-               Fraccion:  <?php echo $value->fraccion ?>  <br>
-               Manzana:  <?php echo $value->manzana ?>  <br>
-               Parcela:  <?php echo $value->parcela ?>  <br>
-            </address>
-         </div>
-         <div class="col-sm-4 invoice-col">
-            <address>
-               <strong>Superficie</strong><br>
-               <?php echo $value->superficie ?> mts <br>
-               <strong>Tipo Propiedad</strong><br>
-               <?php echo $value->tipoPropiedad ?> <br>
-               <strong>Plano</strong><br>
-               Nro de Plano aprobado: <?php echo $value->planoAprobado ?> <br>
-               Fecha: <?php echo $value->fechaPlanoAprobado ?> <br>
-               <strong>Localidad</strong><br>
-               <?php echo $value->nombreLocalidad ?> <br>
-            </address>
-         </div>
-         <div class="col-sm-4 invoice-col">
-            <address>
-               <strong>Registro de Propiedad</strong><br>
-               Matricula: <?php echo $value->nroMatriculaRPI ?> <br>
-               Fecha: <?php echo $value->fechaMatriculaRPI ?> <br>
-               Tomo: <?php echo $value->tomo ?> <br>
-               Folio: <?php echo $value->folio ?> <br>
-               Finca: <?php echo $value->finca ?> <br>
-               Año: <?php echo $value->año ?> <br>
-            </address>
-         </div>
-         <div class="col-sm-12 invoice-col">
-            <address>
-               <strong>Descripcion de Parcela</strong><br>
-               <?php echo $value->descripcion?> <br>
-            </address>
-         </div>
-         <!-- /.col -->
-      </div>
-      <!-- /.row -->
-      <?php $data["propietarios"] = $this->M_escribano->getPropietarios($value->idParcela);
-         ?>
-      <!-- Table row -->
-      <div class="row">
-         <div class="col-xs-12 table-responsive">
-            <table class="table table-striped">
-               <thead>
-                  <tr>
-                     <th>Nro - Tipo UF/UC </th>
-                     <th>Fecha Escritura</th>
-                     <th>Nombre y Apellido</th>
-                     <th>CUIT</th>
-                     <th>Direccion</th>
-                     <th>Conyuge</th>
-                     <th>Plano Aprobado</th>
-                     <th>Fecha PA</th>
-                     <th>Poligono</th>
-                     <th>% de Condominio</th>
-                  </tr>
-               </thead>
-               <tbody>
-                  <tr>
-                     <?php foreach ( $data["propietarios"] as $key) { ?>
-                     <td><?php echo $key->nroUfUc ?> - <?php echo $key->tipoUfUc ?></td>
-                     <td><?php echo $key->fechaEscritura ?></td>
-                     <td><?php echo $key->titular ?></td>
-                     <td><?php echo $key->cuitCuil ?></td>
-                     <td><?php echo $key->direccion; ?></td>
-                     <td><?php echo $key->conyuge ?></td>
-                     <td><?php echo $key->planoAprobado ?></td>
-                     <td><?php echo $key->fechaPlanoAprobado ?></td>
-                     <td><?php echo $key->poligonos ?></td>
-                     <td><?php echo $key->porcentajeUfUc ?> %</td>
-                  </tr>
-                  <?php  } ?>
-               </tbody>
-            </table>
-         </div>
-         <!-- /.col -->
-      </div>
-      <?php  } ?>
-      <!-- /.row -->
-      <div class="box-footer">
-         <a class="btn btn-primary" href="#" >Regresar</a>
-         <a class="btn btn-primary" href="#" >Imprimir</a>
-         <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
-      </div>
+      <br>
+   </section>
+   <!-- /.content -->
 </div>
-</section>
 <!-- /.content-wrapper -->
-<script>
-   $( document ).ready(function() {
-       $('#fechaM').datepicker();
-   });
-    $( document ).ready(function() {
-       $('#fechaPA').datepicker();
-   });
-   
-</script>
 
