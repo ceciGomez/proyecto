@@ -133,12 +133,20 @@
               
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-red"></i> Editar minuta n° 4560
+                      <i class="fa fa-users text-yellow"></i> Editar minuta n° 4560
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-user text-green"></i> La minuta 13245 fue rechazada
+                      <i class="fa fa-user text-red"></i> Minutas Rechazadas: <br>
+                      <?php 
+                     // var_dump($minutasRechazadas);
+                      foreach ($minutasRechazadas as $value) {
+                        echo $value->id;
+                        echo " - ";
+                        echo $value->motivo;
+                        echo "</br>";
+                      } ?>
                     </a>
                   </li>
           
