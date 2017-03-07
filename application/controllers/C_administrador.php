@@ -405,7 +405,7 @@ class C_administrador extends CI_Controller {
 		}
 		$this->db->select('*');
 		$this->db->from('minuta');
-		$this->db->join('usuarioescribano', 'usuarioescribano.idEscribano = minuta.idEscribano');
+		
 		
 
 		$data['minutas']= $this->db->get()->result();
