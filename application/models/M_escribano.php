@@ -165,6 +165,23 @@ class M_escribano extends CI_Model
 		}
 	}
 
+	public function getMinutasRechazadas($idEscribano)
+	{
+		try {
+			
+			$query = $this->db->query("
+				SELECT m.idMinuta as id, e.motivoRechazo as motivo, estadominuta
+					FROM estadominuta e 
+					inner join minuta m on e.idMinuta = m.idMinuta
+					inner join usuarioescribano ue on m.idEscribano = ue.idEscribano
+					WHERE estadominuta = 'R'
+					and ue.idEscribano =  '$idEscribano' ");
+			return $query->result();	
+		} catch (Exception $e) {
+			return FALSE;
+		}
+	}
+
 }
 
 

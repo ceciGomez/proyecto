@@ -1,0 +1,716 @@
+-- phpMyAdmin SQL Dump
+-- version 4.5.1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 07-03-2017 a las 23:52:29
+-- Versión del servidor: 10.1.19-MariaDB
+-- Versión de PHP: 5.6.28
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Base de datos: `sirmi`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `departamento`
+--
+
+CREATE TABLE `departamento` (
+  `idDepartamento` int(6) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `idProvincia` int(2) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `departamento`
+--
+
+INSERT INTO `departamento` (`idDepartamento`, `nombre`, `idProvincia`) VALUES
+(1, 'Almirante Brown', 1),
+(2, 'Bermejo', 1),
+(3, 'General Güemes', 1),
+(4, 'San Fernando', 1),
+(5, 'Veinticinco de Mayo', 1),
+(6, 'San Lorenzo', 1),
+(7, 'Comandante Fernández', 1),
+(8, 'Dos de Abril', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `estadominuta`
+--
+
+CREATE TABLE `estadominuta` (
+  `idEstadoMinuta` int(8) NOT NULL,
+  `idMinuta` int(8) NOT NULL,
+  `estadoMinuta` char(1) NOT NULL,
+  `motivoRechazo` varchar(200) DEFAULT NULL,
+  `fechaEstado` datetime DEFAULT NULL,
+  `idUsuario` int(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `estadominuta`
+--
+
+INSERT INTO `estadominuta` (`idEstadoMinuta`, `idMinuta`, `estadoMinuta`, `motivoRechazo`, `fechaEstado`, `idUsuario`) VALUES
+(1, 7, 'R', 'La unidad Funcional "21 F" no Existe en el Plano indicado.', '2016-11-11 00:00:00', 2),
+(2, 1, 'A', NULL, '2017-01-01 00:00:00', 1),
+(3, 2, 'A', NULL, '2017-01-01 00:00:00', 2),
+(4, 3, 'A', NULL, '2017-01-01 00:00:00', 1),
+(5, 7, 'A', NULL, '2017-01-01 00:00:00', 2),
+(6, 4, 'A', NULL, '2017-01-01 00:00:00', 1),
+(7, 5, 'R', 'Verificar Nomenclatura Catastral', '2016-11-11 00:00:00', 2),
+(8, 6, 'R', 'Verificar Número de Plano Aprobado', '2017-01-01 00:00:00', 1),
+(9, 5, 'A', NULL, '2017-01-01 00:00:00', 2),
+(10, 6, 'A', NULL, '2017-01-01 00:00:00', 1),
+(11, 8, 'R', 'bmnbmnbmbmn', '2017-02-24 23:56:54', NULL),
+(12, 9, 'A', NULL, '2017-02-24 23:55:28', NULL),
+(13, 10, 'P', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `localidad`
+--
+
+CREATE TABLE `localidad` (
+  `idLocalidad` int(6) NOT NULL,
+  `nombre` varchar(150) NOT NULL,
+  `codPostal` int(5) NOT NULL,
+  `idDepartamento` int(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `localidad`
+--
+
+INSERT INTO `localidad` (`idLocalidad`, `nombre`, `codPostal`, `idDepartamento`) VALUES
+(1, 'Resistencia', 3500, 4),
+(2, 'Presidencia Roque Sáenz Peña', 3700, 7),
+(3, 'Hermoso Campo', 3733, 8),
+(4, 'Juan José Castelli', 3705, 3),
+(5, 'Pampa del Infierno', 3708, 1),
+(6, 'La Leonesa', 3518, 2),
+(7, 'Machagai', 3534, 5),
+(8, 'Villa Berthet', 3545, 6),
+(9, 'Barranqueras', 3503, 4),
+(10, 'Fontana', 3514, 4),
+(11, 'Miraflores', 3705, 3),
+(12, 'Villa Río Bermejito', 3703, 3);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `minuta`
+--
+
+CREATE TABLE `minuta` (
+  `idMinuta` int(8) NOT NULL,
+  `idEscribano` int(6) NOT NULL,
+  `idUsuario` int(6) DEFAULT NULL,
+  `fechaIngresoSys` datetime NOT NULL,
+  `fechaEdicion` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `minuta`
+--
+
+INSERT INTO `minuta` (`idMinuta`, `idEscribano`, `idUsuario`, `fechaIngresoSys`, `fechaEdicion`) VALUES
+(1, 1, 1, '2016-11-01 00:00:00', NULL),
+(2, 2, 1, '2016-11-02 00:00:00', NULL),
+(3, 1, 2, '2016-11-04 00:00:00', NULL),
+(4, 1, 1, '2016-11-05 00:00:00', NULL),
+(5, 2, 1, '2016-11-06 00:00:00', NULL),
+(6, 1, 2, '2016-11-07 00:00:00', NULL),
+(7, 3, 1, '2017-01-01 00:00:00', NULL),
+(8, 3, 1, '2017-01-02 00:00:00', NULL),
+(9, 3, 2, '2017-01-04 00:00:00', NULL),
+(10, 3, 2, '2017-01-05 00:00:00', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `parcela`
+--
+
+CREATE TABLE `parcela` (
+  `idParcela` int(8) NOT NULL,
+  `idLocalidad` int(6) NOT NULL,
+  `circunscripcion` varchar(8) NOT NULL,
+  `seccion` char(1) NOT NULL,
+  `chacra` int(4) DEFAULT NULL,
+  `quinta` int(4) DEFAULT NULL,
+  `fraccion` varchar(8) DEFAULT NULL,
+  `manzana` varchar(5) DEFAULT NULL,
+  `parcela` varchar(6) DEFAULT NULL,
+  `superficie` varchar(10) NOT NULL,
+  `partida` int(6) NOT NULL,
+  `tipoPropiedad` char(1) NOT NULL,
+  `planoAprobado` varchar(10) NOT NULL,
+  `fechaPlanoAprobado` date DEFAULT NULL,
+  `descripcion` varchar(300) DEFAULT NULL,
+  `idMinuta` int(8) NOT NULL,
+  `nroMatriculaRPI` int(8) NOT NULL,
+  `fechaMatriculaRPI` date NOT NULL,
+  `tomo` int(5) DEFAULT NULL,
+  `folio` int(5) DEFAULT NULL,
+  `finca` int(5) DEFAULT NULL,
+  `año` int(4) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `parcela`
+--
+
+INSERT INTO `parcela` (`idParcela`, `idLocalidad`, `circunscripcion`, `seccion`, `chacra`, `quinta`, `fraccion`, `manzana`, `parcela`, `superficie`, `partida`, `tipoPropiedad`, `planoAprobado`, `fechaPlanoAprobado`, `descripcion`, `idMinuta`, `nroMatriculaRPI`, `fechaMatriculaRPI`, `tomo`, `folio`, `finca`, `año`) VALUES
+(1, 1, 'II', 'A', 20, 15, NULL, '2', '5', '200,00', 0, 'U', '20/115/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la parcela 6 y al NO calle Arturo Illia', 1, 123456, '2005-11-05', 1, 2, 6, 2005),
+(2, 1, 'II', 'A', 20, 15, NULL, '2', '6', '200,00', 0, 'U', '20/115/05', '2005-11-02', 'Linda por su frente NE con la parcela 7 , al SE con la parcela 8 y al NO calle Arturo Illia', 1, 123457, '2005-11-05', 1, 2, 6, 2005),
+(3, 1, 'I', 'C', 105, NULL, NULL, '21', '1', '300,00', 0, 'U', '20/075/12', '2012-01-22', 'Linda por su frente NE con la parcela 9 , al SE con la parcela 16 y al NO calle Remedios de Escalada', 2, 65448, '2012-05-27', 164, 42, 5, 2012),
+(4, 1, 'I', 'C', 105, NULL, NULL, '21', '2', '500,00', 0, 'U', '20/075/12', '2012-01-22', 'Linda por su frente NE con la parcela 10 , al SE con la parcela 15 y al NO calle Remedios de Escalada', 2, 65449, '2012-05-27', 164, 42, 5, 2012),
+(5, 3, 'XII', '', NULL, NULL, NULL, NULL, '105', '10.200,00', 2256, 'R', '15/605/00', '2000-07-15', 'Linda por su frente NE con la parcela 4 , al SE con la parcela 6 y al NO Ruta provincial N°4', 3, 2548, '2000-11-05', 1, 2, 6, 2000),
+(6, 3, 'XII', '', NULL, NULL, NULL, NULL, '106', '10.500,00', 2257, 'R', '15/305/00', '2000-07-15', 'Linda por su frente NE con la parcela 5 , al SE con la parcela 7 y al NO Ruta provincial N°4', 3, 2549, '2000-11-05', 1, 2, 6, 2000),
+(7, 3, 'XII', '', NULL, NULL, NULL, NULL, '107', '10.250,00', 2258, 'R', '15/305/00', '2000-07-15', 'Linda por su frente NE con la parcela 6 , al SE con la parcela 8 y al NO Ruta provincial N°4', 3, 2550, '2000-11-05', 1, 2, 6, 2000),
+(8, 1, 'I', 'A', 17, 14, NULL, '5A', '4', '200.00', 0, 'U', '20/115/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 4, 1234, '2005-11-05', 1, 2, 6, 2005),
+(9, 10, 'II', 'A', 20, 1, NULL, '56', '5A', '200.00', 0, 'S', '20/117/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 5, 1235, '2005-11-05', 1, 2, 6, 2005),
+(10, 1, 'I', 'A', 21, 108, NULL, '32', '7', '200.00', 0, 'S', '20/116/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 6, 1236, '2005-11-05', 1, 2, 6, 2005),
+(11, 9, 'I', 'B', 7, 22, NULL, '12', '11', '200.00', 0, 'S', '20/118/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 7, 1237, '2005-11-05', 1, 2, 6, 2005),
+(12, 1, 'II', 'C', 5, 14, NULL, '9', '12', '200.00', 0, 'U', '20/119/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 8, 1238, '2005-11-05', 1, 2, 6, 2005),
+(13, 1, 'I', 'B', 12, 65, NULL, '5', '13', '200.00', 0, 'U', '20/120/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 9, 1239, '2005-11-05', 1, 2, 6, 2005),
+(14, 1, 'II', 'A', 14, 12, NULL, '21', '14', '200.00', 0, 'U', '20/121/05', '2005-11-02', 'Linda por su frente NE con la parcela 4 , al SE con la 6 y al NO calle Arturo Illia', 10, 1230, '2005-11-05', 1, 2, 6, 2005);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pedidos`
+--
+
+CREATE TABLE `pedidos` (
+  `idPedido` int(6) NOT NULL,
+  `idEscribano` int(8) DEFAULT NULL,
+  `descripcion` varchar(200) DEFAULT NULL,
+  `fechaPedido` datetime DEFAULT NULL,
+  `estadoPedido` char(1) DEFAULT NULL,
+  `rtaPedido` varchar(200) DEFAULT NULL,
+  `fechaRta` datetime DEFAULT NULL,
+  `idUsuario` int(6) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pedidos`
+--
+
+INSERT INTO `pedidos` (`idPedido`, `idEscribano`, `descripcion`, `fechaPedido`, `estadoPedido`, `rtaPedido`, `fechaRta`, `idUsuario`) VALUES
+(1, 3, 'Prueba solicitud consulta 1', '2016-11-15 00:00:00', 'C', 'Prueba respuesta consulta 1', '2017-01-01 00:00:00', 2),
+(2, 1, 'Prueba solicitud consulta 2', '2016-12-05 00:00:00', 'P', NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `persona`
+--
+
+CREATE TABLE `persona` (
+  `idPersona` int(5) NOT NULL,
+  `empresa` char(1) DEFAULT NULL,
+  `apynom` varchar(150) NOT NULL,
+  `cuitCuil` varchar(15) DEFAULT NULL,
+  `dni` int(8) DEFAULT NULL,
+  `direccion` varchar(150) DEFAULT NULL,
+  `idLocalidad` int(6) NOT NULL,
+  `conyuge` varchar(150) DEFAULT NULL,
+  `fechaNac` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `persona`
+--
+
+INSERT INTO `persona` (`idPersona`, `empresa`, `apynom`, `cuitCuil`, `dni`, `direccion`, `idLocalidad`, `conyuge`, `fechaNac`) VALUES
+(1, NULL, 'Roberto Acosta', '20315678946', 31567894, 'Julio A. Roca 123', 1, NULL, NULL),
+(2, NULL, 'Andrea Acosta', '23330099474', 33009947, 'Julio A. Roca 123', 1, NULL, NULL),
+(3, NULL, 'Raul Oviedo', '20245556786', 24555678, 'Liniers 55', 1, NULL, NULL),
+(4, NULL, 'Maria Oviedo', '27286795784', 28679578, 'Liniers 55', 1, NULL, NULL),
+(5, 'E', 'Cooperativa Agricola Unión S.R.L.', '30457789650', NULL, 'Mendoza 112', 6, NULL, NULL),
+(6, NULL, 'Andrea Alcaraz', '20339395566', 33939556, 'Mariano Moreno 550', 1, NULL, NULL),
+(7, NULL, 'Rodrigo Alcaraz', '20339395576', 33939557, 'Mariano Moreno 550', 1, NULL, NULL),
+(8, NULL, 'Analia Fernandez', '20125547896', 12554789, 'Rivadavia 445', 1, 'Pedro Muñoz', NULL),
+(9, NULL, 'Marina Muñoz', '27345587984', 34558798, 'Rivadavia 445', 1, NULL, NULL),
+(10, NULL, 'Marisel Muñoz', '27258877466', 25887746, 'Rivadavia 445', 1, NULL, NULL),
+(11, NULL, 'Maria Andrea Romero', '27339395566', 33939556, 'Mariano Moreno 550', 1, NULL, NULL),
+(12, NULL, 'Nelson Andres Luque', '20245567896', 24556789, 'Av. Sarmiento 5447', 1, NULL, NULL),
+(13, NULL, 'Mariela Elizabeth Luque', '25245687917', 24568791, 'Av. Sarmiento 5447', 1, NULL, NULL),
+(14, NULL, 'Analia Mendoza', '20185547896', 18554789, 'Roque Saenz Peña 445', 1, 'Pedro Lopez', NULL),
+(15, NULL, 'Mario Leiva', '7458879646', 45887964, 'Cervantes 54', 1, NULL, NULL),
+(16, NULL, 'Federico Leiva', '20458796876', 45879687, 'Cervantes 54', 1, NULL, NULL),
+(17, 'E', 'Panificadora Impulso', '30415589456', NULL, 'Av. Chaco 1500', 1, NULL, NULL),
+(18, NULL, 'Facundo Thorr', '20215589456', 21558945, 'Av. Chaco 1500', 1, NULL, NULL),
+(19, NULL, 'Pedro Escobar', '20335599476', 33559947, 'Julio A. Roca 123', 1, NULL, NULL),
+(20, NULL, 'Monica Escobar', '20255956786', 25595678, 'Liniers 55', 1, NULL, NULL),
+(21, NULL, 'Delfina Diez', '27146795786', 14679578, 'Moreno 155', 1, NULL, NULL),
+(22, NULL, 'Raul Kutz', '20245556786', 24555678, 'Ayacucho 255', 1, NULL, NULL),
+(23, NULL, 'Maria Kutz', '27288795785', 28879578, 'Lopez y Planes 555', 1, NULL, NULL),
+(24, 'O', 'Instituto Provincial de Desarrollo Urbano y Vivienda', NULL, NULL, 'Sarmiento 2500', 1, NULL, NULL),
+(25, NULL, 'Leandro Morello', '20134895566', 13489556, 'Av. Hernandarias 544', 1, NULL, NULL),
+(26, NULL, 'Rodrigo Morello', '20359124576', 35912457, 'Av. Hernandarias 544', 1, NULL, NULL),
+(27, NULL, 'Mario Aquino', '20235547896', 23554789, 'Rivadavia 1500', 1, 'Lorena Muñoz', NULL),
+(28, NULL, 'Gimena Alarcon', '27458877466', 45887746, 'Av. Malvinas 455', 1, NULL, NULL),
+(29, 'E', 'Clinica Avenida', '32415659456', NULL, 'Av. Malvinas 1500', 1, NULL, NULL),
+(30, NULL, 'Grecia Alarcon', '20439395566', 43939556, 'Av. Malvinas 455', 1, NULL, NULL),
+(31, NULL, 'Laila Pedrozo', '27145867896', 14586789, 'Av. Malvinas 455', 1, NULL, NULL),
+(32, NULL, 'Fabian Mesa', '20295587915', 29558791, 'Antartida 4546', 1, NULL, NULL),
+(33, NULL, 'Juan Pablo Duarte', '20294544579', 29454457, 'Antartida 4565', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `propietario`
+--
+
+CREATE TABLE `propietario` (
+  `id` int(8) NOT NULL,
+  `idRelacion` int(8) NOT NULL,
+  `idPersona` int(5) NOT NULL,
+  `porcentajeCondominio` float NOT NULL,
+  `tipoPropietario` char(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `propietario`
+--
+
+INSERT INTO `propietario` (`id`, `idRelacion`, `idPersona`, `porcentajeCondominio`, `tipoPropietario`) VALUES
+(1, 1, 1, 100, 'T'),
+(2, 1, 2, 100, 'A'),
+(3, 2, 3, 50, 'T'),
+(4, 2, 4, 50, 'T'),
+(5, 2, 5, 100, 'A'),
+(6, 3, 8, 100, 'T'),
+(7, 3, 6, 50, 'A'),
+(8, 3, 7, 50, 'A'),
+(9, 4, 8, 100, 'T'),
+(10, 4, 6, 50, 'A'),
+(11, 4, 7, 50, 'A'),
+(12, 5, 1, 100, 'T'),
+(13, 5, 2, 100, 'A'),
+(14, 6, 9, 100, 'T'),
+(15, 6, 10, 100, 'A'),
+(16, 7, 11, 70, 'T'),
+(17, 7, 14, 30, 'T'),
+(18, 7, 12, 50, 'A'),
+(19, 7, 13, 50, 'A'),
+(20, 8, 23, 100, 'T'),
+(21, 8, 20, 100, 'A'),
+(22, 9, 23, 100, 'T'),
+(23, 9, 25, 50, 'A'),
+(24, 9, 26, 50, 'A'),
+(25, 10, 16, 50, 'T'),
+(26, 10, 17, 50, 'T'),
+(27, 10, 19, 20, 'A'),
+(28, 10, 20, 80, 'A'),
+(29, 11, 24, 100, 'T'),
+(30, 11, 25, 100, 'A'),
+(31, 12, 24, 100, 'T'),
+(32, 12, 26, 100, 'A'),
+(33, 13, 24, 100, 'T'),
+(34, 13, 1, 50, 'A'),
+(35, 13, 2, 50, 'A'),
+(36, 14, 24, 100, 'T'),
+(37, 14, 26, 50, 'A'),
+(38, 14, 28, 25, 'A'),
+(39, 14, 30, 25, 'A'),
+(40, 15, 24, 100, 'T'),
+(41, 15, 29, 100, 'A'),
+(42, 16, 32, 100, 'T'),
+(43, 16, 33, 100, 'A'),
+(44, 17, 32, 100, 'T'),
+(45, 17, 33, 100, 'A');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `provincia`
+--
+
+CREATE TABLE `provincia` (
+  `idProvincia` int(2) NOT NULL,
+  `nombre` varchar(30) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `provincia`
+--
+
+INSERT INTO `provincia` (`idProvincia`, `nombre`) VALUES
+(1, 'Chaco'),
+(2, 'Santa Fe'),
+(3, 'Formosa'),
+(4, 'Corrientes');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `relacion`
+--
+
+CREATE TABLE `relacion` (
+  `idRelacion` int(8) NOT NULL,
+  `idParcela` int(8) NOT NULL,
+  `fechaEscritura` date DEFAULT NULL,
+  `nroUfUc` varchar(10) DEFAULT NULL,
+  `tipoUfUc` char(1) DEFAULT NULL,
+  `planoAprobado` varchar(10) DEFAULT NULL,
+  `fechaPlanoAprobado` date DEFAULT NULL,
+  `porcentajeUfUc` float DEFAULT NULL,
+  `poligonos` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `relacion`
+--
+
+INSERT INTO `relacion` (`idRelacion`, `idParcela`, `fechaEscritura`, `nroUfUc`, `tipoUfUc`, `planoAprobado`, `fechaPlanoAprobado`, `porcentajeUfUc`, `poligonos`) VALUES
+(1, 1, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(2, 2, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(3, 3, '2006-11-05', '1', 'F', '20/547/95', '1994-10-08', 25, NULL),
+(4, 4, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(5, 5, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(6, 6, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(7, 7, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(8, 8, '2006-11-05', '1', 'F', '20/054/12', '2016-10-08', 33, '00-01'),
+(9, 8, '2006-11-05', '2', 'F', '20/054/12', '2016-10-08', 33, '00-02'),
+(10, 8, '2006-11-05', '3', 'F', '20/054/12', '2016-10-08', 33, '00-03'),
+(11, 9, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(12, 10, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(13, 11, '2006-11-05', '1', 'F', '20/006/14', '2013-10-08', 50, '00-01'),
+(14, 11, '2006-11-05', '2', 'F', '20/006/14', '2013-10-08', 50, '00-02'),
+(15, 12, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(16, 13, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL),
+(17, 14, '2006-11-05', NULL, NULL, NULL, NULL, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarioescribano`
+--
+
+CREATE TABLE `usuarioescribano` (
+  `idEscribano` int(6) NOT NULL,
+  `nomyap` varchar(150) NOT NULL,
+  `usuario` varchar(150) NOT NULL,
+  `contraseña` varchar(100) DEFAULT NULL,
+  `fechaReg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dni` int(8) DEFAULT NULL,
+  `telefono` int(20) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `matricula` int(8) NOT NULL,
+  `estadoAprobacion` char(1) DEFAULT NULL,
+  `idLocalidad` int(6) DEFAULT NULL,
+  `idUsuario` int(6) DEFAULT NULL,
+  `motivoRechazo` varchar(100) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `baja` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuarioescribano`
+--
+
+INSERT INTO `usuarioescribano` (`idEscribano`, `nomyap`, `usuario`, `contraseña`, `fechaReg`, `dni`, `telefono`, `direccion`, `email`, `matricula`, `estadoAprobacion`, `idLocalidad`, `idUsuario`, `motivoRechazo`, `foto`, `baja`) VALUES
+(1, 'Andrea Moreno', 'amoreno', 'b4d978e9eb36fadf5f38a3ec64c1da8b', '2017-02-22 00:14:47', 12457897, 303456, 'Arbo y Blanco 550', 'amoreno@arnet.com.ar', 12345, NULL, 4, 1, NULL, '', NULL),
+(2, 'Fabricio Acosta', 'facosta', '57bae1643a29f9bc182508da65822ed1b840da24', '2017-02-22 00:14:47', 15889966, 303459, 'J. D. Perón 1445', 'facosta@google.com', 4587, NULL, 6, 2, NULL, '', NULL),
+(3, 'Margarita Sosa', 'msosa', 'f3842765018418f92434c2e601661adea6cb22b9', '2017-02-22 00:14:47', 13889966, 303457, 'Av. Alvear 45', 'msosa@hotmail.com', 4587, NULL, 1, 2, NULL, '', NULL),
+(4, 'DARIO NUNIEZ', 'GERMANNZ3', 'bf0980b4c067c7b9dd83efd2c7fec7316eeecbbe', '2017-02-22 00:14:47', 33939195, 0, NULL, 'GERMAN.NZ03@GMAIL.COM', 303456, 'p', 1, NULL, '', '', NULL),
+(5, 'CARLOS NELSON ACOSTA', 'HOLA123', 'c49868c59d03dc485ba93e03aa1dc1f7922a582c', '2017-02-22 00:14:47', 33564787, 0, NULL, 'HOLA@GMAIL.COM', 45645, 'p', 1, NULL, '', '', NULL),
+(6, 'LUIS ALBERTO ZACARIAS', 'lzaca', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2017-02-22 00:14:47', 25789654, 2147483647, '-', 'lzaca@hotmail.com', 889878, 'R', 6, NULL, 'PRUEBA\n', '', NULL),
+(8, 'PEDRO AZNAR', 'paznar', '882af4d7a33af52b5653ddcae036aee2be8f0568', '2017-02-22 00:14:47', 1823564, 2147483647, 'PERON 1233', 'paznar@gmail.com', 124598, 'P', 6, NULL, '', '', NULL),
+(9, 'CARLOS YORIK', 'cyorik', '0edce019660e99cfd4cb1c15acc00bca05d7d1f5', '2017-02-22 00:14:47', 457896, 2147483647, 'AS123', 'YORIK@GMAIL.COM', 456987, 'P', 6, NULL, '', '', NULL),
+(10, 'escri', 'escribano', 'b985651180f215acd5b8e34fabfa0a1174d71970', '2017-03-07 21:54:38', NULL, NULL, NULL, NULL, 8549, 'A', NULL, NULL, NULL, '', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuariosys`
+--
+
+CREATE TABLE `usuariosys` (
+  `idUsuario` int(6) NOT NULL,
+  `nomyap` varchar(150) NOT NULL,
+  `usuario` varchar(150) NOT NULL,
+  `contraseña` varchar(100) DEFAULT NULL,
+  `fechaReg` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dni` int(8) DEFAULT NULL,
+  `telefono` int(20) DEFAULT NULL,
+  `direccion` varchar(100) DEFAULT NULL,
+  `email` varchar(100) DEFAULT NULL,
+  `idLocalidad` int(6) DEFAULT NULL,
+  `tipoUsuario` char(1) DEFAULT NULL,
+  `foto` varchar(50) DEFAULT NULL,
+  `baja` char(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `usuariosys`
+--
+
+INSERT INTO `usuariosys` (`idUsuario`, `nomyap`, `usuario`, `contraseña`, `fechaReg`, `dni`, `telefono`, `direccion`, `email`, `idLocalidad`, `tipoUsuario`, `foto`, `baja`) VALUES
+(1, 'pablo lopez', 'plopez', 'fe8cf3a963df912ad60c5db8e7f73d404607a10e', '2017-02-22 00:14:07', 21112211, 3034561, 'Frondizi 500', 'plopez@gmail.com', 5, 'O', NULL, NULL),
+(2, 'Lucas Vallejos', 'lvallejos', '368d292d0839d209380b6531c2b266d8994ff893', '2017-02-22 00:14:07', 33559988, 303456, 'Arturo Illia 123', 'lvallejos@hotmail.com', 2, 'O', NULL, NULL),
+(3, 'Ana Medina', 'amedina', 'c2219aefa93c5d46c81f1f739ff06f9dd0637664', '2017-02-22 00:14:07', 12558878, 303457, 'Monteagudo 23', 'amedina@hotmail.com', 3, 'A', NULL, NULL),
+(4, 'operador', 'operador', '9d24de3ac7b5fbbe776a6d90fe25a7e3c74a29cc', '2017-02-22 00:14:07', 36737373, 7373737, 'chaco 171', 'operador@gmail.com', 1, 'O', NULL, NULL),
+(5, 'admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2017-02-22 00:14:07', 28288828, 227227, 'chaco 8282', 'administrador@gmail.com', 1, 'A', NULL, NULL),
+(6, 'pablo aranda', 'paranda', 'paranda', '0000-00-00 00:00:00', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', NULL, NULL),
+(7, 'pablo aranda2', 'paranda2', 'paranda2', '2017-02-24 21:25:15', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', NULL, NULL);
+
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD PRIMARY KEY (`idDepartamento`),
+  ADD KEY `idProvincia` (`idProvincia`);
+
+--
+-- Indices de la tabla `estadominuta`
+--
+ALTER TABLE `estadominuta`
+  ADD PRIMARY KEY (`idEstadoMinuta`),
+  ADD KEY `idMinuta` (`idMinuta`),
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  ADD PRIMARY KEY (`idLocalidad`),
+  ADD KEY `idDepartamento` (`idDepartamento`);
+
+--
+-- Indices de la tabla `minuta`
+--
+ALTER TABLE `minuta`
+  ADD PRIMARY KEY (`idMinuta`),
+  ADD KEY `idEscribano` (`idEscribano`),
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `parcela`
+--
+ALTER TABLE `parcela`
+  ADD PRIMARY KEY (`idParcela`),
+  ADD KEY `idLocalidad` (`idLocalidad`),
+  ADD KEY `idMinuta` (`idMinuta`);
+
+--
+-- Indices de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD PRIMARY KEY (`idPedido`),
+  ADD KEY `idEscribano` (`idEscribano`),
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD PRIMARY KEY (`idPersona`),
+  ADD KEY `fk_localidad_pers` (`idLocalidad`);
+
+--
+-- Indices de la tabla `propietario`
+--
+ALTER TABLE `propietario`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `fk_relacion` (`idRelacion`),
+  ADD KEY `fk_persona` (`idPersona`);
+
+--
+-- Indices de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  ADD PRIMARY KEY (`idProvincia`);
+
+--
+-- Indices de la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  ADD PRIMARY KEY (`idRelacion`),
+  ADD KEY `fk_idParcela` (`idParcela`);
+
+--
+-- Indices de la tabla `usuarioescribano`
+--
+ALTER TABLE `usuarioescribano`
+  ADD PRIMARY KEY (`idEscribano`),
+  ADD UNIQUE KEY `usuario` (`usuario`),
+  ADD KEY `idLocalidad` (`idLocalidad`),
+  ADD KEY `idUsuario` (`idUsuario`);
+
+--
+-- Indices de la tabla `usuariosys`
+--
+ALTER TABLE `usuariosys`
+  ADD PRIMARY KEY (`idUsuario`),
+  ADD KEY `idLocalidad` (`idLocalidad`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  MODIFY `idDepartamento` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `estadominuta`
+--
+ALTER TABLE `estadominuta`
+  MODIFY `idEstadoMinuta` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+--
+-- AUTO_INCREMENT de la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  MODIFY `idLocalidad` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+--
+-- AUTO_INCREMENT de la tabla `minuta`
+--
+ALTER TABLE `minuta`
+  MODIFY `idMinuta` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `parcela`
+--
+ALTER TABLE `parcela`
+  MODIFY `idParcela` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  MODIFY `idPedido` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+--
+-- AUTO_INCREMENT de la tabla `persona`
+--
+ALTER TABLE `persona`
+  MODIFY `idPersona` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+--
+-- AUTO_INCREMENT de la tabla `propietario`
+--
+ALTER TABLE `propietario`
+  MODIFY `id` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+--
+-- AUTO_INCREMENT de la tabla `provincia`
+--
+ALTER TABLE `provincia`
+  MODIFY `idProvincia` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  MODIFY `idRelacion` int(8) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `usuarioescribano`
+--
+ALTER TABLE `usuarioescribano`
+  MODIFY `idEscribano` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+--
+-- AUTO_INCREMENT de la tabla `usuariosys`
+--
+ALTER TABLE `usuariosys`
+  MODIFY `idUsuario` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `departamento`
+--
+ALTER TABLE `departamento`
+  ADD CONSTRAINT `departamento_ibfk_1` FOREIGN KEY (`idProvincia`) REFERENCES `provincia` (`idProvincia`);
+
+--
+-- Filtros para la tabla `estadominuta`
+--
+ALTER TABLE `estadominuta`
+  ADD CONSTRAINT `estadominuta_ibfk_1` FOREIGN KEY (`idMinuta`) REFERENCES `minuta` (`idMinuta`),
+  ADD CONSTRAINT `estadominuta_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuariosys` (`idUsuario`);
+
+--
+-- Filtros para la tabla `localidad`
+--
+ALTER TABLE `localidad`
+  ADD CONSTRAINT `localidad_ibfk_1` FOREIGN KEY (`idDepartamento`) REFERENCES `departamento` (`idDepartamento`);
+
+--
+-- Filtros para la tabla `minuta`
+--
+ALTER TABLE `minuta`
+  ADD CONSTRAINT `minuta_ibfk_1` FOREIGN KEY (`idEscribano`) REFERENCES `usuarioescribano` (`idEscribano`),
+  ADD CONSTRAINT `minuta_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuariosys` (`idUsuario`);
+
+--
+-- Filtros para la tabla `parcela`
+--
+ALTER TABLE `parcela`
+  ADD CONSTRAINT `parcela_ibfk_1` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`),
+  ADD CONSTRAINT `parcela_ibfk_2` FOREIGN KEY (`idMinuta`) REFERENCES `minuta` (`idMinuta`);
+
+--
+-- Filtros para la tabla `pedidos`
+--
+ALTER TABLE `pedidos`
+  ADD CONSTRAINT `pedidos_ibfk_1` FOREIGN KEY (`idUsuario`) REFERENCES `usuariosys` (`idUsuario`),
+  ADD CONSTRAINT `pedidos_ibfk_2` FOREIGN KEY (`idEscribano`) REFERENCES `usuarioescribano` (`idEscribano`),
+  ADD CONSTRAINT `pedidos_ibfk_3` FOREIGN KEY (`idUsuario`) REFERENCES `usuariosys` (`idUsuario`);
+
+--
+-- Filtros para la tabla `persona`
+--
+ALTER TABLE `persona`
+  ADD CONSTRAINT `fk_localidad_pers` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`);
+
+--
+-- Filtros para la tabla `propietario`
+--
+ALTER TABLE `propietario`
+  ADD CONSTRAINT `fk_persona` FOREIGN KEY (`idPersona`) REFERENCES `persona` (`idPersona`),
+  ADD CONSTRAINT `fk_relacion` FOREIGN KEY (`idRelacion`) REFERENCES `relacion` (`idRelacion`);
+
+--
+-- Filtros para la tabla `relacion`
+--
+ALTER TABLE `relacion`
+  ADD CONSTRAINT `fk_idParcela` FOREIGN KEY (`idParcela`) REFERENCES `parcela` (`idParcela`);
+
+--
+-- Filtros para la tabla `usuarioescribano`
+--
+ALTER TABLE `usuarioescribano`
+  ADD CONSTRAINT `usuarioescribano_ibfk_1` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`),
+  ADD CONSTRAINT `usuarioescribano_ibfk_2` FOREIGN KEY (`idUsuario`) REFERENCES `usuariosys` (`idUsuario`);
+
+--
+-- Filtros para la tabla `usuariosys`
+--
+ALTER TABLE `usuariosys`
+  ADD CONSTRAINT `usuariosys_ibfk_1` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
