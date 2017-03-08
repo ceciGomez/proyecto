@@ -70,9 +70,9 @@ class M_login extends CI_Model {
 		try {
 		$pass = sha1($contraseña);
 		$query = $this->db->query("
-			SELECT idUsuario, nomyap, usuario, contraseña, 
+			SELECT idEscribano, nomyap, usuario, contraseña, 
 			concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg, matricula,
-			telefono, email, direccion
+			telefono, email, direccion, foto
 			FROM usuarioescribano 
 			WHERE usuario = '$usuario'
 			and contraseña = '$pass'

@@ -59,9 +59,10 @@
                           <tr> 
                           <th>Fecha Ingreso al Sistema</th>
                           <th>Fecha de Edición</th>
-                          <th>Escribano</th> 
-                          <th>Matricula</th>
-                          <th>Operaciones</th>
+                            <th>Ultimo Estado</th>
+                            <th>IdMinuta</th>
+                            <th>Operaciones</th>
+
                             
                           </tr>
                         </thead>
@@ -74,12 +75,19 @@
                                $dat2=new DateTime($mi->fechaEdicion);
                               $date_formated2=$date->format('d/m/Y ');
                          ?>
-                            
+                            <?php 
+                         
+                         $this->db->from('estadominuta');
+                         $this->db->where('idMinuta', $mi->idMinuta); 
+                         $this->db->order_by('idEstadoMinuta', 'DESC');
+                         $estadoMinuta= $this->db->get()->row();
+                             ?>
+
                           <tr>
                             <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$date_formated2"; ?></td>
-                           <td>  <?php  echo "$mi->nomyap".'  '; ?> <button type="button"  class="btn btn-primary"  data-toggle="modal" onclick="ventana_escribano(<?php echo "$mi->idEscribano"; ?>)" href="#Escribano"> Ver</button></td></td>
-                            <td>  <?php  echo "$mi->matricula"; ?></td>
+                           <td>  <?php  echo "$estadoMinuta->estadoMinuta"; ?> </td>
+                           <td>  <?php  echo "$mi->idMinuta"; ?> </td>
                              <td>
                              <button type="button"  class="btn btn-warning"  data-toggle="modal" onclick="ventana_det(<?php echo "$mi->idMinuta"; ?>)" href="#Detalles"> Detalles</button>
                             <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_estados(<?php echo "$mi->idMinuta"; ?>)" href="#Estados"> Estados</button>
