@@ -74,7 +74,7 @@
                               
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="superficie" <?php echo "value='$parcela'" ?> placeholder="Ej: 25.000">
+                                    <input type="text" class="form-control" id="superficie" name="superficie" <?php echo "value='$parcela'" ?>  onkeypress="return isNumberKey(event)" placeholder="Ej: 25.000">
                                     <div style="color:red;" ><p><?=form_error('superficie')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -167,7 +167,7 @@
                               <div class="col-md-12">
                               <div class="box-footer">
                                   <button type="submit" class="btn btn-primary" >Registrar Propietario</button>
-                                   <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
+                                   <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
                                 
                               </div>
                               </div>
@@ -237,6 +237,28 @@
          }
       });
    });
+   </script>
+      <!-- controla el ingreso de numero flotante -->
+   <script type="text/javascript">
+     function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode == 46){
+        var inputValue = $("#superficie").val();
+        var count = (inputValue.match(/'.'/g) || []).length;
+        if(count<1){
+            if (inputValue.indexOf('.') < 1){
+                return true;
+            }
+            return false;
+        }else{
+            return false;
+        }
+    }
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
+        return false;
+    }
+    return true;
+   }
    </script>
 
 
