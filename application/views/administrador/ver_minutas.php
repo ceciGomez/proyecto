@@ -18,33 +18,45 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
+        <section >
          
 
           <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3 class="box-title">Lista de Minutas</h3>
+              <h3  align="center">Lista de Minutas</h3>
 
               
                 <div class="form-group">
                        <label>Filtrar Minutas por :</label>
                        <br>
+                       <br>
+                     
+                          <label>Fecha Ingreso :</label>
+                        <input type="text" data-provide="datepicker"  value="dd/mm/aaaa" id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
 
-                        <label>Fecha Ingreso :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                
+                          
                                       
                         <label>Fecha Edición :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'>
-                   
-                
-                        <label>Escribano :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
+                        
+                        <input type='text' data-provide="datepicker" value="dd/mm/aaaa" placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
+                    
+                        <label>Minuta :</label>
+                        <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>' class='filter' data-column-index='3'> 
                   
-                        <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'> 
+
+                        <label>Estado :</label>
+                        <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
+                        <select id="segunEstado">
+                             <option value=""></option>
+                            <option value="P">P</option>
+                            <option value="A">A</option>
+                            <option value="R">R</option>
+                           
+                        </select>
+                  
+                        
 
 
 
@@ -57,43 +69,69 @@
                          <table id="min" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
+                          <th>Operaciones</th>
                           <th>Fecha Ingreso al Sistema</th>
                           <th>Fecha de Edición</th>
-                            <th>Ultimo Estado</th>
-                            <th>IdMinuta</th>
-                            <th>Operaciones</th>
-
+                          <th>Número de Minuta</th>
+                          <th>Ultimo Estado</th>
+                            
                             
                           </tr>
                         </thead>
 
                         <tbody >
+                       
                             <?php 
+                            
+
                             foreach ($minutas as $mi){ 
-                               $date=new DateTime($mi->fechaIngresoSys);
+
+                               $date=new DateTime($mi["fechaIngresoSys"]);
                               $date_formated=$date->format('d/m/Y ');
-                               $dat2=new DateTime($mi->fechaEdicion);
+                               $dat2=new DateTime($mi["fechaEdicion"]);
                               $date_formated2=$date->format('d/m/Y ');
                          ?>
                             <?php 
-                         
+                         /*
                          $this->db->from('estadominuta');
                          $this->db->where('idMinuta', $mi->idMinuta); 
                          $this->db->order_by('idEstadoMinuta', 'DESC');
                          $estadoMinuta= $this->db->get()->row();
+                         */
                              ?>
 
                           <tr>
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
-                           <td>  <?php  echo "$estadoMinuta->estadoMinuta"; ?> </td>
-                           <td>  <?php  echo "$mi->idMinuta"; ?> </td>
-                             <td>
-                             <button type="button"  class="btn btn-warning"  data-toggle="modal" onclick="ventana_det(<?php echo "$mi->idMinuta"; ?>)" href="#Detalles"> Detalles</button>
-                            <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_estados(<?php echo "$mi->idMinuta"; ?>)" href="#Estados"> Estados</button>
+                            <td>
+                              
+
+                                 <a class="btn btn-sm " > <button  class="btn btn-warning"  data-toggle="modal" href="#Detalles" title="Detalles" onclick="ventana_det(<?php echo $mi ["idMinuta"] ; ?>,<?php echo $mi ["idEscribano"] ; ?>)"><i class="fa fa-book"></i></button></a>
                              
 
+
+                           
+
+                              <?php  
+                                if($mi ["estadoMinuta"]=='P'){
+                                  ?>
+                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" title="Aceptar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>)" ><i class="fa fa-check"></i></button></a>
+
+                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>)" ><i class="fa fa-times"></i></button></a>
+
+                                  <?php  
+                                };
+                              ?>
+
+                             <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>
+
+                                                         
+
                             </td>
+                            <td>  <?php  echo "$date_formated"; ?></td>
+                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
+                            <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
+                          
+                             
                             
                             
 
@@ -111,14 +149,18 @@
                  </table>
                  </div>
 
-                         <div class="modal" id="Escribano">
+                        
+
+        
+                         <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
+                                  <h3 class="modal-title" style="color:white" >Detalles de Minuta</h3>
                                  </div>
-                                 <div class="modal-body">
+                                  <label><h3 align="center">Escribano</label></h3>
+                                      <div class="modal-body">
                                           <table class="table"  >
                                             <thead>
                                               <tr>
@@ -137,22 +179,6 @@
                                               </tbody >
                                             </table >
                                      </div>
-
-                                 <div class="modal-footer">
-                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                                 </div>
-                              </div>
-                            </div>
-                          </div>
-
-        
-                         <div class="modal" id="Detalles">
-                            <div class="modal-dialog modal-lg">
-                              <div class="modal-content">
-                                 <div class="modal-header">
-                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Detalles de Minuta</h3>
-                                 </div>
                                  <div class="modal-body" id="det" >
                                            
                                      </div>
@@ -199,7 +225,56 @@
                     </div>
                   </div>
 
+                   <div class="modal" id="Aceptar">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white" >Aceptar Minuta</h3>
+                         </div>
+                         <div class="modal-body">
+                          <h3>Confirmar aceptar la minuta</h3>
+                              <div  id="acep_min" ">
+                                
+                              </div>
+                         </div>
 
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                 <div class="modal" id="Rechazar">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white">Rechazar Registración</h3>
+                         </div>
+                         <div class="modal-body">
+                          <h3>Confirmar rechazar Minuta</h3>
+                            <div  id="rech_min" >
+                              
+
+                            </div> 
+                           <div>
+                              <label style="display: block;">Ingrese motivo de rechazo :</label>
+                                <textarea id="motivoRechazo" rows="10" cols="100" ></textarea>
+                          </div>
+                           
+                         </div>
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                          <a href="" class="btn btn-primary" onclick="rechazar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
                       
                   <script type="text/javascript">
             
@@ -238,7 +313,8 @@
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
-                          dtable.column($(this).data('columnIndex')).search(this.value).draw();
+                          dtable.column($(this).data('columnIndex')).search(String(this.value)).draw();
+
                       });
                       
                       $( ".dataTables_filter input" ).on( 'keyup change',function() {
@@ -247,13 +323,37 @@
                          //clear input values
                          $('.filter').val('');
                     }); 
+                      //filtra por estados
+                       $('#segunEstado').on('change', function()
+                        {
+                         
+                             dtable.column("4").search(this.value).draw();
+
+                          console.log(this.value);
+                        });
 
                       //quitar el campo de busqueda por defecto
                       document.getElementById('min_filter').style.display='none';
 
                        $( "#min" ).show();
-                  
 
+                      //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
+                        dtable.column('3').search(document.getElementById("nroMinuta").value).draw();
+
+                      if (document.getElementById("estado").value=="P") {
+                          $("#segunEstado")
+                            .find("option:contains(P)")
+                            .prop("selected", true);
+                            dtable.column('4').search(String('P')).draw();
+
+                      };
+                         
+                        //
+                           
+
+
+
+                          
 
 
                       var dtable2=$('#estados_mim').DataTable(
@@ -282,26 +382,67 @@
                               }},
                                 } );
                           document.getElementById('estados_min_filter').style.display='none';
+
                   
                     } );
                     
-                      function ventana_escribano( idEscribano){
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
-                      $("#det_esc").html(data);
-            });
-                        }
+               
 
-                    function ventana_det(idMinuta){
+                    function ventana_det(idMinuta,idEscribano){
                     $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#det").html(data);
+
             });
-                  }
+                     $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_esc").html(data);
+                  });
+                   }
+
+
                     function ventana_estados(idMinuta){
                     $.post("<?=base_url()?>index.php/c_operador/ver_estados",{idMinuta:idMinuta}, function(data){
                       $("#estados_min").html(data);
                       $("#minuta").html(idMinuta);
             });
                   }
+
+                     idEstMin='';
+
+
+                            function ventana_acep(idMinuta,idEstadoMinuta){
+                    idEstMin=idEstadoMinuta;
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                      $("#acep_min").html(data);
+            });
+                  }
+
+             function ventana_rech(idMinuta,idEstadoMinuta){
+                   idEstMin=idEstadoMinuta;
+                    $.post("<?=base_url()?>index.php/c_adminstrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                      $("#rech_min").html(data);
+            });
+                  }
+
+               function aceptar( ){
+                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_min",{idEstadoMinuta:idEstMin}, function(data){
+                     
+            });
+                  }
+                     
+
+                   function rechazar( ){
+                     var motivoRechazo=document.getElementById('motivoRechazo').value;
+                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo}, function(data){
+                      
+            });
+                    }
+
+
+
+                         $( document ).ready(function() {
+                            $('#fechaEdicion').datepicker();
+                        });
+                                  
                   
 
 

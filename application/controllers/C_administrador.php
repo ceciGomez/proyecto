@@ -16,6 +16,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
@@ -31,7 +33,8 @@ class C_administrador extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Administrador';
 		
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data["operadores"] = $this->M_administrador->getOperadores();
 
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -48,7 +51,8 @@ class C_administrador extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Administrador';
 		
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data["escribanos"] = $this->M_administrador->getEscribanos();
 
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -65,7 +69,8 @@ class C_administrador extends CI_Controller {
 			redirect(base_url().'index.php/c_login_administrador');
 		}
 	
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
 		$data["operador"] = $this->M_administrador->getUnOperador($param);
 		//var_dump($data["operador"]);
@@ -81,7 +86,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-		
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$idUsuario = $this->input->post("idUsuario");
 		$operadorAct= array(
 			//Nombre del campo en la bd -----> valor del campo name en la vista
@@ -128,7 +134,8 @@ class C_administrador extends CI_Controller {
 			redirect(base_url().'index.php/c_login_administrador');
 		}
 	
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
 		$data["escribano"] = $this->M_escribano->getUnEscribano($param);
 		//var_dump($data["operador"]);
@@ -144,7 +151,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-		
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$idEscribano = $this->input->post("idEscribano");
 		$escribanoAct= array(
 			//Nombre del campo en la bd -----> valor del campo name en la vista
@@ -194,7 +202,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'P'))->result();
 		$data['esc_pen']=$esc_pen;
 		
@@ -260,7 +269,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'A'))->result();
 		$data['esc_apro']=$esc_apro;
 		$data['titulo'] = 'Bienvenido Operador';
@@ -276,7 +286,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_operador');
 		}
-
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'R'))->result();
 		$data['esc_rech']=$esc_rech;
 		$data['titulo'] = 'Bienvenido Operador';
@@ -292,6 +303,8 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$this->db->select('*');
 		$this->db->from('estadominuta');
 		$this->db->join('minuta', 'minuta.idMinuta = estadominuta.idMinuta');
@@ -403,12 +416,36 @@ class C_administrador extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$this->db->select('*');
 		$this->db->from('minuta');
 		
 		
+		$minutas= $this->db->get()->result();
+		
+		//obtengo el ultimo estado de cada minuta
+		$min=null;
+		foreach ($minutas as $mi) {
+			  			$this->db->from('estadominuta');
+                         $this->db->where('idMinuta', $mi->idMinuta); 
+                         $this->db->order_by('idEstadoMinuta', 'DESC');
+                         $estadoMinuta= $this->db->get()->row();
+          // solo necesito guardar el estado y el idEstadoMinuta
+          //entonces junto creo una nueva variable
+           $datosMinutas=array("idMinuta" => "$mi->idMinuta","idEscribano" => "$mi->idEscribano", "fechaIngresoSys" => "$mi->fechaIngresoSys","fechaEdicion" => "$mi->fechaEdicion","idEstadoMinuta" => "$estadoMinuta->idEstadoMinuta","estadoMinuta" =>" $estadoMinuta->estadoMinuta");
+           $arreglo=array($datosMinutas);
+         	if ($min==null){
+         		$min=$arreglo;
+                
+         	}
+         	else{
+         		$min=array_merge($min,$arreglo);    
+		};
+         	}
+         		  
+		$data['minutas']=$min;
 
-		$data['minutas']= $this->db->get()->result();
 
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -489,5 +526,46 @@ class C_administrador extends CI_Controller {
 	}
 
 	
-	
+	public function notificaciones_mp(){
+						$this->db->from('estadominuta');
+                         $this->db->where('estadoMinuta', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
+		public function notificaciones_ep(){
+						$this->db->from('usuarioescribano');
+                         $this->db->where('estadoAprobacion', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
+		public function notificaciones_si(){
+						$this->db->from('estadominuta');
+                         $this->db->where('estadoMinuta', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
+	//en caso de que haga click en las notificaciones guarda los id y el estado para que aparezca la tabla filtrada por
+	public function buscar_esc_p_x_id($idEscribano="",$estado=""){
+			if ($_POST["idEscribano"]==null) {
+				$idEscribano="";
+			}else
+			{
+				$idEscribano=$_POST["idEscribano"];
+			};
+		   $noti_min=array("idEscribano"=>$idEscribano,"estado"=>"P");
+		  	  $this->session->set_flashdata('noti_min',$noti_esc); 
+		    redirect(base_url().'index.php/c_administrador/verEscribanos');
+	}
+	public function buscar_min_p_x_id(){
+			if ($_POST["idMinuta"]==null) {
+				$idMinuta="";
+			}else
+			{
+				$idMinuta=$_POST["idMinuta"];
+			};
+			$noti_min=array("idMinuta"=>$idMinuta,"estado"=>"P");
+		   $this->session->set_flashdata('noti_min',$noti_min); 
+		    redirect(base_url().'index.php/c_administrador/ver_minutas');
+	}
+
 }
