@@ -27,6 +27,7 @@ class M_escribano extends CI_Model
 			return false;
 		} 
 	}
+
 	public function getUnaMinuta($idMinuta)
 	{
 		try {
@@ -61,7 +62,6 @@ class M_escribano extends CI_Model
 		}
 	}
 
-	
 
 	public function getParcelas($idMinuta)
 	{
@@ -108,32 +108,36 @@ class M_escribano extends CI_Model
 			return false;
 		}
 	}
-	public function getPropietarios($idParcela)
+
+public function getPropietarios($idParcela)
 	{
 		try {
 			$query = $this->db->query("
-				SELECT idPropietario,
-				idParcela,
-				titular,
-				dni,
-				concat(direccion, ' - ', l.nombre) as direccion,
-				p.idLocalidad as idLocalidad,
-				cuitCuil,
-				conyuge,
-				concat(substring(p.fechaEscritura, 6, 2), '/' ,substring(p.fechaEscritura, 9, 2) , '/', substring(p.fechaEscritura, 1, 4)) as fechaEscritura,
-				porcentajeCondominio,
-				nroUfUc,
-				tipoUfUc,
-				planoAprobado,
-				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
-				porcentajeUfUc,
-				poligonos,
-				p.tipoPropietario as tipoPropietario
-
-				FROM propietario p inner join localidad l
-				on l.idLocalidad = p.idLocalidad
-				where p.idParcela = $idParcela
-			"); 
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where re.idParcela =  $idParcela
+				
+					");
 			return $query->result();
 		} catch (Exception $e) {
 			return false;
