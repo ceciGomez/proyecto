@@ -318,8 +318,9 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$data['propietarios'] = $this->M_escribano->getPropietarios($param);
-		
+		$data['propietariosAd'] = $this->M_escribano->getPropietarios_porMinuta_Ad($param);
+		$data['propietariosTr'] = $this->M_escribano->getPropietarios_porMinuta_Tr($param);
+		//var_dump($data['propietarios']);
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verPropietarios',$data);

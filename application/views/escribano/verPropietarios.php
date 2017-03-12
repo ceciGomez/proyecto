@@ -16,71 +16,70 @@
 <!-- Main row -->
 
 <div class="box">
-<?php foreach ($propietarios as  $value): 
-  if ($value->tipoPropietario == 'A'){ ?>
      <div class="box-header">
               <h3 class="box-title">Adquirientes</h3>
-            </div>
+       </div>
             <!-- /.box-header -->
             <div class="box-body">
               <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
+                  <th>CUIT-CUIL</th>
+                  <th>Nombre y Apellido</th>
+                  <th>Direccion</th>
+                  <th>Fecha Nacimiento</th>
+                  <th>Conyuge</th>
                 </tr>
                 </thead>
+                <?php foreach ($propietariosAd as  $value): ?>
                 <tbody>
                 <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
+                  <td><?php echo $value->cuitCuil ?></td>
+                 <td><?php echo $value->titular ?></td>
+                 <td><?php echo $value->direccion ?></td>
+                 <td><?php echo $value->fechaNac ?></td>
+                 <td><?php echo $value->conyuge ?></td>
+                 
                 </tr>
-                
+                 </tbody>
+  <?php endforeach ?>
 
               </table>
             </div>
             <!-- /.box-body -->
-  <?php  } else { ?>
+  
+
      <div class="box-header">
-              <h3 class="box-title">Transmitente</h3>
-            </div>
+          <h3 class="box-title">Transmitentes</h3>
+     </div>
             <!-- /.box-header -->
             <div class="box-body">
-              <table id="example2" class="table table-bordered table-hover">
+                   <table id="example2" class="table table-bordered table-hover">
                 <thead>
                 <tr>
-                  <th>Rendering engine</th>
-                  <th>Browser</th>
-                  <th>Platform(s)</th>
-                  <th>Engine version</th>
-                  <th>CSS grade</th>
+                  <th>CUIT-CUIL</th>
+                  <th>Nombre y Apellido</th>
+                  <th>Direccion</th>
+                  <th>Fecha Nacimiento</th>
+                  <th>Conyuge</th>
                 </tr>
                 </thead>
+                <?php foreach ($propietariosTr as  $value): ?>
                 <tbody>
                 <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
-                  <td> 4</td>
-                  <td>X</td>
+                  <td><?php echo $value->cuitCuil ?></td>
+                 <td><?php echo $value->titular ?></td>
+                 <td><?php echo $value->direccion ?></td>
+                 <td><?php echo $value->fechaNac ?></td>
+                 <td><?php echo $value->conyuge ?></td>
+                 
                 </tr>
-                
+                 </tbody>
 
+<?php  endforeach?>
               </table>
             </div>
             <!-- /.box-body -->
-<?php   } ?>
-<?php  endforeach?>
            
           </div>
           <!-- /.box -->

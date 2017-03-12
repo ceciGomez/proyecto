@@ -143,6 +143,78 @@ public function getPropietarios($idParcela)
 			return false;
 		}
 	}
+	public function getPropietarios_porMinuta_Ad($idMinuta)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				pe.fechaNac as fechaNac,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where pa.idMinuta = $idMinuta
+				and pr.tipoPropietario = 'A'
+				
+					");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	public function getPropietarios_porMinuta_Tr($idMinuta)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				pe.fechaNac as fechaNac,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where pa.idMinuta = $idMinuta
+				and pr.tipoPropietario = 'T'
+				
+					");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 		public function getDepartamentos()
 	{
