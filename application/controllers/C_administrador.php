@@ -127,7 +127,7 @@ class C_administrador extends CI_Controller {
 
 
 
-	public function editarEscribano($param="")
+	public function editarEscribano($idEscribano="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -137,7 +137,8 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
-		$data["escribano"] = $this->M_escribano->getUnEscribano($param);
+		$esc=$this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
+		$data["escribano"] =$esc;
 		//var_dump($data["operador"]);
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
@@ -158,7 +159,7 @@ class C_administrador extends CI_Controller {
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => $this->input->post("contraseña"),	
+			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
@@ -433,7 +434,7 @@ class C_administrador extends CI_Controller {
                          $estadoMinuta= $this->db->get()->row();
           // solo necesito guardar el estado y el idEstadoMinuta
           //entonces junto creo una nueva variable
-           $datosMinutas=array("idMinuta" => "$mi->idMinuta","idEscribano" => "$mi->idEscribano", "fechaIngresoSys" => "$mi->fechaIngresoSys","fechaEdicion" => "$mi->fechaEdicion","idEstadoMinuta" => "$estadoMinuta->idEstadoMinuta","estadoMinuta" =>" $estadoMinuta->estadoMinuta");
+           $datosMinutas=array("idMinuta" => "$mi->idMinuta","idEscribano" => "$mi->idEscribano", "fechaIngresoSys" => "$mi->fechaIngresoSys","fechaEdicion" => "$mi->fechaEdicion","idEstadoMinuta" => "$estadoMinuta->idEstadoMinuta","estadoMinuta" =>"$estadoMinuta->estadoMinuta");
            $arreglo=array($datosMinutas);
          	if ($min==null){
          		$min=$arreglo;
@@ -538,6 +539,7 @@ class C_administrador extends CI_Controller {
                         return( $this->db->get()->result()); 
 
 	}
+
 		public function notificaciones_si(){
 						$this->db->from('estadominuta');
                          $this->db->where('estadoMinuta', "P"); 
@@ -545,15 +547,15 @@ class C_administrador extends CI_Controller {
 
 	}
 	//en caso de que haga click en las notificaciones guarda los id y el estado para que aparezca la tabla filtrada por
-	public function buscar_esc_p_x_id($idEscribano="",$estado=""){
-			if ($_POST["idEscribano"]==null) {
-				$idEscribano="";
+	public function buscar_esc_p_x_dni(){
+			if ($_POST["dniEscribano"]==null) {
+				$dniEscribano="";
 			}else
 			{
-				$idEscribano=$_POST["idEscribano"];
+				$dniEscribano=$_POST["dniEscribano"];
 			};
-		   $noti_min=array("idEscribano"=>$idEscribano,"estado"=>"P");
-		  	  $this->session->set_flashdata('noti_min',$noti_esc); 
+		   $noti_esc=array("dniEscribano"=>$dniEscribano,"estado"=>"P");
+		  	  $this->session->set_flashdata('noti_esc',$noti_esc); 
 		    redirect(base_url().'index.php/c_administrador/verEscribanos');
 	}
 	public function buscar_min_p_x_id(){
@@ -567,5 +569,8 @@ class C_administrador extends CI_Controller {
 		   $this->session->set_flashdata('noti_min',$noti_min); 
 		    redirect(base_url().'index.php/c_administrador/ver_minutas');
 	}
+
+
+	
 
 }

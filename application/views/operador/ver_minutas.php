@@ -18,7 +18,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
+        <section >
          
 
           <!-- TO DO List -->

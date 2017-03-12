@@ -29,65 +29,92 @@
                      </div>
                   </div> -->
                </div>
-                <div class="box-header with-border">
-                     <h3 class="box-title">Escribanos de SIRMI</h3>
+             
+                     <h3  align="center">Gestión de Escribanos</h3>
 
 
                 <div class="form-group">
-                <br>
-                <br>
+               
                  <label>Filtrar Escribanos por :</label>
                  <br>
                  <br>
-                      <label>Fecha Registración :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                    
-                        <label>DNI :</label>
-                      <input type='text' value='' class='filter' data-column-index='1'> 
-                
-                                      
-                        <label>Escribano :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                        
-                         <label>Matricula :</label>
-                         <input type='text' value='' class='filter' data-column-index='3'> 
-                    <br>
-                      <br>
-                        <label>Usuario :</label>
-                         <input type='text' value='' class='filter' data-column-index='4'> 
-                    
+                <div class="box-body" style="background-color: lightblue;">
+                    <div class="form-group">    
+                         <div class="row">
+                            <div class="col-md-3">
+                              <label>Registración :</label><br>
+                              <input data-provide="datepicker" id="fechaRegistracion" placeholder="dd/mm/aaaa" class='filter' data-column-index='1'> 
+                            </div>
+                            <div class="col-md-3">
+                               <label>DNI:</label><br>
+                              <input type='text' id="dniEscribano" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='2'>
+                            </div>
 
-                         <label>Estado :</label>
-                         <input type='text' value='' class='filter' data-column-index='5'> 
-                           <label>Email :</label>
-                        <input type='text' value='' class='filter' data-column-index='6'>
-                         <label>Telefono :</label>
-                        <input type='text' value='' class='filter' data-column-index='7'> 
-                    
-                 <br>
-                    <br>     
+                            <div class="col-md-3">
+                               <label>Escribano :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='3'>
+                            </div>
+                             <div class="col-md-3">
+                               <label>Matricula :</label><br>
+                                 <input type='text' value='' class='filter' data-column-index='4'> 
+                            </div>
+                          </div>
+                         
+                         <div class="row">
+                         
+                          <div class="col-md-3">
+                             <label>Usuario :</label><br>
+                               <input type='text' value='' class='filter' data-column-index='5'> 
+                          </div>
+
+                          <div class="col-md-3">
+                           <label>Estado :</label><br>
+                            <input type="hidden" value= '<?php echo $this->session->flashdata('noti_esc')["estado"]; ?>' id="estado"> 
+                            <select id="segunEstado">
+                                 <option value=""></option>
+                                <option value="P">P</option>
+                                <option value="A">A</option>
+                                <option value="R">R</option>
+                               
+                            </select>
+                          </div>
+                          <div class="col-md-3">
+                              <label>Email :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='7'>
+                          </div>
+                          <div class="col-md-3">
+                            <label>Telefono :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='8'> 
+                          </div>
+                        
+                        </div>
                        
-                        <label>Dirección :</label>
-                        <input type='text' value='' class='filter' data-column-index='8'> 
-                         <label>Localidad :</label>
-                        <input type='text' value='' class='filter' data-column-index='9'> 
-                        
-                        <br>
-
-
-
+                         <div class="row">
+                          
+                          <div class="col-md-3">
+                              <label>Dirección :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='8'> 
+                          </div>
+                          <div class="col-md-3">
+                              <label>Localidad :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='9'> 
+                          </div>
+                        </div>
+                    
                   
-                  </div>
-                </form>
+                       </div>
+                  </div>      
+
                 <br>
                 <br>
-                  </div>
+              </div>
              
              
                   <div class="box-body table-responsive no-padding">                   
                      <table id="escribanos" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
+                            <th>Operaciones</th>
                             <th>Fecha Registración</th>
                             <th>DNI</th>
                             <th>Escribano</th>
@@ -98,7 +125,7 @@
                             <th>Teléfono</th>
                             <th>Dirección</th>
                            <th>Localidad</th>
-                           <th>Operaciones</th>
+                          
 
 
                           </tr>
@@ -113,24 +140,36 @@
                          ?>
                       
                           <tr>
-                              <td>  <?php  echo "$date_formated"; ?></td>
+                             <td >
+
+                              <?php  
+                                if($es ->estadoAprobacion=='P'){
+                                  ?>
+                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" onclick="ventana_acep(<?php echo $es->idEscribano?>)" ><i  class="fa fa-check" title="Aceptar Escribano " ></i></button></a>
+
+                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar Escribano" onclick="ventana_rech(<?php echo $es->idEscribano; ?>)" ><i class="fa fa-times"></i></button></a>
+
+                                  <?php  
+                                };
+                              ?>
+                                 <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_administrador/editarEscribano/<?php echo $es->idEscribano?>"><button  class="btn btn-warning"  data-toggle="modal"><i class="fa fa-pencil" title="Editar datos del Escribano"></i></button></a> 
+
+                                  <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo "$es->idEscribano"; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
+                              
+                           </td>
+                            <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$es->dni"; ?></td>
                             <td>  <?php  echo "$es->nomyap"; ?></td>
                             <td>  <?php  echo "$es->matricula"; ?></td>
-                           <td>  <?php  echo "$es->usuario"; ?></td>
-                           <td>  <?php  echo "$es->estadoAprobacion"; ?></td>
-                             <td>  <?php  echo "$es->email"; ?></td>
+                            <td>  <?php  echo "$es->usuario"; ?></td>
+                            <td>  <?php  echo "$es->estadoAprobacion"; ?></td>
+                            <td>  <?php  echo "$es->email"; ?></td>
                             <td>  <?php  echo "$es->telefono"; ?></td>
                           
                            <td>  <?php  echo "$es->direccion"; ?></td>
                            <td>  <?php  echo "$localidad->nombre"; ?></td>
                            
-                           <td colspan="" rowspan="" headers="">
-                              <div class="btn-group">
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarEscribano/<?php echo $es->idEscribano?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
-                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$es->idEscribano"; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
-                              </div>
-                           </td>
+                        
                            
                           </tr>
 
@@ -139,10 +178,88 @@
                         ?>
                        
                         </tbody>
+
                  </table>
 
 
-                        
+                  <div class="modal" id="Aceptar">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white" >Aceptar Registración</h3>
+                         </div>
+                         <div class="modal-body">
+                          <h3>Confirmar aceptar solicitud de registracion del Escribano:</h3>
+                              <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_acep" >
+
+                                              </tbody >
+                                            </table >
+                         </div>
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                 <div class="modal" id="Rechazar">
+                    <div class="modal-dialog modal-lg">
+                      <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white">Rechazar Registración</h3>
+                         </div>
+                         <div class="modal-body">
+                          <h3>Confirmar rechazar registración del Escribano</h3>
+                            <table class="table"  >
+                                            <thead>
+                                              <tr>
+                                                <th>Nombre y Apellido</th>
+                                                <th>Usuario</th>
+                                                <th>DNI</th>
+                                                <th>Matricula</th>
+                                                 <th>Direccion</th>
+                                                 <th>Email</th>
+                                                 <th>Telefono</th>
+                                                 <th>Estado de Aprobacion</th>
+                                               </tr>
+                                             </thead> 
+                                               <tbody id="det_rech" >
+
+                                              </tbody >
+                                            </table >
+                           <div>
+                              <label style="display: block;">Ingrese motivo de rechazo :</label>
+                                <textarea id="motivoRechazo" rows="10" cols="100" ></textarea>
+                          </div>
+                           
+                         </div>
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                          <a href="" class="btn btn-primary" onclick="rechazar()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                      
 
                 <div class="modal" id="Eliminar">
                       <div class="modal-dialog modal-lg">
@@ -162,6 +279,11 @@
                       </div>
                     </div>
                   </div>
+
+
+               
+
+                
 
 
                   <script type="text/javascript">
@@ -192,9 +314,19 @@
                                 "sNext":     "Siguiente",
                                 "sPrevious": "Anterior"
                               }},
-                                } );
-                           
 
+                                } )
+                   
+                    //filtrado por defecto por dni de escribano y estado P, o solo por los estados P        
+                      dtable.column('2').search(document.getElementById("dniEscribano").value).draw();
+
+                        if (document.getElementById("estado").value=="P") {
+                          $("#segunEstado")
+                            .find("option:contains(P)")
+                            .prop("selected", true);
+                            dtable.column('6').search(String('P')).draw();
+                      //
+                    };
                               //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
@@ -209,14 +341,63 @@
                          $('.filter').val('');
                     }); 
 
+                          //filtra por estados
+                       $('#segunEstado').on('change', function()
+                        {
+                         
+                             dtable.column("6").search(this.value).draw();
+
+                          console.log(this.value);
+                        });
+
+
                       //quitar el campo de busqueda por defecto
                       document.getElementById('escribanos_filter').style.display='none';
-                      
-                       $( "#escribanos" ).show();  
+
+                         $( "#escribanos" ).show();  
+                       
+                       
+
+                    
                     } );
 
+                     //filtra por estados
+                      
+                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
+                     
+                     
 
                     idEsc='';
+
+                         function ventana_acep( idEscribano){
+                    idEsc=idEscribano;
+                    
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_acep").html(data);
+            });
+                  }
+
+                  function ventana_rech( idEscribano){
+                    idEsc=idEscribano;
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                      $("#det_rech").html(data);
+            });
+                  }
+
+                   function aceptar( ){
+                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_esc",{idEscribano:idEsc}, function(data){
+                     
+            });
+                  }
+                     
+
+                   function rechazar( ){
+                     var motivoRechazo=document.getElementById('motivoRechazo').value;
+                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
+                      
+            });
+                  }
+
                    function ventana_eli (idEscribano){
                       idEsc=idEscribano;
                      
@@ -231,6 +412,17 @@
                      
             });
                   }
+
+
+
+
+
+                     //visualizar el calendario en el input fecha
+                         $( document ).ready(function() {
+                            $('#fechaRegistracion').datepicker();
+                        });
+
+
 
          </script>
 
