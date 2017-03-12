@@ -19,6 +19,15 @@
                         overflow:hidden;
                           }
    </style>
+   <style type="text/css">
+     
+     #escribanos {
+  width:1500px;
+}
+     #min{
+  width:1000px;
+}
+   </style>
 
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
@@ -158,7 +167,7 @@
                   </li>
                   <li>
                      <?php if(count($notificaciones_ep)>5 ){?>
-                        <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_id'); ?>
+                        <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_dni'); ?>
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i class='fa fa-users text-red'></i> ";
@@ -171,10 +180,10 @@
                         else
                         {
                           foreach ($notificaciones_ep as $ep) {?>
-                          <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_id'); ?>
+                          <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_dni'); ?>
                             <?php 
                              echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
-                             echo "<input  type='hidden' name='idEscribano' value='$ep->idEscribano'>";
+                             echo "<input  type='hidden' name='dniEscribano' value='$ep->dni'>";
                                echo "<i class='fa fa-users text-red'></i> ";
                              echo" La registración del escribano $ep->usuario esta pendiente de revisión";
   ?>

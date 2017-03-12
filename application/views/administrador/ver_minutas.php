@@ -25,22 +25,24 @@
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3  align="center">Lista de Minutas</h3>
+              <h3  align="center">Gestión de Minutas</h3>
 
-              
-                <div class="form-group">
-                       <label>Filtrar Minutas por :</label>
+               <label>Filtrar Minutas por :</label>
+               <br>
+               <br>
+                <div class="form-group" style="background-color: lightblue;">
+                      
                        <br>
                        <br>
-                     
+                       <?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>
                           <label>Fecha Ingreso :</label>
-                        <input type="text" data-provide="datepicker"  value="dd/mm/aaaa" id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
+                        <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
 
                           
                                       
                         <label>Fecha Edición :</label>
                         
-                        <input type='text' data-provide="datepicker" value="dd/mm/aaaa" placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
+                        <input type='text' data-provide="datepicker"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
                     
                         <label>Minuta :</label>
                         <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>' class='filter' data-column-index='3'> 
@@ -111,7 +113,9 @@
                            
 
                               <?php  
-                                if($mi ["estadoMinuta"]=='P'){
+                              
+                                if(($mi['estadoMinuta'])=="P"){
+
                                   ?>
                                     <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" title="Aceptar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>)" ><i class="fa fa-check"></i></button></a>
 
@@ -337,7 +341,7 @@
 
                        $( "#min" ).show();
 
-                      //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
+                      //en caso de que haga click en alguna notificacion filtra por idminuta y estado                  
                         dtable.column('3').search(document.getElementById("nroMinuta").value).draw();
 
                       if (document.getElementById("estado").value=="P") {
@@ -347,12 +351,6 @@
                             dtable.column('4').search(String('P')).draw();
 
                       };
-                         
-                        //
-                           
-
-
-
                           
 
 
@@ -438,7 +436,7 @@
                     }
 
 
-
+                      //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
                             $('#fechaEdicion').datepicker();
                         });
