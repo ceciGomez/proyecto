@@ -111,7 +111,7 @@ class C_administrador extends CI_Controller {
 			$datos_usuarios= array (
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => $this->input->post("contraseña"),	
+			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
@@ -168,13 +168,15 @@ class C_administrador extends CI_Controller {
 	}
 
 
-	public function editarOperador($idUsuario="")
+	public function editarOperador($idUsuario="",$exito=FALSE, $hizo_post=FALSE)
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-	
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
@@ -188,18 +190,52 @@ class C_administrador extends CI_Controller {
 
 	public function actualizarOperador()
 	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
+
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data['titulo'] = 'Bienvenido Administrador';
 		$idUsuario = $this->input->post("idUsuario");
+			$hizo_post=TRUE;	
+
+				 $this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			    $this->form_validation->set_rules('provincia', 'provincia', 'required',array('required' => 'Debes seleccionar una Provincia ') );
+
+			    $this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes seleccionar una Localidad ') );
+
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+			    
+
+		
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarOperador($idUsuario,FALSE,TRUE);
+			}else{
+		//actualizo
+		
 		$operadorAct= array(
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => $this->input->post("contraseña"),	
+			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
@@ -210,19 +246,9 @@ class C_administrador extends CI_Controller {
 
 		
 		$ctrl=$this->M_administrador->actualizarOperador($operadorAct,$idUsuario);
-
-		$data['titulo'] = 'Bienvenido Administrador';
-		
-
-		//Si se inserto correcto la vble $ctrl devuelve true y redirije a la pagina con los mismos datos
-		//deberia ir a la pagina de veroperador 
-		if ($ctrl) {
-			redirect('c_administrador/verOperadores');
-
-		} else {
-			//Si no se guardo correctamente entonces queda en la pagina para realizar los cambios
-			redirect('','refresh');
-		}
+		$this->editarOperador($idUsuario,TRUE,TRUE);
+	}
+	
 	}
 
 	public function eliminar_op(){
@@ -235,13 +261,16 @@ class C_administrador extends CI_Controller {
 
 
 
-	public function editarEscribano($idEscribano="")
+	public function editarEscribano($idEscribano="",$exito=FALSE, $hizo_post=FALSE)
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-	
+		
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
@@ -263,6 +292,47 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$idEscribano = $this->input->post("idEscribano");
+
+		$hizo_post=TRUE;	
+
+				 $this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			    $this->form_validation->set_rules('provincia', 'provincia', 'required',array('required' => 'Debes seleccionar una Provincia ') );
+
+			    $this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes seleccionar una Localidad ') );
+
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+			    $this->form_validation->set_rules('matricula', 'matricula', 'required',array('required' => 'Debes ingresar un Nro de Matricula ') );
+
+			    $this->form_validation->set_rules('estadoAprobacion', 'estadoAprobacin', 'required',array('required' => 'Debes seleccionar un Estado ') );
+
+
+
+		
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarEscribano($idEscribano,FALSE,TRUE);
+			}else{
+		//actualizo
+		
 		$escribanoAct= array(
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
@@ -284,18 +354,9 @@ class C_administrador extends CI_Controller {
 		
 		$ctrl=$this->M_administrador->actualizarEscribano($escribanoAct,$idEscribano);
 
-		$data['titulo'] = 'Bienvenido Administrador';
-		
-
-		//Si se inserto correcto la vble $ctrl devuelve true y redirije a la pagina con los mismos datos
-		//deberia ir a la pagina de veroperador 
-		if ($ctrl) {
-			redirect('c_administrador/verEscribanos');
-
-		} else {
-			//Si no se guardo correctamente entonces queda en la pagina para realizar los cambios
-			redirect('','refresh');
-		}
+		$this->editarEscribano($idEscribano,TRUE,TRUE);
+	}
+	
 	}
 
 	public function eliminar_es(){
