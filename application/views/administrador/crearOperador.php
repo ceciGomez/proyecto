@@ -46,9 +46,9 @@
                                  </div>
                                  <div class="modal-body">
                                          <?php if( $exito ==TRUE) { ?>
-                                          <div><img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > <h3> El escribano se registro exitosamente, solicitud pendiente de revisión.</h3></div>
+                                          <div><img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > <h3> El operador se creo exitosamente..</h3></div>
                                            <?php } else{ ?>
-                                           <div> <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > <label><h3>El escribano no se pudo registrar, compruebe que los campos de registración sean correctos.</h3></label></div>
+                                           <div> <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > <label><h3>El operador no se pudo crear, compruebe que los campos ingresados sean correctos.</h3></label></div>
 
                                            <?php } ?>
 
@@ -169,7 +169,7 @@
 
                                  <div align="center" style="color:red;" ><p><?=form_error('nomyap')?></p></div> 
                                  <div align="center" style="color:red;" >  <p><?=form_error('dni')?></p></div>
-                                 <div align="center" style="color:red;" ><p><?=form_error('correo')?></p></div>
+                                 <div align="center" style="color:red;" ><p><?=form_error('email')?></p></div>
                                  <div align="center" style="color:red;" > <p><?=form_error('telefono')?></p></div>
                                  <div align="center" style="color:red;" ><p><?=form_error('provincia')?></p></div>
                                  <div align="center" style="color:red;" ><p><?=form_error('localidad')?></p></div>

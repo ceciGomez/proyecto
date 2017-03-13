@@ -17,6 +17,31 @@
 </section>
 <!-- Main content -->
 <script type="text/javascript">
+//funcion que solo permite numeros
+ function NumbersOnly(e) {
+    var unicode = e.charCode ? e.charCode : e.keyCode;
+    if (unicode != 8) {
+        if (unicode < 48 || unicode > 57) {
+
+            if (unicode == 9 || IsArrows(e) )
+                return true;
+            else
+                return false;
+        }
+    }
+}
+function IsArrows (e) {
+       return (e.keyCode >= 37 && e.keyCode <= 40); 
+}
+//funcion que solo permite letras
+function validar(e) { 
+tecla = (document.all) ? e.keyCode : e.which;
+if (tecla==8) return true; 
+patron =/[A-Za-z\s]/; 
+te = String.fromCharCode(tecla); 
+return patron.test(te); 
+}
+
    $(document).ready(function(){
    $("#Provincia").change(function () {
 
@@ -49,9 +74,42 @@
                   });
         });
 });
+
 </script>
 
 <section class="content">
+
+
+            <div class="modal" id="Editar">
+                            <div class="modal-dialog modal-lg">
+                              <div class="modal-content">
+                                 <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h3 class="modal-title" style="color:white" >Edición Escribano</h3>
+                                 </div>
+                                 <div class="modal-body">
+                                         <?php if( $exito ==TRUE) { ?>
+                                          <div><img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > <h3> El operador se editó exitosamente.</h3></div>
+                                           <?php } else{ ?>
+                                           <div> <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > <label><h3>El operador no se pudo editar, compruebe que los campos de edición sean correctos.</h3></label></div>
+
+                                           <?php } ?>
+
+                                     </div>
+
+                                 <div class="modal-footer">
+                                  <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                                   <?php if($exito==TRUE){
+
+                                     ?>
+                                    <a href="<?=base_url().'index.php/c_administrador/verOperadores'?>" class="btn btn-primary" >Aceptar</a>
+                                    <?php } ?>
+                                 </div>
+                              </div>
+                            </div>
+                  </div>
+
+
 
       <div class="row">
       <h3  align="center">Editar Operador</h3>
@@ -61,13 +119,14 @@
           <!-- general form elements -->
           <div class="box box-primary" >
           <div class="box-body" style="background-color: lightblue;">
+        
                     <div class="form-group">    
                       <?=form_open(base_url().'index.php/c_administrador/actualizarOperador')?>
                          <div class="row">
                          
                             <div class="col-md-3">
                                <label>Nombre y Apellido:</label><br>
-                              <input type='text' name="nomyap" id="nomyap" placeholder="Nombre y Apellido" value='<?php echo $operador->nomyap; ?>'  >
+                              <input type='text' name="nomyap" id="nomyap" placeholder="Nombre y Apellido" value='<?php echo $operador->nomyap; ?>'  style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
                             </div>
 
                             <div class="col-md-3">
@@ -82,7 +141,7 @@
 
                           <div class="col-md-3">
                              <label>DNI :</label><br>
-                              <input type="text" value="<?php echo $operador->dni ?>" name="dni" id="dni" placeholder="DNI">
+                              <input type="text" value="<?php echo $operador->dni ?>" name="dni" id="dni" placeholder="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
                           </div>
 
 
@@ -97,7 +156,7 @@
 
                           <div class="col-md-3">
                             <label>Telefono :</label><br>
-                            <input type="text"  value="<?php echo $operador->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
+                            <input type="text" maxlength="15"   placeholder="+54" value="<?php echo $operador->telefono ?>" name="telefono" id="telefono" placeholder="teléfono" onkeypress="return NumbersOnly(event);">
                           </div>
                         
                           <div class="col-md-3">
@@ -143,9 +202,23 @@
                               <input type="text" value="<?php echo $operador->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
                         <br>
-                                     <input type="hidden"  value="<?php echo $operador->idUsuario ?>" name="idUsuario" id="idUsuario" >
+                                <input type="hidden"  value="<?php echo $operador->idUsuario ?>" name="idUsuario" id="idUsuario" >
                                  <br><br>
-                                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                                <div align="center">
+                                 <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
+                                 <button class="btn btn-default" href="<?=base_url().'index.php/c_administrador/verOperadores'?>" >Cancelar</button>
+
+                                 </div>
+
+                                 <div align="center" style="color:red;" ><p><?=form_error('nomyap')?></p></div> 
+                                 <div align="center" style="color:red;" >  <p><?=form_error('dni')?></p></div>
+                                 <div align="center" style="color:red;" ><p><?=form_error('email')?></p></div>
+                                 <div align="center" style="color:red;" > <p><?=form_error('telefono')?></p></div>
+                                 <div align="center" style="color:red;" ><p><?=form_error('provincia')?></p></div>
+                                 <div align="center" style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                                 <div align="center" style="color:red;" ><p><?=form_error('usuario')?></p></div>
+                                 <div align="center" style="color:red;" > <p><?=form_error('contraseña')?></p></div>
+
 
                                             <?=form_close()?>
 
@@ -160,7 +233,12 @@
 </section>
 </div>
 
-                   
-               
-
+ <script type="text/javascript">
+  
+    $(document).ready(function()
+   {
+      <?php if ($hizo_post) {  ?>
+      $("#Editar").modal("show");
+    <?php } ?>
+   });
 </script>
