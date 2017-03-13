@@ -240,4 +240,31 @@
         </ul>
       </div>
     </nav>
+    <script type="text/javascript">
+      <script type="text/javascript">
+        //funcion que solo permite numeros
+         function NumbersOnly(e) {
+            var unicode = e.charCode ? e.charCode : e.keyCode;
+            if (unicode != 8) {
+                if (unicode < 48 || unicode > 57) {
+
+                    if (unicode == 9 || IsArrows(e) )
+                        return true;
+                    else
+                        return false;
+                }
+            }
+        }
+        function IsArrows (e) {
+               return (e.keyCode >= 37 && e.keyCode <= 40); 
+        }
+        //funcion que solo permite letras
+        function validar(e) { 
+        tecla = (document.all) ? e.keyCode : e.which;
+        if (tecla==8) return true; 
+        patron =/[A-Za-z\s]/; 
+        te = String.fromCharCode(tecla); 
+        return patron.test(te); 
+        }
+    </script>
   </header>

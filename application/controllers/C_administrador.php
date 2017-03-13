@@ -19,12 +19,118 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
+
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
 		$this->load->view('home/admin',$data);
 		$this->load->view('templates/pie',$data);
 	}
-	
+	public function crearOperador($exito=FALSE, $hizo_post=FALSE){
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data['titulo'] = 'Bienvenido Administrador';
+
+
+		//busco todas las provincias
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+	    $data['provincias'] = $this->db->get("provincia")->result();
+		 // en caso de que venga de una registracion que no se pudo hacer por algun campo
+		if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['nomyap'] = $this->input->post('nomyap');
+			$data['dni'] = $this->input->post('dni');
+			$data['correo'] = $this->input->post('correo');
+			$data['telefono'] =(integer)$this->input->post('telefono');
+			$data['usuario'] = $this->input->post('usuario');
+			$data['direccion'] = $this->input->post('direccion');
+
+		
+
+		}else{
+			$data['nomyap']='';
+			$data['dni']='';
+			$data{'correo'}='';
+			$data{'telefono'}='';
+			$data{'direccion'}='';
+			$data{'usuario'}='';
+			$data{'contraseña'}='';
+			$data{'repeContraseña'}='';
+
+
+		};
+		
+
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('administrador/crearOperador',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+	public function nuevoOperador(){
+			$hizo_post=TRUE;	
+
+				 $this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required|is_unique[usuariosys.dni]',array('required' => 'Debes ingresar DNI ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required|is_unique[usuariosys.email]',array('required' => 'Debes ingresar un correo ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			    $this->form_validation->set_rules('provincia', 'provincia', 'required',array('required' => 'Debes seleccionar una Provincia ') );
+
+			    $this->form_validation->set_rules('localidad', 'localidad', 'required',array('required' => 'Debes seleccionar una Localidad ') );
+
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|is_unique[usuariosys.usuario]|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','is_unique'=>'Ya existe un Operador con el nombre de usuario ingresado','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+			    $this->form_validation->set_rules('repeContraseña', 'repeContraseña', 'required|matches[contraseña]',array('required' => 'Debes volver a ingresar la contraseña ','matches'=> 'Las dos contraseñas no coinciden ') );
+
+		
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->crearOperador(FALSE,TRUE);
+			}else{
+			$datetime_variable = new DateTime();
+			$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+			$datos_usuarios= array (
+			'nomyap' => $this->input->post("nomyap"),
+			'usuario' => $this->input->post("usuario"),	
+			'contraseña' => $this->input->post("contraseña"),	
+			'dni' => $this->input->post("dni"),	
+			'telefono' => $this->input->post("telefono"),
+			'direccion' => $this->input->post("direccion"),	
+			'idLocalidad' => $this->input->post('localidad'),	
+			'fechaReg'=>$datetime_formatted,
+			'tipoUsuario'=>"O",
+			'email' => $this->input->post('email'));	
+
+			$this->db->insert("usuariosys", $datos_usuarios);
+
+			
+
+			$data['provincias'] = $this->db->get("provincia")->result();
+		 
+		    $this->crearOperador(TRUE,TRUE);
+
+	}
+}
+
 	public function verOperadores()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
@@ -98,6 +204,8 @@ class C_administrador extends CI_Controller {
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
 			'idLocalidad' => $this->input->post('localidad'),	
+			'email' => $this->input->post('email'),	
+
 			);
 
 		
@@ -166,7 +274,9 @@ class C_administrador extends CI_Controller {
 			'idLocalidad' => $this->input->post('localidad'),	
 			'matricula' => $this->input->post('matricula'),
 			'estadoAprobacion' => $this->input->post('estadoAprobacion'),	
-	
+			'email' => $this->input->post('email'),	
+
+
 
 
 			);

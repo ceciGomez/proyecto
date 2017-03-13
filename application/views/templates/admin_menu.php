@@ -39,7 +39,7 @@
           <ul class="treeview-menu">
             <li><a href="<?=base_url()?>index.php/c_administrador/verOperadores"><i class="fa fa-circle-o"></i> Ver Operadores</a></li>
             <li><a href="<?=base_url()?>index.php/c_administrador/verEscribanos"><i class="fa fa-circle-o"></i> Ver Escribanos</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Crear Usuarios</a></li>
+            <li><a  href="<?=base_url()?>index.php/c_administrador/crearOperador"><i class="fa fa-circle-o"></i> Crear Operador</a></li>
           </ul>
         </li>
 
