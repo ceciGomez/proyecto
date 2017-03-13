@@ -62,7 +62,7 @@ class C_administrador extends CI_Controller {
 	}
 
 
-	public function editarOperador($param="")
+	public function editarOperador($idUsuario="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -72,7 +72,7 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
-		$data["operador"] = $this->M_administrador->getUnOperador($param);
+		$data["operador"] = $this->db->get_where('usuariosys', array('idUsuario'=>$idUsuario))->row();
 		//var_dump($data["operador"]);
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
@@ -505,18 +505,13 @@ class C_administrador extends CI_Controller {
 		public function mostrarLocalidad()
 	{
 		$id_prov=$_POST["miprovincia"];
-	
-		/*$this->db->select('SELECT L.idLocalidad, L.nombre FROM Departamento D JOIN Localidad L ON D.idDepartamento= L.idLocalidad WHERE D.idProvincia=$id_prov');
-		$localidades = $this->db->get()->result();  
-		//$departamentos=$this->db->get("departamento")->result();*/
-		$localidades=array();
-	   	$departamentos=$this->db->get_where('departamento', array('idProvincia'=>$id_prov))->result();
-	   	foreach ($departamentos as $d ) {
-	   		$loc=$this->db->get_where('localidad', array('idDepartamento'=>$d->idDepartamento))->result();
-	   		$resg=$localidades;
-	   		$localidades=array_merge($resg,$loc);
-	   		
-	   	}
+		
+		$this->db->select('localidad.idLocalidad, localidad.nombre');
+		$this->db->from('localidad');
+		$this->db->join('departamento', 'localidad.idDepartamento = departamento.idDepartamento AND departamento.idProvincia ='.$id_prov);
+		
+
+		$localidades=$this->db->get()->result();
 	   	
 		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
 		foreach ($localidades as $l ) {
@@ -570,7 +565,15 @@ class C_administrador extends CI_Controller {
 		    redirect(base_url().'index.php/c_administrador/ver_minutas');
 	}
 
+	public function obtenerProvincia_x_idLoc(){
+		$idLocalidad=$_POST["idLocalidad"];
+		$this->db->select('*');
+		$this->db->from('departamento');
+		$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
+		
 
+		echo $this->db->get()->row()->idProvincia;
+	}
 	
 
 }

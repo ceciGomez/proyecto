@@ -17,8 +17,11 @@
 </section>
 <!-- Main content -->
 <script type="text/javascript">
+
   $(document).ready(function(){
    $("#Provincia").change(function () {
+
+
            $("#Provincia option:selected").each(function () {
          
            //console.log( $('#Provincia').val());
@@ -28,7 +31,24 @@
             $("#Localidad").html(data);
             });            
         });
-   })
+   });
+
+   //Para seleccionar la provincia y localidad que tiene el escribano
+
+      idLocalidad=document.getElementById("idLocalidad").value;
+       console.log(idLocalidad);
+       $.post("<?=base_url()?>index.php/c_administrador/obtenerProvincia_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+            //seleccciona la provincia de la localidad
+             document.getElementById("Provincia").selectedIndex=data;
+             //cargo todas las localidades
+              miprovincia=$('#Provincia').val();
+             $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+                  $("#Localidad").html(data);
+                  //selecciono la localidad del escribano
+                 document.getElementById("Localidad").selectedIndex=idLocalidad-1;
+
+                  });
+        });
 });
 </script>
 
@@ -137,6 +157,7 @@
                                            <div>
                                           
                                            <label>Localidad</label> 
+                                             <input type="hidden"  value="<?php echo $escribano->idLocalidad; ?>" name="idLocalidad" id="idLocalidad" >
                                               <select name="localidad" id="Localidad">
                                                    <option value="">Selecciona una Localidad </option>
                                               </select>
@@ -157,149 +178,6 @@
                        </div>
                   </div>      
 
-      
-           <?=form_open(base_url().'index.php/c_administrador/actualizarEscribano')?>
-                <div class="row">
-                   <div class="col-md-4">
-                        <div class="form-group has-feedback">
-                          <label >Nombre y Apellido</label>
-                          <br>
-                          <input type="text"  value="<?php echo $escribano->nomyap ?>" name="nomyap" id="nomyap" placeholder="Nombre y Apellido">
-                        </div>
-                    </div>
-
-                </div>
-
-                <div class="row">
-                   <div class="col-md-4">
-                      <div class="form-group has-feedback">
-                        <label >Usuario</label>
-                        <br>
-                        <input type="text"  value="<?php echo $escribano->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
-                       </div>
-                    </div>
-               </div>
-                <div class="row">
-                   <div class="col-md-3">
-                      <div class="form-group has-feedback">
-                        <label >Contraseña</label>
-                        <br>
-                        <input type="password"  value="" name="contraseña" id="contraseña" placeholder="Contraseña">
-                        </div>
-                        </div>
-                    </div>
-
-                <div class="row">
-                   <div class="col-md-3">         
-                      <div class="form-group has-feedback">
-                        <label >DNI</label>
-                        <br>
-                        <input type="text" value="<?php echo $escribano->dni ?>" name="dni" id="dni" placeholder="DNI">
-                       </div>
-                    </div>
-                    </div>
-                 <div class="row">
-                   <div class="col-md-3">
-                      <div class="form-group has-feedback">
-                        <label >Matricula</label>
-                        <br>
-                        <input type="text" value="<?php echo $escribano->matricula ?>" name="matricula" id="matricula" placeholder="Matricula">
-                       </div>
-                       </div>
-                    </div>
-
-                    <div class="row">
-                   <div class="col-md-3">
-
-                           <div class="form-group has-feedback">
-                          <label >Estado</label>
-                          <br>
-                          <input type="text" value="<?php echo $escribano->estadoAprobacion ?>" name="estadoAprobacion" id="estadoAprobacion" placeholder="estadoAprobacion">
-                         </div>
-                         </div>
-                    </div>
-
-                 <div class="row">
-                   <div class="col-md-3">
-
-                      <div class="form-group has-feedback">
-                        <label>Teléfono</label>
-                        <br>
-                        <input type="text"  value="<?php echo $escribano->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
-                        </div>
-                        </div>
-                    </div>
-
-                 <div class="row">
-                   <div class="col-md-3">
-                        <div class="form-group has-feedback">
-                          <label >Dirección</label>
-                          <br>
-                          <input type="text" value="<?php echo $escribano->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
-                         </div>
-                         </div>
-                    </div>
-
-                 <div class="row">
-                   <div class="col-md-3">
-                        <div class="form-group has-feedback">
-                          <label >e-mail</label>
-                          <br>
-                          <input type="text"  value="<?php echo $escribano->email ?>" name="email" id="email" placeholder="email">
-                          </div>
-                          <div>
-                             <input type="hidden"  value="<?php echo $escribano->idEscribano ?>" name="idEscribano" id="idEscribano" placeholder="idEscribano">
-                          </div>
-                          </div>
-                    </div>
-
-                   <div class="row">
-                     <div class="col-md-3">        
-                 
-                 <?php 
-                 $id_prov=0;
-                  ?>
-                <div> 
-                            <?php 
-                            $provincias = $this->db->get("provincia")->result();
-                                  $id_prov=0;
-                                    ?>
-                                 Provincia
-                                      <select name="provincia" id="Provincia">
-                                            <option value="">Selecciona una Provincia</option>
-                                            <?php  foreach ($provincias as $p){ ?>
-                                               <option value=
-                                                <?php
-                                               
-                                                echo "' $p->idProvincia' > $p->nombre"; }?></option>
-                                          
-
-                                        </select>
-                                          <div style="color:red;" ><p><?=form_error('provincia')?></p></div>
-                                     </div>
-                                     </div>
-                    </div>
-
-                                      <div class="row">
-                                       <div class="col-md-3">
-                                           <div>
-                                           
-                                           <br>
-
-                                            Localidad
-                                              <select name="localidad" id="Localidad">
-                                                   <option value="">Selecciona una Localidad </option>
-                                              </select>
-                                                <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
-                                           </div>
-                   </div>
-                    </div>
-
-              
-                <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-              
-
-          <?=form_close()?>
           </div>
         </div>
       </div>
@@ -327,4 +205,12 @@
                            
                       //
                     };
+
+
+                
+                
+
+                   
+               
+
 </script>

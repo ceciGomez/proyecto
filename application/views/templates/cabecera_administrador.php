@@ -24,6 +24,9 @@
      #escribanos {
   width:1500px;
 }
+   #operadores {
+  width:1400px;
+}
      #min{
   width:1000px;
 }
