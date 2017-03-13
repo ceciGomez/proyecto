@@ -7,7 +7,7 @@ class C_escribano extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-        $this->load->model('M_escribano');
+       // $this->load->model('M_escribano');
     }
 	
 	
@@ -19,6 +19,9 @@ class C_escribano extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
+		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
+	//	                      var_dump($minutasRechazadas);
+
 		//var_dump($this->session->userdata('usuario'));
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -311,7 +314,8 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/verUnaMinuta',$data);
 		$this->load->view('templates/pie',$data);
 	}
-		public function verPropietarios($param="")
+
+	public function verPropietarios($param="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
