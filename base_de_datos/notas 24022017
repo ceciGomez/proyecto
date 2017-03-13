@@ -17,7 +17,7 @@ Registración:
 
 	Matricula debe ser numérica, esta aceptando letras actualmente.
 
-Propietarios: generar tabla de propietarios idexada por dni y buscar por dni antes de la insercion
+Propietarios: generar tabla de propietarios idexada por dni y buscar por dni antes de la insercion -->HECHO
 	--> cambiar sirmi_x_ever <---
 	Buscar base de datos nacional de personas y utilizar esa, darle la opcion de modifcar los datos al escribano.
 

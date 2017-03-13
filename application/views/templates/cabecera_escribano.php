@@ -104,7 +104,8 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+                        <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+                       
                       </div>
                       <h4>
                         Equipo de Soporte
@@ -126,17 +127,13 @@
               <span class="label label-warning">2</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 2 notificaciones</li>
+              <li class="header">Tiene <?php echo $cantM_rechazadas[0]->cantidadMinutasRechazadas; ?> minutas rechazadas</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-              
-                  <li>
-                    <a href="#">
-                      <i class="fa fa-users text-yellow"></i> Editar minuta n° 4560
-                    </a>
-                  </li>
-                  <li>
+              <li>
+                  <?php if ($minutasRechazadas != null): ?>
+                    
                     <a href="#">
                       <i class="fa fa-user text-red"></i> Minutas Rechazadas: <br>
                       <?php 
@@ -149,10 +146,15 @@
                       } ?>
                     </a>
                   </li>
+                  <?php endif ?>
+                  <li>
+                  <?php if ($minutasRechazadas == null): ?>
+                     Sin Minutas Rechazadas <br> </li>
+                  <?php endif ?>
           
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todas las notificaciones</a></li>
+              <!-- <li class="footer"><a href="#">Ver todas las notificaciones</a></li> -->
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
@@ -160,13 +162,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
+              <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs">  <?php echo  $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+                <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
 
                 <p>
                   
