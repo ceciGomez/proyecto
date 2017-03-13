@@ -13,19 +13,33 @@
     </section>
 
     <!-- Main content -->
-    <section class="content">
+     <section class="content">
+      <div class="row">
+         <div class="col-xs-12">
+            <div class="box">
+               <div class="box-header">
+                  <!-- <div class="box-tools">
+                     <div class="input-group input-group-sm" ;">
+                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
+                        <div class="input-group-btn">
+                           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                        </div>
+                     </div>
+                  </div> -->
+               </div>
+             
     
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
+        <section >
          
 
           <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3 class="box-title">Operadores</h3>
+              <h3 align="center">Operadores</h3>
 
                 <div class="form-group">
                 <br>
@@ -33,44 +47,62 @@
                  <label>Filtrar Operadores por :</label>
                  <br>
                  <br>
-                      <label>Fecha Registración :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                    
-                        <label>DNI :</label>
-                      <input type='text' value='' class='filter' data-column-index='1'> 
-                
-                                      
-                        <label>Operador :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                   
-                      
-                        <label>Usuario :</label>
-                         <input type='text' value='' class='filter' data-column-index='3'> 
-                    
-<br>
-                        <div>
-                 <br>
-                        <label>Telefono :</label>
-                        <input type='text' value='' class='filter' data-column-index='5'> 
-                        <label>Email :</label>
-                        <input type='text' value='' class='filter' data-column-index='6'> 
-                        <label>Dirección :</label>
-                        <input type='text' value='' class='filter' data-column-index='7'> 
-                         <label>Localidad :</label>
-                        <input type='text' value='' class='filter' data-column-index='8'> 
+                  <div class="box-body" style="background-color: lightblue;">
+                    <div class="form-group"> 
+                     <div class="row">
+                       <div class="col-md-3">   
+                          <label> Registración :</label><br>
+                          <input data-provide="datepicker" id="fechaRegistracion" placeholder="dd/mm/aaaa" class='filter'  data-column-index='1'> 
                         </div>
+                 
+                       <div class="col-md-3">   
+                        <label>DNI :</label><br>
+                        <input type='text' value='' class='filter' data-column-index='2'> 
+                       </div>
+                       
+                          <div class="col-md-3">                 
+                            <label>Operador :</label><br>
+                            <input type='text' value='' class='filter' data-column-index='3'>
+                           </div>
+                      
+                       <div class="col-md-3">   
+                          <label>Usuario :</label><br>
+                          <input type='text' value='' class='filter' data-column-index='4'> 
+                         </div>
+                   </div>
+                      <div class="row">
+                       <div class="col-md-3">      
+                          <label>Telefono :</label><br>
+                          <input type='text' value='' class='filter' data-column-index='5'> 
+                        </div>
+                      <div class="col-md-3">    
+                        <label>Email :</label><br>
+                        <input type='text' value='' class='filter' data-column-index='6'> 
+                       </div>
 
+                       <div class="col-md-3">   
+                        <label>Dirección :</label><br>
+                        <input type='text' value='' class='filter' data-column-index='7'>
+                      </div>
+
+                      <div class="col-md-3">     
+                         <label>Localidad :</label><br>
+                        <input type='text' value='' class='filter' data-column-index='8'> 
+                     </div>
+                </div>
                   
-                  </div>
-                </form>
+            </div>
+          </div>
+       </div>
                 <br>
                 <br>
 
 
-
+                 <div class="box-body table-responsive no-padding">     
                   <table id="operadores" class="table-bordered" style="display: none" >
                         <thead>
                           <tr>
+                            <th>Operaciones</th>
                             <th>Fecha Registración</th>
                             <th>DNI</th>
                             <th>Operador</th>
@@ -79,7 +111,7 @@
                             <th>Email</th>
                             <th>Dirección</th>
                            <th>Localidad</th>
-                           <th>Operaciones</th>
+                           
 
 
                           </tr>
@@ -94,21 +126,23 @@
                          ?>
                       
                           <tr>
-                              <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$op->dni"; ?></td>
-                            <td>  <?php  echo "$op->nomyap"; ?></td>
-                            <td>  <?php  echo "$op->usuario"; ?></td>
-                            <td>  <?php  echo "$op->telefono"; ?></td>
-                           <td>  <?php  echo "$op->email"; ?></td>
-                           <td>  <?php  echo "$op->direccion"; ?></td>
-                           <td>  <?php  echo "$localidad->nombre"; ?></td>
-                           
+
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
-                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
-                                  <a class="btn btn-sm " >  <button data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$op->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
+                                 <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button  class="btn btn-warning" ><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
+                                  <a class="btn btn-sm " >  <button class="btn btn-danger"  data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$op->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
                               </div>
                            </td>
+
+                             <td>  <?php  echo "$date_formated"; ?></td>
+                             <td>  <?php  echo "$op->dni"; ?></td>
+                             <td>  <?php  echo "$op->nomyap"; ?></td>
+                             <td>  <?php  echo "$op->usuario"; ?></td>
+                             <td>  <?php  echo "$op->telefono"; ?></td>
+                             <td>  <?php  echo "$op->email"; ?></td>
+                             <td>  <?php  echo "$op->direccion"; ?></td>
+                             <td>  <?php  echo "$localidad->nombre"; ?></td>
+                          
                            
                           </tr>
 
@@ -174,6 +208,9 @@
                       </div>
                     </div>
                   </div>
+                  </div>
+
+
 
 
                   <script type="text/javascript">
@@ -249,10 +286,20 @@
             });
                   }
 
+
+                 //visualizar el calendario en el input fecha
+                     $( document ).ready(function() {
+                       $('#fechaRegistracion').datepicker();
+                        });
+
+
          </script>
 
            
           </div>
+        </div>
+        </div>
+        
           <!-- /.box -->
 
        

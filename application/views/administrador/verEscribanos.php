@@ -181,7 +181,7 @@
 
                  </table>
 
-
+                 </div>
                   <div class="modal" id="Aceptar">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
@@ -393,6 +393,7 @@
 
                    function rechazar( ){
                      var motivoRechazo=document.getElementById('motivoRechazo').value;
+                    
                     $.post("<?=base_url()?>index.php/c_administrador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
                       
             });
