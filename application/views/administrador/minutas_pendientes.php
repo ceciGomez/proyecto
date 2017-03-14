@@ -271,7 +271,7 @@
             });
                         }
 
-                    idEstMin=''
+                    idEstMin='';
                     function ventana_det(idMinuta){
                     $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#det").html(data);
