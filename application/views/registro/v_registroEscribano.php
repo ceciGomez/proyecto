@@ -205,8 +205,8 @@ $(document).ready(function(){
                                       <div style="color:red;" > <p><?=form_error('contraseña')?></p></div>
                                     </div>
                                     <div class="form-group has-feedback">
-                                      <input type="password" class="form-control" placeholder="REPETIR CONTRASEÑA"  name="repecontraseña" maxlength="100" >
-                                         <div style="color:red;" > <p><?=form_error('repecontraseña')?></p>
+                                      <input type="password" class="form-control" placeholder="REPETIR CONTRASEÑA"  name="repeContraseña" maxlength="100" >
+                                         <div style="color:red;" > <p><?=form_error('repeContraseña')?></p>
                                     </div>
                                     <div class="row">
                                       
@@ -214,7 +214,7 @@ $(document).ready(function(){
                                       <div class="col-xs-4">
                                       <br>
                                         <button type="submit" class="btn btn-primary btn-block btn-flat" data-toggle="modal" >Registrar</button>
-                                      
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat" data-toggle="modal" >Cancelar</button>
                                       <br>
                                       </div>
 
