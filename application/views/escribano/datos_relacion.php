@@ -18,7 +18,7 @@
    <section class="content-body">
       <div class="box box-default">
          <div class="box-header with-border">
-            <h3 class="box-title">Registrar Propietario</h3>
+            <h3 class="box-title">Tipo de parcela</h3>
             <!-- /.box-header -->
             <div class="form-group">
                   <div class="radio">
@@ -93,8 +93,7 @@
                <!-- /.col -->
             </div>
             <div class="box-footer">
-             <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Agregar transmitente</a>
-              <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>" >Agregar adquiriente</a>
+             <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Agregar propietario</a>            
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
