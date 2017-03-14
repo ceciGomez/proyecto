@@ -21,7 +21,10 @@ class C_reportes_escribano extends CI_Controller
 		}
 			switch ($page) {
 			case 'minutasPorFecha':
-				$data["minutas_por_fecha"] = $this->M_reporte->getMinutasPorFecha($fechaDesde, $fechaHasta);
+			$fechaDesde = '2016-01-01';
+			$fechaHasta = '2017-10-01';
+			$idEscribano = '1';
+				$data["minutas_por_fecha"] = $this->M_reportes->getMinutasPorFecha($fechaDesde, $fechaHasta, $idEscribano);
 			break;
 			default:
 				# code...

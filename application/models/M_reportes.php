@@ -16,11 +16,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					where ue.idEscribano = '$idEscribano'
 					and cast(m.fechaIngresoSys as DATE) between '$fechaDesde' and '$fechaHasta'
  				");
- 			return $query->reuslt();
+ 			return $query->result();
  		} catch (Exception $e) {
  			return FALSE;
  		}
  	}
 	
-	}
- } ?>
+}
+  
