@@ -118,11 +118,7 @@ return patron.test(te);
                                <label>Usuario :</label><br>
                                <input type="text"  value="<?php echo $escribano->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
                             </div>
-                             <div class="col-md-3">
-                               <label>Contraseña :</label><br>
-                              <input type="password"  value="" name="contraseña" id="contraseña" placeholder="Contraseña">
-                            </div>
-                         
+                             
                          
                           <div class="col-md-3">
                               <label>Matricula :</label><br>
