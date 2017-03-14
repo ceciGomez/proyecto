@@ -131,7 +131,7 @@ class C_administrador extends CI_Controller {
 	}
 }
 
-	public function verOperadores()
+	public function gestionarOperadores()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -145,11 +145,11 @@ class C_administrador extends CI_Controller {
 
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/verOperadores',$data);
+		$this->load->view('administrador/gestionarOperadores',$data);
 		$this->load->view('templates/pie',$data);
 	}
 	
-	public function verEscribanos()
+	public function gestionarEscribanos()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -163,7 +163,7 @@ class C_administrador extends CI_Controller {
 
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/verEscribanos',$data);
+		$this->load->view('administrador/gestionarEscribanos',$data);
 		$this->load->view('templates/pie',$data);
 	}
 
@@ -368,23 +368,6 @@ class C_administrador extends CI_Controller {
 
 //para el menu minutas
 
-	public function reg_pen()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'P'))->result();
-		$data['esc_pen']=$esc_pen;
-		
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_pendientes',$data);
-		$this->load->view('templates/pie',$data);
-	}
 
 	public function detalles_esc(){
 			$idEscribano=$_POST["idEscribano"];
@@ -433,65 +416,8 @@ class C_administrador extends CI_Controller {
 		$this->db->delete('usuarioescribano'); 
 
       }
-		
+	
 
-	public function reg_apro()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'A'))->result();
-		$data['esc_apro']=$esc_apro;
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_aprobadas',$data);
-		$this->load->view('templates/pie',$data);
-	}
-
-	public function reg_rech()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_operador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'R'))->result();
-		$data['esc_rech']=$esc_rech;
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_rechazadas',$data);
-		$this->load->view('templates/pie',$data);
-	}
-
-	public function ver_minutasPendientes()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$this->db->select('*');
-		$this->db->from('estadominuta');
-		$this->db->join('minuta', 'minuta.idMinuta = estadominuta.idMinuta');
-		$this->db->join('usuarioescribano', 'usuarioescribano.idEscribano = minuta.idEscribano');
-		$this->db->order_by('estadominuta.fechaEstado', 'ASC');
-		$this->db->where('estadominuta.estadoMinuta', 'P');
-
-		$data['minutas']= $this->db->get()->result();
-
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/minutas_pendientes',$data);
-		$this->load->view('templates/pie',$data);
-	}
 
 	public function detalles_minuta(){
 
@@ -603,7 +529,7 @@ class C_administrador extends CI_Controller {
 
       }
 
-      public function ver_minutas()
+      public function gestionarMinutas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -643,7 +569,7 @@ class C_administrador extends CI_Controller {
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/ver_minutas',$data);
+		$this->load->view('administrador/gestionarMinutas',$data);
 		$this->load->view('templates/pie',$data);
 	}
 
@@ -743,7 +669,7 @@ class C_administrador extends CI_Controller {
 			};
 		   $noti_esc=array("dniEscribano"=>$dniEscribano,"estado"=>"P");
 		  	  $this->session->set_flashdata('noti_esc',$noti_esc); 
-		    redirect(base_url().'index.php/c_administrador/verEscribanos');
+		    redirect(base_url().'index.php/c_administrador/gestionarEscribanos');
 	}
 	public function buscar_min_p_x_id(){
 			if ($_POST["idMinuta"]==null) {
@@ -754,7 +680,7 @@ class C_administrador extends CI_Controller {
 			};
 			$noti_min=array("idMinuta"=>$idMinuta,"estado"=>"P");
 		   $this->session->set_flashdata('noti_min',$noti_min); 
-		    redirect(base_url().'index.php/c_administrador/ver_minutas');
+		    redirect(base_url().'index.php/c_administrador/gestionarMinutas');
 	}
 
 	public function obtenerProvincia_x_idLoc(){

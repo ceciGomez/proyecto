@@ -1,16 +1,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-       <h1>
-        
-        <small>Bienvenido Administrador : <?php echo$this->session->userdata('username') ?></small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Administrador</li>
-      </ol>
-    </section>
+  
 
     <!-- Main content -->
     <section class="content">
@@ -18,22 +9,21 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
+         <h3 align="center">Gestionar Minutas</h3>
         <section >
          
 
-          <!-- TO DO List -->
+               <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3  align="center">Gestión de Minutas</h3>
+             
 
-               <label>Filtrar Minutas por :</label>
-               <br>
-               <br>
-                <div class="form-group" style="background-color: lightblue;">
+                 <label>Filtrar Minutas por :</label>
+                 
+                  <div class="box-body" style="background-color: lightblue;">
                       
-                       <br>
-                       <br>
+                      
                        <?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>
                           <label>Fecha Ingreso :</label>
                         <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
@@ -64,7 +54,9 @@
 
                   
                   </div>
-                </form>
+                  </div>
+                  
+               
 
 
                    <div class="box-body table-responsive no-padding">               

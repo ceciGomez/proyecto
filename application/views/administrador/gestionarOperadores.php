@@ -1,54 +1,26 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Operador</li>
-      </ol>
-    </section>
-
+  
     <!-- Main content -->
-     <section class="content">
-      <div class="row">
-         <div class="col-xs-12">
-            <div class="box">
-               <div class="box-header">
-                  <!-- <div class="box-tools">
-                     <div class="input-group input-group-sm" ;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
-                        <div class="input-group-btn">
-                           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
-             
+    <section class="content">
     
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
+        <h3 align="center">Gestionar Operadores</h3>
         <section >
          
 
-          <!-- TO DO List -->
+               <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
 
-              <h3 align="center">Operadores</h3>
+              
 
-                <div class="form-group">
-                <br>
-                <br>
                  <label>Filtrar Operadores por :</label>
-                 <br>
-                 <br>
+                 
                   <div class="box-body" style="background-color: lightblue;">
-                    <div class="form-group"> 
+                   
                      <div class="row">
                        <div class="col-md-3">   
                           <label> Registración :</label><br>
@@ -93,9 +65,8 @@
                   
             </div>
           </div>
-       </div>
-                <br>
-                <br>
+       
+               
 
 
                  <div class="box-body table-responsive no-padding">     
