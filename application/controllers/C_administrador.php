@@ -495,58 +495,79 @@ class C_administrador extends CI_Controller {
 
 	public function detalles_minuta(){
 
-
-		$idMinuta=$_POST['idMinuta'];
-		$minuta = $this->M_escribano->getUnaMinuta($idMinuta);
-		$idEscribano = $minuta[0]->idEscribano;
-		$unEscribano = $this->M_escribano->getUnEscribano($idEscribano);
-		$idMinuta = $minuta[0]->idMinuta;
-		$parcelas =$this->M_escribano->getParcelas($idMinuta);
-		echo "
-			  <article>
+		$data["minuta"] = $this->M_escribano->getUnaMinuta($_POST['idMinuta']);
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		$data["unEscribano"] = $this->M_escribano->getUnEscribano($idEscribano);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		//var_dump($data["parcelas"]);
+		echo 
+		 "<article>
          <!-- Titulo -->
+         <small class='pull-right'><u>Fecha:</u> ".date("d/m/Y H:i:s")." </small>
          <h2 class='page-header' align='center'><i><b>Minuta de Inscripción de Titulo</b></i>
          </h2>
          <p align='justify'>
-            Departamento  <strong>".$unEscribano[0]->nombreDpto.".</strong>
-            - Provincia de <strong>".$unEscribano[0]->nombreProv.".</strong><br>
-            FUNCIONARIO AUTORIZANTE: Esc: <strong>  ".$unEscribano[0]->nomyap.".</strong><br>";
-          foreach ($parcelas as $value) { 
-          	echo" <br>
-            BIEN: <strong> ".$value->descripcion."</strong>.<br>
-            <br>";
-           	$propietarios = $this->M_escribano->getPropietarios($value->idParcela); 
-            foreach ( $propietarios as $key) { 
+            Departamento  <strong>". $unEscribano[0]->nombreDpto."</strong>
+            - Provincia de <strong>". $unEscribano[0]->nombreProv.".</strong><br> 
+            <u>FUNCIONARIO AUTORIZANTE: </u> Esc: <strong>". $unEscribano[0]->nomyap."</strong><br><br>";
+            foreach ($parcelas as $value) { 
+            echo" <u>NOMENCLATURA CATASTRAL: </u>
+            CIRCUNSCRIPCION: <strong>".$value->circunscripcion ."</strong>
+            SECCION: <strong>".$value->seccion ."</strong>
+            CHACRA: <strong>".$value->chacra."</strong>
+            MANZANA: <strong>". $value->manzana ."</strong>
+            PARCELA: <strong>".$value->parcela ."</strong> <br>
+            <br>
+            Superficie:   <strong>". $value->superficie. "mts. </strong>
+            Tipo Propiedad: <strong>". $value->tipoPropiedad ."</strong> <br>
+            <u>Plano:</u>
+            Nro de Plano aprobado:  <strong>" .$value->planoAprobado ."</strong> 
+            Fecha:  <strong>". $value->fechaPlanoAprobado ." </strong> 
+            <u>Localidad:</u> <strong>". $value->nombreLocalidad. "</strong><br>
+<br>
+            <u>INSCRIPCION: </u>
+            NRO MATRICULA: <strong> ".$value->nroMatriculaRPI ."</strong>
+            FECHA:  <strong> ". $value->fechaMatriculaRPI ."</strong>
+            TOMO:  <strong>".$value->tomo ."</strong>
+            FOLIO:  <strong> ". $value->folio ."</strong>
+            FINCA:  <strong>". $value->finca ."</strong>
+            AÑO:  <strong> ".$value->año ."</strong>
+            <br>
+
+            <u>DESCRIPCION: </u><strong>". $value->descripcion."</strong>.<br><br>";
+            $propietarios = $this->M_escribano->getPropietarios($value->idParcela);
+             foreach ( $propietarios as $key) { 
                $nroProp = 0;
-               if ($key->tipoPropietario == 'A'): echo "ADQUIRIENTE: <br>";
-               endif ;
-               if  ($key->tipoPropietario == 'T'): echo  "TRANSMITENTE: <br>"; endif; 
-           		echo" NRO UF/UC: <strong>";
-           		 if ($key->nroUfUc == NULL) echo '-------';  else echo $key->nroUfUc ; 
-           		 echo"-" ;
-           		 echo $key->tipoUfUc;
-           		 echo "</strong>Fecha de Escritura: <strong>";
-           		 if ($key->fechaEscritura == NULL) echo '-------';  else echo $key->fechaEscritura ;
-           		 echo".</strong>Nombre y Apellido: <strong>";
-           		 if ($key->titular == NULL) echo '-------';  else echo $key->titular ;
-           		 echo".</strong>Cuit - Cuil: <strong>";
-           		  if ($key->cuitCuil == NULL) echo '-------';  else echo $key->cuitCuil ;
-           		  echo"</strong>Direccion: <strong>";
-           		   if ($key->direccion == NULL) echo '-------';  else echo $key->direccion; 
-           		   echo".</strong> Plano Aprobado: <strong>";
-           		   if ($key->planoAprobado == NULL) echo '-------';  else echo $key->planoAprobado ;
-           		   echo".</strong>Fecha de Plano Aprobado: <strong>";
-           		    if ($key->fechaPlanoAprobado == NULL) echo '-------';  else echo $key->fechaPlanoAprobado ;
-           		    echo".</strong> Poligonos: <strong>";
-           		    if ($key->poligonos == NULL) echo '-------';  else echo $key->poligonos ;
-           		    echo".</strong> Porcentaje de Uf/Uc: <strong>";
-           		     if ($key->porcentajeUfUc == NULL) echo '-------';  else echo $key->porcentajeUfUc ;
-           		     echo".</strong><br>Asentimiento Conyugal: <strong>";
-           		      if ($key->conyuge == NULL) echo '-------';  else echo $key->conyuge ;
-           		      echo".</strong><br>";
-          										} 
-              } 
-        echo" </p></article>";
+               
+	             if ($key->tipoPropietario == 'A'): echo "<u> ADQUIRIENTE: </u>";endif; 
+	            if ($key->tipoPropietario == 'T'): echo "<u>TRANSMITENTE: </u>" ;endif;
+            
+            if ($key->nroUfUc != NULL):echo " NRO UF/UC: <strong> ". $key->nroUfUc ."-". $key->tipoUfUc."</strong>";endif;
+
+             if ($key->fechaEscritura != NULL) :  echo" Fecha de Escritura: <strong> ". $key->fechaEscritura ."</strong>";
+             if ($key->titular != NULL): echo "Nombre y Apellido: <strong> ". $key->titular."</strong>" ;endif;
+
+             if ($key->porcentajeCondominio != NULL): echo "PORCENTAJE DE CONDOMINIO: <strong> ". $key->porcentajeCondominio; echo '% "</strong>"'; endif;
+           
+             if ($key->cuitCuil != NULL): echo "Cuit - Cuil: <strong> ".$key->cuitCuil."</strong>" ; endif;
+
+             if ($key->direccion != NULL): echo "Direccion: <strong> ". $key->direccion."</strong>";  endif;
+
+             if ($key->planoAprobado != NULL) echo "Plano Aprobado: <strong> ". $key->planoAprobado ."</strong>";endif;
+
+             if ($key->fechaPlanoAprobado != NULL): echo "Fecha de Plano Aprobado: <strong>".$key->fechaPlanoAprobado ."</strong>"; endif;
+
+             if ($key->poligonos != NULL) : echo "Poligonos: <strong>". $key->poligonos ."</strong>"; endif;
+
+             if ($key->porcentajeUfUc != NULL):echo "Porcentaje de Uf/Uc: <strong> ".$key->porcentajeUfUc; echo "% </strong><br>" ;endif;
+             if ($key->conyuge != NULL):echo" Asentimiento Conyugal: <strong> ". $key->conyuge."</strong><br>" ; endif;
+             } 
+            } 
+         echo "</p>
+      </article>";
+
+		
      	}
 
 		  public function rechazar_min	(){
