@@ -31,7 +31,7 @@
                   <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>" >Registrar Nueva Minuta</a>
                </div>
                <div class="box-body table-responsive no-padding">
-                  <table class="table table-hover">
+                  <table id="minuta" class="table table-hover">
                      <thead>
                         <tr>
                            <th>Nro de Minuta</th>
@@ -97,4 +97,34 @@
    </section>
 </div>
 <!-- /.content-wrapper -->
+ <script type="text/javascript">
+  $(document).ready(function(){
 
+                    //crea la tabla
+                    var dtable=$('#minuta').DataTable(
+                        {
+                           autoWidht:false,
+
+                             language: {
+                                "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Minutas",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningúna Minuta encontrada",
+                            "sInfo":           "Mostrando Minutas del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                              }},
+                                } );
+                  };
+
+   </script>
