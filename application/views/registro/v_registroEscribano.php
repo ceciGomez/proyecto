@@ -214,7 +214,7 @@ $(document).ready(function(){
                                       <div class="col-xs-4">
                                       <br>
                                         <button type="submit" class="btn btn-primary btn-block btn-flat" data-toggle="modal" >Registrar</button>
-                                      
+                                        <button type="submit" class="btn btn-primary btn-block btn-flat" data-toggle="modal" >Cancelar</button>
                                       <br>
                                       </div>
 
