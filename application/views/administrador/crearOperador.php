@@ -156,7 +156,7 @@
                                  <br><br>
                                <div align="center">
                                 <button type="submit" class="btn btn-primary" data-toggle="modal">Guardar Cambios</button>
-                                <button class="btn btn-default" ><a style="text-decoration:none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
+                               <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
                                    </button>
 
                                  <div align="center" style="color:red;" ><p><?=form_error('nomyap')?></p></div> 

@@ -124,16 +124,19 @@ return patron.test(te);
                               <label>Matricula :</label><br>
                               <input type="text" value="<?php echo $escribano->matricula ?>" name="matricula" id="matricula" placeholder="Matricula" onkeypress="return NumbersOnly(event)" maxlength="8">
                           </div>
-                        </div>
+                       
 
 
-                         <div class="row">
+                        
                           
                          
                           <div class="col-md-3">
                              <label>DNI :</label><br>
                               <input type="text" value="<?php echo $escribano->dni ?>" name="dni" id="dni" placeholder="DNI" placeholder="DNI" onkeypress="return NumbersOnly(event);" maxlength="8" >
                           </div>
+                      </div>
+
+                      <div class="row">
 
                           <div class="col-md-3">
                            <label>Estado :</label><br>
@@ -160,15 +163,18 @@ return patron.test(te);
                             <input type="text"  maxlength="15"   placeholder="+54" onkeypress="return NumbersOnly(event);"  value="<?php echo $escribano->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
                           </div>
                         
-                        </div>
+                        
                        
-                         <div class="row">
+                         
 
                           <div class="col-md-3">
                               <label>Dirección :</label><br>
                               <input type="text" value="<?php echo $escribano->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
-                        
+
+                       </div>
+
+                        <div class="row">
              
                           <div class="col-md-3">
                             <?php 
@@ -210,8 +216,10 @@ return patron.test(te);
                                   </div>
                                   <div align="center">
                                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                    <button class="btn btn-default" ><a style="text-decoration:none;" href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" > Cancelar</a>
-                                   </button>
+                                     
+                                   <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" > Cancelar</a>
+                                   
+                                   
 
                                   </div>
                                
