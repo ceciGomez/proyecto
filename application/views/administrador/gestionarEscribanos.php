@@ -3,43 +3,27 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
-   <section class="content-header">
-       <h1>
-        
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
-      </h1>
-      <small>Lista todos los Escribanos</small>
-      <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_administrador" ><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active">Ver Escribanos</li>
-      </ol>
-   </section>
-   <!-- Main content -->
-   <section class="content">
+   
+  <section class="content">
+    
+      <!-- Main row -->
       <div class="row">
-         <div class="col-xs-12">
-            <div class="box">
-               <div class="box-header">
-                  <!-- <div class="box-tools">
-                     <div class="input-group input-group-sm" ;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
-                        <div class="input-group-btn">
-                           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
-             
-                     <h3  align="center">Gestión de Escribanos</h3>
+        <!-- Left col -->
+         <h3  align="center">Gestión de Escribanos</h3>
+        <section >
+         
+
+               <!-- TO DO List -->
+          <div class="box box-primary">
+            <div class="box-header">
+                
 
 
-                <div class="form-group">
                
                  <label>Filtrar Escribanos por :</label>
-                 <br>
-                 <br>
+               
                 <div class="box-body" style="background-color: lightblue;">
-                    <div class="form-group">    
+                     
                          <div class="row">
                             <div class="col-md-3">
                               <label>Registración :</label><br>
@@ -103,11 +87,10 @@
                     
                   
                        </div>
-                  </div>      
+                  </div>    
+                </div>   
 
-                <br>
-                <br>
-              </div>
+              
              
              
                   <div class="box-body table-responsive no-padding">                   

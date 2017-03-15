@@ -2,36 +2,54 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>
+      <h3 align="center">
          Ver Minuta
-      </h1>
-      <small>Lista todas las  Minuta</small>
-      <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active">Minuta</li>
-      </ol>
+      </h3>
+    
    </section>
    <!-- Main content -->
    <section class="content">
       <div class="row">
          <div class="col-xs-12">
-            <div class="box">
-               <div class="box-header">
-                  <!-- <div class="box-tools">
-                     <div class="input-group input-group-sm" ;">
-                        <input type="text" name="table_search" class="form-control pull-right" placeholder="Buscar">
-                        <div class="input-group-btn">
-                           <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                        </div>
-                     </div>
-                  </div> -->
-               </div>
+          
+               <div class="box box-primary">
+            <div class="box-header">
+
+             
+
+                 <label>Filtrar Minutas por :</label>
+                 
+                  <div class="box-body" style="background-color: lightblue;">
+                      
+                       <label>Minuta :</label>
+                        <input type='text' id="nroMinuta"  class='filter' data-column-index='0'> 
+                  
+                          <label>Fecha Ingreso :</label>
+                        <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
+      
+
+                        <label>Estado :</label>
+                        <select id="segunEstado">
+                             <option value=""></option>
+                            <option value="P">Pendiente</option>
+                            <option value="A">Aprobado</option>
+                            <option value="R">Rechazado</option>
+                           
+                        </select>
+                  
+                        
+
+
+
+                  
+                  </div>
+                  </div>
                <!-- /.box-header -->
-               <div class="box-tools">
+               <div align="right" class="box-tools">
                   <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>" >Registrar Nueva Minuta</a>
                </div>
                <div class="box-body table-responsive no-padding">
-                  <table id="minuta" class="table table-hover">
+                  <table id="min"  class="table-bordered" style="display: none">
                      <thead>
                         <tr>
                            <th>Nro de Minuta</th>
@@ -97,11 +115,12 @@
    </section>
 </div>
 <!-- /.content-wrapper -->
- <script type="text/javascript">
-  $(document).ready(function(){
+<script type="text/javascript">
+  
+                   $(document).ready(function(){
 
                     //crea la tabla
-                    var dtable=$('#minuta').DataTable(
+                    var dtable=$('#min').DataTable(
                         {
                            autoWidht:false,
 
@@ -125,6 +144,39 @@
                                 "sPrevious": "Anterior"
                               }},
                                 } );
-                  };
 
-   </script>
+                       //para el filtrado
+                     $('.filter').on('keyup change', function () {
+                          //clear global search values
+                          dtable.search('');
+                          dtable.column($(this).data('columnIndex')).search(String(this.value)).draw();
+
+                      });
+                      
+                      $( ".dataTables_filter input" ).on( 'keyup change',function() {
+                       //clear column search values
+                          dtable.columns().search('');
+                         //clear input values
+                         $('.filter').val('');
+                    }); 
+                      //filtra por estados
+                       $('#segunEstado').on('change', function()
+                        {
+                         
+                             dtable.column("2").search(this.value).draw();
+
+                          console.log(this.value);
+                        });
+
+                      //quitar el campo de busqueda por defecto
+                      document.getElementById('min_filter').style.display='none';
+
+                       $( "#min" ).show();
+
+                     
+                          
+                  });
+                           
+
+                    
+</script>
