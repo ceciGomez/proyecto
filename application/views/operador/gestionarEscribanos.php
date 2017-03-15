@@ -136,7 +136,7 @@
                                   <?php  
                                 };
                               ?>
-                                 <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_administrador/editarEscribano/<?php echo $es->idEscribano?>"><button  class="btn btn-warning"  data-toggle="modal"><i class="fa fa-pencil" title="Editar datos del Escribano"></i></button></a> 
+                                 <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_operador/editarEscribano/<?php echo $es->idEscribano?>"><button  class="btn btn-warning"  data-toggle="modal"><i class="fa fa-pencil" title="Editar datos del Escribano"></i></button></a> 
 
                                   <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo $es->idEscribano; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               
@@ -392,27 +392,27 @@
                          function ventana_acep( idEscribano){
                     idEsc=idEscribano;
                     
-                    $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_acep").html(data);
             });
                   }
 
                   function ventana_rech( idEscribano){
                     idEsc=idEscribano;
-                    $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_rech").html(data);
             });
                   }
 
                    function ventana_motivoRechazo(idEscribano){
-                 $.post("<?=base_url()?>index.php/c_administrador/motivoRechazo",{idEscribano:idEscribano}, function(data){
+                 $.post("<?=base_url()?>index.php/c_operador/motivoRechazo",{idEscribano:idEscribano}, function(data){
                         $("#mr").html(data);
             });           
            
                   }
 
                    function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_esc",{idEscribano:idEsc}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/aceptar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }
@@ -421,7 +421,7 @@
                    function rechazar( ){
                      var motivoRechazo=document.getElementById('motivoRechazo').value;
                     
-                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
                       
             });
                   }
@@ -436,7 +436,7 @@
                   //eliminar escribano de la bd
 
                    function eliminar( ){
-                    $.post("<?=base_url()?>index.php/c_administrador/eliminar_esc",{idEscribano:idEsc}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/eliminar_esc",{idEscribano:idEsc}, function(data){
                      
             });
                   }
