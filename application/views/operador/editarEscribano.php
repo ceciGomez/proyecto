@@ -42,7 +42,7 @@ return patron.test(te);
            //console.log( $('#Provincia').val());
            //pado el numero de pronvicia, es decir el id
             miprovincia=$('#Provincia').val();
-            $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+            $.post("<?=base_url()?>index.php/c_operador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
             $("#Localidad").html(data);
             });            
         });
@@ -52,12 +52,12 @@ return patron.test(te);
 
       idLocalidad=document.getElementById("idLocalidad").value;
        console.log(idLocalidad);
-       $.post("<?=base_url()?>index.php/c_administrador/obtenerProvincia_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+       $.post("<?=base_url()?>index.php/c_operador/obtenerProvincia_x_idLoc",{idLocalidad:idLocalidad}, function(data){
             //seleccciona la provincia de la localidad
              document.getElementById("Provincia").selectedIndex=data;
              //cargo todas las localidades
               miprovincia=$('#Provincia').val();
-             $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+             $.post("<?=base_url()?>index.php/c_operador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
                   $("#Localidad").html(data);
                   //selecciono la localidad del escribano
                  document.getElementById("Localidad").selectedIndex=idLocalidad-1;
@@ -90,7 +90,7 @@ return patron.test(te);
                                          <?php if($exito==TRUE){
 
                                            ?>
-                                          <a href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" class="btn btn-primary" >Aceptar</a>
+                                          <a href="<?=base_url().'index.php/c_operador/gestionarEscribanos'?>" class="btn btn-primary" >Aceptar</a>
                                           <?php } ?>
                                        </div>
                                     </div>
@@ -106,7 +106,7 @@ return patron.test(te);
           <div class="box box-primary" >
           <div class="box-body" style="background-color: lightblue;">
                     <div class="form-group">    
-                      <?=form_open(base_url().'index.php/c_administrador/actualizarEscribano')?>
+                      <?=form_open(base_url().'index.php/c_operador/actualizarEscribano')?>
                          <div class="row">
                           
                             <div class="col-md-3">
@@ -227,7 +227,7 @@ return patron.test(te);
                                   <div align="center">
                                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                                      
-                                   <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" > Cancelar</a>
+                                   <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_operador/gestionarEscribanos'?>" > Cancelar</a>
                                    
                                    
 

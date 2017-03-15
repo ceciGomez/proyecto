@@ -188,6 +188,19 @@ return patron.test(te);
                               <label>Dirección :</label><br>
                               <input type="text" value="<?php echo $operador->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
+                          
+                            
+                          </div>
+                          <div class="row">
+                          <div class="col-md-3">
+                                       <label>Baja de Usuario</label> <br>
+                                             <input type="hidden"  value="<?php echo $operador->baja; ?>" name="estadoBaja" id="estadoBaja" >
+                                              <select name="baja" id="baja">
+                                                   <option value="1">Si </option>
+                                                    <option value="0">No </option>
+                                              </select>
+                                            
+                                           </div>
                            </div>
                         <br>
                                 <input type="hidden"  value="<?php echo $operador->idUsuario ?>" name="idUsuario" id="idUsuario" >
@@ -231,4 +244,21 @@ return patron.test(te);
       $("#Editar").modal("show");
     <?php } ?>
    });
+
+     if (document.getElementById("estadoBaja").value=="1") {
+                          $("#baja")
+                            .find("option:contains(Si)")
+                            .prop("selected", true);
+                           
+                      //
+                    };
+    if (document.getElementById("estadoBaja").value=="0") {
+                          $("#baja")
+                            .find("option:contains(No)")
+                            .prop("selected", true);
+                           
+                      //
+                    };
+
+
 </script>
