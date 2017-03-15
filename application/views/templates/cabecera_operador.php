@@ -7,6 +7,8 @@
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.6 -->
+  <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/AdminLTE.min.css">
+  
   <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
 
    <style type="text/css">
@@ -17,6 +19,18 @@
                         overflow:hidden;
                           }
    </style>
+   <style type="text/css">
+     
+     #escribanos {
+  width:1800px;
+}
+   #operadores {
+  width:1400px;
+}
+     #min{
+  width:1000px;
+}
+   </style>
 
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
@@ -25,7 +39,6 @@
   <!-- Ionicons -->
   <link rel="stylesheet" href="<?=base_url()?>assets/css/ionicons.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/AdminLTE.min.css">
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="<?=base_url()?>assets/dist/css/skins/_all-skins.min.css">
@@ -48,7 +61,6 @@
 
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
 
-    <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.min.js"></script>
 
 
 
@@ -66,11 +78,11 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="<?=base_url().'index.php/c_operador/'?>" class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>irmi</span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><b>SIRMi</b>
+      <span class="logo-lg" ><b>SIRMi</b>
       </span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
@@ -115,23 +127,74 @@
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">2</span>
+              <span class="label label-warning"><?php echo count($notificaciones_mp)+ count($notificaciones_ep) ;?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 2 notificaciones</li>
+              <li class="header">Tiene <?php echo count($notificaciones_mp)+ count($notificaciones_ep) ;?> notificaciones</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
               
                   <li>
-                    <a href="#">
-                      <i class="fa fa-users text-red"></i> Editar minuta n° 4560
+                  
+                      <?php if(count($notificaciones_mp)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_operador/buscar_min_p_x_id'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'/>";
+                          echo "<i class='fa fa-users text-red'></i> ";
+                         echo" Tiene ". count($notificaciones_mp)." minutas pendientes de revisión";
+                           ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        
+                        else
+                        {
+                          foreach ($notificaciones_mp as $mp) { ?>
+                          <?=form_open(base_url().'index.php/c_operador/buscar_min_p_x_id'); ?>
+                            <?php 
+                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'' />";
+                             echo "<input  type='hidden' name='idMinuta' value='$mp->idMinuta'>";
+
+                             echo "<i class='fa fa-users text-red'></i> ";
+                             echo" La minuta $mp->idMinuta esta pendiente de revisión";
+                           
+                              ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
+                      
                     </a>
                   </li>
                   <li>
-                    <a href="#">
-                      <i class="fa fa-user text-green"></i> La minuta 13245 fue rechazada
-                    </a>
+                     <?php if(count($notificaciones_ep)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_operador/buscar_esc_p_x_dni'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
+                          echo "<i class='fa fa-users text-red'></i> ";
+                         echo" Tiene ". count($notificaciones_ep). "registraciones de escribanos pendientes de revisión";
+
+                         ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        else
+                        {
+                          foreach ($notificaciones_ep as $ep) {?>
+                          <?=form_open(base_url().'index.php/c_operador/buscar_esc_p_x_dni'); ?>
+                            <?php 
+                             echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
+                             echo "<input  type='hidden' name='dniEscribano' value='$ep->dni'>";
+                               echo "<i class='fa fa-users text-red'></i> ";
+                             echo" La registración del escribano $ep->usuario esta pendiente de revisión";
+  ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
                   </li>
           
                 </ul>
@@ -145,7 +208,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs"><?php echo $this->session->userdata('nomyap') ?></span>
+              <span class="hidden-xs"> <?php echo $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -153,7 +216,7 @@
                 <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
 
                 <p>
-                  <?php echo $this->session->userdata('nomyap') ?> [<?php echo $this->session->userdata('perfil') ?>]
+                  <?php echo $this->session->userdata('nomyap') ?>  [<?php echo $this->session->userdata('perfil') ?>]
                   <small>Miembro desde  <?php echo $this->session->userdata('fechaReg') ?></small>
                 </p>
               </li>
@@ -177,4 +240,5 @@
         </ul>
       </div>
     </nav>
+   
   </header>

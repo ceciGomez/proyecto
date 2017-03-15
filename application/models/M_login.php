@@ -22,14 +22,14 @@ class M_login extends CI_Model {
 			WHERE usuario = '$usuario'
 			and contraseña = '$pass'
 			and tipoUsuario = 'O'
-
+			and baja='0'
 			");
 		
 		if($query->num_rows() == 1)
 		{
 			return $query->row();
 		}else{
-			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos: '.$usuario.' '.$contraseña);
+			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos: ');
 			redirect(base_url().'index.php/c_login_operador','refresh');
 		}
 		} catch (Exception $e) {
@@ -49,6 +49,7 @@ class M_login extends CI_Model {
 			WHERE usuario = '$usuario'
 			and contraseña = '$pass'
 			and tipoUsuario = 'A'
+			and baja='0'
 
 			");
 		
@@ -56,7 +57,7 @@ class M_login extends CI_Model {
 		{
 			return $query->row();
 		}else{
-			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos: '.$usuario.' '.$contraseña);
+			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos ');
 			redirect(base_url().'index.php/c_login_administrador','refresh');
 		}
 		} catch (Exception $e) {
@@ -77,6 +78,7 @@ class M_login extends CI_Model {
 			WHERE usuario = '$usuario'
 			and contraseña = '$pass'
 			and estadoAprobacion = 'A'
+			and baja='0'
 
 			");
 		
@@ -84,7 +86,7 @@ class M_login extends CI_Model {
 		{
 			return $query->row();
 		}else{
-			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos: '.$usuario.' '.$contraseña);
+			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos');
 			redirect(base_url().'index.php/c_login_escribano','refresh');
 		}
 		} catch (Exception $e) {

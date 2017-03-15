@@ -118,8 +118,8 @@ class C_administrador extends CI_Controller {
 			'idLocalidad' => $this->input->post('localidad'),	
 			'fechaReg'=>$datetime_formatted,
 			'tipoUsuario'=>"O",
-			'email' => $this->input->post('email'));	
-
+			'email' => $this->input->post('email'),
+			'baja' => '0' );	
 			$this->db->insert("usuariosys", $datos_usuarios);
 
 			
@@ -218,8 +218,6 @@ class C_administrador extends CI_Controller {
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
-
 			    
 
 		
@@ -235,12 +233,14 @@ class C_administrador extends CI_Controller {
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
 			'idLocalidad' => $this->input->post('localidad'),	
 			'email' => $this->input->post('email'),	
+			'estado' => $this->input->post('estado'),
+			'baja' => $this->input->post('baja'),	
+	
 
 			);
 
@@ -253,8 +253,15 @@ class C_administrador extends CI_Controller {
 
 	public function eliminar_op(){
       	$idUsuario=$_POST["idUsuario"];
+      	$data = array(
+               'baja' => "1",
+              
+            );
 		$this->db->where('idUsuario', $idUsuario);
-		$this->db->delete('usuariosys'); 
+		
+
+		$this->db->where('idUsuario', $idUsuario);
+		$this->db->update('usuariosys', $data); 
 
       }
 
@@ -316,7 +323,6 @@ class C_administrador extends CI_Controller {
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
 
 			    $this->form_validation->set_rules('matricula', 'matricula', 'required',array('required' => 'Debes ingresar un Nro de Matricula ') );
 
@@ -337,7 +343,6 @@ class C_administrador extends CI_Controller {
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
@@ -345,6 +350,8 @@ class C_administrador extends CI_Controller {
 			'matricula' => $this->input->post('matricula'),
 			'estadoAprobacion' => $this->input->post('estadoAprobacion'),	
 			'email' => $this->input->post('email'),	
+			'baja' => $this->input->post('baja'),	
+
 
 
 
@@ -359,12 +366,6 @@ class C_administrador extends CI_Controller {
 	
 	}
 
-	public function eliminar_es(){
-      	$idUsuario=$_POST["idEscribano"];
-		$this->db->where('idEscribano', $idEscribano);
-		$this->db->delete('usuarioescribano'); 
-
-      }
 
 //para el menu minutas
 
@@ -388,6 +389,7 @@ class C_administrador extends CI_Controller {
       	$idEscribano=$_POST["idEscribano"];
       		$data = array(
                'estadoAprobacion' => "A",
+                'baja' => "0"
               
             );
 
@@ -410,10 +412,14 @@ class C_administrador extends CI_Controller {
       
       public function eliminar_esc(){
       	$idEscribano=$_POST["idEscribano"];
-      		
+      		$data = array(
+               'baja' => "1",
+              
+            );
 
 		$this->db->where('idEscribano', $idEscribano);
-		$this->db->delete('usuarioescribano'); 
+		$this->db->update('usuarioescribano', $data); 
+
 
       }
 	
@@ -421,11 +427,12 @@ class C_administrador extends CI_Controller {
 
 	public function detalles_minuta(){
 
-		$data["minuta"] = $this->M_escribano->getUnaMinuta($_POST['idMinuta']);
-		$idEscribano = $data["minuta"][0]->idEscribano;
-		$data["unEscribano"] = $this->M_escribano->getUnEscribano($idEscribano);
-		$idMinuta = $data["minuta"][0]->idMinuta;
-		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		$minuta = $this->M_escribano->getUnaMinuta($_POST['idMinuta']);
+		$idEscribano = $minuta[0]->idEscribano;
+		$this->load->model('M_escribano');
+		$unEscribano = $this->M_escribano->getUnEscribano($idEscribano);
+		$idMinuta = $minuta[0]->idMinuta;
+		$parcelas =$this->M_escribano->getParcelas($idMinuta);
 		//var_dump($data["parcelas"]);
 		echo 
 		 "<article>

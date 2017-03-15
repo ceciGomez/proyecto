@@ -99,7 +99,7 @@
                          ?>
                       
                           <tr>
-
+                         
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button  class="btn btn-warning" ><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
@@ -107,17 +107,18 @@
                               </div>
                            </td>
 
-                             <td>  <?php  echo "$date_formated"; ?></td>
-                             <td>  <?php  if($op->dni==null) echo " ";else echo "$op->dni"; ?></td>
-                             <td>  <?php if($op->nomyap==null)echo " ";else echo "$op->nomyap";  ?></td>
-                             <td>  <?php  if($op->usuario==null)echo " ";else echo "$op->usuario"; ?></td>
-                             <td>  <?php  if($op->telefono==null)echo " ";else echo "$op->telefono";  ?></td>
-                             <td>  <?php  if($op->email==null)echo " ";else echo "$op->email";  ?></td>
-                             <td>  <?php  if($op->direccion==null)echo " "; else echo "$op->direccion";  ?></td>
-                             <td>  <?php  if($localidad==null) echo " ";else echo "$localidad->nombre";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($op->dni==null) echo " ";else echo "$op->dni"; ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php if($op->nomyap==null)echo " ";else echo "$op->nomyap";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->usuario==null)echo " ";else echo "$op->usuario"; ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($op->telefono==null)echo " ";else echo "$op->telefono";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->email==null)echo " ";else echo "$op->email";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->direccion==null)echo " "; else echo "$op->direccion";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($localidad==null) echo " ";else echo "$localidad->nombre";  ?></td>
                           
                            
                           </tr>
+                         
 
                           <?php
                         }
@@ -171,7 +172,7 @@
                           <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
                          </div>
                          <div class="modal-body">
-                         <h3> Confirmar eliminar Operador de la Base de Datos</h3>
+                         <h3> Confirmar dar de baja al Operador</h3>
                         
 
                          <div class="modal-footer">
