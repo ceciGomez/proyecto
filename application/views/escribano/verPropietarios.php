@@ -78,14 +78,20 @@
 
 <?php  endforeach?>
               </table>
+           <br>
+            <div class="row col-sm-12">
+            <a class="btn btn-primary" href="javascript:window.history.back();">Volver</a>
+            </div>
+
             </div>
             <!-- /.box-body -->
            
+
+
           </div>
           <!-- /.box -->
 
-
-
+ 
 </div>
 </section>
 <!-- /.content-wrapper -->
