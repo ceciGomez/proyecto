@@ -9,6 +9,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  	public function getMinutasPorFecha($fechaDesde, $fechaHasta, $idEscribano)
  	{
  		try {
+ 			//$var ="entra a consulta:";
+ 			//var_dump($var, $fechaDesde, $fechaHasta, $idEscribano);
  			$query = $this->db->query("
 				SELECT m.idMinuta, e.estadoMinuta, e.fechaEstado, e.motivoRechazo, ue.idEscribano, m.fechaIngresoSys, m.fechaEdicion
 					from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta

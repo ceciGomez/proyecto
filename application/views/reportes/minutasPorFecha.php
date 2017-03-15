@@ -20,8 +20,41 @@
 
                </div>
                <!-- /.box-header -->
-               <div class="box-tools">Fecha Desde - Fecha Hasta
+               <div class="row">
+          <form action="<?php echo base_url()?>index.php/c_reportes_escribano/minutas_PorFecha" method="get" accept-charset="utf-8">
+        <div class="form-group col-xs-3">
+               <label>Indicar Fecha de Inicio</label>
+               <div class="form-group">
+                  <div class='input-group date' id='datetimepickerPa'>
+                     <span class="input-group-addon">
+                     <span class="fa fa-calendar"></span>
+                     </span>
+                     <input type="text" class="form-control" id="fdesde" 
+                       data-inputmask="'alias': 'dd/mm/aaaa"
+                        data-mask name="fdesde" placeholder="dd/mm/aaaa" required/>
+                  </div>
                </div>
+               <!-- /.input group -->
+            </div>
+             <div class="form-group col-xs-3">
+               <label>Indicar Fecha de Fin</label>
+               <div class="form-group">
+                  <div class='input-group date' id='datetimepickerPe'>
+                     <span class="input-group-addon">
+                     <span class="fa fa-calendar"></span>
+                     </span>
+                     <input type="text" class="form-control" id="fhasta" 
+                        data-inputmask="'alias': 'dd/mm/aaaa'"
+                        data-mask name="fhasta" placeholder="dd/mm/aaaa " required/>
+                  </div>
+               </div>
+               <!-- /.input group -->
+            </div>
+            <div class="form-group col-xs-3">
+            <button class="btn btn-primary btn-md" type="submit">Buscar</button>
+            </div>
+      </form>
+      </div>
                <div class="box-body table-responsive no-padding">
                   <table class="table table-hover">
                      <thead>
@@ -76,3 +109,15 @@
 </div>
 <!-- /.content-wrapper -->
 
+ <script>
+    $(function () {
+            $('#datetimepickerPa').datepicker({format: 'yyyy-mm-dd'});
+          });
+       $(function () {
+            $('#datetimepickerPe').datepicker({format: 'yyyy-mm-dd'});
+            });
+ $(function () {           
+           $("[data-mask]").inputmask();
+         });
+
+         </script>
