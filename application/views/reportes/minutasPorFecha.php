@@ -3,9 +3,9 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>
-         Ver Minuta
+         Reporte de Minutas por fecha
       </h1>
-      <small>Lista todas las  Minuta</small>
+      <small>Lista todas las  Minuta dado un rango de fechas</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -63,7 +63,7 @@
                            <th>Fecha Ingreso</th>
                            <th>Estado</th>
                            <th>Fecha Estado</th>
-                           <th>Motivo de Rechazo</th>
+                           <th>Nro de Plano</th>
                            <th>Nomenclatura Catastral <br>
                            <th>Localidad</th>
                            <th>Matricula RPI</th>
@@ -94,12 +94,9 @@
                               <?php }
                                  }}?>
                            </td>
+                           <td><?php echo $value->planoAprobado; ?></td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->motivoRechazo == NULL){
-                              echo "NO TIENE OBSERVACIONES";
-                              } else{
-                              echo $value->motivoRechazo;
-                              } ?></td>
+                           
                                <td>Circ. <?php echo $value->circunscripcion; ?> - 
                               Sec.<?php echo $value->seccion; ?> -
                               <?php if ($value->chacra !=NULL): 
@@ -123,9 +120,7 @@
                                 echo $value->parcela; ?> 
                               <?php endif ?></td>
                               <td><?php echo $value->localidad; ?></td>
-                              <td><?php echo $value->nroMatriculaRPI; ?></td>
-                          
-                           
+                              <td><?php echo $value->nroMatriculaRPI; ?></td>                           
                         </tr>
                         <?php endforeach ?>
                      </tbody>
