@@ -241,6 +241,19 @@ public function getPropietarios($idParcela)
 		}
 	}
 
+		public function getNombreDepartamento($idDepartamento)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre
+				FROM departamento
+				WHERE idDepartamento=$idDepartamento");
+			return $query->row()->nombre;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function getMinutasRechazadas($idEscribano)
 	{
 		try {

@@ -38,11 +38,10 @@ class C_escribano extends CI_Controller {
 		}
 
         
-		$data['departamentos'] = $this->M_escribano->getDepartamentos();
+		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
 		$data['exito']= $exito; 
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
-		$data["provincias"] = $this->M_direccion->getProvincias();
 
 		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
@@ -60,8 +59,8 @@ class C_escribano extends CI_Controller {
 			$data['folio'] = $this->input->post('folio');
 			$data['finca'] = $this->input->post('finca');
 			$data['año'] = $this->input->post('año');
-			$data['localidad'] = $this->input->post('localidad');
-			echo $data['localidad'] ;
+			$data['localidades'] = $this->input->post('localidades');
+			$data['departamentos'] = $this->M_escribano->getNombreDepartamento($this->input->post('departamentos'));
 			$data['descripcion'] = $this->input->post('descripcion');
 			$data['nroMatriculaRPI'] = $this->input->post('nroMatriculaRPI');
 			$data['fechaMatriculaRPI'] = $this->input->post('fechaMatriculaRPI');
@@ -82,7 +81,8 @@ class C_escribano extends CI_Controller {
 			$data{'folio'}='';
 			$data{'finca'}='';
 			$data{'año'}='';
-			$data{'localidad'}='';
+			$data{'localidades'}='';
+			$data{'departamentos'}='';
 			$data{'descripcion'}='';
 			$data{'nroMatriculaRPI'}='';
 			$data{'fechaMatriculaRPI'}='';
@@ -109,8 +109,6 @@ class C_escribano extends CI_Controller {
 
 				 $this->load->helper(array('form', 'url'));
 
-				 $localidad = $this->input->post('localidad');
-
 			    $this->form_validation->set_rules('circunscripcion', 'circunscripcion', 'required',array('required' => 'Debes ingresar una circunscripcion ') );
 
 			    $this->form_validation->set_rules('seccion', 'seccion', 'required',array('required' => 'Debes ingresar una sección ') );
@@ -129,7 +127,7 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('partida', 'partida', 'required',array('required' => 'Debes ingresar una partida ') );
 			   
-				 $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+			    $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
 			    $this->form_validation->set_rules('fechaPlanoAprobado', 'fechaPlanoAprobado', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
@@ -145,9 +143,13 @@ class C_escribano extends CI_Controller {
 
 				$this->form_validation->set_rules('año', 'año', 'required',array('required' => 'Debes ingresar un año ') );
 
-				$this->form_validation->set_rules('localidad','localidad','required|callback_check_localidad');
+				$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
 
-  				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una Localidad');
+  				$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+
+				$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+
+  				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
 
 				$this->form_validation->set_rules('descripcion', 'descripcion', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
@@ -160,6 +162,7 @@ class C_escribano extends CI_Controller {
 			{	
 				
 				$this->CrearMinuta(FALSE,TRUE);
+
 			}else{
 				$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
 				$query = $this->db->query($sql, array($this->input->post('localidad')));
@@ -196,7 +199,18 @@ class C_escribano extends CI_Controller {
 		
 		}
 
-	function check_localidad($post_string){
+    //verifica que haya seleccionado alguna localidad
+	function check_localidad($post_string){		
+
+		if($post_string==""){
+  			return FALSE;}
+  		else{
+  	   return TRUE;
+    }
+   }
+  
+    //verifica que haya seleccionado algun departamento
+   function check_departamento($post_string){
 		if($post_string==""){
   			return FALSE;}
   		else{
@@ -204,6 +218,8 @@ class C_escribano extends CI_Controller {
     }
    }
 
+  
+    //verifica que haya seleccionado algun tipo de propiedad
    function check_propiedad($post_string){
 		if($post_string==""){
   			return FALSE;}
