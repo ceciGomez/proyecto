@@ -3,7 +3,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h3 align="center">
-         Ver Minuta
+         Ver Minutas
       </h3>
     
    </section>
@@ -31,9 +31,9 @@
                         <label>Estado :</label>
                         <select id="segunEstado">
                              <option value=""></option>
-                            <option value="P">Pendiente</option>
-                            <option value="A">Aprobado</option>
-                            <option value="R">Rechazado</option>
+                            <option value="Pendiente">Pendiente</option>
+                            <option value="Aprobado">Aprobado</option>
+                            <option value="Rechazado">Rechazado</option>
                            
                         </select>
                   

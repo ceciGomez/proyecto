@@ -284,7 +284,7 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
-		$data["minutas"] = $this->M_escribano->getMinutas();
+		$data["minutas"] = $this->M_escribano->getMinutasPorFecha($this->session->userdata('idEscribano'));
 
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
