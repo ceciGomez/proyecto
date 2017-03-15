@@ -3,9 +3,9 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>
-         Ver Minuta
+         Reporte de Minutas por fecha
       </h1>
-      <small>Lista todas las  Minuta</small>
+      <small>Lista todas las  Minuta dado un rango de fechas</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -60,9 +60,13 @@
                      <thead>
                         <tr>
                            <th>Nro de Minuta</th>
-                           <th>Fecha</th>
+                           <th>Fecha Ingreso</th>
                            <th>Estado</th>
-                           <th>Motivo de Rechazo</th>
+                           <th>Fecha Estado</th>
+                           <th>Nro de Plano</th>
+                           <th>Nomenclatura Catastral <br>
+                           <th>Localidad</th>
+                           <th>Matricula RPI</th>
                           
                         </tr>
                      </thead>
@@ -90,12 +94,33 @@
                               <?php }
                                  }}?>
                            </td>
-                           <td colspan="" rowspan="" headers=""><?php if($value->motivoRechazo == NULL){
-                              echo "NO TIENE OBSERVACIONES";
-                              } else{
-                              echo $value->motivoRechazo;
-                              } ?></td>
-                          
+                           <td><?php echo $value->planoAprobado; ?></td>
+                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
+                           
+                               <td>Circ. <?php echo $value->circunscripcion; ?> - 
+                              Sec.<?php echo $value->seccion; ?> -
+                              <?php if ($value->chacra !=NULL): 
+                                echo "Ch." ; 
+                                echo $value->chacra; ?> - 
+                              <?php endif ?>
+                              <?php if ( $value->quinta !=NULL): 
+                                echo "Qta.";
+                                echo $value->quinta; ?> -                       
+                              <?php endif ?>
+                              <?php if ($value->fraccion !=NULL): 
+                                echo "Frac.";
+                                echo $value->fraccion; ?> -    
+                              <?php endif ?>
+                              <?php if ( $value->manzana !=NULL):
+                                echo "Mz.";
+                                echo $value->manzana; ?> - 
+                              <?php endif ?>
+                              <?php if ($value->parcela !=NULL):                                 
+                                echo "Pc.";
+                                echo $value->parcela; ?> 
+                              <?php endif ?></td>
+                              <td><?php echo $value->localidad; ?></td>
+                              <td><?php echo $value->nroMatriculaRPI; ?></td>                           
                         </tr>
                         <?php endforeach ?>
                      </tbody>
