@@ -32,7 +32,8 @@ class C_reportes_escribano extends CI_Controller
 			if ($param3) {
 				$param3 =  $this->session->userdata('idEscribano');
 			}
-
+			$data['fechaInicio'] = $param;
+			$data['fechaFin'] = $param2;
 			//var_dump($param, $param2, $param3);
 			$fechaDesde = $param;
 			$fechaHasta =  $param2;
