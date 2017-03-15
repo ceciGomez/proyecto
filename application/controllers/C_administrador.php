@@ -692,6 +692,11 @@ class C_administrador extends CI_Controller {
 
 		echo $this->db->get()->row()->idProvincia;
 	}
-	
+	public function motivoRechazo(){
+				$idEscribano=$_POST["idEscribano"];
+				$escribano=  $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
+				echo $escribano->motivoRechazo;
+
+	}
 
 }

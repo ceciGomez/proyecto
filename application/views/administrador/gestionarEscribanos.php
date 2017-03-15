@@ -118,10 +118,11 @@
                             <?php  foreach ($escribanos as $es){ 
                               $date=new DateTime($es->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
+                              
                               $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();
+                           
 
                          ?>
-                      
                           <tr>
                              <td >
 
@@ -137,20 +138,28 @@
                               ?>
                                  <a class="btn btn-sm "  href="<?=base_url()?>index.php/c_administrador/editarEscribano/<?php echo $es->idEscribano?>"><button  class="btn btn-warning"  data-toggle="modal"><i class="fa fa-pencil" title="Editar datos del Escribano"></i></button></a> 
 
-                                  <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo "$es->idEscribano"; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
+                                  <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo $es->idEscribano; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               
                            </td>
                             <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$es->dni"; ?></td>
-                            <td>  <?php  echo "$es->nomyap"; ?></td>
-                            <td>  <?php  echo "$es->matricula"; ?></td>
-                            <td>  <?php  echo "$es->usuario"; ?></td>
-                            <td>  <?php  echo "$es->estadoAprobacion"; ?></td>
-                            <td>  <?php  echo "$es->email"; ?></td>
-                            <td>  <?php  echo "$es->telefono"; ?></td>
+                            <td>  <?php   if($es->dni==null) echo "";else echo "$es->dni"; ?></td>
+                            <td>  <?php   if($es->nomyap==null) echo "";else echo "$es->nomyap"; ?></td>
+                            <td>  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>
+                            <td>  <?php   if($es->usuario==null) echo ""; else echo "$es->usuario"; ?></td>
+                            <td>  <?php   if($es->estadoAprobacion==null) echo "";else {
+                              echo "$es->estadoAprobacion";
+                              if ($es->estadoAprobacion=="R"){
+                                      ?> 
+                                          <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#motRechazo"  onclick="ventana_motivoRechazo(<?php echo $es->idEscribano ?>)"><i  title="Motivo Rechazo del Escribano" href="#motRechazo" >Motivo</i></button></a>
+                                      <?php
+                              }
+                          } 
+                            ?></td>
+                            <td>  <?php   if($es->email==null) echo ""; else echo "$es->email"; ?></td>
+                            <td>  <?php   if($es->telefono==null) echo ""; else echo "$es->telefono"; ?></td>
                           
-                           <td>  <?php  echo "$es->direccion"; ?></td>
-                           <td>  <?php  echo "$localidad->nombre"; ?></td>
+                           <td>  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>
+                           <td>  <?php  if($localidad==null) echo "";else echo "$localidad->nombre"; ?></td>
                            
                         
                            
@@ -165,6 +174,30 @@
                  </table>
 
                  </div>
+
+                <div class="modal" id="motRechazo">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Motivo de Rechazo Escribano</h3>
+                         </div>
+                         <div class="modal-body">
+                         <br>
+                         <br>
+                         <div style="border-radius: 5px; border-color: " id="mr"></div>
+                        <br>
+                        <br>
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
+
+
                   <div class="modal" id="Aceptar">
                     <div class="modal-dialog modal-lg">
                       <div class="modal-content">
@@ -262,6 +295,10 @@
                       </div>
                     </div>
                   </div>
+                   </div>
+
+
+
 
 
                
@@ -365,6 +402,13 @@
                     $.post("<?=base_url()?>index.php/c_administrador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_rech").html(data);
             });
+                  }
+
+                   function ventana_motivoRechazo(idEscribano){
+                 $.post("<?=base_url()?>index.php/c_administrador/motivoRechazo",{idEscribano:idEscribano}, function(data){
+                        $("#mr").html(data);
+            });           
+           
                   }
 
                    function aceptar( ){
