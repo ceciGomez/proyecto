@@ -92,8 +92,10 @@
                             <?php  foreach ($operadores as $op){ 
                               $date=new DateTime($op->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
-                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$op->idLocalidad))->row();
 
+                            
+                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$op->idLocalidad))->row();
+                           
                          ?>
                       
                           <tr>
@@ -106,13 +108,13 @@
                            </td>
 
                              <td>  <?php  echo "$date_formated"; ?></td>
-                             <td>  <?php  echo "$op->dni"; ?></td>
-                             <td>  <?php  echo "$op->nomyap"; ?></td>
-                             <td>  <?php  echo "$op->usuario"; ?></td>
-                             <td>  <?php  echo "$op->telefono"; ?></td>
-                             <td>  <?php  echo "$op->email"; ?></td>
-                             <td>  <?php  echo "$op->direccion"; ?></td>
-                             <td>  <?php  echo "$localidad->nombre"; ?></td>
+                             <td>  <?php  if($op->dni==null) echo " ";else echo "$op->dni"; ?></td>
+                             <td>  <?php if($op->nomyap==null)echo " ";else echo "$op->nomyap";  ?></td>
+                             <td>  <?php  if($op->usuario==null)echo " ";else echo "$op->usuario"; ?></td>
+                             <td>  <?php  if($op->telefono==null)echo " ";else echo "$op->telefono";  ?></td>
+                             <td>  <?php  if($op->email==null)echo " ";else echo "$op->email";  ?></td>
+                             <td>  <?php  if($op->direccion==null)echo " "; else echo "$op->direccion";  ?></td>
+                             <td>  <?php  if($localidad==null) echo " ";else echo "$localidad->nombre";  ?></td>
                           
                            
                           </tr>

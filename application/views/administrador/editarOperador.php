@@ -179,22 +179,23 @@ return patron.test(te);
                                                 <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                            </div>
                                        
-                                  </div>
+                                 
                                  
 
-                         <div class="row">
+                        
 
                           <div class="col-md-3">
                               <label>Dirección :</label><br>
                               <input type="text" value="<?php echo $operador->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
+                           </div>
                         <br>
                                 <input type="hidden"  value="<?php echo $operador->idUsuario ?>" name="idUsuario" id="idUsuario" >
-                                 <br><br>
+                                 
                                 <div align="center">
                                  <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
-                                 <button class="btn btn-default" ><a style="text-decoration:none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
-                                   </button>
+                                 <a   class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
+                                   
                                 
 
                                  </div>
