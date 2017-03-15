@@ -43,14 +43,14 @@
                <!--  <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Pendientes </a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Rechazadas</a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Buscar Minutas</a></li> -->
-               <li><a href="#"><i class="fa fa-circle-o"></i> Imprimir Minutas</a></li>
+               <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"><i class="fa fa-circle-o"></i>Registrar Nueva Minuta</a></li>
 
             </ul>
 
          </li>
          <li class="treeview">
             <a href="#">
-            <i class="fa fa-edit"></i> <span>Reportes Escribano</span>
+            <i class="fa fa-edit"></i> <span>Reportes</span>
             <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
             </span>
