@@ -9,7 +9,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-         <h3 align="center">Gestionar Minutas</h3>
+         <h3 align="center">Gestionar Pedidos de Información</h3>
         <section >
          
 
@@ -19,32 +19,32 @@
 
              
 
-                 <label>Filtrar Minutas por :</label>
+                 <label>Filtrar Solicitudes por :</label>
                  
                   <div class="box-body" style="background-color: lightblue;">
                       
                       
-                       <?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>
-                          <label>Fecha Ingreso :</label>
+                          
+                          <label>Fecha Pedido :</label>
                         <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
 
                           
                                       
-                        <label>Fecha Edición :</label>
+                        <label>Fecha Respuesta :</label>
                         
                         <input type='text' data-provide="datepicker"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
                     
-                        <label>Minuta :</label>
-                        <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>' class='filter' data-column-index='3'> 
+                        <label>Número de Pedido :</label>
+                        <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_si')["idPedido"]; ?>' class='filter' data-column-index='3'> 
                   
 
                         <label>Estado :</label>
-                        <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
-                        <select id="segunEstado">
+                        <input type="hidden" value= '<?php echo $this->session->flashdata('noti_si')["estadoPedido"]; ?>' id="estado"> 
+                        <select id="estadoPedido">
                              <option value=""></option>
                             <option value="P">P</option>
-                            <option value="A">A</option>
-                            <option value="R">R</option>
+                            <option value="C">C</option>
+
                            
                         </select>
                   
@@ -82,8 +82,8 @@
 
                                $date=new DateTime($mi["fechaIngresoSys"]);
                               $date_formated=$date->format('d/m/Y ');
-                               $date2=new DateTime($mi["fechaEdicion"]);
-                              $date_formated2=$date2->format('d/m/Y ');
+                               $dat2=new DateTime($mi["fechaEdicion"]);
+                              $date_formated2=$date->format('d/m/Y ');
                          ?>
                             <?php 
                          /*

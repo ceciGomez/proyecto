@@ -82,8 +82,8 @@
 
                                $date=new DateTime($mi["fechaIngresoSys"]);
                               $date_formated=$date->format('d/m/Y ');
-                               $dat2=new DateTime($mi["fechaEdicion"]);
-                              $date_formated2=$date->format('d/m/Y ');
+                               $date2=new DateTime($mi["fechaEdicion"]);
+                              $date_formated2=$date2->format('d/m/Y ');
                          ?>
                             <?php 
                          /*
