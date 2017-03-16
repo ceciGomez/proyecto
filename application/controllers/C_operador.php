@@ -18,6 +18,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$data['titulo'] = 'Bienvenido Operador';
 
 		$this->load->view('templates/cabecera_operador',$data);
@@ -36,6 +38,8 @@ class C_operador extends CI_Controller {
 		
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$this->load->model('M_operador');
 		$data["escribanos"] = $this->M_operador->getEscribanos();
 
@@ -61,6 +65,8 @@ class C_operador extends CI_Controller {
 
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$data['titulo'] = 'Bienvenido Operador';
 		$esc=$this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
 		$data["escribano"] =$esc;
@@ -79,6 +85,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$idEscribano = $this->input->post("idEscribano");
 
 		$hizo_post=TRUE;	
@@ -325,6 +333,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$this->db->select('*');
 		$this->db->from('minuta');
 		
@@ -490,6 +500,7 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$this->db->select('*');
 		$this->db->from('pedidos');
 		
