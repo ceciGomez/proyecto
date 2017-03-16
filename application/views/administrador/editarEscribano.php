@@ -4,17 +4,7 @@
 </style>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-        
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
-      </h1>
- 
-   <ol class="breadcrumb">
-      <li><a href="<?=base_url()?>index.php/c_administrador>"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Editar Escribano</li>
-   </ol>
-</section>
+
 <!-- Main content -->
 <script type="text/javascript">
 //funcion que solo permite numeros
@@ -100,7 +90,7 @@ return patron.test(te);
                                          <?php if($exito==TRUE){
 
                                            ?>
-                                          <a href="<?=base_url().'index.php/c_administrador/verEscribanos'?>" class="btn btn-primary" >Aceptar</a>
+                                          <a href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" class="btn btn-primary" >Aceptar</a>
                                           <?php } ?>
                                        </div>
                                     </div>
@@ -128,26 +118,25 @@ return patron.test(te);
                                <label>Usuario :</label><br>
                                <input type="text"  value="<?php echo $escribano->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
                             </div>
-                             <div class="col-md-3">
-                               <label>Contraseña :</label><br>
-                              <input type="password"  value="" name="contraseña" id="contraseña" placeholder="Contraseña">
-                            </div>
-                         
+                             
                          
                           <div class="col-md-3">
                               <label>Matricula :</label><br>
                               <input type="text" value="<?php echo $escribano->matricula ?>" name="matricula" id="matricula" placeholder="Matricula" onkeypress="return NumbersOnly(event)" maxlength="8">
                           </div>
-                        </div>
+                       
 
 
-                         <div class="row">
+                        
                           
                          
                           <div class="col-md-3">
                              <label>DNI :</label><br>
                               <input type="text" value="<?php echo $escribano->dni ?>" name="dni" id="dni" placeholder="DNI" placeholder="DNI" onkeypress="return NumbersOnly(event);" maxlength="8" >
                           </div>
+                      </div>
+
+                      <div class="row">
 
                           <div class="col-md-3">
                            <label>Estado :</label><br>
@@ -174,15 +163,18 @@ return patron.test(te);
                             <input type="text"  maxlength="15"   placeholder="+54" onkeypress="return NumbersOnly(event);"  value="<?php echo $escribano->telefono ?>" name="telefono" id="telefono" placeholder="teléfono">
                           </div>
                         
-                        </div>
+                        
                        
-                         <div class="row">
+                         
 
                           <div class="col-md-3">
                               <label>Dirección :</label><br>
                               <input type="text" value="<?php echo $escribano->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
-                        
+
+                       </div>
+
+                        <div class="row">
              
                           <div class="col-md-3">
                             <?php 
@@ -217,14 +209,27 @@ return patron.test(te);
                                                 <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                            </div>
                                        </div>
+
+                                         <div class="col-md-3">
+                                       <label>Baja de Usuario</label> <br>
+                                             <input type="hidden"  value="<?php echo $escribano->baja; ?>" name="estadoBaja" id="estadoBaja" >
+                                              <select name="baja" id="baja">
+                                                   <option value="1">Si </option>
+                                                    <option value="0">No </option>
+                                              </select>
+                                            
+                                           </div>
                                   </div>
                                   <br>
                                   <div>
                                      <input type="hidden"  value="<?php echo $escribano->idEscribano ?>" name="idEscribano" id="idEscribano" placeholder="idEscribano">
                                   </div>
-                                  <div>
+                                  <div align="center">
                                      <button type="submit" class="btn btn-primary">Guardar Cambios</button>
-                                     <button class="btn btn-default" href="<?=base_url().'index.php/c_administrador/verEscribanos'?>" >Cancelar</button>
+                                     
+                                   <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarEscribanos'?>" > Cancelar</a>
+                                   
+                                   
 
                                   </div>
                                
@@ -269,6 +274,21 @@ return patron.test(te);
     if (document.getElementById("estado").value=="R") {
                           $("#estadoAprobacion")
                             .find("option:contains(R)")
+                            .prop("selected", true);
+                           
+                      //
+
+                    };
+     if (document.getElementById("estadoBaja").value=="1") {
+                          $("#baja")
+                            .find("option:contains(Si)")
+                            .prop("selected", true);
+                           
+                      //
+                    };
+    if (document.getElementById("estadoBaja").value=="0") {
+                          $("#baja")
+                            .find("option:contains(No)")
                             .prop("selected", true);
                            
                       //

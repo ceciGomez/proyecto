@@ -118,8 +118,8 @@ class C_administrador extends CI_Controller {
 			'idLocalidad' => $this->input->post('localidad'),	
 			'fechaReg'=>$datetime_formatted,
 			'tipoUsuario'=>"O",
-			'email' => $this->input->post('email'));	
-
+			'email' => $this->input->post('email'),
+			'baja' => '0' );	
 			$this->db->insert("usuariosys", $datos_usuarios);
 
 			
@@ -131,7 +131,7 @@ class C_administrador extends CI_Controller {
 	}
 }
 
-	public function verOperadores()
+	public function gestionarOperadores()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -145,11 +145,11 @@ class C_administrador extends CI_Controller {
 
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/verOperadores',$data);
+		$this->load->view('administrador/gestionarOperadores',$data);
 		$this->load->view('templates/pie',$data);
 	}
 	
-	public function verEscribanos()
+	public function gestionarEscribanos()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -163,7 +163,7 @@ class C_administrador extends CI_Controller {
 
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/verEscribanos',$data);
+		$this->load->view('administrador/gestionarEscribanos',$data);
 		$this->load->view('templates/pie',$data);
 	}
 
@@ -218,8 +218,6 @@ class C_administrador extends CI_Controller {
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
-
 			    
 
 		
@@ -235,12 +233,14 @@ class C_administrador extends CI_Controller {
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
 			'idLocalidad' => $this->input->post('localidad'),	
 			'email' => $this->input->post('email'),	
+			'estado' => $this->input->post('estado'),
+			'baja' => $this->input->post('baja'),	
+	
 
 			);
 
@@ -253,8 +253,15 @@ class C_administrador extends CI_Controller {
 
 	public function eliminar_op(){
       	$idUsuario=$_POST["idUsuario"];
+      	$data = array(
+               'baja' => "1",
+              
+            );
 		$this->db->where('idUsuario', $idUsuario);
-		$this->db->delete('usuariosys'); 
+		
+
+		$this->db->where('idUsuario', $idUsuario);
+		$this->db->update('usuariosys', $data); 
 
       }
 
@@ -316,7 +323,6 @@ class C_administrador extends CI_Controller {
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    $this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
 
 			    $this->form_validation->set_rules('matricula', 'matricula', 'required',array('required' => 'Debes ingresar un Nro de Matricula ') );
 
@@ -337,7 +343,6 @@ class C_administrador extends CI_Controller {
 			//Nombre del campo en la bd -----> valor del campo name en la vista
 			'nomyap' => $this->input->post("nomyap"),
 			'usuario' => $this->input->post("usuario"),	
-			'contraseña' => sha1($this->input->post("contraseña")),	
 			'dni' => $this->input->post("dni"),	
 			'telefono' => $this->input->post("telefono"),
 			'direccion' => $this->input->post("direccion"),	
@@ -345,6 +350,8 @@ class C_administrador extends CI_Controller {
 			'matricula' => $this->input->post('matricula'),
 			'estadoAprobacion' => $this->input->post('estadoAprobacion'),	
 			'email' => $this->input->post('email'),	
+			'baja' => $this->input->post('baja'),	
+
 
 
 
@@ -359,32 +366,9 @@ class C_administrador extends CI_Controller {
 	
 	}
 
-	public function eliminar_es(){
-      	$idUsuario=$_POST["idEscribano"];
-		$this->db->where('idEscribano', $idEscribano);
-		$this->db->delete('usuarioescribano'); 
-
-      }
 
 //para el menu minutas
 
-	public function reg_pen()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_pen=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'P'))->result();
-		$data['esc_pen']=$esc_pen;
-		
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_pendientes',$data);
-		$this->load->view('templates/pie',$data);
-	}
 
 	public function detalles_esc(){
 			$idEscribano=$_POST["idEscribano"];
@@ -405,6 +389,7 @@ class C_administrador extends CI_Controller {
       	$idEscribano=$_POST["idEscribano"];
       		$data = array(
                'estadoAprobacion' => "A",
+                'baja' => "0"
               
             );
 
@@ -427,126 +412,95 @@ class C_administrador extends CI_Controller {
       
       public function eliminar_esc(){
       	$idEscribano=$_POST["idEscribano"];
-      		
+      		$data = array(
+               'baja' => "1",
+              
+            );
 
 		$this->db->where('idEscribano', $idEscribano);
-		$this->db->delete('usuarioescribano'); 
+		$this->db->update('usuarioescribano', $data); 
+
 
       }
-		
+	
 
-	public function reg_apro()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_apro=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'A'))->result();
-		$data['esc_apro']=$esc_apro;
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_aprobadas',$data);
-		$this->load->view('templates/pie',$data);
-	}
-
-	public function reg_rech()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_operador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$esc_rech=$this->db->get_where('usuarioescribano', array('estadoAprobacion'=>'R'))->result();
-		$data['esc_rech']=$esc_rech;
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/operador_menu',$data);
-		$this->load->view('operador/registraciones_rechazadas',$data);
-		$this->load->view('templates/pie',$data);
-	}
-
-	public function ver_minutasPendientes()
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
-		{
-			redirect(base_url().'index.php/c_login_administrador');
-		}
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$this->db->select('*');
-		$this->db->from('estadominuta');
-		$this->db->join('minuta', 'minuta.idMinuta = estadominuta.idMinuta');
-		$this->db->join('usuarioescribano', 'usuarioescribano.idEscribano = minuta.idEscribano');
-		$this->db->order_by('estadominuta.fechaEstado', 'ASC');
-		$this->db->where('estadominuta.estadoMinuta', 'P');
-
-		$data['minutas']= $this->db->get()->result();
-
-		$data['titulo'] = 'Bienvenido Operador';
-		$this->load->view('templates/cabecera_administrador',$data);
-		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/minutas_pendientes',$data);
-		$this->load->view('templates/pie',$data);
-	}
 
 	public function detalles_minuta(){
 
-
-		$idMinuta=$_POST['idMinuta'];
-		$minuta = $this->M_escribano->getUnaMinuta($idMinuta);
+		$minuta = $this->M_escribano->getUnaMinuta($_POST['idMinuta']);
 		$idEscribano = $minuta[0]->idEscribano;
+		$this->load->model('M_escribano');
 		$unEscribano = $this->M_escribano->getUnEscribano($idEscribano);
 		$idMinuta = $minuta[0]->idMinuta;
 		$parcelas =$this->M_escribano->getParcelas($idMinuta);
-		echo "
-			  <article>
+		//var_dump($data["parcelas"]);
+		echo 
+		 "<article>
          <!-- Titulo -->
+         <small class='pull-right'><u>Fecha:</u> ".date("d/m/Y H:i:s")." </small>
          <h2 class='page-header' align='center'><i><b>Minuta de Inscripción de Titulo</b></i>
          </h2>
          <p align='justify'>
-            Departamento  <strong>".$unEscribano[0]->nombreDpto.".</strong>
-            - Provincia de <strong>".$unEscribano[0]->nombreProv.".</strong><br>
-            FUNCIONARIO AUTORIZANTE: Esc: <strong>  ".$unEscribano[0]->nomyap.".</strong><br>";
-          foreach ($parcelas as $value) { 
-          	echo" <br>
-            BIEN: <strong> ".$value->descripcion."</strong>.<br>
-            <br>";
-           	$propietarios = $this->M_escribano->getPropietarios($value->idParcela); 
-            foreach ( $propietarios as $key) { 
+            Departamento  <strong>". $unEscribano[0]->nombreDpto."</strong>
+            - Provincia de <strong>". $unEscribano[0]->nombreProv.".</strong><br> 
+            <u>FUNCIONARIO AUTORIZANTE: </u> Esc: <strong>". $unEscribano[0]->nomyap."</strong><br><br>";
+            foreach ($parcelas as $value) { 
+            echo" <u>NOMENCLATURA CATASTRAL: </u>
+            CIRCUNSCRIPCION: <strong>".$value->circunscripcion ."</strong>
+            SECCION: <strong>".$value->seccion ."</strong>
+            CHACRA: <strong>".$value->chacra."</strong>
+            MANZANA: <strong>". $value->manzana ."</strong>
+            PARCELA: <strong>".$value->parcela ."</strong> <br>
+            <br>
+            Superficie:   <strong>". $value->superficie. "mts. </strong>
+            Tipo Propiedad: <strong>". $value->tipoPropiedad ."</strong> <br>
+            <u>Plano:</u>
+            Nro de Plano aprobado:  <strong>" .$value->planoAprobado ."</strong> 
+            Fecha:  <strong>". $value->fechaPlanoAprobado ." </strong> 
+            <u>Localidad:</u> <strong>". $value->nombreLocalidad. "</strong><br>
+<br>
+            <u>INSCRIPCION: </u>
+            NRO MATRICULA: <strong> ".$value->nroMatriculaRPI ."</strong>
+            FECHA:  <strong> ". $value->fechaMatriculaRPI ."</strong>
+            TOMO:  <strong>".$value->tomo ."</strong>
+            FOLIO:  <strong> ". $value->folio ."</strong>
+            FINCA:  <strong>". $value->finca ."</strong>
+            AÑO:  <strong> ".$value->año ."</strong>
+            <br>
+
+            <u>DESCRIPCION: </u><strong>". $value->descripcion."</strong>.<br><br>";
+            $propietarios = $this->M_escribano->getPropietarios($value->idParcela);
+             foreach ( $propietarios as $key) { 
                $nroProp = 0;
-               if ($key->tipoPropietario == 'A'): echo "ADQUIRIENTE: <br>";
-               endif ;
-               if  ($key->tipoPropietario == 'T'): echo  "TRANSMITENTE: <br>"; endif; 
-           		echo" NRO UF/UC: <strong>";
-           		 if ($key->nroUfUc == NULL) echo '-------';  else echo $key->nroUfUc ; 
-           		 echo"-" ;
-           		 echo $key->tipoUfUc;
-           		 echo "</strong>Fecha de Escritura: <strong>";
-           		 if ($key->fechaEscritura == NULL) echo '-------';  else echo $key->fechaEscritura ;
-           		 echo".</strong>Nombre y Apellido: <strong>";
-           		 if ($key->titular == NULL) echo '-------';  else echo $key->titular ;
-           		 echo".</strong>Cuit - Cuil: <strong>";
-           		  if ($key->cuitCuil == NULL) echo '-------';  else echo $key->cuitCuil ;
-           		  echo"</strong>Direccion: <strong>";
-           		   if ($key->direccion == NULL) echo '-------';  else echo $key->direccion; 
-           		   echo".</strong> Plano Aprobado: <strong>";
-           		   if ($key->planoAprobado == NULL) echo '-------';  else echo $key->planoAprobado ;
-           		   echo".</strong>Fecha de Plano Aprobado: <strong>";
-           		    if ($key->fechaPlanoAprobado == NULL) echo '-------';  else echo $key->fechaPlanoAprobado ;
-           		    echo".</strong> Poligonos: <strong>";
-           		    if ($key->poligonos == NULL) echo '-------';  else echo $key->poligonos ;
-           		    echo".</strong> Porcentaje de Uf/Uc: <strong>";
-           		     if ($key->porcentajeUfUc == NULL) echo '-------';  else echo $key->porcentajeUfUc ;
-           		     echo".</strong><br>Asentimiento Conyugal: <strong>";
-           		      if ($key->conyuge == NULL) echo '-------';  else echo $key->conyuge ;
-           		      echo".</strong><br>";
-          										} 
-              } 
-        echo" </p></article>";
+               
+	             if ($key->tipoPropietario == 'A'): echo "<u> ADQUIRIENTE: </u>";endif; 
+	            if ($key->tipoPropietario == 'T'): echo "<u>TRANSMITENTE: </u>" ;endif;
+            
+            if ($key->nroUfUc != NULL):echo " NRO UF/UC: <strong> ". $key->nroUfUc ."-". $key->tipoUfUc."</strong>";endif;
+
+             if ($key->fechaEscritura != NULL) :  echo" Fecha de Escritura: <strong> ". $key->fechaEscritura ."</strong>";
+             if ($key->titular != NULL): echo "Nombre y Apellido: <strong> ". $key->titular."</strong>" ;endif;
+
+             if ($key->porcentajeCondominio != NULL): echo "PORCENTAJE DE CONDOMINIO: <strong> ". $key->porcentajeCondominio; echo '% "</strong>"'; endif;
+           
+             if ($key->cuitCuil != NULL): echo "Cuit - Cuil: <strong> ".$key->cuitCuil."</strong>" ; endif;
+
+             if ($key->direccion != NULL): echo "Direccion: <strong> ". $key->direccion."</strong>";  endif;
+
+             if ($key->planoAprobado != NULL) echo "Plano Aprobado: <strong> ". $key->planoAprobado ."</strong>";endif;
+
+             if ($key->fechaPlanoAprobado != NULL): echo "Fecha de Plano Aprobado: <strong>".$key->fechaPlanoAprobado ."</strong>"; endif;
+
+             if ($key->poligonos != NULL) : echo "Poligonos: <strong>". $key->poligonos ."</strong>"; endif;
+
+             if ($key->porcentajeUfUc != NULL):echo "Porcentaje de Uf/Uc: <strong> ".$key->porcentajeUfUc; echo "% </strong><br>" ;endif;
+             if ($key->conyuge != NULL):echo" Asentimiento Conyugal: <strong> ". $key->conyuge."</strong><br>" ; endif;
+             } 
+            } 
+         echo "</p>
+      </article>";
+
+		
      	}
 
 		  public function rechazar_min	(){
@@ -582,7 +536,7 @@ class C_administrador extends CI_Controller {
 
       }
 
-      public function ver_minutas()
+      public function gestionarMinutas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
 		{
@@ -622,7 +576,7 @@ class C_administrador extends CI_Controller {
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
-		$this->load->view('administrador/ver_minutas',$data);
+		$this->load->view('administrador/gestionarMinutas',$data);
 		$this->load->view('templates/pie',$data);
 	}
 
@@ -722,7 +676,7 @@ class C_administrador extends CI_Controller {
 			};
 		   $noti_esc=array("dniEscribano"=>$dniEscribano,"estado"=>"P");
 		  	  $this->session->set_flashdata('noti_esc',$noti_esc); 
-		    redirect(base_url().'index.php/c_administrador/verEscribanos');
+		    redirect(base_url().'index.php/c_administrador/gestionarEscribanos');
 	}
 	public function buscar_min_p_x_id(){
 			if ($_POST["idMinuta"]==null) {
@@ -733,7 +687,7 @@ class C_administrador extends CI_Controller {
 			};
 			$noti_min=array("idMinuta"=>$idMinuta,"estado"=>"P");
 		   $this->session->set_flashdata('noti_min',$noti_min); 
-		    redirect(base_url().'index.php/c_administrador/ver_minutas');
+		    redirect(base_url().'index.php/c_administrador/gestionarMinutas');
 	}
 
 	public function obtenerProvincia_x_idLoc(){
@@ -745,6 +699,11 @@ class C_administrador extends CI_Controller {
 
 		echo $this->db->get()->row()->idProvincia;
 	}
-	
+	public function motivoRechazo(){
+				$idEscribano=$_POST["idEscribano"];
+				$escribano=  $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
+				echo $escribano->motivoRechazo;
+
+	}
 
 }

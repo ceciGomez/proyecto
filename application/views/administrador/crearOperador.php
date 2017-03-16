@@ -4,17 +4,7 @@
 </style>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-        
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
-      </h1>
- 
-   <ol class="breadcrumb">
-      <li><a  href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Crear Operador</li>
-   </ol>
-</section>
+
 <!-- Main content -->
 <script type="text/javascript">
    $(document).ready(function(){
@@ -59,7 +49,7 @@
                                    <?php if($exito==TRUE){
 
                                      ?>
-                                    <a href="<?=base_url().'index.php/c_administrador/verOperadores'?>" class="btn btn-primary" >Aceptar</a>
+                                    <a href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" class="btn btn-primary" >Aceptar</a>
                                     <?php } ?>
                                  </div>
                               </div>
@@ -164,8 +154,10 @@
                         <br>
                                    
                                  <br><br>
-                               <div align="center"> <button type="submit" class="btn btn-primary" data-toggle="modal">Guardar Cambios</button></div>
-
+                               <div align="center">
+                                <button type="submit" class="btn btn-primary" data-toggle="modal">Guardar Cambios</button>
+                               <a  class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
+                                   </button>
 
                                  <div align="center" style="color:red;" ><p><?=form_error('nomyap')?></p></div> 
                                  <div align="center" style="color:red;" >  <p><?=form_error('dni')?></p></div>

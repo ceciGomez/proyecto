@@ -4,17 +4,7 @@
 </style>
 <div class="content-wrapper">
 <!-- Content Header (Page header) -->
-<section class="content-header">
-  <h1>
-        
-        <small>Bienvenido Administrador: <?php echo$this->session->userdata('username') ?></small>
-      </h1>
- 
-   <ol class="breadcrumb">
-      <li><a  href="<?=base_url()?>index.php/c_administrador"><i class="fa fa-dashboard"></i> Home</a></li>
-      <li class="active">Editar Operador</li>
-   </ol>
-</section>
+
 <!-- Main content -->
 <script type="text/javascript">
 //funcion que solo permite numeros
@@ -102,7 +92,7 @@ return patron.test(te);
                                    <?php if($exito==TRUE){
 
                                      ?>
-                                    <a href="<?=base_url().'index.php/c_administrador/verOperadores'?>" class="btn btn-primary" >Aceptar</a>
+                                    <a href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" class="btn btn-primary" >Aceptar</a>
                                     <?php } ?>
                                  </div>
                               </div>
@@ -133,10 +123,7 @@ return patron.test(te);
                                <label>Usuario :</label><br>
                                <input type="text"  value="<?php echo $operador->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
                             </div>
-                             <div class="col-md-3">
-                               <label>Contraseña :</label><br>
-                              <input type="password"  value="" name="contraseña" id="contraseña" placeholder="Contraseña">
-                            </div>
+                             
                          
 
                           <div class="col-md-3">
@@ -192,21 +179,37 @@ return patron.test(te);
                                                 <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                            </div>
                                        
-                                  </div>
+                                 
                                  
 
-                         <div class="row">
+                        
 
                           <div class="col-md-3">
                               <label>Dirección :</label><br>
                               <input type="text" value="<?php echo $operador->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                           </div>
+                          
+                            
+                          </div>
+                          <div class="row">
+                          <div class="col-md-3">
+                                       <label>Baja de Usuario</label> <br>
+                                             <input type="hidden"  value="<?php echo $operador->baja; ?>" name="estadoBaja" id="estadoBaja" >
+                                              <select name="baja" id="baja">
+                                                   <option value="1">Si </option>
+                                                    <option value="0">No </option>
+                                              </select>
+                                            
+                                           </div>
+                           </div>
                         <br>
                                 <input type="hidden"  value="<?php echo $operador->idUsuario ?>" name="idUsuario" id="idUsuario" >
-                                 <br><br>
+                                 
                                 <div align="center">
                                  <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
-                                 <button class="btn btn-default" href="<?=base_url().'index.php/c_administrador/verOperadores'?>" >Cancelar</button>
+                                 <a   class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/gestionarOperadores'?>" > Cancelar</a>
+                                   
+                                
 
                                  </div>
 
@@ -222,7 +225,7 @@ return patron.test(te);
 
                                             <?=form_close()?>
 
-                    
+                       
                   
                        </div>
                   </div>      
@@ -241,4 +244,21 @@ return patron.test(te);
       $("#Editar").modal("show");
     <?php } ?>
    });
+
+     if (document.getElementById("estadoBaja").value=="1") {
+                          $("#baja")
+                            .find("option:contains(Si)")
+                            .prop("selected", true);
+                           
+                      //
+                    };
+    if (document.getElementById("estadoBaja").value=="0") {
+                          $("#baja")
+                            .find("option:contains(No)")
+                            .prop("selected", true);
+                           
+                      //
+                    };
+
+
 </script>

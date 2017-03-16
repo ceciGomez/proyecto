@@ -109,8 +109,8 @@ class C_registro extends CI_Controller {
 					'estadoAprobacion'=>'P',
 					'motivoRechazo'=>'',
 					'fechaReg'=>$datetime_formatted,
-					//'repe_contraseña' => sha1($this->input->post('repecontraseña')),
-				);
+					'baja' => '0' );	
+				
 				
 				$this->db->insert("usuarioescribano", $datos_usuarios);
 				
