@@ -21,7 +21,7 @@
           <div class="box box-primary">
             <div class="box-body box-profile">
                <h3 class="profile-username text-center">BIENVENIDO A SIRMI</h3>
-              <img class="profile-user-img img-responsive img-circle" src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" alt="User profile picture">
+              <img class="profile-user-img img-responsive img-circle" src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" alt="User profile picture">
 
               <h3 class="profile-username text-center"><?php echo $this->session->userdata('nomyap') ?></h3>
 

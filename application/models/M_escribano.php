@@ -298,6 +298,36 @@ public function getPropietarios($idParcela)
 		}
 	}
 
+	public function getMinutasPorFecha($idEscribano)
+ 	{
+ 		try {
+ 			
+ 			$query = $this->db->query("
+				
+				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
+				concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
+				
+				concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado
+										
+						from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
+						
+						inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
+						
+
+						where ue.idEscribano = '$idEscribano'
+						                   
+					    and e.idEstadoMinuta = (SELECT MAX(ee.idEstadoMinuta) 
+					    						from estadominuta ee 
+					    						where  m.idMinuta = ee.idMinuta )  
+					ORDER BY `e`.`estadoMinuta` ASC, m.idMinuta ASC
+
+ 				");
+ 			return $query->result();
+ 		} catch (Exception $e) {
+ 			return FALSE;
+ 		}
+ 	}
+
 }
 
 
