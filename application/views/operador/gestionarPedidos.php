@@ -78,11 +78,11 @@
                           <th>Fecha de Respuesta</th>
                           <th>Fecha de Pedido</th>
                           <th>Numero de Pedido</th>
-                          <th>Numero deEscribano</th>
+                          <th>Número de Escribano</th>
                           <th>Estado</th>
-                          <th>Número de Operador</th>
+                          <th>Operador</th>
                           <th>Decripcion</th>
-                              <th>Respuesta Pedido</th>
+                          <th>Respuesta Pedido</th>
                             
                           </tr>
                         </thead>
@@ -119,7 +119,7 @@
                                 if($si->estadoPedido=="P"){
 
                                   ?>
-                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Contestar" title="Contestar Pedido" onclick="ventana_contestar(<?php echo $si->idPedido; ?>)" ><i class="fa fa-check"></i></button></a>
+                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Contestar" title="Contestar Pedido" onclick="ventana_contestar(<?php echo $si->idPedido; ?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i class="fa fa-check"></i></button></a>
 
 
                                   <?php  
@@ -132,7 +132,7 @@
                             <td>  <?php  echo $si->idPedido; ?> </td>
                              <td>  <?php  echo $si->idEscribano; ?> </td>
                             <td>  <?php  echo $si->estadoPedido; ?> </td>
-                             <td>  <?php  echo $si->idUsuario; ?> </td>
+                             <td>  <?php  echo $si->nomyap; ?> </td>
                                   <td>  <?php  echo $si->descripcion; ?> </td>
                                     <td>  <?php  echo $si->rtaPedido; ?> </td>
                           
@@ -267,15 +267,19 @@
 
 
                  idPed='';
-                   function ventana_contestar(idPedido){
+                 idUsr='';
+                   function ventana_contestar(idPedido,idUsuario){
                       idPed=idPedido;
+                      idUsr=idUsuario;
                       console.log(idPedido);
+                    console.log(idUsr);
+
                     }
 
                      function contestar(){
                    var rtaPedido=document.getElementById('rtaPedido').value;
 
-                    $.post("<?=base_url()?>index.php/c_operador/contestar_pedido",{idPedido:idPed,rtaPedido:rtaPedido}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/contestar_pedido",{idPedido:idPed,rtaPedido:rtaPedido,idUsuario:idUsr}, function(data){
             });
                   }
                   

@@ -22,7 +22,7 @@
    <style type="text/css">
      
      #escribanos {
-  width:1800px;
+  width:2000px;
 }
    #operadores {
   width:1400px;

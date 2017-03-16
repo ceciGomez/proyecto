@@ -109,9 +109,9 @@
                                 if(($mi['estadoMinuta'])=="P"){
 
                                   ?>
-                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" title="Aceptar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>)" ><i class="fa fa-check"></i></button></a>
+                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" title="Aceptar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i class="fa fa-check"></i></button></a>
 
-                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>)" ><i class="fa fa-times"></i></button></a>
+                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar" onclick="ventana_rech(<?php echo $mi ['idMinuta']; ?>,<?php echo $mi ['idEstadoMinuta']; ?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i class="fa fa-times"></i></button></a>
 
                                   <?php  
                                 };
@@ -397,24 +397,26 @@
                   }
 
                      idEstMin='';
+                     idUsr='';
 
-
-                            function ventana_acep(idMinuta,idEstadoMinuta){
+                            function ventana_acep(idMinuta,idEstadoMinuta,idUsuario){
                     idEstMin=idEstadoMinuta;
+                    idUsr=idUsuario;
                     $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#acep_min").html(data);
             });
                   }
 
-             function ventana_rech(idMinuta,idEstadoMinuta){
-                   idEstMin=idEstadoMinuta;
+             function ventana_rech(idMinuta,idEstadoMinuta,idUsuario){
+                   idEstMin=idUsuario;
+                    idUsr=idUsuario;
                     $.post("<?=base_url()?>index.php/c_adminstrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                       $("#rech_min").html(data);
             });
                   }
 
                function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_min",{idEstadoMinuta:idEstMin}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/aceptar_min",{idEstadoMinuta:idEstMin,idUsuario:idUsr}, function(data){
                      
             });
                   }
@@ -422,7 +424,7 @@
 
                    function rechazar( ){
                      var motivoRechazo=document.getElementById('motivoRechazo').value;
-                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                       
             });
                     }
