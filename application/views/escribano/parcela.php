@@ -128,18 +128,18 @@
                                  </div>                              
                                   <div class="col-md-3">
                                     <label>Departamento</label>
-                                    <select class="form-control select2 departamentos" id="departamentos"name="departamentos" style="width: 100%;">
-                                       <option selected="selected">Selecciona departamento</Option>
-                                        <?php foreach($departamentos as $each){ ?>
-                                        <option value="<?php echo $each->idDepartamento; ?>"><?php echo $each->nombre; ?></option>';
-                                       <?php } ?>
-                                     <div style="color:red;" ><p><?=form_error('departamento')?></p></div>
-                                         </select>
+                                    <select class="form-control select2 departamentos" id="departamentos"  name="departamentos" style="width: 100%;">
+                                       <option value="" selected="">Selecciona departamento</option>
+                                          <?php foreach($arraydepartamentos as $each){ ?>
+                                        <option value="<?php echo $each->idDepartamento; ?>"<?php if($departamentos==$each->nombre) echo 'selected="selected"'; ?>><?php echo $each->nombre; ?></option>
+                                          <?php } ?>
+                                     </select>
+                                     <div style="color:red;" ><p><?=form_error('departamentos')?></p></div>                                  
                                  </div>                      
                                  <div class="col-md-3">
                                     <label>Localidad</label>
                                     <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
-                                       <option value="">Seleccione localidad</option>
+                                     <option value="">Seleccione localidad</option>  
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
@@ -220,23 +220,54 @@
    </script>
    <!-- Llena lista de localidades dependiendo del departamento seleccionado -->
    <script>
-   $(document).on('change','.departamentos',function(){
-      var iddepartamento = $(".departamentos").val();
+   $(document).ready(function(){
+
+           console.log($('#departamentos').val());
+   if($('#departamentos').val()!=""){
+    localidadOnReady($('#departamentos').val());}
+    });
+   $("#departamentos").on("change",function(){
+        localidad($('#departamentos').val());
+   })
+   function localidad(iddepartamento) {
+             console.log($('#departamentos').val());  
       $.ajax({
          type:'POST',
          datatype:'json',
          data:{id_departamento: iddepartamento},
          url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
-         success:function(response){        
+         success:function(response){  
+         console.log($('#localidades').val());   
              $("#localidades").empty();
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
                  $("#localidades").append("<option>"+val.nombre+"</option");  
              });           
+   
+       }
+      })
+    }
+     function localidadOnReady(iddepartamento) { 
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){  
+         console.log( <?php echo json_encode($localidades); ?>); 
+              $("#localidades").empty();
+              $("#localidades").append("<option>Seleccione localidad</option>");
+             var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });  
+              $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
+           
          }
-      });
-   });
+        })
+      }
+   
    </script>
       <!-- controla el ingreso de numero flotante -->
    <script type="text/javascript">

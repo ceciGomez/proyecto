@@ -129,12 +129,13 @@
                <!-- /.box-body -->
             </div>
          </div>
-      </div>
-<div class="content pull-right">
-<a href="<?php base_url()?>reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
+      <div class="row col-sm-12 pull-right">
+<a href="http://localhost/proyecto/reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
 <span>Imprimir Reporte</span></i></a>
 
-  </div>   <!-- /.row -->
+  </div>
+      </div>
+   <!-- /.row -->
    </section>
 </div>
 <!-- /.content-wrapper -->
