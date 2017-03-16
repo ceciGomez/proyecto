@@ -1,5 +1,3 @@
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -31,7 +29,13 @@
             MANZANA: <strong><?php echo $value->manzana ?></strong>
             PARCELA: <strong><?php echo $value->parcela ?></strong> <br>
             <br>
-
+            Superficie:   <strong><?php echo $value->superficie ?> mts. </strong>
+            Tipo Propiedad: <strong><?php echo $value->tipoPropiedad ?> </strong> <br>
+            <u>Plano:</u>
+            Nro de Plano aprobado:  <strong><?php echo $value->planoAprobado ?> </strong> 
+            Fecha:  <strong><?php echo $value->fechaPlanoAprobado ?> </strong> 
+            <u>Localidad:</u> <strong><?php echo $value->nombreLocalidad ?> </strong><br>
+<br>
             <u>INSCRIPCION: </u>
             NRO MATRICULA: <strong> <?php echo $value->nroMatriculaRPI ?></strong>
             FECHA:  <strong> <?php echo $value->fechaMatriculaRPI ?></strong>

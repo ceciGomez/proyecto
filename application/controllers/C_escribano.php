@@ -7,6 +7,7 @@ class C_escribano extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+       // $this->load->model('M_escribano');
     }
 	
 	
@@ -17,6 +18,11 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
+		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
+	//	                      var_dump($minutasRechazadas);
+
+		//var_dump($this->session->userdata('usuario'));
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('home/escri',$data);
@@ -30,10 +36,12 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
+        
+		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
 		$data['exito']= $exito; 
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
-		$data["provincias"] = $this->M_direccion->getProvincias();
 
 		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
@@ -51,8 +59,8 @@ class C_escribano extends CI_Controller {
 			$data['folio'] = $this->input->post('folio');
 			$data['finca'] = $this->input->post('finca');
 			$data['año'] = $this->input->post('año');
-			$data['localidad'] = $this->input->post('localidad');
-			echo $data['localidad'] ;
+			$data['localidades'] = $this->input->post('localidades');
+			$data['departamentos'] = $this->M_escribano->getNombreDepartamento($this->input->post('departamentos'));
 			$data['descripcion'] = $this->input->post('descripcion');
 			$data['nroMatriculaRPI'] = $this->input->post('nroMatriculaRPI');
 			$data['fechaMatriculaRPI'] = $this->input->post('fechaMatriculaRPI');
@@ -73,7 +81,8 @@ class C_escribano extends CI_Controller {
 			$data{'folio'}='';
 			$data{'finca'}='';
 			$data{'año'}='';
-			$data{'localidad'}='';
+			$data{'localidades'}='';
+			$data{'departamentos'}='';
 			$data{'descripcion'}='';
 			$data{'nroMatriculaRPI'}='';
 			$data{'fechaMatriculaRPI'}='';
@@ -87,13 +96,18 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
+	public function datos_relacion(){
+		$this->load->view('templates/cabecera_escribano');
+		$this->load->view('templates/escri_menu');
+		$this->load->view('escribano/datos_relacion');
+		$this->load->view('templates/pie');
+	}
+
 	public function registro_parcela()	{
 
 				$hizo_post=TRUE;	
 
 				 $this->load->helper(array('form', 'url'));
-
-				 $localidad = $this->input->post('localidad');
 
 			    $this->form_validation->set_rules('circunscripcion', 'circunscripcion', 'required',array('required' => 'Debes ingresar una circunscripcion ') );
 
@@ -113,7 +127,7 @@ class C_escribano extends CI_Controller {
 
 			    $this->form_validation->set_rules('partida', 'partida', 'required',array('required' => 'Debes ingresar una partida ') );
 			   
-				 $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
+			    $this->form_validation->set_rules('planoAprobado', 'planoAprobado',  'required',array('required' => 'Debes ingresar un plano aprobado','is_unique'=>'Ya existe un escribano con el nombre de usuario ingresado') );
 
 			    $this->form_validation->set_rules('fechaPlanoAprobado', 'fechaPlanoAprobado', 'required',array('required' => 'Debes ingresar una fecha  ') );
 
@@ -129,9 +143,13 @@ class C_escribano extends CI_Controller {
 
 				$this->form_validation->set_rules('año', 'año', 'required',array('required' => 'Debes ingresar un año ') );
 
-				$this->form_validation->set_rules('localidad','localidad','required|callback_check_localidad');
+				$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
 
-  				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una Localidad');
+  				$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+
+				$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+
+  				$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
 
 				$this->form_validation->set_rules('descripcion', 'descripcion', 'required',array('required' => 'Debes ingresar una descripcion ') );
 
@@ -144,6 +162,7 @@ class C_escribano extends CI_Controller {
 			{	
 				
 				$this->CrearMinuta(FALSE,TRUE);
+
 			}else{
 				$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
 				$query = $this->db->query($sql, array($this->input->post('localidad')));
@@ -180,7 +199,18 @@ class C_escribano extends CI_Controller {
 		
 		}
 
-	function check_localidad($post_string){
+    //verifica que haya seleccionado alguna localidad
+	function check_localidad($post_string){		
+
+		if($post_string==""){
+  			return FALSE;}
+  		else{
+  	   return TRUE;
+    }
+   }
+  
+    //verifica que haya seleccionado algun departamento
+   function check_departamento($post_string){
 		if($post_string==""){
   			return FALSE;}
   		else{
@@ -188,12 +218,20 @@ class C_escribano extends CI_Controller {
     }
    }
 
+  
+    //verifica que haya seleccionado algun tipo de propiedad
    function check_propiedad($post_string){
 		if($post_string==""){
   			return FALSE;}
   		else{
   	   return TRUE;
     }
+   }
+
+    function cargarLocalidades(){
+    	$id_departamento=$this->input->post('id_departamento');
+   		echo json_encode($this->M_escribano->getLocalidades($id_departamento));
+  
    }
 
 		public function departamento()
@@ -235,6 +273,7 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
@@ -298,13 +337,17 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/verUnaMinuta',$data);
 		$this->load->view('templates/pie',$data);
 	}
-		public function verPropietarios()
+
+	public function verPropietarios($param="")
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
+		$data['propietariosAd'] = $this->M_escribano->getPropietarios_porMinuta_Ad($param);
+		$data['propietariosTr'] = $this->M_escribano->getPropietarios_porMinuta_Tr($param);
+		//var_dump($data['propietarios']);
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verPropietarios',$data);

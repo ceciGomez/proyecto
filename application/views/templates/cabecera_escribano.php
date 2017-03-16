@@ -9,7 +9,6 @@
   <!-- Bootstrap 3.3.6 -->
   <link rel="stylesheet" href="<?=base_url()?>assets/bootstrap/css/bootstrap.css">
 
-
    <style type="text/css">
                      .modal-header{
                         background-color:#222d32;
@@ -18,7 +17,18 @@
                         overflow:hidden;
                           }
    </style>
+    <!-- CSS para quitar las flechas de los input number -->
+   <style type="text/css">
+      .form-control{
+      -moz-appearance:textfield;
+        }
 
+      .form-control::-webkit-outer-spin-button,
+      .form-control::-webkit-inner-spin-button {
+      -webkit-appearance: none !important;
+     margin: 0;
+    }
+</style>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
@@ -49,8 +59,6 @@
     <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
 
     <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.min.js"></script>
-
-
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   
@@ -96,7 +104,8 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+                       
                       </div>
                       <h4>
                         Equipo de Soporte
@@ -118,25 +127,34 @@
               <span class="label label-warning">2</span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 2 notificaciones</li>
+              <li class="header">Tiene <?php echo $cantM_rechazadas[0]->cantidadMinutasRechazadas; ?> minutas rechazadas</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-              
-                  <li>
+              <li>
+                  <?php if ($minutasRechazadas != null): ?>
+                    
                     <a href="#">
-                      <i class="fa fa-users text-red"></i> Editar minuta n° 4560
+                      <i class="fa fa-user text-red"></i> Minutas Rechazadas: <br>
+                      <?php 
+                     // var_dump($minutasRechazadas);
+                      foreach ($minutasRechazadas as $value) {
+                        echo $value->id;
+                        echo " - ";
+                        echo $value->motivo;
+                        echo "</br>";
+                      } ?>
                     </a>
                   </li>
+                  <?php endif ?>
                   <li>
-                    <a href="#">
-                      <i class="fa fa-user text-green"></i> La minuta 13245 fue rechazada
-                    </a>
-                  </li>
+                  <?php if ($minutasRechazadas == null): ?>
+                     Sin Minutas Rechazadas <br> </li>
+                  <?php endif ?>
           
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todas las notificaciones</a></li>
+              <!-- <li class="footer"><a href="#">Ver todas las notificaciones</a></li> -->
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
@@ -144,13 +162,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs">  <?php echo  $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
 
                 <p>
                   

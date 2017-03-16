@@ -18,9 +18,11 @@
    <section class="content-body">
       <div class="box box-default">
          <div class="box-header with-border">
-            <h3 class="box-title">Registrar Propietario</h3>
-            <!-- /.box-header -->
-            <div class="form-group">
+            <div class="box-body">
+               <div class="row">
+                 <div class="form-group">
+                   <div class="col-md-3">                   
+                 <label >Tipo propietario</label>
                   <div class="radio">
                     <label>
                       <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" onclick="persona()" checked>
@@ -32,14 +34,32 @@
                       <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="empresa()">
                       Empresa
                     </label>
+                  </div>      
+                   </div>            
+                   <div class="col-md-3">                           
+                 <label >Propietario</label>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="radioAdquiriente" value="option1" >
+                      Adquiriente
+                    </label>
+                  </div>
+                  <div class="radio">
+                    <label>
+                      <input type="radio" name="optionsRadios" id="radioTransmitente" value="option2" >
+                      Transmitente
+                    </label>
                   </div>                 
+                </div>
+                   </div> 
+                   </div>                
                 </div>
             <div class="box-body">
                <div class="row">
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="20">
+                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="100">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
@@ -147,9 +167,8 @@
             </div>
             <div class="box-footer">
              <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Guardar y Registrar Otro Propietario</a>
-              <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>" >Guardar y Registrar Otra Parcela</a>
                <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarMinuta'?>" >Finalizar Minuta</a>
-                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_loginescri" >Cancelar</a>
+                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
          </div>
@@ -226,14 +245,14 @@
     }
    </script>
     <script>
-        $(document).ready(function(){
-        $("#inputTextBox").keypress(function(event){
-        var inputValue = event.charCode;
-        if(!(inputValue >= 65 && inputValue <= 120) && (inputValue != 32 && inputValue != 0)){
-            event.preventDefault();
-        }
-        });
-      });
+        $(document).on('keypress', '#inputTextBox', function (event) {
+         var regex = new RegExp("^[a-zA-Z ]+$");
+          var key = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+            if (!regex.test(key)) {
+           event.preventDefault();
+           return false;
+          }
+       });
     </script>
     <!--Limita campo nombre y apellido a 10 caracteres-->
       <script language="javascript" type="text/javascript">

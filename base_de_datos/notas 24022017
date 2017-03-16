@@ -1,15 +1,15 @@
-Ver Minutas:
-agregar tooltips en verMinutas para: ver, editar, verPropietarios, imprimir
-estados pendientes --> no puede editarse por el escribano.
+﻿Ver Minutas:
+agregar tooltips en verMinutas para: ver, editar, verPropietarios, imprimir  ==>> LISTO!
+estados pendientes --> no puede editarse por el escribano. ==> LISTO
 
 Registración:
-	tomo: no acepta nro negativos
-	Año: acepta texto (no deberia) --> cambiar a tipo entero. No puede ser superior al año actual.
+	
+	Año:  No puede ser superior al año actual.
 	Que pase a minuscula los apellidos y nombres.
 	No acepta letra Z en campo nomyap de propietario --> letras que no acepta --> ver conyuge
-	cambiar el tamaño del campo a por lo menos 60. 20 es poco
+	
 
-	Cuit no anda.
+	
 	Chequear los porcentajes en propietarios --> no hace faltaa por que se puede vender menos que el 100%
 
 	No cargo minuta. --> despues cargo pero sobreescribio una que ya existia.
@@ -17,7 +17,7 @@ Registración:
 
 	Matricula debe ser numérica, esta aceptando letras actualmente.
 
-Propietarios: generar tabla de propietarios idexada por dni y buscar por dni antes de la insercion
+Propietarios: generar tabla de propietarios idexada por dni y buscar por dni antes de la insercion -->HECHO
 	--> cambiar sirmi_x_ever <---
 	Buscar base de datos nacional de personas y utilizar esa, darle la opcion de modifcar los datos al escribano.
 

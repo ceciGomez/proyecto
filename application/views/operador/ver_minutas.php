@@ -18,7 +18,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
+        <section >
          
 
           <!-- TO DO List -->
@@ -26,33 +26,29 @@
             <div class="box-header">
 
               <h3 class="box-title">Lista de Minutas</h3>
-
-              
-                <div class="form-group">
+                 <div class="box-body">
+                  <div class="form-group">   
                        <label>Filtrar Minutas por :</label>
                        <br>
-
+                        <div class="col-md-3">
                         <label>Fecha Ingreso :</label>
-                      <input type='text' value='' class='filter' data-column-index='0'> 
-                
-                                      
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='0'> 
+                        </div>
+                        <div class="col-md-3">              
                         <label>Fecha Edición :</label>
-                        <input type='text' value='' class='filter' data-column-index='1'>
-                   
-                
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='1'>
+                        </div>
+                        <div class="col-md-3">
                         <label>Escribano :</label>
-                        <input type='text' value='' class='filter' data-column-index='2'>
-                  
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='2'>
+                        </div>
+                        <div class="col-md-3">
                         <label>Matricula :</label>
-                        <input type='text' value='' class='filter' data-column-index='3'> 
-
-
-
-                  
+                        <input type='text' value='' class='form-control input-sm filter' data-column-index='3'>                        
+                          </div>                       
+                    </div>
                   </div>
-                </form>
-
-
+            
                 <div class="box-body table-responsive no-padding"> 
                   <table id="min" class="table-bordered" style="display: none" >
                         <thead>
@@ -78,19 +74,14 @@
                           <tr>
                             <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$date_formated2"; ?></td>
-                           <td>  <?php  echo "$mi->nomyap".'  '; ?> <button type="button"  class="btn btn-primary"  data-toggle="modal" onclick="ventana_escribano(<?php echo "$mi->idEscribano"; ?>)" href="#Escribano"> Ver</button></td></td>
+                           <td>  <?php  echo "$mi->nomyap".'  '; ?> <button type="button"  class="btn btn-primary"  data-toggle="modal" onclick="ventana_escribano(<?php echo "$mi->idEscribano"; ?>)" href="#Escribano"> Ver</button></td>
                             <td>  <?php  echo "$mi->matricula"; ?></td>
                              <td>
                              <button type="button"  class="btn btn-warning"  data-toggle="modal" onclick="ventana_det(<?php echo "$mi->idMinuta"; ?>)" href="#Detalles"> Detalles</button>
                             <button type="button"  class="btn btn-success"  data-toggle="modal" onclick="ventana_estados(<?php echo "$mi->idMinuta"; ?>)" href="#Estados"> Estados</button>
                              
 
-                            </td>
-                            
-                            
-
-
-                          
+                            </td>                                             
                           
                            
                           </tr>
@@ -102,7 +93,7 @@
                         </tbody>
                  </table>
                  </div>
-                         <div class="modal" id="Escribano">
+                <div class="modal" id="Escribano">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                  <div class="modal-header">
@@ -134,18 +125,15 @@
                                  </div>
                               </div>
                             </div>
-                          </div>
-
-        
-                         <div class="modal" id="Detalles">
+                   </div>        
+                   <div class="modal" id="Detalles">
                             <div class="modal-dialog modal-lg">
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
                                   <h3 class="modal-title" style="color:white" >Detalles de Minuta</h3>
                                  </div>
-                                 <div class="modal-body" id="det" >
-                                           
+                                 <div class="modal-body" id="det" >                                          
                                      </div>
 
                                  <div class="modal-footer">
@@ -153,7 +141,7 @@
                                  </div>
                               </div>
                             </div>
-                          </div>
+                      </div>
 
                          
                  <div class="modal" id="Estados">
@@ -164,7 +152,7 @@
                           <h3 class="modal-title" style="color:white" >Aceptar Minuta</h3>
                          </div>
                          <div class="modal-body">
-                         <label><h3>Estados de la Minuta</label></h3>
+                         <label><h3>Estados de la Minuta</h3></label>
                                <br>
                                <br>
                                <table class="table"  >
@@ -192,8 +180,7 @@
 
 
                       
-                  <script type="text/javascript">
-            
+                  <script type="text/javascript">           
                    
 
                    $(document).ready(function(){
@@ -242,16 +229,11 @@
                       //quitar el campo de busqueda por defecto
                       document.getElementById('min_filter').style.display='none';
 
-                       $( "#min" ).show();
-                  
-
-
+                       $( "#min" ).show();                
 
                       var dtable2=$('#estados_mim').DataTable(
                         {
                            autoWidht:false,
-
-
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Estados",
@@ -279,7 +261,7 @@
                       function ventana_escribano( idEscribano){
                     $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_esc").html(data);
-            });
+                      });
                         }
 
                     function ventana_det(idMinuta){
@@ -292,24 +274,13 @@
                       $("#estados_min").html(data);
                       $("#minuta").html(idMinuta);
             });
-                  }
-                  
+                  }              
 
-
-             
-                  
-
-
-                
-                  
-         </script>
-
-           
+           </script>           
+        
+          <!-- /.box -->       
           </div>
-          <!-- /.box -->
-
-       
-
+            </div>
         </section>
         <!-- /.Left col -->
       
