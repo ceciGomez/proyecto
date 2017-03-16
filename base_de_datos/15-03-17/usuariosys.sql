@@ -52,7 +52,7 @@ INSERT INTO `usuariosys` (`idUsuario`, `nomyap`, `usuario`, `contraseña`, `fech
 (3, 'Ana Medina', 'amedina', 'c2219aefa93c5d46c81f1f739ff06f9dd0637664', '2017-02-22 03:14:07', 12558878, 303457, 'Monteagudo 23', 'amedina@hotmail.com', 3, 'A', 'user.png', '1'),
 (4, 'operador', 'operador', '9d24de3ac7b5fbbe776a6d90fe25a7e3c74a29cc', '2017-02-22 03:14:07', 36737373, 7373737, 'chaco 171', 'operador@gmail.com', 1, 'O', 'user.png', '0'),
 (5, 'admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2017-02-22 03:14:07', 28288828, 227227, 'chaco 8282', 'administrador@gmail.com', 1, 'A', 'user.png', '0'),
-(6, 'pablo aranda', 'paranda', 'paranda', '0000-00-00 00:00:00', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', 'user.png', '0'),
+(6, 'pablo aranda', 'paranda', 'paranda', '2017-01-01 00:00:00', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', 'user.png', '0'),
 (7, 'pablo aranda2', 'paranda2', 'paranda2', '2017-02-25 00:25:15', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', 'user.png', '0');
 
 --
