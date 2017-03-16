@@ -196,6 +196,36 @@
                         }
                         ?>
                   </li>
+
+                  <li>
+                     <?php if(count($notificaciones_si)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_operador/buscar_si'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
+                          echo "<i class='fa fa-users text-red'></i> ";
+                         echo" Tiene ". count($notificaciones_si). "solicitudes de información pendientes de revisión";
+
+                         ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        else
+                        {
+                          foreach ($notificaciones_si as $si) {?>
+                          <?=form_open(base_url().'index.php/c_operador/buscar_si'); ?>
+                            <?php 
+                             echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
+                             echo "<input  type='hidden' name='idPedido' value='$si->idPedido'>";
+                               echo "<i class='fa fa-users text-red'></i> ";
+                             echo" La solicitud de Información $si->idPedido esta pendiente de revisión";
+  ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
+                  </li>
+          
           
                 </ul>
               </li>

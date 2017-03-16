@@ -441,12 +441,6 @@ class C_operador extends CI_Controller {
 
 	}
 
-		public function notificaciones_si(){
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "P"); 
-                        return( $this->db->get()->result()); 
-
-	}
 	//en caso de que haga click en las notificaciones guarda los id y el estado para que aparezca la tabla filtrada por
 	public function buscar_esc_p_x_dni(){
 			if ($_POST["dniEscribano"]==null) {
@@ -485,6 +479,63 @@ class C_operador extends CI_Controller {
 				$escribano=  $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
 				echo $escribano->motivoRechazo;
 
+	}
+
+
+	 public function gestionarPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/gestionarPedidos',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function notificaciones_si(){
+						$this->db->from('pedidos');
+                         $this->db->where('estadoPedido', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
+	public function buscar_si(){
+			if ($_POST["idPedido"]==null) {
+				$idPedido="";
+			}else
+			{
+				$idPedido=$_POST["idPedido"];
+			};
+			$noti_si=array("idPedido"=>$idPedida,"estadoPedido"=>"P");
+		   $this->session->set_flashdata('noti_si',$noti_si); 
+		    redirect(base_url().'index.php/c_operador/gestionarPedidos');
+	}
+
+
+	public function contestar_pedido (){
+		$idPedido=$_POST["idPedido"];
+			$rtaPedido=$_POST["rtaPedido"];
+      		$data = array(
+               'rtaPedido' => $rtaPedido,
+                'estadoPedido'=>"C"
+              
+            );
+
+		$this->db->where('idPedido', $idPedido);
+		$this->db->update('pedidos', $data); 
 	}
 
 }
