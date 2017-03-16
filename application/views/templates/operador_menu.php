@@ -30,7 +30,7 @@
         
               
         <li class="treeview">
-            <li><a  href="<?=base_url()?>index.php/c_operador/gestionarEscribanos"><i class="fa fa-circle-o"></i> Gestionar Operadores</a></li>
+            <li><a  href="<?=base_url()?>index.php/c_operador/gestionarEscribanos"><i class="fa fa-circle-o"></i> Gestionar Escribanos</a></li>
           
         </li>
 
@@ -45,7 +45,7 @@
          <li class="treeview">
          
          
-            <li><a href=""><i class="fa fa-circle-o"></i> Gestionar Solicitudes de Información</a></li>
+            <li><a href="<?=base_url()?>index.php/c_operador/gestionarPedidos"><i class="fa fa-circle-o"></i> Gestionar Pedidos </a></li>
            
             
          

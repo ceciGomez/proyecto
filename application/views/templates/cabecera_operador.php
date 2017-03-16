@@ -22,7 +22,7 @@
    <style type="text/css">
      
      #escribanos {
-  width:1800px;
+  width:2000px;
 }
    #operadores {
   width:1400px;
@@ -98,29 +98,46 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">1</span>
+              <span class="label label-success"><?php echo count($notificaciones_si);?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 1 mensajes</li>
+              <li class="header">Tiene <?php echo count($notificaciones_si);?> pedidos</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Equipo de Soporte
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Revisar minutas pendientes</p>
-                    </a>
+                 
+                  <li>
+                     <?php if(count($notificaciones_si)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_operador/buscar_si'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
+                          echo "<i class='fa fa-users text-red'></i> ";
+                         echo" Tiene ". count($notificaciones_si). "solicitudes de información pendientes de revisión";
+
+                         ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        else
+                        {
+                          foreach ($notificaciones_si as $si) {?>
+                          <?=form_open(base_url().'index.php/c_operador/buscar_si'); ?>
+                            <?php 
+                             echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
+                             echo "<input  type='hidden' name='idPedido' value='$si->idPedido'>";
+                               echo "<i class='fa fa-users text-red'></i> ";
+                             echo" La solicitud de Información $si->idPedido esta pendiente de revisión";
+  ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
                   </li>
+          
                   <!-- end message -->
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todos los mensajes</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
@@ -196,10 +213,10 @@
                         }
                         ?>
                   </li>
+
           
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todas las notificaciones</a></li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->

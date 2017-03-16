@@ -3,10 +3,13 @@ require('fpdf.php');
 require('conexionRepor.php');
 
 $usuarioQuery = "select u.nomyap as nombre
-                from usuariosescribano u 
-                where u.idEscribano = '".$_GET['idEscribano']."'
+                from usuarioescribano u 
+                where u.idEscribano = '".$_GET['idUsuario']."'
                 ";
 $usuario = mysqli_query($conexion,$usuarioQuery);
+if($usuario === FALSE) { 
+        die(mysqli_error($conexion)); // better error handling
+    }
 $nomyap = mysqli_fetch_assoc($usuario);
 $nomyap = $nomyap['nombre'];
 $GLOBALS['nomyap'] = $nomyap;
@@ -17,7 +20,7 @@ class PDF extends FPDF
 function Header()
 {
     // Logo
-    $this->Image('logo.png',10,8,33);
+    $this->Image('exito.png',10,8,33);
     // Arial bold 15
     $this->SetFont('Arial','B',15);
     // Movernos a la derecha
@@ -35,7 +38,7 @@ function Header()
     //setea fuente de titulo
     $this->SetFont('Arial','B',15);
     $this->SetFont('','U');
-    $this->Cell(100,10,'Lista de Minutas desde: '.$this->sanitizarFechaF($_GET['fechaInicio']).' Fecha hasta: '.$this->sanitizarFechaF($_GET['fechaFin']),0,0,'C');
+    $this->Cell(100,10,'Lista de Minutas desde: '.$this->sanitizarFechaF($_GET['fechaInicio']).' hasta: '.$this->sanitizarFechaF($_GET['fechaFin']),0,0,'C');
     $this->SetFont('','');
     // Salto de línea
     $this->Ln(15);
@@ -67,6 +70,7 @@ public function sanitizarFechaF($fecha)
 }
 
 // Creación del objeto de la clase heredada
+ob_start();
 $pdf = new PDF();
 $pdf->AliasNbPages();
 $pdf->AddPage();
@@ -74,53 +78,54 @@ $pdf->AddPage();
 //cabecera de tabla
 $pdf->SetFont('Times','B',8);
 $pdf->Cell(17,8,'',0,0,'C');
-$pdf->Cell(15,8,'Nro Minuta',1,0,'C');
-$pdf->Cell(30,8,'Fecha Ingreso',1,0,'C');
+$pdf->Cell(10,8,'Minuta',1,0,'C');
+$pdf->Cell(17,8,'F. Ingreso',1,0,'C');
 
-$pdf->Cell(17,8,'Estado',1,0,'C');
-$pdf->Cell(20,8,'Fecha Estado',1,0,'C');
-$pdf->Cell(27,8,'Nro de Plano',1,0,'C');
+$pdf->Cell(12,8,'Estado',1,0,'C');
+$pdf->Cell(17,8,'F. Estado',1,0,'C');
+$pdf->Cell(17,8,'Nro de Plano',1,0,'C');
 //$pdf->Cell(23,8,'Donaciones(Und.)',1,0,'C');
-$pdf->Cell(22,8,'Nomenclatura Catastral',1,0,'C');
-$pdf->Cell(22,8,'Plano Aprobado',1,0,'C');
-$pdf->Cell(22,8,'Localidad',1,0,'C');
+$pdf->Cell(35,8,'Nomenclatura Catastral',1,0,'C');
+$pdf->Cell(19,8,'Matricula RPI',1,0,'C');
+$pdf->Cell(24,8,'Localidad',1,0,'C');
 $pdf->Ln(8);
 $pdf->SetFont('Times','',8);
 //fin cabecera de tabla
 
 
 $consulta = mysqli_query($conexion,"
-	(SELECT m.idMinuta as idMinuta, e.estadoMinuta as estadoMinuta,
-	 e.motivoRechazo, ue.idEscribano,
-	concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
-				
-	concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
-				p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela as parcela, p.nroMatriculaRPI as nroMatriculaRPI, p.planoAprobado as planoAprobado,
-				l.nombre as localidad
-						
-						from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
-						inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
-						inner join parcela p on p.idMinuta = m.idMinuta
-						inner join localidad l on l.idLocalidad = p.idLocalidad 
-						where ue.idEscribano = '$idEscribano'
-						and cast(m.fechaIngresoSys as DATE) between '$fechaDesde' and '$fechaHasta'                   
-					    and e.fechaEstado = (SELECT MAX(ee.fechaEstado) 
-					    						from estadominuta ee 
-					    						where  m.idMinuta = ee.idMinuta )  
-					ORDER BY `e`.`estadoMinuta` ASC, m.idMinuta ASC");
+    SELECT m.idMinuta as idMinuta, e.estadoMinuta as estadoMinuta,
+     e.motivoRechazo, ue.idEscribano,
+    concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
+                
+    concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
+                p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela as parcela, p.nroMatriculaRPI as nroMatriculaRPI, p.planoAprobado as planoAprobado,
+                l.nombre as localidad
+                        
+                        from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
+                        inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
+                        inner join parcela p on p.idMinuta = m.idMinuta
+                        inner join localidad l on l.idLocalidad = p.idLocalidad 
+                        where ue.idEscribano = '".$_GET['idUsuario']."'
+                        and cast(m.fechaIngresoSys as DATE) between '".$_GET['fechaInicio']."' and '".$_GET['fechaFin']."'                   
+                        and e.fechaEstado = (SELECT MAX(ee.fechaEstado) 
+                                                from estadominuta ee 
+                                                where  m.idMinuta = ee.idMinuta )  
+                    ORDER BY `e`.`estadoMinuta` ASC, m.idMinuta ASC");
 
 
 
 while($fila = mysqli_fetch_array($consulta)){
     $pdf->Cell(17,8,'',0,0,'C');
-    $pdf->Cell(15,8,$fila['idMinuta'],1,0,'C');
+    $pdf->Cell(10,8,$fila['idMinuta'],1,0,'C');
     $pdf->Cell(17,8,$fila['fechaIngresoSys'],1,0,'C');
-    $pdf->Cell(30,8,$fila['estadoMinuta'],1,0);
+    $pdf->Cell(12,8,$fila['estadoMinuta'],1,0, 'C');
     
-    $pdf->Cell(20,8,$fila['fechaEstado'],1,0,'C');
-    $pdf->Cell(22,8,$fila['parcela'],1,0,'C');
-    $pdf->Cell(22,8,$fila['planoAprobado'],1,0,'C');
-    $pdf->Cell(22,8,$fila['nroMatriculaRPI'],1,0,'C');
+    $pdf->Cell(17,8,$fila['fechaEstado'],1,0,'C');
+    $pdf->Cell(17,8,$fila['planoAprobado'],1,0,'C');
+    $pdf->Cell(35,8,$fila['parcela'],1,0,'C');
+    $pdf->Cell(19,8,$fila['nroMatriculaRPI'],1,0,'C');
+    $pdf->Cell(24,8,$fila['localidad'],1,0,'C');
     $pdf->Ln(8);
     
 }

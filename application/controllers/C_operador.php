@@ -18,6 +18,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$data['titulo'] = 'Bienvenido Operador';
 
 		$this->load->view('templates/cabecera_operador',$data);
@@ -36,6 +38,8 @@ class C_operador extends CI_Controller {
 		
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$this->load->model('M_operador');
 		$data["escribanos"] = $this->M_operador->getEscribanos();
 
@@ -61,6 +65,8 @@ class C_operador extends CI_Controller {
 
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$data['titulo'] = 'Bienvenido Operador';
 		$esc=$this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
 		$data["escribano"] =$esc;
@@ -79,6 +85,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$idEscribano = $this->input->post("idEscribano");
 
 		$hizo_post=TRUE;	
@@ -168,9 +176,11 @@ class C_operador extends CI_Controller {
                          }
       public function aceptar_esc(){
       	$idEscribano=$_POST["idEscribano"];
+      	$idUsuario=$_POST["idUsuario"];
       		$data = array(
                'estadoAprobacion' => "A",
-                'baja' => "0"
+                'baja' => "0",
+               	'idUsuario'=>$idUsuario
               
             );
 
@@ -181,9 +191,12 @@ class C_operador extends CI_Controller {
       public function rechazar_esc(){
       		$idEscribano=$_POST["idEscribano"];
       		$motivoRechazo=$_POST["motivoRechazo"];
+      		$idUsuario=$_POST["idUsuario"];
+
       		$data = array(
                'estadoAprobacion' => "R",
-              	'motivoRechazo' =>"$motivoRechazo"
+              	'motivoRechazo' =>"$motivoRechazo",
+              	'idUsuario'=>$idUsuario
             );
 
 		$this->db->where('idEscribano', $idEscribano);
@@ -195,6 +208,7 @@ class C_operador extends CI_Controller {
       	$idEscribano=$_POST["idEscribano"];
       		$data = array(
                'baja' => "1",
+
               
             );
 
@@ -287,13 +301,15 @@ class C_operador extends CI_Controller {
 		  public function rechazar_min	(){
 		      		$idEstadoMinuta=$_POST["idEstadoMinuta"];
 		      		$motivoRechazo=$_POST["motivoRechazo"];
+		      		$idUsuario=$_POST["idUsuario"];
 		      		$datetime_variable = new DateTime();
 					$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 		      		$data = array(
 		               'estadoMinuta' => "R",
 		              	'motivoRechazo' =>"$motivoRechazo",
 		              	'idUsuario'=>$this->session->userdata('idUsuario'),
-		              	'fechaEstado'=> $datetime_formatted 
+		              	'fechaEstado'=> $datetime_formatted ,	
+		              	'idUsuario'=>$idUsuario
 		            );
 
 				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
@@ -303,13 +319,15 @@ class C_operador extends CI_Controller {
 
 		   public function aceptar_min(){
 				$idEstadoMinuta=$_POST["idEstadoMinuta"];
+				$idUsuario=$_POST["idUsuario"];
 				$datetime_variable = new DateTime();
 				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 		      		$data = array(
 		               'estadoMinuta' => "A",
 			           	'idUsuario'=>$this->session->userdata('idUsuario'),
-			           	'fechaEstado'=> $datetime_formatted 
-		              
+			           	'fechaEstado'=> $datetime_formatted ,
+		             	'idUsuario'=>$idUsuario
+
 		            );
 
 				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
@@ -325,6 +343,8 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+
 		$this->db->select('*');
 		$this->db->from('minuta');
 		
@@ -441,12 +461,6 @@ class C_operador extends CI_Controller {
 
 	}
 
-		public function notificaciones_si(){
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "P"); 
-                        return( $this->db->get()->result()); 
-
-	}
 	//en caso de que haga click en las notificaciones guarda los id y el estado para que aparezca la tabla filtrada por
 	public function buscar_esc_p_x_dni(){
 			if ($_POST["dniEscribano"]==null) {
@@ -485,6 +499,68 @@ class C_operador extends CI_Controller {
 				$escribano=  $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
 				echo $escribano->motivoRechazo;
 
+	}
+
+
+	 public function gestionarPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
+
+
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/gestionarPedidos',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function notificaciones_si(){
+						$this->db->from('pedidos');
+                         $this->db->where('estadoPedido', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
+	public function buscar_si(){
+			if ($_POST["idPedido"]==null) {
+				$idPedido="";
+			}else
+			{
+				$idPedido=$_POST["idPedido"];
+			};
+			$noti_si=array("idPedido"=>$idPedido,"estadoPedido"=>"P");
+		   $this->session->set_flashdata('noti_si',$noti_si); 
+		    redirect(base_url().'index.php/c_operador/gestionarPedidos');
+	}
+
+
+	public function contestar_pedido (){
+			$idPedido=$_POST["idPedido"];
+			$rtaPedido=$_POST["rtaPedido"];
+			$idUsuario=$_POST["idUsuario"];
+      		$data = array(
+               'rtaPedido' => $rtaPedido,
+                'estadoPedido'=>"C",
+                'idUsuario'=>$idUsuario
+            );
+
+		$this->db->where('idPedido', $idPedido);
+		$this->db->update('pedidos', $data); 
 	}
 
 }

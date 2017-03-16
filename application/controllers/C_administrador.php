@@ -387,9 +387,12 @@ class C_administrador extends CI_Controller {
                          }
       public function aceptar_esc(){
       	$idEscribano=$_POST["idEscribano"];
+      	$idUsuario=$_POST["idUsuario"];
+
       		$data = array(
                'estadoAprobacion' => "A",
-                'baja' => "0"
+                'baja' => "0",
+                'idUsuario'=>$idUsuario
               
             );
 
@@ -400,9 +403,11 @@ class C_administrador extends CI_Controller {
       public function rechazar_esc(){
       		$idEscribano=$_POST["idEscribano"];
       		$motivoRechazo=$_POST["motivoRechazo"];
+      		$idUsuario=$_POST["idUsuario"];
       		$data = array(
                'estadoAprobacion' => "R",
-              	'motivoRechazo' =>"$motivoRechazo"
+              	'motivoRechazo' =>"$motivoRechazo",
+              	'idUsuario'=>$idUsuario
             );
 
 		$this->db->where('idEscribano', $idEscribano);
@@ -506,13 +511,15 @@ class C_administrador extends CI_Controller {
 		  public function rechazar_min	(){
 		      		$idEstadoMinuta=$_POST["idEstadoMinuta"];
 		      		$motivoRechazo=$_POST["motivoRechazo"];
+		      		$idUsuario=$_POST["idUsuario"];
 		      		$datetime_variable = new DateTime();
 					$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 		      		$data = array(
 		               'estadoMinuta' => "R",
 		              	'motivoRechazo' =>"$motivoRechazo",
 		              	'idUsuario'=>$this->session->userdata('idUsuario'),
-		              	'fechaEstado'=> $datetime_formatted 
+		              	'fechaEstado'=> $datetime_formatted ,
+		              	'idUsuario'=>$idUsuario
 		            );
 
 				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
@@ -524,11 +531,12 @@ class C_administrador extends CI_Controller {
 				$idEstadoMinuta=$_POST["idEstadoMinuta"];
 				$datetime_variable = new DateTime();
 				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+				$idUsuario=$_POST["idUsuario"];
 		      		$data = array(
 		               'estadoMinuta' => "A",
 			           	'idUsuario'=>$this->session->userdata('idUsuario'),
-			           	'fechaEstado'=> $datetime_formatted 
-		              
+			           	'fechaEstado'=> $datetime_formatted ,
+		              	'idUsuario'=>$idUsuario
 		            );
 
 				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
