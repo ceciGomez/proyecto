@@ -130,9 +130,12 @@
             </div>
          </div>
       <div class="row col-sm-12 pull-right">
-<a href="http://localhost/proyecto/reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
+ <a href="http://localhost/proyecto/reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
 <span>Imprimir Reporte</span></i></a>
 
+<!-- <a href="<?php echo base_url()?>reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
+<span>Imprimir Reporte</span></i></a>
+ -->
   </div>
       </div>
    <!-- /.row -->
