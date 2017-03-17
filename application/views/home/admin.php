@@ -2,61 +2,35 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    
-
-    <!-- Main content -->
-    <section class="content">
-    
-      <!-- Main row -->
+<section class="content">
+   <!-- Main row -->
+   
       <div class="row">
-            <div class="box-body">
-             <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-user"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Gestionar Operadores</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/gestionarOperadores"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-user"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Gestionar Escribanos</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/gestionarEscribanos"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-plus"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Crear Operador</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/crearOperador"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-book"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Gestionar Minutas</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/gestionarMinutas"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>              
-            </div>
-            <!-- /.box -->
-      </section>
-      <!-- /.Left col -->
-      </div>
-      <!-- /.row (main row) -->
-</section>
-      
-      </div>
-      <!-- /.row (main row) -->
+        <div class="col-md-12">
 
-    </section>
-    <!-- /.content -->
+          <!-- Profile Image -->
+          <div class="box box-primary">
+            <div class="box-body box-profile">
+               <h3 class="profile-username text-center">BIENVENIDO A SIRMI</h3>
+              <img class="profile-user-img img-responsive img-circle" src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" alt="User profile picture">
+
+              <h3 class="profile-username text-center"><?php echo $this->session->userdata('nomyap') ?></h3>
+
+              <p class="text-muted text-center"><?php echo $this->session->userdata('perfil') ?></p>
+              
+            </div>
+            <!-- /.box-body -->
+          </div>
+          <!-- /.box -->
+
+         
+          
+        </div>
+        <!-- /.col -->
+    
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+</section>
   </div>
   <!-- /.content-wrapper -->
