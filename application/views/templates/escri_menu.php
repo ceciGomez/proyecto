@@ -48,6 +48,23 @@
             </ul>
 
          </li>
+          <li class="treeview">
+            <a href="#">
+            <i class="fa fa-edit"></i> <span>Gestionar Pedidos</span>
+            <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+            <ul class="treeview-menu">
+               <!--  <li><a href="<?=base_url()?>index.php/c_escribano/index"><i class="fa fa-circle-o"></i> Cargar Minutas</a></li>
+                  <li><a href="#"><i class="fa fa-circle-o"></i> Editar Minutas</a></li> -->
+               <li><a href="<?=base_url()?>index.php/c_escribano/verPedidos"><i class="fa fa-circle-o"></i> Ver Pedidos </a></li>
+               
+               <li><a href="<?=base_url().'index.php/c_escribano/nuevoPedido'?>"><i class="fa fa-circle-o"></i> Nueva Pedido</a></li>
+
+            </ul>
+
+         </li>
          <li class="treeview">
             <a href="#">
             <i class="fa fa-edit"></i> <span>Reportes</span>

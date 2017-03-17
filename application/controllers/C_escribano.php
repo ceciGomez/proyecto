@@ -371,4 +371,69 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/imprimirMinuta',$data);
 		//$this->load->view('templates/pie',$data);
 	}
+
+	public function nuevoPedido($exito=FALSE, $hizo_post=FALSE){
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+	
+		$data['titulo'] = 'Bienvenido escribano';
+
+
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/nuevoPedido',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+	public function crearPedido($exito=FALSE, $hizo_post=FALSE){
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+	
+		$data['titulo'] = 'Bienvenido escribano';
+		$descripcion=$_POST['pedido'];
+		$idEscribano=$_POST['idEscribano'];
+			$datetime_variable = new DateTime();
+			$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+			$datos_usuarios= array (
+			'idEscribano' => $idEscribano,
+			'descripcion' => $descripcion,	
+			'fechaPedido' =>$datetime_formatted,	
+			'estadoPedido' =>'P'  );	
+			$this->db->insert("pedidos", $datos_usuarios);
+
+		
+		
+
+	}
+	 public function verPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_escribano_login');
+		}
+		$idEscribano=$this->session->userdata('idEscribano');
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
+
+		$this->db->where('idEscribano', $idEscribano);
+
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Escribano';
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/verPedidos',$data);
+		$this->load->view('templates/pie',$data);
+	}
 }
