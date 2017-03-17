@@ -108,6 +108,7 @@
                             <th>Teléfono</th>
                             <th>Dirección</th>
                            <th>Localidad</th>
+                            <th>Operador</th>
                           
 
 
@@ -129,9 +130,9 @@
                               <?php  
                                 if($es ->estadoAprobacion=='P'){
                                   ?>
-                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" onclick="ventana_acep(<?php echo $es->idEscribano?>)" ><i  class="fa fa-check" title="Aceptar Escribano " ></i></button></a>
+                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Aceptar" onclick="ventana_acep(<?php echo $es->idEscribano?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i  class="fa fa-check" title="Aceptar Escribano " ></i></button></a>
 
-                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar Escribano" onclick="ventana_rech(<?php echo $es->idEscribano; ?>)" ><i class="fa fa-times"></i></button></a>
+                                    <a class="btn btn-sm " > <button class="btn btn-danger" data-toggle="modal" href="#Rechazar" title="Rechazar Escribano" onclick="ventana_rech(<?php echo $es->idEscribano; ?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i class="fa fa-times"></i></button></a>
 
                                   <?php  
                                 };
@@ -161,7 +162,12 @@
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($localidad==null) echo "";else echo "$localidad->nombre"; ?></td>
                            
-                        
+                           <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($es->idUsuario==null) echo "";else {
+                            $this->db->from('usuariosys');
+                         $this->db->where('idUsuario', $es->idUsuario); 
+                         $usuario= $this->db->get()->row();
+
+                           echo "$usuario->nomyap";} ?></td>
                            
                           </tr>
 
@@ -388,17 +394,18 @@
                      
 
                     idEsc='';
-
-                         function ventana_acep( idEscribano){
+                    idUsr='';
+                         function ventana_acep( idEscribano,idUsuario){
                     idEsc=idEscribano;
-                    
+                    idUsr=idUsuario;
                     $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_acep").html(data);
             });
                   }
 
-                  function ventana_rech( idEscribano){
+                  function ventana_rech( idEscribano,idUsuario){
                     idEsc=idEscribano;
+                     idUsr=idUsuario;
                     $.post("<?=base_url()?>index.php/c_operador/detalles_esc",{idEscribano:idEscribano}, function(data){
                       $("#det_rech").html(data);
             });
@@ -412,7 +419,7 @@
                   }
 
                    function aceptar( ){
-                    $.post("<?=base_url()?>index.php/c_operador/aceptar_esc",{idEscribano:idEsc}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/aceptar_esc",{idEscribano:idEsc,idUsuario:idUsr}, function(data){
                      
             });
                   }
@@ -421,7 +428,7 @@
                    function rechazar( ){
                      var motivoRechazo=document.getElementById('motivoRechazo').value;
                     
-                    $.post("<?=base_url()?>index.php/c_operador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo}, function(data){
+                    $.post("<?=base_url()?>index.php/c_operador/rechazar_esc",{idEscribano:idEsc,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                       
             });
                   }

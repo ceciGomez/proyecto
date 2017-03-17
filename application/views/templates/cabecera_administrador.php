@@ -22,7 +22,7 @@
    <style type="text/css">
      
      #escribanos {
-  width:1800px;
+  width:2000px;
 }
    #operadores {
   width:1400px;
@@ -95,34 +95,7 @@
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
           <!-- Messages: style can be found in dropdown.less-->
-          <li class="dropdown messages-menu">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">1</span>
-            </a>
-            <ul class="dropdown-menu">
-              <li class="header">Tiene 1 mensajes</li>
-              <li>
-                <!-- inner menu: contains the actual data -->
-                <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
-                      </div>
-                      <h4>
-                        Equipo de Soporte
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Revisar minutas pendientes</p>
-                    </a>
-                  </li>
-                  <!-- end message -->
-                </ul>
-              </li>
-              <li class="footer"><a href="#">Ver todos los mensajes</a></li>
-            </ul>
-          </li>
+       
           <!-- Notifications: style can be found in dropdown.less -->
           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -141,7 +114,7 @@
                         <?=form_open(base_url().'index.php/c_administrador/buscar_min_p_x_id'); ?>
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'/>";
-                          echo "<i class='fa fa-users text-red'></i> ";
+                          echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
                          echo" Tiene ". count($notificaciones_mp)." minutas pendientes de revisión";
                            ?>
                            <?=form_close()?>
@@ -156,8 +129,8 @@
                              echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'' />";
                              echo "<input  type='hidden' name='idMinuta' value='$mp->idMinuta'>";
 
-                             echo "<i class='fa fa-users text-red'></i> ";
-                             echo" La minuta $mp->idMinuta esta pendiente de revisión";
+                             echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
+                             echo" La minuta número $mp->idMinuta esta pendiente de revisión";
                            
                               ?>
                              <?=form_close()?>
@@ -173,7 +146,7 @@
                         <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_dni'); ?>
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
-                          echo "<i class='fa fa-users text-red'></i> ";
+                          echo "<i  class='fa fa-users text-green'></i> ";
                          echo" Tiene ". count($notificaciones_ep). "registraciones de escribanos pendientes de revisión";
 
                          ?>
@@ -187,7 +160,7 @@
                             <?php 
                              echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
                              echo "<input  type='hidden' name='dniEscribano' value='$ep->dni'>";
-                               echo "<i class='fa fa-users text-red'></i> ";
+                               echo "<i  class='fa fa-users text-green'></i> ";
                              echo" La registración del escribano $ep->usuario esta pendiente de revisión";
   ?>
                              <?=form_close()?>
