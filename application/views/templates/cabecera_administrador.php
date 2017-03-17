@@ -114,7 +114,7 @@
                         <?=form_open(base_url().'index.php/c_administrador/buscar_min_p_x_id'); ?>
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'/>";
-                          echo "<i class='fa fa-users text-red'></i> ";
+                          echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
                          echo" Tiene ". count($notificaciones_mp)." minutas pendientes de revisión";
                            ?>
                            <?=form_close()?>
@@ -129,8 +129,8 @@
                              echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'' />";
                              echo "<input  type='hidden' name='idMinuta' value='$mp->idMinuta'>";
 
-                             echo "<i class='fa fa-users text-red'></i> ";
-                             echo" La minuta $mp->idMinuta esta pendiente de revisión";
+                             echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
+                             echo" La minuta número $mp->idMinuta esta pendiente de revisión";
                            
                               ?>
                              <?=form_close()?>
@@ -146,7 +146,7 @@
                         <?=form_open(base_url().'index.php/c_administrador/buscar_esc_p_x_dni'); ?>
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
-                          echo "<i class='fa fa-users text-red'></i> ";
+                          echo "<i  class='fa fa-users text-green'></i> ";
                          echo" Tiene ". count($notificaciones_ep). "registraciones de escribanos pendientes de revisión";
 
                          ?>
@@ -160,7 +160,7 @@
                             <?php 
                              echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
                              echo "<input  type='hidden' name='dniEscribano' value='$ep->dni'>";
-                               echo "<i class='fa fa-users text-red'></i> ";
+                               echo "<i  class='fa fa-users text-green'></i> ";
                              echo" La registración del escribano $ep->usuario esta pendiente de revisión";
   ?>
                              <?=form_close()?>
