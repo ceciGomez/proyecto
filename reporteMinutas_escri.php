@@ -85,7 +85,7 @@ $pdf->Cell(12,8,'Estado',1,0,'C');
 $pdf->Cell(17,8,'F. Estado',1,0,'C');
 $pdf->Cell(17,8,'Nro de Plano',1,0,'C');
 //$pdf->Cell(23,8,'Donaciones(Und.)',1,0,'C');
-$pdf->Cell(35,8,'Nomenclatura Catastral',1,0,'C');
+$pdf->Cell(55,8,'Nomenclatura Catastral',1,0,'C');
 $pdf->Cell(19,8,'Matricula RPI',1,0,'C');
 $pdf->Cell(24,8,'Localidad',1,0,'C');
 $pdf->Ln(8);
@@ -123,7 +123,7 @@ while($fila = mysqli_fetch_array($consulta)){
     
     $pdf->Cell(17,8,$fila['fechaEstado'],1,0,'C');
     $pdf->Cell(17,8,$fila['planoAprobado'],1,0,'C');
-    $pdf->Cell(35,8,$fila['parcela'],1,0,'C');
+    $pdf->Cell(55,8,'Cir. '.$fila['circunscripcion'].' Sec. '.$fila['seccion'].' Ch. '.$fila['chacra'].' Qta. '.$fila['quinta'].' Frac. '.$fila['fraccion'].' Mz '.$fila['manzana'].' Pc '.$fila['parcela'],1,0,'C');
     $pdf->Cell(19,8,$fila['nroMatriculaRPI'],1,0,'C');
     $pdf->Cell(24,8,$fila['localidad'],1,0,'C');
     $pdf->Ln(8);
