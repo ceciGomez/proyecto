@@ -26,18 +26,18 @@
                       <div class="row">
                       <div class="col-md-3">
                           
-                          <label>Fecha Pedido :</label>
-                        <input type="text" data-provide="datepicker"   id="fechaPedido" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
+                          <label>Fecha Pedido :</label><br>
+                        <input type="text" data-provide="datepicker"   id="fechaPedido" placeholder="dd/mm/aaaa"  class='filter' data-column-index='0'> 
                       </div>
                       <div class="col-md-3">
-                        <label>Fecha Respuesta :</label>
+                        <label>Fecha Respuesta :</label><br>
                         
-                        <input type='text' data-provide="datepicker"  id="fechaRespuesta"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
+                        <input type='text' data-provide="datepicker"  id="fechaRespuesta"  placeholder="dd/mm/aaaa" class='filter' data-column-index='1'>
                       </div>
                       <div class="col-md-3">
 
-                           <label>Número de Pedido :</label>
-                        <input type='text' id="idPedido" value='<?php echo $this->session->flashdata('noti_si')["idPedido"]; ?>' class='filter' data-column-index='3'> 
+                           <label>Número de Pedido :</label><br>
+                        <input type='text' id="idPedido" value='<?php echo $this->session->flashdata('noti_si')["idPedido"]; ?>' class='filter' data-column-index='2'> 
 
                        </div>
                                 
@@ -46,7 +46,7 @@
                         <label>Estado :</label><br>
                         <input type="hidden" value= '<?php echo $this->session->flashdata('noti_si')["estadoPedido"]; ?>' id="estado"> 
                         <select id="estadoPedido">
-                             <option value=""></option>
+                            <option value=""></option>
                             <option value="P">P</option>
                             <option value="C">C</option>
                  
@@ -195,13 +195,13 @@
                        $( "#pedidos" ).show();
 
                       //en caso de que haga click en alguna notificacion filtra por idminuta y estado                  
-                        dtable.column('3').search(document.getElementById("idPedido").value).draw();
+                        dtable.column('2').search(document.getElementById("idPedido").value).draw();
 
-                      if (document.getElementById("estado").value=="P") {
+                      if (document.getElementById("estado").value=="C") {
                           $("#estadoPedido")
-                            .find("option:contains(P)")
+                            .find("option:contains(C)")
                             .prop("selected", true);
-                            dtable.column('5').search(String('P')).draw();
+                            dtable.column('3').search(String('C')).draw();
 
                       };
                           

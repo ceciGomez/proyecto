@@ -460,6 +460,12 @@ class C_operador extends CI_Controller {
                         return( $this->db->get()->result()); 
 
 	}
+	public function notificaciones_si(){
+						$this->db->from('pedidos');
+                         $this->db->where('estadoPedido', "P"); 
+                        return( $this->db->get()->result()); 
+
+	}
 
 	//en caso de que haga click en las notificaciones guarda los id y el estado para que aparezca la tabla filtrada por
 	public function buscar_esc_p_x_dni(){
@@ -530,12 +536,7 @@ class C_operador extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
-		public function notificaciones_si(){
-						$this->db->from('pedidos');
-                         $this->db->where('estadoPedido', "P"); 
-                        return( $this->db->get()->result()); 
-
-	}
+		
 	public function buscar_si(){
 			if ($_POST["idPedido"]==null) {
 				$idPedido="";
