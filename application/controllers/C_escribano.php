@@ -7,7 +7,7 @@ class C_escribano extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
-       // $this->load->model('M_escribano');
+        $this->load->library('session');
     }
 	
 	
@@ -57,6 +57,7 @@ class C_escribano extends CI_Controller {
 			$data['fraccion'] = $this->input->post('fraccion');
 			$data['manzana'] =$this->input->post('manzana');
 			$data['parcela'] = $this->input->post('parcela');
+			$data['partida'] = $this->input->post('partida');
 			$data['planoAprobado'] = $this->input->post('planoAprobado');			
 			$data['fechaPlanoAprobado'] = $this->input->post('fechaPlanoAprobado');
 			$data['tipoPropiedad'] = $this->input->post('tipoPropiedad');
@@ -79,6 +80,7 @@ class C_escribano extends CI_Controller {
 			$data{'fraccion'}='';
 			$data{'manzana'}='';
 			$data{'parcela'}='';
+			$data{'partida'}='';
 			$data{'planoAprobado'}='';
 			$data{'fechaPlanoAprobado'}='';
 			$data{'tipoPropiedad'}='';
@@ -100,20 +102,14 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/parcela',$data);
 		$this->load->view('templates/pie',$data);
 	}
-
-	public function datos_relacion(){
-		$this->load->view('templates/cabecera_escribano');
-		$this->load->view('templates/escri_menu');
-		$this->load->view('escribano/datos_relacion');
-		$this->load->view('templates/pie');
-	}
+	
 
 	public function registro_parcela()	{
 
-				$hizo_post=TRUE;	
+				$hizo_post=TRUE;
 
-				 $this->load->helper(array('form', 'url'));
-
+			    $this->load->helper(array('form', 'url'));
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
 			    $this->form_validation->set_rules('circunscripcion', 'circunscripcion', 'required',array('required' => 'Debes ingresar una circunscripcion ') );
 
 			    $this->form_validation->set_rules('seccion', 'seccion', 'required',array('required' => 'Debes ingresar una sección ') );
@@ -169,11 +165,10 @@ class C_escribano extends CI_Controller {
 				$this->CrearMinuta(FALSE,TRUE);
 
 			}else{
-				$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
-				$query = $this->db->query($sql, array($this->input->post('localidad')));
+				/*$sql = "SELECT idLocalidad FROM localidad WHERE nombre = ? ";
+				$query = $this->db->query($sql, array($this->input->post('localidad')));*/
 				
 				$datos_parcela= array (
-					'idLocalidad' => $query,
 					'circunscripcion' => $this->input->post('circunscripcion'),
 					'seccion' => $this->input->post('seccion'),
 					'chacra' => $this->input->post('chacra'),
@@ -181,7 +176,7 @@ class C_escribano extends CI_Controller {
 					'fraccion' => $this->input->post('fraccion'),
 					'manzana' => $this->input->post('manzana'),
 					'parcela' => $this->input->post('parcela'),
-					'superficie' => ($this->input->post('superficie')), 
+					'superficie' => $this->input->post('superficie'), 
 					'partida' =>$this->input->post('partida'),					
 					'tipoPropiedad' => $this->input->post('tipoPropiedad'),
 					'planoAprobado' => $this->input->post('planoAprobado'),
@@ -195,14 +190,89 @@ class C_escribano extends CI_Controller {
 					'finca' => $this->input->post('finca'),
 					'año' => $this->input->post('año'),		
 				);
+
+				$this->session->set_userdata($datos_parcela);
+				$this->datos_relacion(FALSE,FALSE);
 				
-				$this->db->insert("parcela", $datos_parcela);
+				/*$this->db->insert("parcela", $datos_parcela);
 				$exito= TRUE; 
-				$this->index($exito);
+				$this->index($exito);*/
 			
 			}
 		
 		}
+
+     public function datos_relacion($exito=FALSE, $hizo_post=FALSE){
+
+			if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+        
+				$data['exito']= $exito; 
+				$data['hizo_post']=$hizo_post;
+
+		if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['circunscripcion'] = $this->input->post('circunscripcion');
+			$data['porcentaje_condominio']=$this->input->post('porcentaje_condominio');
+			$data['chacra'] = $this->input->post('chacra');
+			$data['quinta'] = $this->input->post('quinta');
+			$data['fraccion'] = $this->input->post('fraccion');
+			$data['manzana'] =$this->input->post('manzana');
+			$data['parcela'] = $this->input->post('parcela');
+			$data['planoAprobado'] = $this->input->post('planoAprobado');			
+			$data['fechaPlanoAprobado'] = $this->input->post('fechaPlanoAprobado');
+			
+		
+
+		}else{
+			$data['circunscripcion']='';
+			$data['porcentaje_condominio']='';
+			$data['chacra']='';
+			$data{'quinta'}='';
+			$data{'fraccion'}='';
+			$data{'manzana'}='';
+			$data{'parcela'}='';
+			$data{'planoAprobado'}='';
+			$data{'fechaPlanoAprobado'}='';
+			
+
+		}
+
+		
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/datos_relacion',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+
+     public function registro_ph(){
+
+				$hizo_post=TRUE;
+
+				 $this->load->helper(array('form', 'url'));
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
+			    $this->form_validation->set_rules('fecha_escritura', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('nro_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('tipo_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('plano_aprobado', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('fecha_plano_aprobado', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('poligonos', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+
+			   
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->datos_relacion(FALSE,TRUE);
+
+			}
+
+     }
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		

@@ -4,9 +4,11 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>
+    <?=form_open(base_url().'index.php/C_escribano/registro_ph')?>
+       <form method="post">
+      <h3 align="center">
          Crear Minuta
-      </h1>
+      </h3>
       <small>Registrar Propietario</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -20,6 +22,8 @@
          <div class="box-header with-border">
             <h3 class="box-title">Tipo de parcela</h3>
             <!-- /.box-header -->
+             
+             <form method="post">
             <div class="form-group">
                   <div class="radio">
                     <label>
@@ -43,30 +47,35 @@
                           <div class="input-group date">
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
-                         </div>
-                          <input type="text" class="form-control pull-right" id="fecha-escritura" placeholder="Fecha de Escritura">
-                     </div>
+                             </div>
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" placeholder="Fecha de Escritura">
+                          </div>
+                         <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                   
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Porcentaje de Condominio</label>
-                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
+                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" <?php echo "value='$porcentaje_condominio'" ?> id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
+                       <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Numero de UC/UF</label>
-                        <input type="text" class="form-control" id="nro_ucuf" placeholder="Numero de UC/UF">
+                        <input type="text" class="form-control" name="nro_ucuf" id="nro_ucuf" placeholder="Numero de UC/UF">
+                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
-                        <select id="tipoucuf" class="form-control select2"  style="width: 100%;">
+                        <select id="tip_oucuf" name="tipo_ucuf" class="form-control select2"  style="width: 100%;">
                            <option selected="selected">Seleccionar</option>
                            <option >C</option>
                            <option >F</option>
                         </select>
+                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                      <div class="col-md-3">
-                        <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
-                        <input type="text" class="form-control" id="plano_aprobado" placeholder="Plano Aprobado de la UF/UC">
+                        <label for="exampleInputEmail1">Plano Aprobado de la UC/UF</label>
+                        <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" placeholder="Plano Aprobado de la UF/UC">
+                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                     <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
@@ -74,16 +83,19 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                          </div>
-                          <input type="text" class="form-control pull-right" id="fecha_plano_aprobado" placeholder="Fecha Plano Aprobado">
+                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" placeholder="Fecha Plano Aprobado">
                      </div>
+                     <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                   </div>             
                      <div class="col-md-3">
-                        <label for="exampleInputEmail1">Porcentaje de UF/UC</label>
-                        <input type="text" step="any" class="form-control" name="porcentaje_uf" id="porcentaje_uf" placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
+                        <label for="exampleInputEmail1">Porcentaje de UC/UF</label>
+                        <input type="text" step="any" class="form-control" name="porcentaje_ucuf" id="porcentaje_uf" placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
+                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Poligonos</label>
-                        <input type="text" class="form-control" id="poligonos" placeholder="Poligonos">
+                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholder="Poligonos">
+                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
                      </div>
                   </div>
                   </div>
@@ -91,12 +103,13 @@
                </div>
                <!-- /.col -->
                <!-- /.col -->
+
             </div>
             <div class="box-footer">
-             <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Agregar propietario</a>            
+             <button type="submit" class="btn btn-primary"  >Agregar propietario</button>            
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
-            <!-- /.row -->
+              </form>
          </div>
   </div>
 <!-- /.content-wrapper -->
