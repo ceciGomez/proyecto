@@ -57,17 +57,17 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" <?php echo "value='$fraccion'" ?> placeholder="Fracción" >
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" onkeyup="changeToUpperCase(this)" <?php echo "value='$fraccion'" ?> placeholder="Fracción" >
                                     <div style="color:red;" ><p><?=form_error('fraccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Manzana</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" <?php echo "value='$manzana'" ?> placeholder="Entero">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" onkeyup="changeToUpperCase(this)" <?php echo "value='$manzana'" ?> placeholder="Entero">
                                     <div style="color:red;" ><p><?=form_error('manzana')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" <?php echo "value='$parcela'" ?> placeholder="entero">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" onkeyup="changeToUpperCase(this)" <?php echo "value='$parcela'" ?> placeholder="entero">
                                     <div style="color:red;" ><p><?=form_error('parcela')?></p></div>
                                  </div>
                               
@@ -91,7 +91,7 @@
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                       <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
+                                       <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" placeholder="dd/mm/aaaa" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaPlanoAprobado')?></p></div>
                                     <!-- /.input group -->
@@ -123,7 +123,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="año" <?php echo "value='$año'" ?> placeholder="Sin punto">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumber(event)" name="año" <?php echo "value='$año'" ?> placeholder="aaaa">
                                     <div style="color:red;" ><p><?=form_error('año')?></p></div>
                                  </div>                              
                                   <div class="col-md-3">
@@ -159,7 +159,7 @@
                                        <div class="input-group-addon">
                                           <i class="fa fa-calendar"></i>
                                        </div>
-                                       <input type="text" class="form-control pull-right" name="fechaMatriculaRPI" <?php echo "value='$fechaMatriculaRPI'" ?> id="fechaMatriculaRPI">
+                                       <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fechaMatriculaRPI" <?php echo "value='$fechaMatriculaRPI'" ?> id="fechaMatriculaRPI">
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaMatriculaRPI')?></p></div>
                                     <!-- /.input group -->
@@ -291,5 +291,13 @@
     return true;
    }
    </script>
+   <script>
+    function isNumber(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+     </script>
 
 
