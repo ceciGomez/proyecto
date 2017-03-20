@@ -4,10 +4,9 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>
+      <h3 align="center">
          Crear Minuta
-      </h1>
-      <small>Registrar Parcela</small>
+      </h3>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -79,7 +78,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" <?php echo "value='$partida'" ?>  onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('partida')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -174,6 +173,7 @@
                            
                            <!-- /.box-body -->
                         </div>
+                       </div> 
                      </form>
                   </div>
                   <!-- /.box-body -->
