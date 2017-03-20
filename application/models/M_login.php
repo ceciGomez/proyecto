@@ -16,7 +16,7 @@ class M_login extends CI_Model {
 		$query = $this->db->query("
 			SELECT idUsuario, nomyap, usuario, contraseña, 
 			concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg,	
-			telefono, email, direccion, tipoUsuario
+			telefono, email, direccion, tipoUsuario, foto
 			
 			FROM usuariosys 
 			WHERE usuario = '$usuario'
@@ -44,7 +44,7 @@ class M_login extends CI_Model {
 		$query = $this->db->query("
 			SELECT idUsuario, nomyap, usuario, contraseña, 
 			concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg,
-			telefono, email, direccion, tipoUsuario
+			telefono, email, direccion, tipoUsuario, foto
 			FROM usuariosys 
 			WHERE usuario = '$usuario'
 			and contraseña = '$pass'

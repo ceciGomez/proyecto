@@ -60,7 +60,8 @@ class C_login_operador extends CI_Controller {
 	                'id_usuario' 	=> 		$check_user->idUsuario,
 	                'username' 		=> 		$check_user->usuario,
 	                 'nomyap' 	=> 	$check_user->nomyap,
-					'fechaReg' 	=> 	$check_user->fechaReg
+					'fechaReg' 	=> 	$check_user->fechaReg,
+					'foto' => $check_user->foto
             		);		
 					$this->session->set_userdata($data);
 					$this->index();
