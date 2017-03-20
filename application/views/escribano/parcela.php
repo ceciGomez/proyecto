@@ -68,8 +68,7 @@
                                     <label for="exampleInputEmail1">Parcela</label>
                                     <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" <?php echo "value='$parcela'" ?> placeholder="entero">
                                     <div style="color:red;" ><p><?=form_error('parcela')?></p></div>
-                                 </div>
-                              
+                                 </div>                              
                               
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
@@ -89,7 +88,9 @@
                                   <div class=" col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
-                                       <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                       <div class="input-group-addon">
+                                         <i class="fa fa-calendar"></i>
+                                       </div>
                                        <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaPlanoAprobado')?></p></div>

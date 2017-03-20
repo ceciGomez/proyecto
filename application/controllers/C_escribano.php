@@ -210,28 +210,26 @@ class C_escribano extends CI_Controller {
 
 		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
-			$data['circunscripcion'] = $this->input->post('circunscripcion');
+			$data['fecha_escritura'] = $this->input->post('fecha_escritura');
 			$data['porcentaje_condominio']=$this->input->post('porcentaje_condominio');
-			$data['chacra'] = $this->input->post('chacra');
-			$data['quinta'] = $this->input->post('quinta');
-			$data['fraccion'] = $this->input->post('fraccion');
-			$data['manzana'] =$this->input->post('manzana');
-			$data['parcela'] = $this->input->post('parcela');
-			$data['planoAprobado'] = $this->input->post('planoAprobado');			
-			$data['fechaPlanoAprobado'] = $this->input->post('fechaPlanoAprobado');
-			
+			$data['nro_ucuf'] = $this->input->post('nro_ucuf');
+			$data['tipo_ucuf'] = $this->input->post('tipo_ucuf');
+			$data['plano_aprobado'] = $this->input->post('plano_aprobado');
+			$data['fecha_plano_aprobado'] =$this->input->post('fecha_plano_aprobado');
+			$data['porcentaje_ucuf'] = $this->input->post('porcentaje_ucuf');
+			$data['poligonos'] = $this->input->post('poligonos');					
 		
 
 		}else{
-			$data['circunscripcion']='';
+
+			$data['fecha_escritura']='';
 			$data['porcentaje_condominio']='';
-			$data['chacra']='';
-			$data{'quinta'}='';
-			$data{'fraccion'}='';
-			$data{'manzana'}='';
-			$data{'parcela'}='';
-			$data{'planoAprobado'}='';
-			$data{'fechaPlanoAprobado'}='';
+			$data['nro_ucuf']='';
+			$data{'tipo_ucuf'}='';
+			$data{'plano_aprobado'}='';
+			$data{'fecha_plano_aprobado'}='';
+			$data{'porcentaje_ucuf'}='';
+			$data{'poligonos'}='';
 			
 
 		}
@@ -250,14 +248,15 @@ class C_escribano extends CI_Controller {
 
 				 $this->load->helper(array('form', 'url'));
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
-			    $this->form_validation->set_rules('fecha_escritura', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			    $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('nro_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('tipo_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('plano_aprobado', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('fecha_plano_aprobado', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('poligonos', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('nro_ucuf', 'nro_ucuf', 'required',array('required' => 'Debes ingresar un número ') );
+				$this->form_validation->set_rules('tipo_ucuf', 'tipo_ucuf','required|callback_check_tipoucuf');
+				$this->form_validation->set_message('check_tipoucuf', 'Debes seleccionar un tipo');
+			    $this->form_validation->set_rules('plano_aprobado', 'plano_aprobado', 'required',array('required' => 'Debes ingresar un nro de plano ') );
+			    $this->form_validation->set_rules('fecha_plano_aprobado', 'fecha_plano_aprobado', 'required',array('required' => 'Debes ingresar una fecha ') );
+			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_ucuf', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('poligonos', 'poligonos', 'required',array('required' => 'Debes ingresar un poligono ') );
 
 			   
 			if($this->form_validation->run() == FALSE)
@@ -265,6 +264,24 @@ class C_escribano extends CI_Controller {
 				
 				$this->datos_relacion(FALSE,TRUE);
 
+			} else{
+
+                   
+                  
+				$datos_ph= array (
+					'ph' => $this->input->post('ph'),
+					'fecha_escritura' => $this->input->post('fecha_escritura'),
+					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
+					'nro_ucuf' => $this->input->post('nro_ucuf'),
+					'tipo_ucuf' => $this->input->post('tipo_ucuf'),
+					'plano_aprobado' => $this->input->post('plano_aprobado'),
+					'fecha_plano_aprobado' => $this->input->post('fecha_plano_aprobado'),
+					'porcentaje_ucuf' => $this->input->post('porcentaje_ucuf'),
+					'poligonos' => $this->input->post('poligonos'), 
+
+				);
+					$this->session->set_userdata($datos_ph);	
+					$this->registrarPropietario();		
 			}
 
      }
@@ -292,6 +309,14 @@ class C_escribano extends CI_Controller {
     //verifica que haya seleccionado algun tipo de propiedad
    function check_propiedad($post_string){
 		if($post_string==""){
+  			return FALSE;}
+  		else{
+  	   return TRUE;
+    }
+   }
+
+   function check_tipoucuf($post_string){
+		if($post_string=="Seleccionar"){
   			return FALSE;}
   		else{
   	   return TRUE;
