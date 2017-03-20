@@ -22,13 +22,14 @@
                   <div class="box-body" style="background-color: lightblue;">
                       
                        <label>Minuta :</label>
-                        <input type='text' id="nroMinuta"  class='filter' data-column-index='0'> 
+                        <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>'  class='filter' data-column-index='0'> 
                   
                           <label>Fecha Ingreso :</label>
                         <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
       
 
                         <label>Estado :</label>
+                         <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
                         <select id="segunEstado">
                              <option value=""></option>
                             <option value="Pendiente">Pendiente</option>
@@ -173,7 +174,23 @@
 
                        $( "#min" ).show();
 
-                     
+                        dtable.column('0').search(document.getElementById("nroMinuta").value).draw();
+
+                      if (document.getElementById("estado").value=="A") {
+                          $("#segunEstado")
+                            .find("option:contains(Aprobado)")
+                            .prop("selected", true);
+                            dtable.column('2').search(String('Aprobado')).draw();
+
+                      };
+                        if (document.getElementById("estado").value=="R") {
+                          $("#segunEstado")
+                            .find("option:contains(Rechazado)")
+                            .prop("selected", true);
+                            dtable.column('2').search(String('Rechazado')).draw();
+
+                      };
+                         
                           
                   });
                            

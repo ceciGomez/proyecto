@@ -17,6 +17,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
 		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
@@ -36,7 +39,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
         
 		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
 		$data['exito']= $exito; 
@@ -367,6 +372,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
@@ -396,7 +402,9 @@ class C_escribano extends CI_Controller {
 		}
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minutas"] = $this->M_escribano->getMinutasPorFecha($this->session->userdata('idEscribano'));
-
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/verMinutas',$data);
@@ -408,6 +416,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -420,6 +431,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
 		$idEscribano = $data["minuta"][0]->idEscribano;
@@ -439,6 +453,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['propietariosAd'] = $this->M_escribano->getPropietarios_porMinuta_Ad($param);
 		$data['propietariosTr'] = $this->M_escribano->getPropietarios_porMinuta_Tr($param);
@@ -455,6 +472,9 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data["minuta"] = $this->M_escribano->getUnaMinuta($param);
 		$idEscribano = $data["minuta"][0]->idEscribano;
@@ -466,4 +486,154 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/imprimirMinuta',$data);
 		//$this->load->view('templates/pie',$data);
 	}
+
+	public function nuevoPedido($exito=FALSE, $hizo_post=FALSE){
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+	
+		$data['titulo'] = 'Bienvenido escribano';
+
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/nuevoPedido',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+	public function crearPedido($exito=FALSE, $hizo_post=FALSE){
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+	
+		$data['titulo'] = 'Bienvenido escribano';
+		$descripcion=$_POST['pedido'];
+		$idEscribano=$_POST['idEscribano'];
+			$datetime_variable = new DateTime();
+			$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+			$datos_usuarios= array (
+			'idEscribano' => $idEscribano,
+			'descripcion' => $descripcion,	
+			'fechaPedido' =>$datetime_formatted,	
+			'estadoPedido' =>'P'  );	
+			$this->db->insert("pedidos", $datos_usuarios);
+
+		
+
+
+	}
+	 public function verPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_escribano_login');
+		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$idEscribano=$this->session->userdata('idEscribano');
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
+
+		$this->db->where('idEscribano', $idEscribano);
+
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Escribano';
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/verPedidos',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+
+	public function buscar_min_a_x_id(){
+			if ($_POST["idMinuta"]==null) {
+				$idMinuta="";
+			}else
+			{
+				$idMinuta=$_POST["idMinuta"];
+			};
+			$noti_min=array("idMinuta"=>$idMinuta,"estado"=>"A");
+		   $this->session->set_flashdata('noti_min',$noti_min); 
+		    redirect(base_url().'index.php/c_escribano/verMinutas');
+	}
+
+	public function buscar_min_r_x_id(){
+			if ($_POST["idMinuta"]==null) {
+				$idMinuta="";
+			}else
+			{
+				$idMinuta=$_POST["idMinuta"];
+			};
+			$noti_min=array("idMinuta"=>$idMinuta,"estado"=>"R");
+		   $this->session->set_flashdata('noti_min',$noti_min); 
+		    redirect(base_url().'index.php/c_escribano/verMinutas');
+	}
+
+		public function buscar_si(){
+			if ($_POST["idPedido"]==null) {
+				$idPedido="";
+			}else
+			{
+				$idPedido=$_POST["idPedido"];
+			};
+			$noti_si=array("idPedido"=>$idPedido,"estadoPedido"=>"C");
+		   $this->session->set_flashdata('noti_si',$noti_si); 
+		    redirect(base_url().'index.php/c_escribano/verPedidos');
+	}
+
+
+
+	public function notificaciones_ma(){
+		$idEscribano=$this->session->userdata('idEscribano');
+						$this->db->from('estadominuta');
+                         $this->db->where('estadoMinuta', "A"); 
+                          $this->db->where('minuta.idEscribano', $idEscribano); 
+                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
+                          $this->db->order_by('idEstadoMinuta', 'DESC');
+                         $this->db->limit(10);
+
+                  return( $this->db->get()->result()); 
+
+	}
+
+	public function notificaciones_mr(){
+				$idEscribano=$this->session->userdata('idEscribano');
+
+						$this->db->from('estadominuta');
+                         $this->db->where('estadoMinuta', "R"); 
+                         $this->db->where('minuta.idEscribano', $idEscribano); 
+                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
+                         $this->db->order_by('idEstadoMinuta', 'DESC');
+                          $this->db->limit(10);
+                        return( $this->db->get()->result()); 
+
+	}
+		public function notificaciones_si(){
+					$idEscribano=$this->session->userdata('idEscribano');
+
+						$this->db->from('pedidos');
+                         $this->db->where('estadoPedido', "C"); 
+                        $this->db->where('idEscribano', $idEscribano); 
+                        $this->db->order_by('idPedido', 'DESC');
+                        $this->db->limit(10);
+                        return( $this->db->get()->result()); 
+
+	}
+
 }

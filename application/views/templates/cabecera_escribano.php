@@ -74,7 +74,7 @@
 
   <header class="main-header">
     <!-- Logo -->
-    <a href="#" class="logo">
+    <a href="<?=base_url().'index.php/c_escribano/'?>"  class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
       <span class="logo-mini"><b>S</b>irmi  </span>
       <!-- logo for regular state and mobile devices -->
@@ -94,67 +94,126 @@
           <li class="dropdown messages-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-envelope-o"></i>
-              <span class="label label-success">1</span>
+              <span class="label label-success"><?php echo count($notificaciones_si);?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene 1 mensajes</li>
+              <li class="header"> <?php echo count($notificaciones_si);?> pedidos contestados</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-                  <li><!-- start message -->
-                    <a href="#">
-                      <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
-                       
-                      </div>
-                      <h4>
-                        Equipo de Soporte
-                        <small><i class="fa fa-clock-o"></i> 5 mins</small>
-                      </h4>
-                      <p>Revisar minutas pendientes</p>
-                    </a>
+                 
+                  <li>
+                     <?php if(count($notificaciones_si)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_escribano/buscar_si'); ?>
+                            <?php 
+                            echo" <button   value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
+                          echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
+                         echo" Tiene ". count($notificaciones_si). "pedidos de información contestadas";
+
+                         ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        else
+                        {
+                          foreach ($notificaciones_si as $si) {?>
+                          <?=form_open(base_url().'index.php/c_escribano/buscar_si'); ?>
+                            <?php 
+                             echo" <button  value='ver' style='background-color:white;border-style:  0.5px solid black;' type='submit' />";
+                             echo "<input  type='hidden' name='idPedido' value='$si->idPedido'>";
+                               echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
+                             echo" El pedido número $si->idPedido fue contestado";
+  ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
                   </li>
+          
                   <!-- end message -->
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todos los mensajes</a></li>
             </ul>
           </li>
           <!-- Notifications: style can be found in dropdown.less -->
-          <li class="dropdown notifications-menu">
+           <li class="dropdown notifications-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
-              <span class="label label-warning">2</span>
+              <span class="label label-warning"><?php echo count($notificaciones_ma) +  count ($notificaciones_mr);?></span>
             </a>
             <ul class="dropdown-menu">
-              <li class="header">Tiene <?php echo $cantM_rechazadas[0]->cantidadMinutasRechazadas; ?> minutas rechazadas</li>
+              <li class="header">Tiene <?php echo count($notificaciones_ma)+  count ($notificaciones_mr);?> notificaciones</li>
               <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
-              <li>
-                  <?php if ($minutasRechazadas != null): ?>
-                    
-                    <a href="#">
-                      <i class="fa fa-user text-red"></i> Minutas Rechazadas: <br>
-                      <?php 
-                     // var_dump($minutasRechazadas);
-                      foreach ($minutasRechazadas as $value) {
-                        echo $value->id;
-                        echo " - ";
-                        echo $value->motivo;
-                        echo "</br>";
-                      } ?>
-                    </a>
-                  </li>
-                  <?php endif ?>
+              
                   <li>
-                  <?php if ($minutasRechazadas == null): ?>
-                     Sin Minutas Rechazadas <br> </li>
-                  <?php endif ?>
+                  
+                      <?php if(count($notificaciones_ma)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_escribano/buscar_min_a_x_id'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'/>";
+                          echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
+                         echo" Tiene ". count($notificaciones_ma)." minutas aprobadas";
+                           ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        
+                        else
+                        {
+                          foreach ($notificaciones_ma as $ma) { ?>
+                          <?=form_open(base_url().'index.php/c_escribano/buscar_min_a_x_id'); ?>
+                            <?php 
+                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'' />";
+                             echo "<input  type='hidden' name='idMinuta' value='$ma->idMinuta'>";
+
+                             echo "<i class='glyphicon glyphicon-list-alt text-green'></i> ";
+                             echo" La minuta $ma->idMinuta fue aprobada";
+                           
+                              ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
+                      </li>
+
+                       <?php if(count($notificaciones_mr)>5 ){?>
+                        <?=form_open(base_url().'index.php/c_escribano/buscar_min_r_x_id'); ?>
+                            <?php 
+                            echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'/>";
+                          echo "<i class='glyphicon glyphicon-list-alt text-red'></i> ";
+                         echo" Tiene ". count($notificaciones_mr)." minutas rechazadas";
+                           ?>
+                           <?=form_close()?>
+                        <?php 
+                          }
+                        
+                        else
+                        {
+                          foreach ($notificaciones_mr as $mr) { ?>
+                          <?=form_open(base_url().'index.php/c_escribano/buscar_min_r_x_id'); ?>
+                            <?php 
+                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;'' />";
+                             echo "<input  type='hidden' name='idMinuta' value='$mr->idMinuta'>";
+
+                             echo "<i class='glyphicon glyphicon-list-alt text-red'></i> ";
+                             echo" La minuta número $mr->idMinuta fue rechazadas";
+                           
+                              ?>
+                             <?=form_close()?>
+                             <?php 
+                          }
+                        }
+                        ?>
+                              
+                  </li>
           
+                  <!-- end message -->
                 </ul>
               </li>
-              <!-- <li class="footer"><a href="#">Ver todas las notificaciones</a></li> -->
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->
