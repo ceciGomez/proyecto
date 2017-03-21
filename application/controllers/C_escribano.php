@@ -525,6 +525,7 @@ class C_escribano extends CI_Controller {
 			'estadoPedido' =>'P'  );	
 			$this->db->insert("pedidos", $datos_usuarios);
 
+			redirect(base_url().'index.php/c_escribano/verPedidos');
 		
 
 
@@ -639,7 +640,7 @@ class C_escribano extends CI_Controller {
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
-			redirect(base_url().'index.php/c_escribano_login');
+			redirect(base_url().'index.php/c_login_escribano');
 		}
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();

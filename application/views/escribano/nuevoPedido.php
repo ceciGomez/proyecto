@@ -14,21 +14,24 @@
           <!-- general form elements -->
           <div class="box box-primary" >
           <div class="box-body" style="background-color: lightblue;">
+               <form   style="display:inline; " action="<?php echo base_url()?>index.php/c_escribano/crearPedido" method="post" >
                     <div class="form-group">    
-                     
+                       <input type="hidden" value='<?php echo $this->session->userdata('idEscribano');?>' id="idEscribano" name='idEscribano'>
                          <div class="row">
                          
                             <div class="col-md-3">
                                  <label style="display: block;">Ingrese pedido de Información:</label>
-                                <textarea id="pedido" rows="10" cols="100" ></textarea>
+                                <textarea id="pedido" name="pedido" rows="10" cols="100" ></textarea>
                             </div>
                           </div>
-                          
+                        
                             <div class="row"> 
                                <div class="col-md-3">
-                                   <a  class="btn btn-success" style="text-decoration: none;"  href="<?=base_url()?>index.php/c_escribano/verPedidos" onclick="pedido(<?php echo $this->session->userdata('idEscribano');?>)" > Enviar</a>
+                                   <button  class="btn btn-success" style="text-decoration: none;"  type="submit"> Enviar</button>
                             </div>
                         </div>
+
+                        </form>
 
                     
                   
