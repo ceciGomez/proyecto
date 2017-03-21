@@ -103,7 +103,7 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
-	public function datos_relacion(){
+	public function datos_relacion1(){
 
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
