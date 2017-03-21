@@ -15,6 +15,29 @@
       </ol>
    </section>
    <!-- Main content -->
+   <div class="box box-primary">
+            <div class="box-header">          
+               
+                 <label>Buscar propietarios :</label>
+               
+                <div class="box-body" style="background-color: lightblue;">
+                     
+                         <div class="row">
+                            <div class="col-md-3">
+                               <label>Apellido y nombre:</label><br>
+                              <input type='text' id="dniEscribano" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='1'>
+                            </div>
+
+                            <div class="col-md-3">
+                               <label>Dni :</label><br>
+                              <input type='text' value='' class='filter' data-column-index='2'>
+                            </div>  
+                          </div>                       
+                                      
+                       </div>
+                  </div>    
+                </div>   
+
    <section class="content-body">
       <div class="box box-default">
          <div class="box-header with-border">
@@ -172,7 +195,7 @@
             </div>
             <!-- /.row -->
          </div>
-  </div>
+  </section>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>

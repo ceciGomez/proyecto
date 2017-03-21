@@ -373,6 +373,9 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
