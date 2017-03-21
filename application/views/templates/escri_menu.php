@@ -60,7 +60,7 @@
                   <li><a href="#"><i class="fa fa-circle-o"></i> Editar Minutas</a></li> -->
                <li><a href="<?=base_url()?>index.php/c_escribano/verPedidos"><i class="fa fa-circle-o"></i> Ver Pedidos </a></li>
                
-               <li><a href="<?=base_url().'index.php/c_escribano/nuevoPedido'?>"><i class="fa fa-circle-o"></i> Nueva Pedido</a></li>
+               <li><a href="<?=base_url().'index.php/c_escribano/nuevoPedido'?>"><i class="fa fa-circle-o"></i> Nuevo Pedido</a></li>
 
             </ul>
 

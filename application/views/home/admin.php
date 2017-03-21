@@ -9,7 +9,8 @@
         <div class="col-md-12">
 
           <!-- Profile Image -->
-          <div class="box box-primary">
+          
+<div class="box box-primary">
             <div class="box-body box-profile">
                <h3 class="profile-username text-center">BIENVENIDO A SIRMI</h3>
               <img class="profile-user-img img-responsive img-circle" src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" alt="User profile picture">
@@ -21,8 +22,8 @@
             </div>
             <!-- /.box-body -->
           </div>
-          <!-- /.box -->
 
+          
          
           
         </div>
