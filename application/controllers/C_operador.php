@@ -564,4 +564,119 @@ class C_operador extends CI_Controller {
 		$this->db->update('pedidos', $data); 
 	}
 
+
+
+	 public function buscarParcelas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$this->db->select('*');
+		$this->db->from('parcela');
+		$this->db->join('minuta', 'parcela.idMinuta = minuta.idMinuta');
+		$this->db->join('relacion', 'relacion.idParcela=parcela.idParcela');
+	
+
+		$parcelas= $this->db->get()->result();
+	
+		$data['parcelas']=$parcelas;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/buscarParcelas',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function buscar_min_id(){
+			if ($_POST["idMinuta"]==null) {
+				$idMinuta="";
+
+			}else
+			{
+				$idMinuta=$_POST["idMinuta"];
+
+			};
+			$noti_min=array("idMinuta"=>$idMinuta);
+		   $this->session->set_flashdata('noti_min',$noti_min); 
+		    redirect(base_url().'index.php/c_operador/gestionarMinutas');
+	}
+
+	public function detalles_parcela(){
+			$idParcela=$_POST["idParcela"];
+			$parcela=$this->db->get_where('parcela', array('idParcela'=>$idParcela))->row();
+			$date=new DateTime($parcela->fechaPlanoAprobado);
+            $date_formated=$date->format('d/m/Y ');
+			$fecha_planoAprobado=$date_formated;
+
+			$date2=new DateTime($parcela->fechaMatriculaRPI);
+            $date_formated2=$date->format('d/m/Y ');
+            $fecha_matriculaRPI=$date_formated;
+			 echo " 
+			 	<tr>
+			 		<th> Circunscripcion</th><td>$parcela->circunscripcion </td>
+			 	</tr>
+			 	<tr>
+					<th> Sección</th><td>$parcela->seccion </td>
+				</tr>
+				<tr>
+			 		<th> Chacra</th><td>$parcela->chacra </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Quinta</th><td>$parcela->quinta </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Fracción</th><td>$parcela->fraccion </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Manzana</th><td>$parcela->manzana </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Parcela</th><td>$parcela->parcela </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Superficie</th><td>$parcela->superficie </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Partida</th><td>$parcela->partida </td>
+			 	</tr>
+			 	<tr>
+			 		<th> Tipo de Propiedad</th><td>$parcela->tipoPropiedad </td>
+			 	 </tr>
+			 	 	<tr>
+			 		<th> Plano Aprobado</th><td>$parcela->planoAprobado</td>
+			 	 </tr>	   
+			 	 	<tr>
+			 		<th> Fecha Plano Aprobado</th><td>$fecha_planoAprobado </td>
+			 	 </tr>	
+			 	 <tr>
+			 		<th> Descripción</th><td>$parcela->descripcion</td>
+			 	 </tr>	  
+			 	 <tr>
+			 		<th> Nro de Matrícula RPI</th><td>$parcela->nroMatriculaRPI</td>
+			 	 </tr>	  
+			 	  <tr>
+			 		<th> Fecha Matrícula RPI</th><td>$fecha_matriculaRPI</td>
+			 	 </tr>	 
+			 	 <tr>
+			 		<th> Tomo</th><td>$parcela->tomo</td>
+			 	 </tr>
+			 	 <tr>
+			 		<th> Folio</th><td>$parcela->folio</td>
+			 	 </tr> 
+			 	 <tr>
+			 		<th>Finca</th><td>$parcela->finca</td>
+			 	 </tr>
+			 	 <tr>
+			 		<th> Año</th><td>$parcela->año</td>
+			 	 </tr>
+                         "; 
+                         }
+
+
 }

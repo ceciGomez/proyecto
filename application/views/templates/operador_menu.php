@@ -38,6 +38,7 @@
          
          
             <li><a href="<?=base_url()?>index.php/c_operador/gestionarMinutas"><i class="fa fa-circle-o"></i> Gestionar Minutas</a></li>
+              <li><a href="<?=base_url()?>index.php/c_operador/buscarParcelas"><i class="fa fa-circle-o"></i> Buscar Parcelas</a></li>
            
             
          
