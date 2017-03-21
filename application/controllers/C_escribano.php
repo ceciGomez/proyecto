@@ -102,8 +102,19 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/parcela',$data);
 		$this->load->view('templates/pie',$data);
 	}
-	
 
+	public function datos_relacion1(){
+
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/datos_relacion',$data);
+		$this->load->view('templates/pie',$data);
+	}
+	
 	public function registro_parcela()	{
 
 				$hizo_post=TRUE;
@@ -209,7 +220,9 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 
-        
+        		$data["notificaciones_ma"]=$this->notificaciones_ma();
+				$data["notificaciones_mr"]=$this->notificaciones_mr();
+				$data["notificaciones_si"]=$this->notificaciones_si();
 				$data['exito']= $exito; 
 				$data['hizo_post']=$hizo_post;
 
@@ -376,6 +389,11 @@ class C_escribano extends CI_Controller {
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
+<<<<<<< HEAD
+=======
+        
+
+>>>>>>> refs/remotes/ceciGomez/master
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
@@ -390,6 +408,14 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+		
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+        
+
+
+
 		$data['titulo'] = 'Bienvenido Escribano';
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
