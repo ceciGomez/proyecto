@@ -27,17 +27,17 @@
             <div class="form-group">
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" onclick="ph()" checked>
+                      <input type="radio" name="ph" id="ph" value="ph" onclick="esPh()"  <?php if ($ph == 'ph') echo 'checked'; ?> checked>
                       Es PH
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="noPh()">
+                      <input type="radio" name="ph" id="noph" value="noph" onclick="noPh()" <?php if ($ph == 'noph') {echo 'checked'; echo "noPh();" ; } ?> >
                       No es PH
                     </label>
                   </div>                 
-                </div>
+            </div>
             <div class="box-body">
                <div class="row">
                  <div class="form-group">                   
@@ -48,9 +48,9 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" placeholder="Fecha de Escritura">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" placeholder="Fecha de Escritura">
                           </div>
-                         <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                         <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
                   
                      <div class="col-md-3">
@@ -60,22 +60,24 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Numero de UC/UF</label>
-                        <input type="text" class="form-control" name="nro_ucuf" id="nro_ucuf" placeholder="Numero de UC/UF">
-                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                        <input type="text" class="form-control" name="nro_ucuf" id="nro_ucuf" <?php echo "value='$nro_ucuf'" ?>  placeholder="Numero de UC/UF">
+                        <div style="color:red;" ><p><?=form_error('nro_ucuf')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
-                        <select id="tip_oucuf" name="tipo_ucuf" class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Seleccionar</option>
+                        <select id="tipo_ucuf" name="tipo_ucuf" <?php echo "value='$tipo_ucuf'" ?> <?php echo "value='$tipo_ucuf'" ?>  class="form-control select2"  style="width: 100%;">
+                           <option vale="" >Seleccionar</option>
                            <option >C</option>
                            <option >F</option>
                         </select>
-                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                        <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
+                     </div>
+                     <div class="row">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UC/UF</label>
-                        <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" placeholder="Plano Aprobado de la UF/UC">
-                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                        <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" <?php echo "value='$plano_aprobado'" ?>  placeholder="Plano Aprobado de la UF/UC">
+                        <div style="color:red;" ><p><?=form_error('plano_aprobado')?></p></div>
                      </div>
                     <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
@@ -83,19 +85,19 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                          </div>
-                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" placeholder="Fecha Plano Aprobado">
+                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" <?php echo "value='$fecha_plano_aprobado'" ?>  placeholder="Fecha Plano Aprobado">
                      </div>
-                     <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                     <div style="color:red;" ><p><?=form_error('fecha_plano_aprobado')?></p></div>
                   </div>             
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Porcentaje de UC/UF</label>
-                        <input type="text" step="any" class="form-control" name="porcentaje_ucuf" id="porcentaje_uf" placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
-                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                        <input type="text" step="any" class="form-control" name="porcentaje_ucuf" id="porcentaje_ucuf" <?php echo "value='$porcentaje_ucuf'" ?>  placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
+                        <div style="color:red;" ><p><?=form_error('porcentaje_ucuf')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Poligonos</label>
-                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholder="Poligonos">
-                        <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholde<?php echo "value='$poligonos'" ?>  r="Poligonos">
+                        <div style="color:red;" ><p><?=form_error('poligonos')?></p></div>
                      </div>
                   </div>
                   </div>
@@ -116,13 +118,13 @@
      <!--Muestra el calendario para fecha de escritura-->
    <script>
         $( document ).ready(function() {
-            $('#fecha-escritura').datepicker();
+            $('#fecha_escritura').datepicker();
         });
     </script>
      <!--Muestra el calendario para fecha de plano aprobado-->
     <script>
         $( document ).ready(function() {
-            $('#fecha-plano-aprobado').datepicker();
+            $('#fecha_plano_aprobado').datepicker();
         });
     </script>
     
@@ -132,23 +134,23 @@
 		function noPh() { 		 
   		  document.getElementById("porcentaje_condominio").disabled = true; 
   		  document.getElementById("nro_ucuf").disabled = true; 
- 		  document.getElementById("tipoucuf").disabled = true; 
-          document.getElementById("plano_aprobado").disabled = true; 
-          document.getElementById("fecha_plano_aprobado").disabled = true; 
-          document.getElementById("porcentaje_uf").disabled = true; 
-          document.getElementById("poligonos").disabled = true; 
+ 		    document.getElementById("tipo_ucuf").disabled = true; 
+        document.getElementById("plano_aprobado").disabled = true; 
+        document.getElementById("fecha_plano_aprobado").disabled = true; 
+        document.getElementById("porcentaje_ucuf").disabled = true; 
+        document.getElementById("poligonos").disabled = true; 
 		}
 		</script>
 		<!--habilita campos si no es ph-->		
 		<script language="javascript"><!--
 
-		function ph() { 		 
-  		  document.getElementById("porcentaje_condominio").disabled = false;  	
-  		  document.getElementById("nro_ucuf").disabled = false; 
- 		  document.getElementById("tipoucuf").disabled = false; 	
+		function esPh() { 		 
+  		document.getElementById("porcentaje_condominio").disabled = false;  	
+  		document.getElementById("nro_ucuf").disabled = false; 
+ 		  document.getElementById("tipo_ucuf").disabled = false; 	
  	 	  document.getElementById("plano_aprobado").disabled = false; 
  	 	  document.getElementById("fecha_plano_aprobado").disabled = false; 
- 		  document.getElementById("porcentaje_uf").disabled = false; 	
+ 		  document.getElementById("porcentaje_ucuf").disabled = false; 	
  	 	  document.getElementById("poligonos").disabled = false; 
 		}
 		</script>
@@ -162,7 +164,7 @@
 		$('#porcentaje_condominio').keyup(function (e) {
     	  commaOnly($(this),'float');
  		   });
-		$('#porcentaje_uf').keyup(function (e) {
+		$('#porcentaje_ucuf').keyup(function (e) {
     	  commaOnly($(this),'float');
  		   });
 

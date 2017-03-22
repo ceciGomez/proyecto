@@ -62,9 +62,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Parcelas</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Actividad</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/reportesPedidos"><i class="fa fa-circle-o"></i> Reporte de Pedido</a></li>
           </ul>
         </li>
       
