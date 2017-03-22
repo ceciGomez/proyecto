@@ -16,6 +16,9 @@
                           .modal-content {
                         overflow:hidden;
                           }
+                            #parcelas {
+  width:2500px;
+}
    </style>
     <!-- CSS para quitar las flechas de los input number -->
    <style type="text/css">

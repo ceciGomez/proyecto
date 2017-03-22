@@ -184,7 +184,7 @@
                        $('#estadoPedido').on('change', function()
                         {
                          
-                             dtable.column("5").search(this.value).draw();
+                             dtable.column("3").search(this.value).draw();
 
                           console.log(this.value);
                         });

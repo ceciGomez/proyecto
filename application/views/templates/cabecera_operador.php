@@ -30,6 +30,9 @@
      #min{
   width:1000px;
 }
+  #parcelas {
+  width:2500px;
+}
    </style>
 
 
