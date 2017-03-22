@@ -25,18 +25,39 @@
                          <div class="row">
                             <div class="col-md-3">
                                <label>Apellido y nombre:</label><br>
-                              <input type='text' id="dniEscribano" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='1'>
+                              <input type='text' id="nombrePersona" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='1'>
                             </div>
-
                             <div class="col-md-3">
-                               <label>Dni :</label><br>
-                              <input type='text' value='' class='filter' data-column-index='2'>
-                            </div>  
+                               <label>DNI:</label><br>
+                              <input type='text' id="dniPersona" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='2'>
+                            </div> 
                           </div>                       
                                       
-                       </div>
-                  </div>    
-                </div>   
+                  </div>
+          </div>    
+    </div>   
+
+     
+
+      <div class="box-body table-responsive no-padding">                   
+                     <table id="personas" class="table-bordered" style="display: none" >
+                        <thead>
+                          <tr>
+                            <th>NyA</th>
+                            <th>Dni</th>                            
+
+                          </tr>
+                        </thead>
+                           <tbody >
+                            <?php  foreach ($personas as $per){ 
+                              $date=new DateTime($es->fechaReg);
+                              $date_formated=$date->format('d/m/Y ');
+                              
+                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();            
+                         ?></tbody>
+                         </table>
+
+                 </div>
 
    <section class="content-body">
       <div class="box box-default">
@@ -344,3 +365,81 @@
      		   input.val(update);
    			 }
 		</script>
+<!--     Filtra personas por nombre y apellido o dni -->
+         <script type="text/javascript">
+
+                   
+                   $(document).ready(function(){
+
+                    //crea la tabla
+                    var dtable=$('#personas').DataTable(
+                        {
+                           autoWidht:false,
+                             language: {
+                            "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningún Escribanp encontrado",
+                            "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                              }},
+
+                                } )
+                   
+                    //filtrado por defecto por dni de escribano y estado P, o solo por los estados P        
+                      dtable.column('2').search(document.getElementById("dniEscribano").value).draw();
+
+                              //para el filtrado
+                     $('.filter').on('keyup change', function () {
+                          //clear global search values
+                          dtable.search('');
+                          dtable.column($(this).data('columnIndex')).search(this.value).draw();
+                      });
+                      
+                      $( ".dataTables_filter input" ).on( 'keyup change',function() {
+                       //clear column search values
+                          dtable.columns().search('');
+                         //clear input values
+                         $('.filter').val('');
+                    }); 
+
+                          //filtra por estados
+                       $('#nombrePersona').on('change', function()
+                        {
+                         
+                             dtable.column("1").search(this.value).draw();
+
+                          console.log(this.value);
+                        });
+
+
+                      //quitar el campo de busqueda por defecto
+                      document.getElementById('escribanos_filter').style.display='none';
+
+                         $( "#escribanos" ).show();  
+                       
+                       
+
+                    
+                    } );
+
+
+                   function ventana_eli (idEscribano){
+                      idEsc=idEscribano;
+                     
+                   }                
+
+
+
+         </script>

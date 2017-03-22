@@ -389,11 +389,7 @@ class C_escribano extends CI_Controller {
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
-<<<<<<< HEAD
-=======
-        
-
->>>>>>> refs/remotes/ceciGomez/master
+		$data["personas"] = $this->M_escribano->getPersonas();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['propietarios'] = 
 		$this->load->view('templates/cabecera_escribano',$data);
