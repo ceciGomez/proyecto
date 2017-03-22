@@ -142,4 +142,5 @@ while($fila = mysqli_fetch_array($consulta)){
 
 
 $pdf->Output();
+ ob_end_flush(); 
 ?>
