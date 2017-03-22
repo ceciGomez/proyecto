@@ -24,7 +24,6 @@
                   <div class="box-body" style="background-color: lightblue;">
                       
                       
-                       <?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>
                           <label>Fecha Ingreso :</label>
                         <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
 

@@ -94,28 +94,18 @@ $pdf->SetFont('Times','',8);
 
 
 $consulta = mysqli_query($conexion,"
-          SELECT m.idMinuta as idMinuta, e.estadoMinuta as estadoMinuta,
-         e.motivoRechazo, ue.idEscribano,
-        concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
-                    
-        concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
-       concat( 
-         case   when p.circunscripcion <> '' then concat('Circ. ', p.circunscripcion) else '' end ,
-         case   when p.seccion <> '' then concat(' Sec. ',p.seccion)else ''  end ,
-         case   when p.chacra <> '' then concat(' Ch. ', p.chacra)else ''  end ,
-         case   when p.fraccion <> '' then concat(' Frac. ', p.fraccion) else '' end ,
-         case   when p.quinta <> '' then concat(' Qta. ', p.quinta) else '' end ,
-         case   when p.manzana <> '' then concat(' Mz. ',p.manzana) else '' end ,
-         case   when p.parcela <> '' then concat(' Pc. ',p.parcela) else '' end  
-           
-        ) as Nomenclatura
-      , p.nroMatriculaRPI as nroMatriculaRPI, p.planoAprobado as planoAprobado,
-                    l.nombre as localidad
-                            
-                            from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
-                            inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
-                            inner join parcela p on p.idMinuta = m.idMinuta
-                            inner join localidad l on l.idLocalidad = p.idLocalidad 
+    SELECT m.idMinuta as idMinuta, e.estadoMinuta as estadoMinuta,
+     e.motivoRechazo, ue.idEscribano,
+    concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
+                
+    concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
+                p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela as parcela, p.nroMatriculaRPI as nroMatriculaRPI, p.planoAprobado as planoAprobado,
+                l.nombre as localidad
+                        
+                        from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
+                        inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
+                        inner join parcela p on p.idMinuta = m.idMinuta
+                        inner join localidad l on l.idLocalidad = p.idLocalidad 
                         where ue.idEscribano = '".$_GET['idUsuario']."'
                         and cast(m.fechaIngresoSys as DATE) between '".$_GET['fechaInicio']."' and '".$_GET['fechaFin']."'                   
                         and e.fechaEstado = (SELECT MAX(ee.fechaEstado) 
@@ -133,7 +123,7 @@ while($fila = mysqli_fetch_array($consulta)){
     
     $pdf->Cell(17,8,$fila['fechaEstado'],1,0,'C');
     $pdf->Cell(17,8,$fila['planoAprobado'],1,0,'C');
-    $pdf->Cell(55,8,$fila['Nomenclatura'],1,0,'C');
+    $pdf->Cell(55,8,'Cir. '.$fila['circunscripcion'].' Sec. '.$fila['seccion'].' Ch. '.$fila['chacra'].' Qta. '.$fila['quinta'].' Frac. '.$fila['fraccion'].' Mz '.$fila['manzana'].' Pc '.$fila['parcela'],1,0,'C');
     $pdf->Cell(19,8,$fila['nroMatriculaRPI'],1,0,'C');
     $pdf->Cell(24,8,$fila['localidad'],1,0,'C');
     $pdf->Ln(8);
