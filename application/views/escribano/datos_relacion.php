@@ -27,13 +27,13 @@
             <div class="form-group">
                   <div class="radio">
                     <label>
-                      <input type="radio" name="ph" id="ph" value="ph" onclick="ph()" checked>
+                      <input type="radio" name="ph" id="ph" value="ph" onclick="esPh()"  <?php if ($ph == 'ph') echo 'checked'; ?> checked>
                       Es PH
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="ph" id="noph" value="noph" onclick="noPh()">
+                      <input type="radio" name="ph" id="noph" value="noph" onclick="noPh()" <?php if ($ph == 'noph') {echo 'checked'; echo "noPh();" ; } ?> >
                       No es PH
                     </label>
                   </div>                 
@@ -50,7 +50,7 @@
                              </div>
                           <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" placeholder="Fecha de Escritura">
                           </div>
-                         <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                         <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
                   
                      <div class="col-md-3">
@@ -71,6 +71,8 @@
                            <option >F</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
+                     </div>
+                     <div class="row">
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UC/UF</label>
@@ -142,13 +144,13 @@
 		<!--habilita campos si no es ph-->		
 		<script language="javascript"><!--
 
-		function ph() { 		 
+		function esPh() { 		 
   		document.getElementById("porcentaje_condominio").disabled = false;  	
   		document.getElementById("nro_ucuf").disabled = false; 
  		  document.getElementById("tipo_ucuf").disabled = false; 	
  	 	  document.getElementById("plano_aprobado").disabled = false; 
- 	 	  document.getElementById("fecha_plano_aprucobado").disabled = false; 
- 		  document.getElementById("porcentaje_uf").disabled = false; 	
+ 	 	  document.getElementById("fecha_plano_aprobado").disabled = false; 
+ 		  document.getElementById("porcentaje_ucuf").disabled = false; 	
  	 	  document.getElementById("poligonos").disabled = false; 
 		}
 		</script>
