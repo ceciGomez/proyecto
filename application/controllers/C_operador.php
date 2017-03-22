@@ -564,14 +564,6 @@ class C_operador extends CI_Controller {
 		$this->db->update('pedidos', $data); 
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> refs/remotes/ceciGomez/master
-
-
 	 public function buscarParcelas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
@@ -684,10 +676,50 @@ class C_operador extends CI_Controller {
                          "; 
                          }
 
+//para los reportes
+//oara los reportes
+public function reportesPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
-<<<<<<< HEAD
->>>>>>> refs/remotes/ceciGomez/master
-=======
+		$data['titulo'] = 'Bienvenido Operador';
 
->>>>>>> refs/remotes/ceciGomez/master
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
+
+
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('reportes/pedidosPorFecha_op',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+
+	public function imprimirPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+
+		$fechaPedidoDesde=$_GET['fechaPedidoDesde'];
+		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
+
+		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+	}
 }

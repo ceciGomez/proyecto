@@ -9,7 +9,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-         <h3 align="center">Gestionar Pedidos de Información</h3>
+         <h3 align="center">Reportes de Pedidos de Información</h3>
         <section >
          
 
@@ -19,45 +19,28 @@
 
              
 
-                 <label>Filtrar Solicitudes por :</label>
-                 
+                 <label>Filtrar Pedidos por :</label>
+                   <form   style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirPedidos"  method="get" accept-charset="utf-8" >
                   <div class="box-body" style="background-color: lightblue;">
-                      
-                      <div class="row">
+                  
+                       <div class="row">
                       <div class="col-md-3">
-                          
-                          <label>Fecha Pedido :</label>
-                        <input type="text" data-provide="datepicker"   id="fechaPedido" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
+                          <label>Fecha Pedido desde :</label><br>
+                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   '> 
                       </div>
-                      <div class="col-md-3">
-                        <label>Fecha Respuesta :</label>
-                        
-                        <input type='text' data-provide="datepicker"  id="fechaRespuesta"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
+
+                       <div class="col-md-3">
+                          <label>Fecha Pedido hasta :</label><br>
+                        <input type="text"   id="fechaPedidoHasta" name="fechaPedidoHasta" data-provide="datepicker" placeholder="dd/mm/aaaa" > 
                       </div>
-                      <div class="col-md-3">
-
-                           <label>Número de Pedido :</label>
-                        <input type='text' id="idPedido" value='<?php echo $this->session->flashdata('noti_si')["idPedido"]; ?>' class='filter' data-column-index='3'> 
-
-                       </div>
-                                        <div class="col-md-3">
-
-                         <label> Escribano :</label><br>
-                        <input type='text' id="idEscribano"  class='filter' data-column-index='4'> 
-                  </div>
-                      <div class="col-md-3">
-
-                        <label>Estado :</label><br>
-                        <input type="hidden" value= '<?php echo $this->session->flashdata('noti_si')["estadoPedido"]; ?>' id="estado"> 
-                        <select id="estadoPedido">
-                             <option value=""></option>
-                            <option value="P">P</option>
-                            <option value="C">C</option>
-                 
-                        </select>
-                         </div>
-                </div>   
-                <br><br>
+              
+                </div> 
+                </div> 
+                <br>
+               <div align="center">
+                <button type="submit" class="btn btn-primary">Imprimir Pedidos</button>               
+                      </div>
+                </form>
                   
                         
 
@@ -74,11 +57,10 @@
                          <table id="pedidos" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
-                          <th>Operaciones</th>
                           <th>Fecha de Respuesta</th>
                           <th>Fecha de Pedido</th>
                           <th>Numero de Pedido</th>
-                          <th> Escribano</th>
+                          <th>Escribano</th>
                           <th>Estado</th>
                           <th>Operador</th>
                           <th>Decripcion</th>
@@ -109,36 +91,22 @@
                              ?>
 
                           <tr>
-                            <td>
-
-
-                           
-
-                              <?php  
-                              
-                                if($si->estadoPedido=="P"){
-
-                                  ?>
-                                    <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Contestar" title="Contestar Pedido" onclick="ventana_contestar(<?php echo $si->idPedido; ?>,<?php echo $this->session->userdata('id_usuario'); ?>)" ><i class="fa fa-check"></i></button></a>
-
-
-                                  <?php  
-                                };
-                                ?>
-                            </td>
+                          
 
                             <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$date_formated2"; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
-                             <td><?php 
-                              if($si->idEscribano==null) echo "";else {
-                            $this->db->from('usuarioescribano');
-                         $this->db->where('idEscribano', $si->idEscribano); 
-                         $escribano= $this->db->get()->row();
-
-
-                           echo "$escribano->nomyap";}
-                            ?> </td>
+                             <td>  <?php 
+                                      if ($si->idEscribano==null) {
+                                          echo '';
+                                      }else{
+                                        $this->db->from('usuarioescribano');
+                                      
+                                     $this->db->where('idEscribano', $si->idEscribano); 
+                                     $escribano= $this->db->get()->row();
+                                     echo $escribano->nomyap;
+            }
+                          ?> </td>
                             <td>  <?php  echo $si->estadoPedido; ?> </td>
                              <td>  <?php  echo $si->nomyap; ?> </td>
                                   <td>  <?php  echo $si->descripcion; ?> </td>
@@ -234,42 +202,57 @@
                          //clear input values
                          $('.filter').val('');
                     }); 
-                      //filtra por estados
-                       $('#estadoPedido').on('change', function()
-                        {
-                         
-                             dtable.column("5").search(this.value).draw();
-
-                          console.log(this.value);
-                        });
-
+                     
                       //quitar el campo de busqueda por defecto
                       document.getElementById('pedidos_filter').style.display='none';
 
                        $( "#pedidos" ).show();
 
-                      //en caso de que haga click en alguna notificacion filtra por idminuta y estado                  
-                        dtable.column('3').search(document.getElementById("idPedido").value).draw();
-
-                      if (document.getElementById("estado").value=="P") {
-                          $("#estadoPedido")
-                            .find("option:contains(P)")
-                            .prop("selected", true);
-                            dtable.column('5').search(String('P')).draw();
-
-                      };
-                          
-
 
                       //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
-                            $('#fechaPedido').datepicker();
+                            $('#fechaPedidoDesde').datepicker();
                         });
                                   
                    $( document ).ready(function() {
-                            $('#fechRespuesta').datepicker();
+                            $('#fechaPedidoHasta').datepicker();
                         });
                   
+
+                   $.fn.dataTableExt.afnFiltering.push(
+                            function( oSettings, aData, iDataIndex ) {
+                                var iFini = document.getElementById('fechaPedidoDesde').value;
+                                var iFfin = document.getElementById('fechaPedidoHasta').value;
+                                var iStartDateCol = 1;
+                                var iEndDateCol = 1;
+                         
+                                iFini=iFini.substring(6,10) + iFini.substring(3,5)+ iFini.substring(0,2);
+                                iFfin=iFfin.substring(6,10) + iFfin.substring(3,5)+ iFfin.substring(0,2);
+                         
+                                var datofini=aData[iStartDateCol].substring(6,10) + aData[iStartDateCol].substring(3,5)+ aData[iStartDateCol].substring(0,2);
+                                var datoffin=aData[iEndDateCol].substring(6,10) + aData[iEndDateCol].substring(3,5)+ aData[iEndDateCol].substring(0,2);
+                         
+                                if ( iFini === "" && iFfin === "" )
+                                {
+                                    return true;
+                                }
+                                else if ( iFini <= datofini && iFfin === "")
+                                {
+                                    return true;
+                                }
+                                else if ( iFfin >= datoffin && iFini === "")
+                                {
+                                    return true;
+                                }
+                                else if (iFini <= datofini && iFfin >= datoffin)
+                                {
+                                    return true;
+                                }
+                                return false;
+                            });
+
+                             $('#fechaPedidoDesde').select( function() { dtable.draw(); } );
+                              $('#fechaPedidoHasta').select( function() { dtable.draw(); } );
              
                 })
 
@@ -290,7 +273,16 @@
                     $.post("<?=base_url()?>index.php/c_operador/contestar_pedido",{idPedido:idPed,rtaPedido:rtaPedido,idUsuario:idUsr}, function(data){
             });
                   }
-                  
+
+                                                                      
+                                      
+                      $(function () {
+            $('#fechaPedidoDesde').datepicker({format: 'yyyy-mm-dd'});
+          });
+       $(function () {
+            $('#fechaPedidoHasta').datepicker({format: 'yyyy-mm-dd'});
+            });
+
          </script>
 
            

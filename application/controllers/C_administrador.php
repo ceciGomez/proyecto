@@ -827,6 +827,48 @@ class C_administrador extends CI_Controller {
 			 	 </tr>
                          "; 
                          }
+//para los reportes
+//oara los reportes
+public function reportesPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		
+		$data['titulo'] = 'Bienvenido Administrador';
+
+		$this->db->select('*');
+		$this->db->from('pedidos');
+		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
 
 
+		
+		
+		$pedidos= $this->db->get()->result();
+	
+		$data['pedidos']=$pedidos;
+
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('reportes/pedidosPorFecha_adm',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function imprimirPedidos()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+
+		$fechaPedidoDesde=$_GET['fechaPedidoDesde'];
+		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
+
+		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+	}
 }
