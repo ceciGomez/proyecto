@@ -564,14 +564,6 @@ class C_operador extends CI_Controller {
 		$this->db->update('pedidos', $data); 
 	}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
-
->>>>>>> refs/remotes/ceciGomez/master
-
-
 	 public function buscarParcelas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
@@ -717,7 +709,7 @@ public function reportesPedidos()
 		$this->load->view('templates/pie',$data);
 	}
 
-<<<<<<< HEAD
+
 	public function imprimirPedidos()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
@@ -730,11 +722,4 @@ public function reportesPedidos()
 
 		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
 	}
-=======
-<<<<<<< HEAD
->>>>>>> refs/remotes/ceciGomez/master
-=======
-
->>>>>>> refs/remotes/ceciGomez/master
->>>>>>> refs/remotes/origin/master
 }

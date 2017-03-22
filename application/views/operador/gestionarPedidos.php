@@ -42,7 +42,7 @@
                        </div>
                                         <div class="col-md-3">
 
-                         <label>Numero Escribano :</label>
+                         <label> Escribano :</label><br>
                         <input type='text' id="idEscribano"  class='filter' data-column-index='4'> 
                   </div>
                       <div class="col-md-3">
@@ -78,7 +78,7 @@
                           <th>Fecha de Respuesta</th>
                           <th>Fecha de Pedido</th>
                           <th>Numero de Pedido</th>
-                          <th>Número de Escribano</th>
+                          <th> Escribano</th>
                           <th>Estado</th>
                           <th>Operador</th>
                           <th>Decripcion</th>
@@ -130,7 +130,15 @@
                             <td>  <?php  echo "$date_formated"; ?></td>
                             <td>  <?php  echo "$date_formated2"; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
-                             <td>  <?php  echo $si->idEscribano; ?> </td>
+                             <td><?php 
+                              if($si->idEscribano==null) echo "";else {
+                            $this->db->from('usuarioescribano');
+                         $this->db->where('idEscribano', $si->idEscribano); 
+                         $escribano= $this->db->get()->row();
+
+
+                           echo "$escribano->nomyap";}
+                            ?> </td>
                             <td>  <?php  echo $si->estadoPedido; ?> </td>
                              <td>  <?php  echo $si->nomyap; ?> </td>
                                   <td>  <?php  echo $si->descripcion; ?> </td>
