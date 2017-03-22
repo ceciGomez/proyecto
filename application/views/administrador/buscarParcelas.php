@@ -70,9 +70,21 @@
                         <label>Parcela :</label><br>
                         <input type='text' id="parcela"  class='filter' data-column-index='9'> 
                         </div>
+                        <div class="col-md-3">
+                        <label>nroUfUc :</label><br>
+                        <input type='text' id="parcela"  class='filter' data-column-index='10'> 
+                        </div>
+                        <div class="col-md-3">
+                        <label>tipoUfUc :</label><br>
+                        <input type='text' id="parcela"  class='filter' data-column-index='11'> 
+                        </div>
+                        <div class="col-md-3">
+                        <label>Número de Plano :</label><br>
+                        <input type='text' id="parcela"  class='filter' data-column-index='12'> 
+                        </div>
                        <div class="col-md-3">
-                        <label>Localidad :</label><br>
-                        <input type='text' id="localidad"  class='filter' data-column-index='10'> 
+                        <label>Número de Matrícula :</label><br>
+                        <input type='text' id="localidad"  class='filter' data-column-index='13'> 
                       </div>
                     </div>
                     <br>
@@ -104,6 +116,8 @@
                           <th>Fraccion</th>
                           <th>Manzana</th>
                           <th>Parcela</th>
+                          <th>nroUfUc</th>
+                          <th>tipoUfUc</th>
                           <th>Número de Plano</th>
                           <th>Número de Matrícula</th>
                           <th>Localidad</th>
@@ -163,6 +177,8 @@
                             <td>  <?php  if( $pa->fraccion==null) echo "";else echo  $pa->fraccion; ?> </td>
                             <td>   <?php  if($pa->manzana==null) echo "";else echo  $pa->manzana; ?> </td>
                             <td>   <?php  if($pa->parcela==null) echo "";else echo  $pa->parcela; ?> </td>
+                            <td>   <?php  if($pa->nroUfUc==null) echo "";else echo  $pa->nroUfUc; ?> </td>
+                            <td>   <?php  if($pa->tipoUfUc==null) echo "";else echo  $pa->tipoUfUc; ?> </td>
                             <td>   <?php  if($pa->planoAprobado==null) echo "";else echo  $pa->planoAprobado; ?> </td>
                             <td>   <?php  if($pa->nroMatriculaRPI==null) echo "";else echo  $pa->nroMatriculaRPI; ?> </td>
                             <td>   <?php  if( $localidad->nombre==null) echo "";else echo   $localidad->nombre; ?> </td>
@@ -320,7 +336,7 @@
                           //
 
                       function ventana_det(idParcela){
-                    $.post("<?=base_url()?>index.php/c_operador/detalles_parcela",{idParcela:idParcela}, function(data){
+                    $.post("<?=base_url()?>index.php/c_administrador/detalles_parcela",{idParcela:idParcela}, function(data){
                       $("#det_parcela").html(data);
                         });
                               }
