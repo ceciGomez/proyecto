@@ -60,7 +60,7 @@
 <script src="<?=base_url()?>assets/bootstrap/js/bootstrap.min.js"></script>
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
-<script src="<?=base_url()?>assets/plugins/morris/morrisjs"></script>
+<script src="<?=base_url()?>assets/plugins/morris/morris.js"></script>
 <!-- Sparkline -->
 <script src="<?=base_url()?>assets/plugins/sparkline/jquery.sparkline.min.js"></script>
 <!-- jvectormap -->

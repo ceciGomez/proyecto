@@ -18,7 +18,7 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-				$data["notificaciones_si"]=$this->notificaciones_si();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$data['titulo'] = 'Bienvenido Operador';
 
@@ -38,7 +38,7 @@ class C_operador extends CI_Controller {
 		
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-				$data["notificaciones_si"]=$this->notificaciones_si();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$this->load->model('M_operador');
 		$data["escribanos"] = $this->M_operador->getEscribanos();
@@ -566,6 +566,7 @@ class C_operador extends CI_Controller {
 
 
 
+
 	 public function buscarParcelas()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
@@ -677,6 +678,7 @@ class C_operador extends CI_Controller {
 			 	 </tr>
                          "; 
                          }
+
 
 
 }
