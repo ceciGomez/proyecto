@@ -724,9 +724,9 @@ class C_administrador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-		$this->db->select('*');
+		$this->db->select('minuta.fechaIngresoSys,minuta.idMinuta,relacion.fechaEscritura,relacion.nroUfUc,relacion.tipoUfUc,parcela.circunscripcion,parcela.seccion,parcela.chacra,parcela.quinta,parcela.fraccion,parcela.manzana,parcela.parcela,parcela.planoAprobado,parcela.nroMatriculaRPI,parcela.idLocalidad,parcela.idParcela');
 		$this->db->from('parcela');
-		$this->db->join('minuta', 'parcela.idMinuta = minuta.idMinuta');
+		$this->db->join('minuta', 'parcela.idMinuta = minuta.idMinuta','left');
 		$this->db->join('relacion', 'relacion.idParcela=parcela.idParcela');
 	
 

@@ -646,9 +646,8 @@ class C_escribano extends CI_Controller {
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
 		$idEscribano=$this->session->userdata('idEscribano');
-		$this->db->select('*');
 		$this->db->from('parcela');
-		$this->db->join('minuta', 'parcela.idMinuta = minuta.idMinuta');
+		$this->db->join('minuta', 'parcela.idMinuta = minuta.idMinuta','left');
 		$this->db->join('relacion', 'relacion.idParcela=parcela.idParcela');
 		$this->db->where('idEscribano', $idEscribano);
 
