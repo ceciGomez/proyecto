@@ -88,15 +88,10 @@
                                   <div class=" col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
-<<<<<<< HEAD
-                                       <div class="input-group-addon">
-                                         <i class="fa fa-calendar"></i>
-                                       </div>
-                                       <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
-=======
+
                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
                                        <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" placeholder="dd/mm/aaaa" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
->>>>>>> refs/remotes/ceciGomez/master
+
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaPlanoAprobado')?></p></div>
                                     <!-- /.input group -->

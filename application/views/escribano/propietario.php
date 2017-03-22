@@ -25,11 +25,11 @@
                          <div class="row">
                             <div class="col-md-3">
                                <label>Apellido y nombre:</label><br>
-                              <input type='text' id="nombrePersona" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='1'>
+                              <input type='text' id="nombrePersona"  class='filter' data-column-index='0'>
                             </div>
                             <div class="col-md-3">
                                <label>DNI:</label><br>
-                              <input type='text' id="dniPersona" value='<?php echo $this->session->flashdata('noti_esc')["dniEscribano"]; ?>' class='filter' data-column-index='2'>
+                              <input type='text' id="dniPersona"  class='filter' data-column-index='1'>
                             </div> 
                           </div>                       
                                       
@@ -39,23 +39,32 @@
 
      
 
-      <div class="box-body table-responsive no-padding">                   
-                     <table id="personas" class="table-bordered" style="display: none" >
+       <div class="box-body table-responsive no-padding">                   
+                     <table id="personas" class="display" style="display: none" data-page-length="2">
                         <thead>
                           <tr>
-                            <th>NyA</th>
-                            <th>Dni</th>                            
-
+                            <th>Nombre y Apellido</th>
+                              <th>Cuit/cuil</th>
+                              <th>Dni</th>                
+                              <th>Direccion</th>     
+                                   <th>Conyuge</th>  
                           </tr>
                         </thead>
-                           <tbody >
-                            <?php  foreach ($personas as $per){ 
-                              $date=new DateTime($es->fechaReg);
-                              $date_formated=$date->format('d/m/Y ');
-                              
-                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();            
-                         ?></tbody>
-                         </table>
+
+                      <tbody >
+             <?php foreach ($personas as $c): ?>
+
+             <tr>
+                 <td><?php echo $c->apynom; ?></td>
+                 <td><?php echo $c->dni; ?></td>       
+                 <td><?php echo $c->cuitCuil; ?></td>    
+                 <td><?php echo $c->direccion; ?></td>  
+                 <td><?php echo $c->conyuge; ?></td>       
+             </tr>
+
+             <?php endforeach; ?>
+</tbody>
+                 </table>
 
                  </div>
 
@@ -69,16 +78,18 @@
                  <label >Tipo propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" onclick="persona()" checked>
+                      <input type="radio" name="tipoPropietario" id="persona" value="option1" onclick="persona()" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2" onclick="empresa()">
+                      <input type="radio" name="tipoPropietario" id="empresa" value="option2" onclick="empresa()">
                       Empresa
                     </label>
-                  </div>      
+                  </div>  
+                  </div>
+                  <div class="form-group">    
                    </div>            
                    <div class="col-md-3">                           
                  <label >Propietario</label>
@@ -103,7 +114,7 @@
                   <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="inputTextBox" placeholder="Apellido" name="nya" maxlength="100">
+                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" name="nya" maxlength="100">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
@@ -134,7 +145,7 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Dirección</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Dirección">
+                        <input type="text" class="form-control" id="direccion" placeholder="Dirección">
                      </div>
                      <div class="col-md-3">
                         <label>Localidad</label>
@@ -148,62 +159,10 @@
                            <option>La Escondida</option>
                         </select>
                      </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Fecha de Escritura</label>
-                          <div class="input-group date">
-                            <div class="input-group-addon">
-                             <i class="fa fa-calendar"></i>
-                         </div>
-                          <input type="text" class="form-control pull-right" id="fecha-escritura" placeholder="Fecha de Escritura">
-                     </div>
-                     </div>
-                  </div>
-                  <div class="form-group">
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Porcentaje de Condominio</label>
-                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
-                     </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Numero de UC/UF</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Numero de UC/UF">
-                     </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Tipo UF/UC</label>
-                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Seleccionar</option>
-                           <option >C</option>
-                           <option >F</option>
-                        </select>
-                     </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Plano Aprobado de la UF/UC</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Plano Aprobado de la UF/UC">
-                     </div>
-                    <div class="col-md-3">
-                        <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
-                          <div class="input-group date">
-                            <div class="input-group-addon">
-                             <i class="fa fa-calendar"></i>
-                         </div>
-                          <input type="text" class="form-control pull-right" id="fecha-plano-aprobado" placeholder="Fecha Plano Aprobado">
-                     </div>
-                  </div>
-                <!-- /.input group -->
-              </div>
+                   
               <!-- /.form group -->
-                </div>
-                   <div class="row">
-                  <div class="form-group">
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Porcentaje de UF/UC</label>
-                        <input type="text" step="any" class="form-control" name="porcentaje_uf" id="porcentaje_uf" placeholder="Porcentaje de UF/UC" onclick="commaOnly(input,'float')">
-                     </div>
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Poligonos</label>
-                        <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Poligonos">
-                     </div>
-                  </div>
-                  </div>
+                
+                
                   <!-- /.form-group -->
                </div>
                <!-- /.col -->
@@ -334,7 +293,7 @@
 		<!--Valida el porcentaje-->
 
 		
-		</script>
+
 		<!--Valida el porentaje-->
 
 		<script language="javascript">
@@ -366,21 +325,19 @@
    			 }
 		</script>
 <!--     Filtra personas por nombre y apellido o dni -->
-         <script type="text/javascript">
-
+              <script type="text/javascript">
                    
                    $(document).ready(function(){
-
                     //crea la tabla
                     var dtable=$('#personas').DataTable(
                         {
                            autoWidht:false,
                              language: {
-                            "sProcessing":     "Procesando...",
+                                "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
-                            "sEmptyTable":     "Ningún Escribanp encontrado",
-                            "sInfo":           "Mostrando Escribanos del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sEmptyTable":     "Ningúna persona encontrada",
+                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -394,11 +351,20 @@
                                 "sNext":     "Siguiente",
                                 "sPrevious": "Anterior"
                               }},
+                                } )                  
+                  ;
 
-                                } )
-                   
-                    //filtrado por defecto por dni de escribano y estado P, o solo por los estados P        
-                      dtable.column('2').search(document.getElementById("dniEscribano").value).draw();
+                 
+     
+                       $('#personas tbody').on('click', 'tr', function () {
+                      var data = $('#personas').DataTable().row( this ).data();
+                     document.getElementById("nombreyapellido").value = data[0]; 
+                     document.getElementById("dni").value = data[1];  
+                     document.getElementById("cuit").value = data[2]; 
+                     document.getElementById("direccion").value = data[3]; 
+                    document.getElementById("conyuge").value = data[4]; 
+                      } );
+
 
                               //para el filtrado
                      $('.filter').on('keyup change', function () {
@@ -413,33 +379,16 @@
                          //clear input values
                          $('.filter').val('');
                     }); 
-
-                          //filtra por estados
-                       $('#nombrePersona').on('change', function()
-                        {
-                         
-                             dtable.column("1").search(this.value).draw();
-
-                          console.log(this.value);
-                        });
-
-
+                    
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('escribanos_filter').style.display='none';
-
-                         $( "#escribanos" ).show();  
+                      document.getElementById('personas_filter').style.display='none';
+                         $( "#personas" ).show();  
                        
                        
-
                     
                     } );
-
-
-                   function ventana_eli (idEscribano){
-                      idEsc=idEscribano;
-                     
-                   }                
-
-
-
+                     //filtra por estados
+                      
+                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
+                  
          </script>
