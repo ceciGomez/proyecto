@@ -565,7 +565,11 @@ class C_operador extends CI_Controller {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+
+>>>>>>> refs/remotes/ceciGomez/master
 
 
 	 public function buscarParcelas()
@@ -680,6 +684,10 @@ class C_operador extends CI_Controller {
                          "; 
                          }
 
+
+<<<<<<< HEAD
+>>>>>>> refs/remotes/ceciGomez/master
+=======
 
 >>>>>>> refs/remotes/ceciGomez/master
 }
