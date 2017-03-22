@@ -3,6 +3,7 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
+   
   <section class="content">
     
       <!-- Main row -->
@@ -119,9 +120,7 @@
                               $date=new DateTime($es->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
                               
-                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();
-                           
-
+                              $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();            
                          ?>
                           <tr>
                              <td >
