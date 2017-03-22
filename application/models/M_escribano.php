@@ -216,6 +216,13 @@ public function getPropietarios($idParcela)
 		}
 	}
 
+
+	public function getPersonas(){
+
+		$personas =$this->db->get("persona")->result();
+		return $personas;
+	}
+
 		public function getDepartamentos()
 	{
 		try {

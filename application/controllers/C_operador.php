@@ -18,7 +18,7 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-				$data["notificaciones_si"]=$this->notificaciones_si();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$data['titulo'] = 'Bienvenido Operador';
 
@@ -38,7 +38,7 @@ class C_operador extends CI_Controller {
 		
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-				$data["notificaciones_si"]=$this->notificaciones_si();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$this->load->model('M_operador');
 		$data["escribanos"] = $this->M_operador->getEscribanos();
@@ -564,6 +564,12 @@ class C_operador extends CI_Controller {
 		$this->db->update('pedidos', $data); 
 	}
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+
+>>>>>>> refs/remotes/ceciGomez/master
 
 
 	 public function buscarParcelas()
@@ -711,6 +717,7 @@ public function reportesPedidos()
 		$this->load->view('templates/pie',$data);
 	}
 
+<<<<<<< HEAD
 	public function imprimirPedidos()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
@@ -723,4 +730,11 @@ public function reportesPedidos()
 
 		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
 	}
+=======
+<<<<<<< HEAD
+>>>>>>> refs/remotes/ceciGomez/master
+=======
+
+>>>>>>> refs/remotes/ceciGomez/master
+>>>>>>> refs/remotes/origin/master
 }
