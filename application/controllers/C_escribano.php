@@ -228,6 +228,7 @@ class C_escribano extends CI_Controller {
 
 		if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
+			$data['ph'] = $this->input->post('ph');
 			$data['fecha_escritura'] = $this->input->post('fecha_escritura');
 			$data['porcentaje_condominio']=$this->input->post('porcentaje_condominio');
 			$data['nro_ucuf'] = $this->input->post('nro_ucuf');
@@ -240,6 +241,7 @@ class C_escribano extends CI_Controller {
 
 		}else{
 
+			$data['ph']='';
 			$data['fecha_escritura']='';
 			$data['porcentaje_condominio']='';
 			$data['nro_ucuf']='';
@@ -266,7 +268,9 @@ class C_escribano extends CI_Controller {
 
 				 $this->load->helper(array('form', 'url'));
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
+                 if($this->input->post('ph')=='noph'){
 			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+			    }else{
 			    $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar un porcentaje ') );
 			    $this->form_validation->set_rules('nro_ucuf', 'nro_ucuf', 'required',array('required' => 'Debes ingresar un número ') );
 				$this->form_validation->set_rules('tipo_ucuf', 'tipo_ucuf','required|callback_check_tipoucuf');
@@ -274,7 +278,7 @@ class C_escribano extends CI_Controller {
 			    $this->form_validation->set_rules('plano_aprobado', 'plano_aprobado', 'required',array('required' => 'Debes ingresar un nro de plano ') );
 			    $this->form_validation->set_rules('fecha_plano_aprobado', 'fecha_plano_aprobado', 'required',array('required' => 'Debes ingresar una fecha ') );
 			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_ucuf', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('poligonos', 'poligonos', 'required',array('required' => 'Debes ingresar un poligono ') );
+			    $this->form_validation->set_rules('poligonos', 'poligonos', 'required',array('required' => 'Debes ingresar un poligono ') );}
 
 			   
 			if($this->form_validation->run() == FALSE)
