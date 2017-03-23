@@ -7,9 +7,9 @@ ob_end_clean();
 header("Content-Encoding: None", true);
 
 
-$fechaPedidoDesde= date_format(date_create($_GET['fechaPedidoDesde']),'Y-m-d');
+//$fechaPedidoDesde= date_format(date_create($_GET['fechaPedidoDesde']),'Y-m-d');
 
-$fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
+//$fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
 
 $pedidos = mysqli_query($conexion,
     "SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,
