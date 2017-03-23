@@ -32,6 +32,18 @@
      margin: 0;
     }
 </style>
+ <script language="javascript"><!--
+
+    function noPh() {      
+        document.getElementById("porcentaje_condominio").disabled = true; 
+        document.getElementById("nro_ucuf").disabled = true; 
+        document.getElementById("tipo_ucuf").disabled = true; 
+        document.getElementById("plano_aprobado").disabled = true; 
+        document.getElementById("fecha_plano_aprobado").disabled = true; 
+        document.getElementById("porcentaje_ucuf").disabled = true; 
+        document.getElementById("poligonos").disabled = true; 
+    }
+    </script>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->

@@ -33,7 +33,7 @@
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="ph" id="noph" value="noph" onclick="noPh()" <?php if ($ph == 'noph') {echo 'checked'; echo "noPh();" ; } ?> >
+                      <input type="radio" name="ph" id="noph" value="noph" onclick="noPh()" <?php if ($ph == 'noph') {echo 'checked'; echo "<script type='text/javascript'>noPh();</script>"; } ?> >
                       No es PH
                     </label>
                   </div>                 
@@ -52,12 +52,7 @@
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
-                  
-                     <div class="col-md-3">
-                        <label for="exampleInputEmail1">Porcentaje de Condominio</label>
-                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" <?php echo "value='$porcentaje_condominio'" ?> id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
-                       <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
-                     </div>
+                                       
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Numero de UC/UF</label>
                         <input type="text" class="form-control" name="nro_ucuf" id="nro_ucuf" <?php echo "value='$nro_ucuf'" ?>  placeholder="Numero de UC/UF">
@@ -72,8 +67,7 @@
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
                      </div>
-                     <div class="row">
-                     </div>
+                    
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Plano Aprobado de la UC/UF</label>
                         <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" <?php echo "value='$plano_aprobado'" ?>  placeholder="Plano Aprobado de la UF/UC">
