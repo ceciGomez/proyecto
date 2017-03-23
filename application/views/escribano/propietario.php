@@ -40,30 +40,32 @@
      
 
        <div class="box-body table-responsive no-padding">                   
-                     <table id="personas" class="display" style="display: none" data-page-length="2">
+                     <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
                           <tr>
+                             <th>Selecc</th>
                             <th>Nombre y Apellido</th>
                               <th>Cuit/cuil</th>
                               <th>Dni</th>                
                               <th>Direccion</th>     
-                                   <th>Conyuge</th>  
+                              <th>Conyuge</th>  
                           </tr>
                         </thead>
 
                       <tbody >
-             <?php foreach ($personas as $c): ?>
+                      <?php foreach ($personas as $c): ?>
 
-             <tr>
-                 <td><?php echo $c->apynom; ?></td>
-                 <td><?php echo $c->dni; ?></td>       
-                 <td><?php echo $c->cuitCuil; ?></td>    
-                 <td><?php echo $c->direccion; ?></td>  
-                 <td><?php echo $c->conyuge; ?></td>       
-             </tr>
+                         <tr>
+                         <td><button class="btn btn-success">Seleccionar</button></td>
+                           <td><?php echo $c->apynom; ?></td>
+                           <td><?php echo $c->dni; ?></td>       
+                            <td><?php echo $c->cuitCuil; ?></td>    
+                           <td><?php echo $c->direccion; ?></td>  
+                            <td><?php echo $c->conyuge; ?></td>       
+                        </tr>
 
              <?php endforeach; ?>
-</tbody>
+              </tbody>
                  </table>
 
                  </div>
@@ -124,7 +126,7 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
                         <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
-                        <!-- /.form-group -->
+                        <div style="color:red;" ><p><?=form_error('nombreyapellido')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
@@ -133,14 +135,17 @@
                            <option value="27" >Femenino</option>
                            <option value="20" >Masculino</option>
                         </select>
+                        <div style="color:red;" ><p><?=form_error('sexo_combobox')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
                         <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" onKeyUp="limitText(this,8);"/>
+                        <div style="color:red;" ><p><?=form_error('dni')?></p></div>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
+                        <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                      </div>
                      </div>
@@ -149,15 +154,18 @@
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
                         <input type="text" class="form-control" id="cuil" placeholder="CUIL" disabled >
+                        <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
                      </div>
                                        
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Conyuge</label>
                         <input type="text" class="form-control" id="conyuge" placeholder="Conyuge">
+                        <div style="color:red;" ><p><?=form_error('conyuge')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Dirección</label>
                         <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+                        <div style="color:red;" ><p><?=form_error('direccion')?></p></div>
                      </div>
                      <div class="col-md-3">
                                     <label>Fecha de Nacimiento/Creación</label>
@@ -168,7 +176,6 @@
                                        <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
-                                    <!-- /.input group -->
                         </div>
                         </div>
                         </div>
@@ -350,6 +357,11 @@
                         {
                            autoWidht:false,
                              language: {
+                              "columnDefs": [ {
+                                     "targets": -1,
+                                         "data": null,
+                                           "defaultContent": "<button>Click!</button>"
+                                                } ],
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",
                             "sZeroRecords":    "No se encontraron resultados",
@@ -368,7 +380,7 @@
                                 "sNext":     "Siguiente",
                                 "sPrevious": "Anterior"
                               }},
-                                } )                  
+                                } )               
                   ;
 
                  
@@ -382,12 +394,18 @@
                     document.getElementById("conyuge").value = data[4]; 
                       } );
 
-
+                     
                          //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
                           dtable.column($(this).data('columnIndex')).search(this.value).draw();
+                           if( $(this).val() ) {
+                              $( "#personas" ).show(); }
+                              else{
+                                 $( "#personas" ).hide();
+                              }
+
                       });
                       
                       $( ".dataTables_filter input" ).on( 'keyup change',function() {
@@ -395,10 +413,17 @@
                           dtable.columns().search('');
                          //clear input values
                          $('.filter').val('');
+                         if( $(this).val() ) {
+                              $( "#personas" ).show(); }
+                              else{
+                                 $( "#personas" ).hide();
+                              }
+                          
                     }); 
+                     
                     
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('personas_filter').style.display='none';                      
+                                      
                       } );              
                   
          </script>
