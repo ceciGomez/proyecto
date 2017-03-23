@@ -17,8 +17,8 @@
                         overflow:hidden;
                           }
                             #parcelas {
-  width:2500px;
-}
+       width:2500px;
+      }
    </style>
     <!-- CSS para quitar las flechas de los input number -->
    <style type="text/css">
@@ -31,6 +31,17 @@
       -webkit-appearance: none !important;
      margin: 0;
     }
+</style>
+    <!-- Cambia el color del boton en el datatable de buscar personas -->
+<style type="text/css">
+.seleccionar
+{
+    background-color: #228b22;
+}
+.button:hover
+{
+    background-image: #228b22;
+}
 </style>
  <script language="javascript"><!--
 
