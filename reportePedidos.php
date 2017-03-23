@@ -11,7 +11,13 @@ $fechaPedidoDesde= date_format(date_create($_GET['fechaPedidoDesde']),'Y-m-d');
 
 $fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
 
-$pedidos = mysqli_query($conexion,"SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,p.rtaPedido,p.estadoPedido,p.idEscribano, p.idUsuario  FROM pedidos p");
+$pedidos = mysqli_query($conexion,
+    "SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,
+    p.rtaPedido,p.estadoPedido,p.idEscribano, p.idUsuario  
+    FROM pedidos p
+    where p.fechaPedido 
+    between '".$_GET['fechaPedidoDesde']."' and '".$_GET['fechaPedidoHasta']."'
+   ");
 if($pedidos === FALSE) { 
         die(mysqli_error($conexion)); // better error handling
     }
