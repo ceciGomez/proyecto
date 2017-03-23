@@ -117,7 +117,8 @@ $consulta = mysqli_query($conexion,"
                             inner join parcela p on p.idMinuta = m.idMinuta
                             inner join localidad l on l.idLocalidad = p.idLocalidad 
                         where ue.idEscribano = '".$_GET['idUsuario']."'
-                        and cast(m.fechaIngresoSys as DATE) between '".$_GET['fechaInicio']."' and '".$_GET['fechaFin']."'                   
+                        and cast(m.fechaIngresoSys as DATE)
+                         between '".$_GET['fechaInicio']."' and '".$_GET['fechaFin']."'                   
                         and e.fechaEstado = (SELECT MAX(ee.fechaEstado) 
                                                 from estadominuta ee 
                                                 where  m.idMinuta = ee.idMinuta )  
