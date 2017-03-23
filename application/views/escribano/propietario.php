@@ -112,14 +112,23 @@
             <div class="box-body">
                <div class="row">
                   <div class="form-group">
+                  <div class="col-md-3">
+                        <label for="exampleInputEmail1">Porcentaje de Condominio</label>
+                        <input type="text" step="any" name="porcentaje_condominio" class="form-control" <?php echo "value='$porcentaje_condominio'" ?> id="porcentaje_condominio" placeholder="Porcentaje de Condominio">
+                       <div style="color:red;" ><p><?=form_error('porcentaje_condominio')?></p></div>
+                     </div>
+                     </div>
+                     </div>
+                     <div class="row">
+                     <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" name="nya" maxlength="100">
+                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
                         <!-- /.form-group -->
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select id="sexo-combobox" class="form-control select2"  style="width: 100%;">
+                        <select id="sexo_combobox" class="form-control select2"  style="width: 100%;">
                            <option value="0" selected="selected">Seleccionar</option>
                            <option value="27" >Femenino</option>
                            <option value="20" >Masculino</option>
@@ -133,12 +142,15 @@
                         <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
                      </div>
+                     </div>
+                     </div>
+                     <div class="row">
+                     <div class="form-group">
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
                         <input type="text" class="form-control" id="cuil" placeholder="CUIL" disabled >
                      </div>
-                  </div>
-                  <div class="form-group">
+                                       
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Conyuge</label>
                         <input type="text" class="form-control" id="conyuge" placeholder="Conyuge">
@@ -148,25 +160,31 @@
                         <input type="text" class="form-control" id="direccion" placeholder="Dirección">
                      </div>
                      <div class="col-md-3">
+                                    <label>Fecha de Nacimiento/Creación</label>
+                                    <div class="input-group date">
+                                       <div class="input-group-addon">
+                                          <i class="fa fa-calendar"></i>
+                                       </div>
+                                       <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
+                                    </div>
+                                    <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
+                                    <!-- /.input group -->
+                        </div>
+                        </div>
+                        </div>
+                        <div class="row">
+                        <div class="form-group">
+                     <div class="col-md-3">
                         <label>Localidad</label>
-                        <select class="form-control select2"  style="width: 100%;">
-                           <option selected="selected">Laguna Blanca</option>
-                           <option>Resistencia</option>
-                           <option>Tres Isletas</option>
-                           <option>Las Palmas</option>
-                           <option>Taco Pozo</option>
-                           <option>Saenz Peña</option>
-                           <option>La Escondida</option>
+                        <select class="form-control select2"  style="width: 100%;">                          
                         </select>
                      </div>
-                   
-              <!-- /.form group -->
-                
-                
-                  <!-- /.form-group -->
+                       <div class="col-md-3">
+                        <label>Localidad</label>
+                        <select class="form-control select2"  style="width: 100%;">                          
+                        </select>
+                     </div>
                </div>
-               <!-- /.col -->
-               <!-- /.col -->
             </div>
             <div class="box-footer">
              <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Guardar y Registrar Otro Propietario</a>
@@ -191,39 +209,38 @@
     </script>
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
-      $("#sexo-combobox").on("focusout", function () {
+      $("#sexo_combobox").on("focusout", function () {
       	if($("#dni").val()!="" ){
-        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+        var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
-       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==20){
       		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
-       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+       }else if((business%11)==1 && $("#sexo_combobox").val()==27){
       		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }}
-       // $("#cuit").val( $("#sexo-combobox").val()+" "+business);
          });
 
     </script>
     <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
     <script>
       $("#dni").on("focusout", function () {
-      	if($("#dni").val()!=""  && $("#sexo-combobox").val()!=0 ){
-        var business =$("#sexo-combobox").val().charAt(0)*5 + $("#sexo-combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+      	if($("#dni").val()!=""  && $("#sexo_combobox").val()!=0 ){
+        var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ 0);
-       }else if((business%11)==1 && $("#sexo-combobox").val()==20){
+            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==20){
       		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
-       }else if((business%11)==1 && $("#sexo-combobox").val()==27){
+       }else if((business%11)==1 && $("#sexo_combobox").val()==27){
       		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo-combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }} else {
        	$("#cuit").val("");
        }     
@@ -259,8 +276,8 @@
     </script>
     <!--Limita campo nombre y apellido a 10 caracteres-->
       <script language="javascript" type="text/javascript">
-          $('input[name="nya"]').keypress(function() {
-            if (this.value.length >= 10) {
+          $('input[name="nombreyapellido"]').keypress(function() {
+            if (this.value.length >= 100) {
             return false;
           }
          });
@@ -270,7 +287,7 @@
       <script language="javascript"><!--
 
 		function empresa() { 		 
-  		  document.getElementById("sexo-combobox").disabled = true; 
+  		  document.getElementById("sexo_combobox").disabled = true; 
   		   document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
 
@@ -283,7 +300,7 @@
 <!--
 
 		function persona() { 		 
-  		  document.getElementById("sexo-combobox").disabled = false;  	
+  		  document.getElementById("sexo_combobox").disabled = false;  	
   		  document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
 
@@ -366,7 +383,7 @@
                       } );
 
 
-                              //para el filtrado
+                         //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
@@ -381,14 +398,13 @@
                     }); 
                     
                       //quitar el campo de busqueda por defecto
-                      document.getElementById('personas_filter').style.display='none';
-                         $( "#personas" ).show();  
-                       
-                       
-                    
-                    } );
-                     //filtra por estados
-                      
-                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
+                      document.getElementById('personas_filter').style.display='none';                      
+                      } );              
                   
          </script>
+           <script >
+           function changeToUpperCase(el)
+           {
+             el.value =el.value.trim().toUpperCase();
+            }
+          </script>
