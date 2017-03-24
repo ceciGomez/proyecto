@@ -104,7 +104,7 @@
                   <li><!-- start message -->
                     <a href="#">
                       <div class="pull-left">
-                        <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                        <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
                       </div>
                       <h4>
                         Equipo de Soporte
@@ -133,12 +133,20 @@
               
                   <li>
                     <a href="#">
-                      <i class="fa fa-users text-red"></i> Editar minuta n° 4560
+                      <i class="fa fa-users text-yellow"></i> Editar minuta n° 4560
                     </a>
                   </li>
                   <li>
                     <a href="#">
-                      <i class="fa fa-user text-green"></i> La minuta 13245 fue rechazada
+                      <i class="fa fa-user text-red"></i> Minutas Rechazadas: <br>
+                      <?php 
+                     // var_dump($minutasRechazadas);
+                      foreach ($minutasRechazadas as $value) {
+                        echo $value->id;
+                        echo " - ";
+                        echo $value->motivo;
+                        echo "</br>";
+                      } ?>
                     </a>
                   </li>
           
@@ -152,13 +160,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs">  <?php echo  $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="../../assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
 
                 <p>
                   
