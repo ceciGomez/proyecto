@@ -27,6 +27,7 @@ class M_escribano extends CI_Model
 			return false;
 		} 
 	}
+
 	public function getUnaMinuta($idMinuta)
 	{
 		try {
@@ -61,7 +62,6 @@ class M_escribano extends CI_Model
 		}
 	}
 
-	
 
 	public function getParcelas($idMinuta)
 	{
@@ -108,36 +108,119 @@ class M_escribano extends CI_Model
 			return false;
 		}
 	}
-	public function getPropietarios($idParcela)
+
+public function getPropietarios($idParcela)
 	{
 		try {
 			$query = $this->db->query("
-				SELECT idPropietario,
-				idParcela,
-				titular,
-				dni,
-				concat(direccion, ' - ', l.nombre) as direccion,
-				p.idLocalidad as idLocalidad,
-				cuitCuil,
-				conyuge,
-				concat(substring(p.fechaEscritura, 6, 2), '/' ,substring(p.fechaEscritura, 9, 2) , '/', substring(p.fechaEscritura, 1, 4)) as fechaEscritura,
-				porcentajeCondominio,
-				nroUfUc,
-				tipoUfUc,
-				planoAprobado,
-				concat(substring(p.fechaPlanoAprobado, 6, 2), '/' ,substring(p.fechaPlanoAprobado, 9, 2) , '/', substring(p.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
-				porcentajeUfUc,
-				poligonos,
-				p.tipoPropietario as tipoPropietario
-
-				FROM propietario p inner join localidad l
-				on l.idLocalidad = p.idLocalidad
-				where p.idParcela = $idParcela
-			"); 
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where re.idParcela =  $idParcela
+				
+					");
 			return $query->result();
 		} catch (Exception $e) {
 			return false;
 		}
+	}
+	public function getPropietarios_porMinuta_Ad($idMinuta)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				pe.fechaNac as fechaNac,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where pa.idMinuta = $idMinuta
+				and pr.tipoPropietario = 'A'
+				
+					");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	public function getPropietarios_porMinuta_Tr($idMinuta)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT 
+				pe.idPersona as idPropietario, 
+				pa.idParcela as idParcela, 
+				pe.apynom as titular, 
+				pe.dni as dni,
+				pe.direccion as direccion,
+				pe.idLocalidad as idLocalidad, 
+				pe.cuitCuil as cuitCuil, 
+				pe.conyuge as conyuge,
+				pe.fechaNac as fechaNac,
+				concat(substring(re.fechaEscritura, 6, 2), '/' ,substring(re.fechaEscritura, 9, 2) , '/', substring(re.fechaEscritura, 1, 4)) as fechaEscritura,
+				pr.porcentajeCondominio as porcentajeCondominio, 
+				re.nroUfUc as nroUfUc,
+				re.tipoUfUc as tipoUfUc, 
+				re.planoAprobado as planoAprobado,
+				concat(substring(re.fechaPlanoAprobado, 6, 2), '/' ,substring(re.fechaPlanoAprobado, 9, 2) , '/', substring(re.fechaPlanoAprobado, 1, 4)) as fechaPlanoAprobado,
+				 re.porcentajeUfUc as porcentajeUfUc,
+				 re.poligonos as poligonos,
+				pr.tipoPropietario as tipoPropietario, 
+				pa.idMinuta 
+				FROM persona pe inner join propietario pr on pe.idPersona = pr.idPersona 
+				inner join relacion re on pr.idRelacion = re.idRelacion 
+				inner join parcela pa on pa.idParcela = re.idParcela
+				where pa.idMinuta = $idMinuta
+				and pr.tipoPropietario = 'T'
+				
+					");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
+
+	public function getPersonas(){
+
+		$personas =$this->db->get("persona")->result();
+		return $personas;
 	}
 
 		public function getDepartamentos()
@@ -165,22 +248,92 @@ class M_escribano extends CI_Model
 		}
 	}
 
+		public function getNombreDepartamento($idDepartamento)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT nombre
+				FROM departamento
+				WHERE idDepartamento=$idDepartamento");
+			return $query->row()->nombre;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 	public function getMinutasRechazadas($idEscribano)
 	{
 		try {
 			
 			$query = $this->db->query("
 				SELECT m.idMinuta as id, e.motivoRechazo as motivo, estadominuta
-					FROM estadominuta e 
-					inner join minuta m on e.idMinuta = m.idMinuta
-					inner join usuarioescribano ue on m.idEscribano = ue.idEscribano
-					WHERE estadominuta = 'R'
-					and ue.idEscribano =  '$idEscribano' ");
+					 FROM estadominuta e 
+					 inner join minuta m on e.idMinuta = m.idMinuta 
+					 inner join usuarioescribano ue on m.idEscribano = ue.idEscribano 
+					 WHERE estadominuta = 'R' and ue.idEscribano = '$idEscribano' 
+					 and e.idMinuta not in 
+					 	(select idMinuta 
+					 		from estadominuta 
+					 		where estadoMinuta = 'A') 
+					 order by estadominuta
+					 ");
 			return $query->result();	
 		} catch (Exception $e) {
 			return FALSE;
 		}
 	}
+
+	public function getCantMinutasRechazadas($idEscribano)
+	{
+		try {
+			
+			$query = $this->db->query("
+				SELECT count(*) as cantidadMinutasRechazadas
+					 FROM estadominuta e 
+					 inner join minuta m on e.idMinuta = m.idMinuta 
+					 inner join usuarioescribano ue on m.idEscribano = ue.idEscribano 
+					 WHERE estadominuta = 'R' and ue.idEscribano = '$idEscribano' 
+					 and e.idMinuta not in 
+					 	(select idMinuta 
+					 		from estadominuta 
+					 		where estadoMinuta = 'A') 
+					 order by estadominuta
+					 ");
+			return $query->result();	
+		} catch (Exception $e) {
+			return FALSE;
+		}
+	}
+
+	public function getMinutasPorFecha($idEscribano)
+ 	{
+ 		try {
+ 			
+ 			$query = $this->db->query("
+				
+				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
+				concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
+				
+				concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado
+										
+						from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
+						
+						inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
+						
+
+						where ue.idEscribano = '$idEscribano'
+						                   
+					    and e.idEstadoMinuta = (SELECT MAX(ee.idEstadoMinuta) 
+					    						from estadominuta ee 
+					    						where  m.idMinuta = ee.idMinuta )  
+					ORDER BY `e`.`estadoMinuta` ASC, m.idMinuta ASC
+
+ 				");
+ 			return $query->result();
+ 		} catch (Exception $e) {
+ 			return FALSE;
+ 		}
+ 	}
 
 }
 

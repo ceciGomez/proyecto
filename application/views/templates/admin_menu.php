@@ -37,24 +37,21 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?=base_url()?>index.php/c_administrador/verOperadores"><i class="fa fa-circle-o"></i> Ver Operadores</a></li>
-            <li><a href="<?=base_url()?>index.php/c_administrador/verEscribanos"><i class="fa fa-circle-o"></i> Ver Escribanos</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Crear Usuarios</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/gestionarOperadores"><i class="fa fa-circle-o"></i> Gesionar Operadores</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/gestionarEscribanos"><i class="fa fa-circle-o"></i> Gestionar Escribanos</a></li>
+            <li><a  href="<?=base_url()?>index.php/c_administrador/crearOperador"><i class="fa fa-circle-o"></i> Crear Operador</a></li>
           </ul>
         </li>
 
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Administrar Minutas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?=base_url()?>index.php/c_administrador/ver_minutas"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
-            <li><a href="<?=base_url()?>index.php/c_administrador/ver_minutasPendientes"><i class="fa fa-circle-o"></i> Ver Minutas Pendientes</a></li>
+         
+         
+            <li><a href="<?=base_url()?>index.php/c_administrador/gestionarMinutas"><i class="fa fa-circle-o"></i> Gestionar Minutas</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/buscarParcelas"><i class="fa fa-circle-o"></i> Buscar Parcelas</a></li>
+
+           
             
-          </ul>
+         
         </li>
 
          <li class="treeview">
@@ -65,9 +62,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Parcelas</a></li>
             <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Minutas</a></li>
-            <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Actividad</a></li>
+            <li><a href="<?=base_url()?>index.php/c_administrador/reportesPedidos"><i class="fa fa-circle-o"></i> Reporte de Pedido</a></li>
           </ul>
         </li>
       

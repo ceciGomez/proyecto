@@ -1,87 +1,37 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-     <h1>
-        
-        <small>Bienvenido Administrador : <?php echo$this->session->userdata('username') ?></small>
-      </h1>
-      <ol class="breadcrumb">
-        <li><a  href="<?=base_url()?>index.php/c_administrador/index"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Administrador</li>
-      </ol>
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-    
-      <!-- Main row -->
+   
+<section class="content">
+   <!-- Main row -->
+   
       <div class="row">
-        <!-- Left col -->
-        <section class="col-lg-12 connectedSortable">
-         <!-- TO DO List -->
-         <div class="box box-primary">
-            
-            <!-- /.box-header -->
-            <div class="box-body">
-             <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Ver Operadores</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/verOperadores"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Ver Escribanos</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/verEscribanos"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Crear Usuarios</span>
-                     <a class="btn btn-app bg-teal" href="#"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Ver Minutas</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/ver_Minutas"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
-               <div class="info-box bg-teal">
-                  <span class="info-box-icon"><i class="glyphicon glyphicon-search"></i></span>
-                  <div class="info-box-content">
-                     <span class="info-box-number">Minutas Pendientes</span>
-                     <a class="btn btn-app bg-teal" href="<?=base_url()?>index.php/c_administrador/ver_MinutasPendientes"> 
-                     <i class="fa fa-play"></i>
-                     </a>
-                  </div>
-               </div>
+        <div class="col-md-12">
+
+          <!-- Profile Image -->
+          
+<div class="box box-primary">
+            <div class="box-body box-profile">
+               <h3 class="profile-username text-center">BIENVENIDO A SIRMI</h3>
+              <img class="profile-user-img img-responsive img-circle" src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" alt="User profile picture">
+
+              <h3 class="profile-username text-center"><?php echo $this->session->userdata('nomyap') ?></h3>
+
+              <p class="text-muted text-center"><?php echo $this->session->userdata('perfil') ?></p>
               
             </div>
-            <!-- /.box -->
-      </section>
-      <!-- /.Left col -->
-      </div>
-      <!-- /.row (main row) -->
-</section>
-      
-      </div>
-      <!-- /.row (main row) -->
+            <!-- /.box-body -->
+          </div>
 
-    </section>
-    <!-- /.content -->
+          
+         
+          
+        </div>
+        <!-- /.col -->
+    
+        <!-- /.col -->
+      </div>
+      <!-- /.row -->
+</section>
   </div>
   <!-- /.content-wrapper -->

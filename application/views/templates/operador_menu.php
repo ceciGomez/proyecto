@@ -5,7 +5,7 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+          <img src="<?=base_url()?>assets/dist/img/user.png" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
           <p><?php echo $this->session->userdata('nomyap') ?></p>
@@ -28,33 +28,42 @@
       <ul class="sidebar-menu">
         <li class="header">Menu Operador</li>
         
+              
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Administrar Registraciones</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?=base_url().'index.php/c_operador/reg_pen'?>"><i class="fa fa-circle-o"></i> Registraciones Pendientes</a></li>
-             <li><a href="<?=base_url().'index.php/c_operador/reg_apro'?>"><i class="fa fa-circle-o"></i> Registraciones Aprobadas</a></li>
-              <li><a href="<?=base_url().'index.php/c_operador/reg_rech'?>"><i class="fa fa-circle-o"></i> Registraciones Rechazadas</a></li>
-          </ul>
-        </li>   
-
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-edit"></i> <span>Administrar Minutas</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?=base_url().'index.php/c_operador/ver_minutasPendientes'?>"><i class="fa fa-circle-o"></i>Minutas Pendientes</a></li>
-            <li><a href="<?=base_url().'index.php/c_operador/ver_minutas'?>"><i class="fa fa-circle-o"></i> Ver Minutas</a></li>
-          </ul>
+            <li><a  href="<?=base_url()?>index.php/c_operador/gestionarEscribanos"><i class="fa fa-circle-o"></i> Gestionar Escribanos</a></li>
+          
         </li>
 
+        <li class="treeview">
+         
+         
+            <li><a href="<?=base_url()?>index.php/c_operador/gestionarMinutas"><i class="fa fa-circle-o"></i> Gestionar Minutas</a></li>
+              <li><a href="<?=base_url()?>index.php/c_operador/buscarParcelas"><i class="fa fa-circle-o"></i> Buscar Parcelas</a></li>
+           
+            
+         
+        </li>
+         <li class="treeview">
+         
+         
+            <li><a href="<?=base_url()?>index.php/c_operador/gestionarPedidos"><i class="fa fa-circle-o"></i> Gestionar Pedidos </a></li>
+           
+            
+         
+        </li>
+
+         <li class="treeview">
+          <a href="#">
+            <i class="fa fa-edit"></i> <span>Reportes</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="#"><i class="fa fa-circle-o"></i> Reporte de Minutas</a></li>
+            <li><a href="<?=base_url()?>index.php/c_operador/reportesPedidos"><i class="fa fa-circle-o"></i> Reporte de Pedido</a></li>
+          </ul>
+        </li>
       
           <a href="#">
             <i class="fa fa-calendar"></i> <span>Calendario</span>

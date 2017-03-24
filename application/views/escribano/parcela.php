@@ -4,10 +4,9 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>
+      <h3 align="center">
          Crear Minuta
-      </h1>
-      <small>Registrar Parcela</small>
+      </h3>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -57,20 +56,19 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" <?php echo "value='$fraccion'" ?> placeholder="Fracción" >
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" onkeyup="changeToUpperCase(this)" <?php echo "value='$fraccion'" ?> placeholder="Fracción" >
                                     <div style="color:red;" ><p><?=form_error('fraccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Manzana</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" <?php echo "value='$manzana'" ?> placeholder="Entero">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" onkeyup="changeToUpperCase(this)" <?php echo "value='$manzana'" ?> placeholder="Entero">
                                     <div style="color:red;" ><p><?=form_error('manzana')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" <?php echo "value='$parcela'" ?> placeholder="entero">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" onkeyup="changeToUpperCase(this)" <?php echo "value='$parcela'" ?> placeholder="entero">
                                     <div style="color:red;" ><p><?=form_error('parcela')?></p></div>
-                                 </div>
-                              
+                                 </div>                              
                               
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Superficie</label>
@@ -79,7 +77,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" <?php echo "value='$partida'" ?>  onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('partida')?></p></div>
                                  </div>
                                  <div class="col-md-3">
@@ -90,8 +88,10 @@
                                   <div class=" col-md-3">
                                     <label>Fecha de Plano Aprobado</label>
                                     <div class="input-group date">
+
                                        <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
-                                       <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
+                                       <input type="text" class="form-control pull-right" name="fechaPlanoAprobado" placeholder="dd/mm/aaaa" <?php echo "value='$fechaPlanoAprobado'" ?> id="fechaPlanoAprobado">                                       
+
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaPlanoAprobado')?></p></div>
                                     <!-- /.input group -->
@@ -123,23 +123,23 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Año</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumberKey(event)" name="año" <?php echo "value='$año'" ?> placeholder="Sin punto">
+                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumber(event)" name="año" <?php echo "value='$año'" ?> placeholder="aaaa">
                                     <div style="color:red;" ><p><?=form_error('año')?></p></div>
                                  </div>                              
                                   <div class="col-md-3">
                                     <label>Departamento</label>
-                                    <select class="form-control select2 departamentos" id="departamentos"name="departamentos" style="width: 100%;">
-                                       <option selected="selected">Selecciona departamento</Option>
-                                        <?php foreach($departamentos as $each){ ?>
-                                        <option value="<?php echo $each->idDepartamento; ?>"><?php echo $each->nombre; ?></option>';
-                                       <?php } ?>
-                                     <div style="color:red;" ><p><?=form_error('departamento')?></p></div>
-                                         </select>
+                                    <select class="form-control select2 departamentos" id="departamentos"  name="departamentos" style="width: 100%;">
+                                       <option value="" selected="">Selecciona departamento</option>
+                                          <?php foreach($arraydepartamentos as $each){ ?>
+                                        <option value="<?php echo $each->idDepartamento; ?>"<?php if($departamentos==$each->nombre) echo 'selected="selected"'; ?>><?php echo $each->nombre; ?></option>
+                                          <?php } ?>
+                                     </select>
+                                     <div style="color:red;" ><p><?=form_error('departamentos')?></p></div>                                  
                                  </div>                      
                                  <div class="col-md-3">
                                     <label>Localidad</label>
                                     <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
-                                       <option value="">Seleccione localidad</option>
+                                     <option value="">Seleccione localidad</option>  
                                     </select>
                                      <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
                                  </div>
@@ -159,7 +159,7 @@
                                        <div class="input-group-addon">
                                           <i class="fa fa-calendar"></i>
                                        </div>
-                                       <input type="text" class="form-control pull-right" name="fechaMatriculaRPI" <?php echo "value='$fechaMatriculaRPI'" ?> id="fechaMatriculaRPI">
+                                       <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fechaMatriculaRPI" <?php echo "value='$fechaMatriculaRPI'" ?> id="fechaMatriculaRPI">
                                     </div>
                                     <div style="color:red;" ><p><?=form_error('fechaMatriculaRPI')?></p></div>
                                     <!-- /.input group -->
@@ -174,6 +174,7 @@
                            
                            <!-- /.box-body -->
                         </div>
+                       </div> 
                      </form>
                   </div>
                   <!-- /.box-body -->
@@ -220,23 +221,54 @@
    </script>
    <!-- Llena lista de localidades dependiendo del departamento seleccionado -->
    <script>
-   $(document).on('change','.departamentos',function(){
-      var iddepartamento = $(".departamentos").val();
+   $(document).ready(function(){
+
+           console.log($('#departamentos').val());
+   if($('#departamentos').val()!=""){
+    localidadOnReady($('#departamentos').val());}
+    });
+   $("#departamentos").on("change",function(){
+        localidad($('#departamentos').val());
+   })
+   function localidad(iddepartamento) {
+             console.log($('#departamentos').val());  
       $.ajax({
          type:'POST',
          datatype:'json',
          data:{id_departamento: iddepartamento},
          url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
-         success:function(response){        
+         success:function(response){  
+         console.log($('#localidades').val());   
              $("#localidades").empty();
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
                  $("#localidades").append("<option>"+val.nombre+"</option");  
              });           
+   
+       }
+      })
+    }
+     function localidadOnReady(iddepartamento) { 
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){  
+         console.log( <?php echo json_encode($localidades); ?>); 
+              $("#localidades").empty();
+              $("#localidades").append("<option>Seleccione localidad</option>");
+             var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });  
+              $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
+           
          }
-      });
-   });
+        })
+      }
+   
    </script>
       <!-- controla el ingreso de numero flotante -->
    <script type="text/javascript">
@@ -260,5 +292,13 @@
     return true;
    }
    </script>
+   <script>
+    function isNumber(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+     </script>
 
 
