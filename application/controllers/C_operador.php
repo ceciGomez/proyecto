@@ -407,7 +407,6 @@ class C_operador extends CI_Controller {
 			}
 
 					 }
-
 			
 
 	}
@@ -721,5 +720,30 @@ public function reportesPedidos()
 		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
 
 		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+	}
+
+	public function imprimirMinuta()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$idMinuta=$_POST['idMinuta'];
+		var_dump($idMinuta);
+		$data['titulo'] = 'Bienvenido Operador';
+		$data["minuta"] = $this->M_administrador->getUnaMinuta($idMinuta);
+		//var_dump($data["minuta"] );
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		//var_dump($idEscribano);
+		$data["unEscribano"] = $this->M_administrador->getUnEscribano($idEscribano);
+		//var_dump($data["unEscribano"]);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		//var_dump($idMinuta );
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		//var_dump($data["parcelas"]);
+		//$this->load->view('templates/cabecera_escribano',$data);
+		//$this->load->view('templates/escri_menu',$data);
+		$this->load->view('operador/imprimirMinuta',$data);
+		//$this->load->view('templates/pie',$data);
 	}
 }
