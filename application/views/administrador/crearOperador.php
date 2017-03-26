@@ -23,6 +23,30 @@
    });
 
 });
+   //funcion que solo permite numeros
+ function NumbersOnly(e) {
+    var unicode = e.charCode ? e.charCode : e.keyCode;
+    if (unicode != 8) {
+        if (unicode < 48 || unicode > 57) {
+
+            if (unicode == 9 || IsArrows(e) )
+                return true;
+            else
+                return false;
+        }
+    }
+}
+function IsArrows (e) {
+       return (e.keyCode >= 37 && e.keyCode <= 40); 
+}
+//funcion que solo permite letras
+function validar(e) { 
+tecla = (document.all) ? e.keyCode : e.which;
+if (tecla==8) return true; 
+patron =/[A-Za-z\s]/; 
+te = String.fromCharCode(tecla); 
+return patron.test(te); 
+}
 </script>
   
 
@@ -91,7 +115,7 @@
 
                           <div class="col-md-3">
                              <label>DNI :</label><br>
-                              <input type="number"  name="dni" id="dni" placeholder="DNI" <?php echo "value='$dni'" ?> maxlength="8" onkeypress="return NumbersOnly(event);">
+                              <input type="text"  name="dni" id="dni" placeholder="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
                           </div>
 
 

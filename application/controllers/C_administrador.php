@@ -231,7 +231,6 @@ class C_administrador extends CI_Controller {
 			'direccion' => $this->input->post("direccion"),	
 			'idLocalidad' => $this->input->post('localidad'),	
 			'email' => $this->input->post('email'),	
-			'estado' => $this->input->post('estado'),
 			'baja' => $this->input->post('baja'),	
 	
 
@@ -851,9 +850,9 @@ public function reportesPedidos()
 		{
 			redirect(base_url().'index.php/c_login_administrador');
 		}
-		$idMinuta=$_POST['idMinuta'];
-		var_dump($idMinuta);
+
 		$data['titulo'] = 'Bienvenido Administrador';
+		$idMinuta=$_POST['resg_idMinuta'];
 		$data["minuta"] = $this->M_administrador->getUnaMinuta($idMinuta);
 		//var_dump($data["minuta"] );
 		$idEscribano = $data["minuta"][0]->idEscribano;

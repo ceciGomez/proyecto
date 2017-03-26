@@ -12,7 +12,6 @@
          <div class="pull-left info">
             <p><?php echo $this->session->userdata('nomyap') ?></p>
             <p><?php echo $this->session->userdata('perfil') ?></p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
          </div>
       </div>
       <!-- search form 
@@ -79,7 +78,7 @@
             
          </li>
          <a href="#">
-         <i class="fa fa-calendar"></i> <span>Calendario</span>
+         <i class="fa fa-calendar"  id="calendario"  data-provide="datepicker"></i> <span>Calendario</span>
          </a>
          </li>
       </ul>

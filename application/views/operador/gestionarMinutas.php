@@ -114,8 +114,16 @@
                         <div class="modal-body" id="det" >
                         </div>
                         <div class="modal-footer">
-                           <a href="" class="btn btn-default"  onclick="imprimirMinuta()" target="_blank">Imprimir</a>
+                          
+                        <form style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirMinuta"  method="post" accept-charset="utf-8"  >
+                         <input type="hidden"  id="resg_idMinuta" name="resg_idMinuta"> 
+                        <button    type="submit" class="btn btn-primary">Imprimir</button> 
+
+                          </form>              
+                     
+                      
                            <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                            </div>
                         </div>
                      </div>
                   </div>
@@ -295,6 +303,7 @@
                                   
                   
                    function ventana_det(idMinuta,idEscribano){
+                document.getElementById('resg_idMinuta').value=idMinuta;
                    $.post("<?=base_url()?>index.php/c_operador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                      $("#det").html(data);
                   
@@ -345,19 +354,12 @@
                   });
                    }
                   
-                  
-                  function imprimirMinuta( ){
-                   $.post("<?=base_url()?>index.php/c_administrador/imprimirMinuta",{idMinuta:idMinuta}, function(data){
-                    
-                  });
-                  }
-                  
+          
                   
                      //visualizar el calendario en el input fecha
-                        $( document ).ready(function() {
+                    $( document ).ready(function() {
                            $('#fechaEdicion').datepicker();
-                       });
-                                           
+                       });                 
                   
                </script>
             </div>
