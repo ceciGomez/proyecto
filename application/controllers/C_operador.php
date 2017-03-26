@@ -728,8 +728,7 @@ public function reportesPedidos()
 		{
 			redirect(base_url().'index.php/c_login_operador');
 		}
-		$idMinuta=$_POST['idMinuta'];
-		var_dump($idMinuta);
+		$idMinuta=$_POST['resg_idMinuta'];
 		$data['titulo'] = 'Bienvenido Operador';
 		$data["minuta"] = $this->M_administrador->getUnaMinuta($idMinuta);
 		//var_dump($data["minuta"] );

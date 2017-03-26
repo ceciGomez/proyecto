@@ -9,7 +9,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-         <h3  align="center">Gestión de Escribanos</h3>
+         <h3  align="center">Gestionar Escribanos</h3>
         <section >
          
 
@@ -288,7 +288,7 @@
                         <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white"> Eliminar Escribano</h3>
+                          <h3 class="modal-title" style="color:white"> Baja de Escribano</h3>
                          </div>
                          <div class="modal-body">
                          <h3> Confirmar dar de baja al Escribano</h3>

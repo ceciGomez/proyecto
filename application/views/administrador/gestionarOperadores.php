@@ -103,7 +103,9 @@
                            <td colspan="" rowspan="" headers="">
                               <div class="btn-group">
                                  <a class="btn btn-sm " href="<?=base_url()?>index.php/c_administrador/editarOperador/<?php echo $op->idUsuario?>"><button  class="btn btn-warning" ><i class="fa fa-pencil" title="Editar datos del Operador"></i></button></a> 
+                                 <?php if($op->baja==0) {?>
                                   <a class="btn btn-sm " >  <button class="btn btn-danger"  data-toggle="modal" href="#Eliminar"  onclick="ventana_eli(<?php echo "$op->idUsuario"; ?>)"><i class="fa fa-remove" title="Eliminar Operador" href="#Eliminar" ></i></button></a>
+                                  <?php } ?>
                               </div>
                            </td>
 
@@ -133,7 +135,7 @@
                               <div class="modal-content">
                                  <div class="modal-header">
                                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                  <h3 class="modal-title" style="color:white" >Detalles Escribano</h3>
+                                  <h3 class="modal-title" style="color:white" >Detalles Operador</h3>
                                  </div>
                                  <div class="modal-body">
                                           <table class="table"  >
@@ -169,7 +171,7 @@
                         <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white"> Eliminar escribano</h3>
+                          <h3 class="modal-title" style="color:white"> Baja de Operador</h3>
                          </div>
                          <div class="modal-body">
                          <h3> Confirmar dar de baja al Operador</h3>
