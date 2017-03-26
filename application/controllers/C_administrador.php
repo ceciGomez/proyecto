@@ -869,4 +869,40 @@ public function reportesPedidos()
 		$this->load->view('administrador/imprimirMinuta',$data);
 		//$this->load->view('templates/pie',$data);
 	}
+	public function reportesMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Administrador';
+
+		$minutas=$this->M_reportes->getMinutas();
+
+		$data['minutas']=$minutas;
+
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('reportes/minutasPorFecha_adm',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function imprimirMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+
+		$fechaIngresoDesde=$_GET['fechaIngresoDesde'];
+		$fechaIngresoHasta=$_GET['fechaIngresoHasta'];
+
+		redirect(base_url().'reporteMinutas.php?fechaIngresoDesde='.$fechaIngresoDesde.'&fechaIngresoHasta='.$fechaIngresoHasta);
+	}
 }
