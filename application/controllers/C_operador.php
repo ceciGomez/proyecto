@@ -745,4 +745,24 @@ public function reportesPedidos()
 		$this->load->view('operador/imprimirMinuta',$data);
 		//$this->load->view('templates/pie',$data);
 	}
+	//Carga la pagina para ver/editar los datos de usuario.
+	public function verPerfil()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+
+		$idOperador =  $this->session->userdata('id_usuario');
+		$data['unOperador'] = $this->M_operador->getUnOperador($idOperador);
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/perfil_operador',$data);
+		$this->load->view('templates/pie',$data);
+	}
 }
