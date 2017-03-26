@@ -64,8 +64,8 @@
                                  ?>
                               <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>
                            </td>
-                           <td>  <?php  echo "$date_formated"; ?></td>
-                           <td>  <?php  echo "$date_formated2"; ?></td>
+                           <td data-order="<?php  echo $mi["fechaIngresoSys"];?>">  <?php  echo "$date_formated"; ?></td>
+                           <td  data-order="<?php  echo $mi["fechaEdicion"];?>">  <?php  echo "$date_formated2"; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
                            <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
                         </tr>

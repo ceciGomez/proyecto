@@ -109,7 +109,7 @@
                               </div>
                            </td>
 
-                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
+                             <td data-order="<?php echo $op->fechaReg; ?>" style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($op->dni==null) echo " ";else echo "$op->dni"; ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php if($op->nomyap==null)echo " ";else echo "$op->nomyap";  ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->usuario==null)echo " ";else echo "$op->usuario"; ?></td>

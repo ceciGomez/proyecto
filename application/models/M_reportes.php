@@ -12,9 +12,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  			
  			$query = $this->db->query("
 				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
-				concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
-				
-				concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
+			m.fechaIngresoSys,e.fechaEstado,
 				p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela, p.nroMatriculaRPI, p.planoAprobado,
 				l.nombre as localidad
 						
@@ -41,9 +39,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  			
  			$query = $this->db->query("
 				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
-				m.fechaIngresoSys,
-				
-				concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
+				m.fechaIngresoSys,e.fechaEstado,
 				p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela, p.nroMatriculaRPI, p.planoAprobado,
 				l.nombre as localidad
 						

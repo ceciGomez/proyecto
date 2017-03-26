@@ -140,7 +140,7 @@
                                   <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo $es->idEscribano; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               
                            </td>
-                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
+                            <td data-order="<?php echo $es->fechaReg; ?>" style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->dni==null) echo "";else echo "$es->dni"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php   if($es->nomyap==null) echo "";else echo "$es->nomyap"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>

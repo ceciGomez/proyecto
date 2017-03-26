@@ -2,10 +2,10 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-      <h1>
+      <h1 align="center">
          Reporte de Minutas por fecha
       </h1>
-      <small>Lista todas las  Minuta dado un rango de fechas</small>
+      <h4  align="center" >Lista todas las  Minuta dado un rango de fechas</h4>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -49,18 +49,19 @@
                   </div>
                </div>
                <!-- /.input group -->
-            </div>
+            </div> <br>
             <div class="form-group col-xs-3">
             <button class="btn btn-primary btn-md" type="submit">Buscar</button>
             </div>
       </form>
       </div>
                <div class="box-body table-responsive no-padding">
-                  <table class="table table-hover">
+                  <table id="minutas" class="table-bordered" style="display: none">
                      <thead>
                         <tr>
-                           <th>Nro de Minuta</th>
+                           
                            <th>Fecha Ingreso</th>
+                           <th>Nro de Minuta</th>
                            <th>Estado</th>
                            <th>Fecha Estado</th>
                            <th>Nro de Plano</th>
@@ -75,8 +76,9 @@
                            //var_dump($value)
                            ?>
                         <tr>
+                             <td colspan="" rowspan="" headers="" data-order="<?php echo$value->fechaIngresoSys;?>"><?php echo $value->fechaIngresoSys;?></td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->idMinuta;?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaIngresoSys;?></td>
+                        
                            <td colspan="" rowspan="" headers="">
                               <?php if ($value->estadoMinuta == 'A')  {?>
                               <span class="label label-success">Aprobado</span>
@@ -144,6 +146,57 @@
 <!-- /.content-wrapper -->
 
  <script>
+
+                   $(document).ready(function(){
+
+                    //crea la tabla
+                    var dtable=$('#minutas').DataTable(
+                        {
+                           autoWidht:false,
+                            "order": [[ 0, "desc" ]],
+                           
+                             language: {
+                                "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Minutas",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ninguna MInuta encontrada",
+                            "sInfo":           "Mostrando Minutas del _START_ al _END_ de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                              }},
+                                } );
+                           
+                
+                    //para el filtrado
+                     $('.filter').on('keyup change', function () {
+                          //clear global search values
+                          dtable.search('');
+                          dtable.column($(this).data('columnIndex')).search(String(this.value)).draw();
+
+                      });
+                      
+                      $( ".dataTables_filter input" ).on( 'keyup change',function() {
+                       //clear column search values
+                          dtable.columns().search('');
+                         //clear input values
+                         $('.filter').val('');
+                    }); 
+                     
+                      //quitar el campo de busqueda por defecto
+                      document.getElementById('minutas_filter').style.display='none';
+
+                       $( "#minutas" ).show();
+                     })
     $(function () {
             $('#datetimepickerPa').datepicker({format: 'yyyy-mm-dd'});
           });
