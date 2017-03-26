@@ -128,8 +128,8 @@
                                 ?>
                             </td>
 
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td data-order="<?php echo $si->fechaPedido; ?>">  <?php  echo "$date_formated"; ?></td>
+                            <td data-order="<?php echo $si->fechaRta;?>">  <?php  echo "$date_formated2"; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                              <td><?php 
                               if($si->idEscribano==null) echo "";else {

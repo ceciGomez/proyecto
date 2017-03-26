@@ -71,11 +71,11 @@
                         <input type='text' id="parcela"  class='filter' data-column-index='9'> 
                         </div>
                         <div class="col-md-3">
-                        <label>nroUfUc :</label><br>
+                        <label>Número Unidad Funcional :</label><br>
                         <input type='text' id="parcela"  class='filter' data-column-index='10'> 
                         </div>
                         <div class="col-md-3">
-                        <label>tipoUfUc :</label><br>
+                        <label>Tipo de Unidad Funcional :</label><br>
                         <input type='text' id="parcela"  class='filter' data-column-index='11'> 
                         </div>
                         <div class="col-md-3">
@@ -116,8 +116,8 @@
                           <th>Fraccion</th>
                           <th>Manzana</th>
                           <th>Parcela</th>
-                          <th>nroUfUc</th>
-                          <th>tipoUfUc</th>
+                          <th>Nro de Unidad Funcional</th>
+                          <th>Tipo de Unidad Funcional</th>
                           <th>Número de Plano</th>
                           <th>Número de Matrícula</th>
                           <th>Localidad</th>
@@ -168,8 +168,8 @@
                                                          
 
                             </td>
-                            <td>  <?php  echo $date_formated; ?></td>
-                            <td>  <?php  echo $date_formated2; ?></td>
+                            <td data-order="<?php echo $pa->fechaIngresoSys ?>">  <?php  echo $date_formated; ?></td>
+                            <td  data-order="<?php echo $pa->fechaEscritura ?>" >  <?php  echo $date_formated2; ?></td>
                             <td>   <?php  if($pa->circunscripcion==null) echo "";else   echo $pa->circunscripcion; ?> </td>
                             <td>   <?php  if($pa->seccion==null) echo "";else echo  $pa->seccion; ?> </td>
                             <td>   <?php  if( $pa->chacra==null) echo "";else echo   $pa->chacra; ?> </td>

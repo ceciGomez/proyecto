@@ -11,7 +11,7 @@ class M_administrador extends CI_Model
 	}
 
 	public function getOperadores(){
-
+		$this->db->where('tipoUsuario',"O");
 		$operadores =$this->db->get("usuariosys")->result();
 		return $operadores;
 	}

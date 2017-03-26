@@ -71,11 +71,11 @@
                         <input type='text' id="parcela"  class='filter' data-column-index='9'> 
                         </div>
                         <div class="col-md-3">
-                        <label>nroUfUc :</label><br>
+                        <label>Número Unidad Funcional:</label><br>
                         <input type='text' id="parcela"  class='filter' data-column-index='10'> 
                         </div>
                         <div class="col-md-3">
-                        <label>tipoUfUc :</label><br>
+                        <label>Tipo Unidad Funcional :</label><br>
                         <input type='text' id="parcela"  class='filter' data-column-index='11'> 
                         </div>
                         <div class="col-md-3">
@@ -116,8 +116,8 @@
                           <th>Fraccion</th>
                           <th>Manzana</th>
                           <th>Parcela</th>
-                          <th>nroUfUc</th>
-                          <th>tipoUfUc</th>
+                          <th>Nro Unidad Funcional</th>
+                          <th>Tipo Unidad Funcional</th>
                           <th>Número de Plano</th>
                           <th>Número de Matrícula</th>
                           <th>Localidad</th>

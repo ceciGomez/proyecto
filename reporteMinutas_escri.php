@@ -96,7 +96,7 @@ $pdf->SetFont('Times','',8);
 $consulta = mysqli_query($conexion,"
           SELECT m.idMinuta as idMinuta, e.estadoMinuta as estadoMinuta,
          e.motivoRechazo, ue.idEscribano,
-        concat(substring(m.fechaIngresoSys, 6, 2), '/' ,substring(m.fechaIngresoSys, 9, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
+        concat(substring(m.fechaIngresoSys, 9, 2) , '/' ,substring(m.fechaIngresoSys, 6, 2), '/', substring(m.fechaIngresoSys, 1, 4)) as fechaIngresoSys,
                     
         concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
        concat( 

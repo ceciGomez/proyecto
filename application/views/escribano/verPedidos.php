@@ -105,8 +105,8 @@
                           <tr>
                             
 
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td date-order="<?php echo $si->fechaPedido; ?>">  <?php  echo "$date_formated"; ?></td>
+                            <td date-order="<?php echo $si->fechaRta; ?>">  <?php  echo "$date_formated2"; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                             <td>  <?php  echo $si->estadoPedido; ?> </td>
                              <td>  <?php  echo $si->nomyap; ?> </td>
@@ -143,7 +143,7 @@
                     var dtable=$('#pedidos').DataTable(
                         {
                            autoWidht:false,
-
+                            "order": [[ 0, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Pedidos",

@@ -62,11 +62,12 @@
                      </thead>
                      <tbody>
                         <?php foreach ($minutas as $value) :
-                        //var_dump($value)
+                        $date=new DateTime($value->fechaIngresoSys);
+                        $date_formated=$date->format('d/m/Y ');
                         ?>
                         <tr>
                            <td colspan="" rowspan="" headers=""><?php echo $value->idMinuta;?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaIngresoSys;?></td>
+                           <td colspan="" rowspan="" headers="" data-order="<?php echo  $value->fechaIngresoSys;?>"><?php echo  $date_formated ;?></td>
                            <td colspan="" rowspan="" headers="">
                            <?php if ($value->estadoMinuta == 'A')  {?>
                              <span class="label label-success">Aprobado</span>
@@ -124,7 +125,7 @@
                     var dtable=$('#min').DataTable(
                         {
                            autoWidht:false,
-
+                           "order": [[ 1, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Minutas",
