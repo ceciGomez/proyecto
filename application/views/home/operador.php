@@ -1,4 +1,19 @@
   <!-- Content Wrapper. Contains page content -->
+  <style>
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+tr:hover{background-color:#f5f5f5}
+</style>
+
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
    
@@ -22,7 +37,7 @@
               
             </div>
             <!-- /.box-body -->
-            <table class="table" class="table-bordered" >
+            <table class="table" class="table-bordered" style="tr:hover {background-color: #f5f5f5}" >
             <tbody>
               <tr>
           <th> Nombre y Apellido</th><td> <?php echo $operador->nomyap ?> </td>
