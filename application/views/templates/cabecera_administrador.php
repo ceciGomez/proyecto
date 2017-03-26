@@ -150,7 +150,7 @@
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i  class='fa fa-users text-green'></i> ";
-                         echo" Tiene ". count($notificaciones_ep). "registraciones de escribanos pendientes de revisión";
+                         echo" Tiene ". count($notificaciones_ep). " registraciones de escribanos pendientes de revisión";
 
                          ?>
                            <?=form_close()?>
@@ -175,7 +175,6 @@
           
                 </ul>
               </li>
-              <li class="footer"><a href="#">Ver todas las notificaciones</a></li>
             </ul>
           </li>
           <!-- Tasks: style can be found in dropdown.less -->

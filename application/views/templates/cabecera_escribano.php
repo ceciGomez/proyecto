@@ -134,7 +134,7 @@
                             <?php 
                             echo" <button   value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
-                         echo" Tiene ". count($notificaciones_si). "pedidos de información contestadas";
+                         echo" Tiene ". count($notificaciones_si). " pedidos de información contestados";
 
                          ?>
                            <?=form_close()?>

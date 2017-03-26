@@ -57,8 +57,9 @@
                          <table id="pedidos" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
-                          <th>Fecha de Respuesta</th>
                           <th>Fecha de Pedido</th>
+                          <th>Fecha de Respuesta</th>
+                          
                           <th>Numero de Pedido</th>
                           <th>Escribano</th>
                           <th>Estado</th>
@@ -165,7 +166,7 @@
                     var dtable=$('#pedidos').DataTable(
                         {
                            autoWidht:false,
-
+                            "order": [[ 0, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Pedidos",
@@ -223,8 +224,8 @@
                             function( oSettings, aData, iDataIndex ) {
                                 var iFini = document.getElementById('fechaPedidoDesde').value;
                                 var iFfin = document.getElementById('fechaPedidoHasta').value;
-                                var iStartDateCol = 1;
-                                var iEndDateCol = 1;
+                                var iStartDateCol = 0;
+                                var iEndDateCol = 0;
                          
                                 iFini=iFini.substring(6,10) + iFini.substring(3,5)+ iFini.substring(0,2);
                                 iFfin=iFfin.substring(6,10) + iFfin.substring(3,5)+ iFfin.substring(0,2);

@@ -21,7 +21,8 @@ class C_operador extends CI_Controller {
 		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$data['titulo'] = 'Bienvenido Operador';
-
+		$operador=$this->db->get_where('usuariosys', array('idUsuario'=>$this->session->userdata('id_usuario')))->row();
+		$data['operador']=$operador;
 		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('home/operador',$data);

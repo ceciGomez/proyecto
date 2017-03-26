@@ -243,6 +243,7 @@
                     var dtable=$('#parcelas').DataTable(
                         {
                            autoWidht:false,
+                          "order": [[ 1, "desc" ]],
 
                              language: {
                                 "sProcessing":     "Procesando...",

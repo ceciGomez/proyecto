@@ -27,6 +27,42 @@
               
             </div>
             <!-- /.box-body -->
+             <table class="table" class="table-bordered" >
+            <tbody>
+              <tr>
+          <th> Nombre y Apellido</th><td> <?php echo $escribano->nomyap ?> </td>
+        </tr>
+        <tr>
+          <th> Nombre de Usuario</th><td> <?php echo $escribano->usuario ?></td>
+        </tr>
+        <tr>
+          <th> Fecha de Registración</th><td> <?php echo $escribano->fechaReg ?> </td>
+        </tr>
+        <tr>
+          <th> DNI</th><td><?php echo $escribano->dni ?> </td>
+        </tr>
+         <tr>
+          <th> Dirección</th><td> <?php echo $escribano->matricula ?> </td>
+        </tr>
+        <tr>
+          <th> Teléfono</th><td> <?php echo $escribano->telefono ?> </td>
+        </tr>
+       
+        <tr>
+          <th> Email</th><td> <?php echo $escribano->email ?> </td>
+        </tr>
+        <tr>
+         <tr>
+          <th> Dirección</th><td> <?php echo $escribano->direccion ?> </td>
+        </tr>
+          <th> Localidad</th><td> <?php
+            if($escribano->idLocalidad==null){echo "";}else{ $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$escribano->idLocalidad))->row(); echo $localidad->nombre ;}?></td>
+        </tr>
+        <tr>
+          <th> Perfil</th><td> Operador </td>
+        </tr>
+        </tbody>
+            </table>
           </div>
           <!-- /.box -->
 

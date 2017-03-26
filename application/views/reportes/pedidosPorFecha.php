@@ -57,8 +57,9 @@
                          <table id="pedidos" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
+                           <th>Fecha de Pedido</th>
                           <th>Fecha de Respuesta</th>
-                          <th>Fecha de Pedido</th>
+                         
                           <th>Numero de Pedido</th>
                           <th>Escribano</th>
                           <th>Estado</th>
@@ -165,7 +166,7 @@
                     var dtable=$('#pedidos').DataTable(
                         {
                            autoWidht:false,
-
+                                "order": [[ 1, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Pedidos",

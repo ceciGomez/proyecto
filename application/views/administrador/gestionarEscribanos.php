@@ -321,6 +321,7 @@
                     var dtable=$('#escribanos').DataTable(
                         {
                            autoWidht:false,
+                           "order": [[ 1, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",

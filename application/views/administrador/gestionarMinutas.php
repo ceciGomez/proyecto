@@ -123,7 +123,7 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h3 class="modal-title" style="color:white" >Aceptar Minuta</h3>
+                           <h3 class="modal-title" style="color:white" >Estados de la Minuta</h3>
                         </div>
                         <div class="modal-body">
                            <label>
@@ -175,7 +175,7 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h3 class="modal-title" style="color:white">Rechazar Registración</h3>
+                           <h3 class="modal-title" style="color:white">Rechazar Minuta</h3>
                         </div>
                         <div class="modal-body">
                            <h3>Confirmar rechazar Minuta</h3>
@@ -200,7 +200,7 @@
                    var dtable=$('#min').DataTable(
                        {
                           autoWidht:false,
-                  
+                          "order": [[ 1, "desc" ]],
                             language: {
                                "sProcessing":     "Procesando...",
                            "sLengthMenu":     "Mostrar _MENU_ Minutas",
