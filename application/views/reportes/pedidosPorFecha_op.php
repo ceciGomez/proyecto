@@ -20,18 +20,18 @@
              
 
                  <label>Filtrar Pedidos por :</label>
-                   <form   style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirPedidos"  method="get" accept-charset="utf-8" >
+                   <form   style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirPedidos"  method="GET" accept-charset="utf-8" >
                   <div class="box-body" style="background-color: lightblue;">
                   
                        <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Pedido desde :</label><br>
-                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   '> 
+                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   '> 
                       </div>
 
                        <div class="col-md-3">
                           <label>Fecha Pedido hasta :</label><br>
-                        <input type="text"   id="fechaPedidoHasta" name="fechaPedidoHasta" data-provide="datepicker" placeholder="dd/mm/aaaa" > 
+                        <input type="text"   id="fechaPedidoHasta" name="fechaPedidoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" > 
                       </div>
               
                 </div> 
@@ -278,10 +278,10 @@
                                                                       
                                       
                       $(function () {
-            $('#fechaPedidoDesde').datepicker({format: 'yyyy-mm-dd'});
+            $('#fechaPedidoDesde').datepicker({format: 'dd/mm/yyyy'});
           });
        $(function () {
-            $('#fechaPedidoHasta').datepicker({format: 'yyyy-mm-dd'});
+            $('#fechaPedidoHasta').datepicker({format: 'dd/mm/yyyy'});
             });
 
          </script>

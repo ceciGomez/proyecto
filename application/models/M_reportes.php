@@ -34,6 +34,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  			return FALSE;
  		}
  	}
+
+ 	public function getMinutas()
+ 	{
+ 		try {
+ 			
+ 			$query = $this->db->query("
+				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
+				m.fechaIngresoSys,
+				
+				concat(substring(e.fechaEstado, 6, 2), '/' ,substring(e.fechaEstado, 9, 2) , '/', substring(e.fechaEstado, 1, 4)) as fechaEstado,
+				p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela, p.nroMatriculaRPI, p.planoAprobado,
+				l.nombre as localidad
+						
+						from minuta m inner join estadominuta e on m.idMinuta = e.idMinuta
+						inner join usuarioescribano ue on ue.idEscribano = m.idEscribano
+						inner join parcela p on p.idMinuta = m.idMinuta
+						inner join localidad l on l.idLocalidad = p.idLocalidad               
+					    and e.fechaEstado = (SELECT MAX(ee.fechaEstado) 
+					    						from estadominuta ee 
+					    						where  m.idMinuta = ee.idMinuta )  
+					ORDER BY `e`.`estadoMinuta` ASC, m.idMinuta ASC
+ 				");
+ 			return $query->result();
+ 		} catch (Exception $e) {
+ 			return FALSE;
+ 		}
+ 	}
 	
 }
   

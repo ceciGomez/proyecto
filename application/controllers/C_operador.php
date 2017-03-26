@@ -766,4 +766,42 @@ public function reportesPedidos()
 		$this->load->view('operador/perfil_operador',$data);
 		$this->load->view('templates/pie',$data);
 	}
+
+	public function reportesMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Operador';
+
+		$minutas=$this->M_reportes->getMinutas();
+
+		$data['minutas']=$minutas;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('reportes/minutasPorFecha_op',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function imprimirMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+
+		$fechaIngresoDesde=$_GET['fechaIngresoDesde'];
+		$fechaIngresoHasta=$_GET['fechaIngresoHasta'];
+
+		redirect(base_url().'reporteMinutas.php?fechaIngresoDesde='.$fechaIngresoDesde.'&fechaIngresoHasta='.$fechaIngresoHasta);
+	}
+
 }
