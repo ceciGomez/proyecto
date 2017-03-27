@@ -48,6 +48,67 @@ te = String.fromCharCode(tecla);
 return patron.test(te); 
 }
 </script>
+<!-- Main content -->
+<script type="text/javascript">
+//funcion que solo permite numeros
+ function NumbersOnly(e) {
+    var unicode = e.charCode ? e.charCode : e.keyCode;
+    if (unicode != 8) {
+        if (unicode < 48 || unicode > 57) {
+
+            if (unicode == 9 || IsArrows(e) )
+                return true;
+            else
+                return false;
+        }
+    }
+}
+function IsArrows (e) {
+       return (e.keyCode >= 37 && e.keyCode <= 40); 
+}
+//funcion que solo permite letras
+function validar(e) { 
+tecla = (document.all) ? e.keyCode : e.which;
+if (tecla==8) return true; 
+patron =/[A-Za-z\s]/; 
+te = String.fromCharCode(tecla); 
+return patron.test(te); 
+}
+
+   $(document).ready(function(){
+   $("#Provincia").change(function () {
+
+
+           $("#Provincia option:selected").each(function () {
+         
+           //console.log( $('#Provincia').val());
+           //pado el numero de pronvicia, es decir el id
+            miprovincia=$('#Provincia').val();
+            $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+            $("#Localidad").html(data);
+            });            
+        });
+   });
+
+   //Para seleccionar la provincia y localidad que tiene el escribano
+
+      idLocalidad=document.getElementById("idLocalidad").value;
+       console.log(idLocalidad);
+       $.post("<?=base_url()?>index.php/c_administrador/obtenerProvincia_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+            //seleccciona la provincia de la localidad
+             document.getElementById("Provincia").selectedIndex=data;
+             //cargo todas las localidades
+              miprovincia=$('#Provincia').val();
+             $.post("<?=base_url()?>index.php/c_administrador/mostrarLocalidad", { miprovincia: miprovincia}, function(data){
+                  $("#Localidad").html(data);
+                  //selecciono la localidad del escribano
+                 document.getElementById("Localidad").selectedIndex=idLocalidad-1;
+
+                  });
+        });
+});
+
+</script>
   
 
 <section class="content">

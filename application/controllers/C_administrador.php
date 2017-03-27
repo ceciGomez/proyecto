@@ -257,7 +257,6 @@ class C_administrador extends CI_Controller {
       }
 
 
-
 	public function editarEscribano($idEscribano="",$exito=FALSE, $hizo_post=FALSE)
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
@@ -904,5 +903,103 @@ public function reportesPedidos()
 		$fechaIngresoHasta=$_GET['fechaIngresoHasta'];
 
 		redirect(base_url().'reporteMinutas.php?fechaIngresoDesde='.$fechaIngresoDesde.'&fechaIngresoHasta='.$fechaIngresoHasta);
+	}
+
+		public function verPerfil()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+
+		$idAdmin =  $this->session->userdata('id_usuario');
+		$data['unAdministrador'] = $this->M_operador->getUnOperador($idAdmin);
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('administrador/perfil_administrador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+	public function editarAdministrador($idUsuario="",$exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$data["unAdministrador"] = $this->M_administrador->getUnAdmin($idUsuario);
+		//var_dump($data["operador"]);
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('administrador/perfil_administrador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function actualizarAdministrador()
+	{
+
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data['titulo'] = 'Bienvenido Administrador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$hizo_post=TRUE;	
+
+		$this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			  
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+		
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarAdministrador($idUsuario,FALSE,TRUE);
+			}else{
+		//actualizo
+		
+		$adminAct= array(
+			//Nombre del campo en la bd -----> valor del campo name en la vista
+			'nomyap' => $this->input->post("nomyap"),
+			'usuario' => $this->input->post("usuario"),	
+			'dni' => $this->input->post("dni"),	
+			'telefono' => $this->input->post("telefono"),
+			'direccion' => $this->input->post("direccion"),	
+			//'idLocalidad' => $this->input->post('localidad'),	
+			'email' => $this->input->post('email'),	
+			'baja' => $this->input->post('baja'),	
+	
+			);
+
+		$ctrl=$this->M_administrador->actualizarAdministrador($adminAct,$idUsuario);
+		$this->editarAdministrador($idUsuario,TRUE,TRUE);
+	}
+	
 	}
 }

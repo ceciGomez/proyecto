@@ -29,7 +29,7 @@
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
-                      <?=form_open(base_url().'index.php/C_escribano/registro_parcela')?>
+                      <?=form_open(base_url().'index.php/C_escribano/registrarParcela')?>
                      <form method="post">
                         <div class="box-body">
                            <div class="form-group">                             
@@ -238,7 +238,6 @@
          data:{id_departamento: iddepartamento},
          url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
          success:function(response){  
-         console.log($('#localidades').val());   
              $("#localidades").empty();
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
