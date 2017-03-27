@@ -29,8 +29,27 @@ class M_login extends CI_Model {
 		{
 			return $query->row();
 		}else{
+			$pass = sha1($contraseña);
+			$query = $this->db->query("
+			SELECT idUsuario, nomyap, usuario, contraseña, 
+			concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg,	
+			telefono, email, direccion, tipoUsuario, foto
+			
+			FROM usuariosys 
+			WHERE usuario = '$usuario'
+			and contraseña = '$pass'
+			and tipoUsuario = 'O'
+			and baja='1'
+			");
+			if($query->num_rows() == 1)
+		{
+				$this->session->set_flashdata('usuario_incorrecto','Operador dado de baja, por favor comunicarse con el administrador de SiRMI ');
+			redirect(base_url().'index.php/c_login_operador','refresh');
+			}else{
 			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos ');
 			redirect(base_url().'index.php/c_login_operador','refresh');
+		}
+		
 		}
 		} catch (Exception $e) {
 			return false;
@@ -57,8 +76,27 @@ class M_login extends CI_Model {
 		{
 			return $query->row();
 		}else{
+			$pass = sha1($contraseña);
+			$query = $this->db->query("
+			SELECT idUsuario, nomyap, usuario, contraseña, 
+			concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg,
+			telefono, email, direccion, tipoUsuario, foto
+			FROM usuariosys 
+			WHERE usuario = '$usuario'
+			and contraseña = '$pass'
+			and tipoUsuario = 'A'
+			and baja='1'
+
+			");
+			
+		if($query->num_rows() == 1)
+		{
+			$this->session->set_flashdata('usuario_incorrecto','Administrador dado de baja, por favor comunicarse con el administrador de SiRMI  ');
+			redirect(base_url().'index.php/c_login_administrador','refresh');
+		}else{
 			$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos ');
 			redirect(base_url().'index.php/c_login_administrador','refresh');
+		}
 		}
 		} catch (Exception $e) {
 			return false;
