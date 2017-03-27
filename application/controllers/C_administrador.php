@@ -959,23 +959,29 @@ public function reportesPedidos()
 
 		$this->load->helper(array('form', 'url'));
 
-			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+	    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
 
 
-			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+	    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
 
 
-			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+	    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
 
-			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+	    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
 
-			  
-			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
-			   
+	  
+	    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+	   
 
-				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+		$this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+		$checked = $this->input->post('cambiar_pass');
+		if ($checked == 1) {
+			# code...
+			$this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
 
-		
+		    $this->form_validation->set_rules('repeContraseña', 'repeContraseña', 'required|matches[contraseña]',array('required' => 'Debes volver a ingresar la contraseña ','matches'=> 'Las dos contraseñas no coinciden ') );
+
+		}
 		
 			if($this->form_validation->run() == FALSE)
 			{	
@@ -983,20 +989,34 @@ public function reportesPedidos()
 				$this->editarAdministrador($idUsuario,FALSE,TRUE);
 			}else{
 		//actualizo
-		
-		$adminAct= array(
-			//Nombre del campo en la bd -----> valor del campo name en la vista
-			'nomyap' => $this->input->post("nomyap"),
-			'usuario' => $this->input->post("usuario"),	
-			'dni' => $this->input->post("dni"),	
-			'telefono' => $this->input->post("telefono"),
-			'direccion' => $this->input->post("direccion"),	
-			//'idLocalidad' => $this->input->post('localidad'),	
-			'email' => $this->input->post('email'),	
-			'baja' => $this->input->post('baja'),	
+		if ($checked == 1) {
+				$contraseña = $this->input->post('contraseña');
+				$adminAct= array(
+					//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email'),
+					'contraseña' => sha1($contraseña)
+					
+					);
+			} else {
+				$adminAct= array(
+				//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email')
+				);
+			}	
 	
-			);
-
+		
 		$ctrl=$this->M_administrador->actualizarAdministrador($adminAct,$idUsuario);
 		$this->editarAdministrador($idUsuario,TRUE,TRUE);
 	}
