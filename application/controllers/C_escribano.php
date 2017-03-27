@@ -399,16 +399,31 @@ class C_escribano extends CI_Controller {
 
 				);
 				 /*$this->session->set_userdata($datos_propietario);*/
+
 				 if($this->session->userdata('propietario')) {
 				 
-				 	$this->session->set_userdata('propietario', array_merge($this->session->get_userdata('propietario', $datos_propietario)));
+					$old_que_ans_session =  $this->session->userdata('propietario');
+					array_push($old_que_ans_session, $datos_propietario);
+					$this->session->set_userdata('propietario', $old_que_ans_session);
 				 }else { 
-					$this->session->set_userdata('propietario',$datos_propietario); 
+				 	$array = array();
+					$this->session->set_userdata('propietario',$array); 
+					$old_que_ans_session =  $this->session->userdata('propietario');
+					array_push($old_que_ans_session, $datos_propietario);
+					$this->session->set_userdata('propietario', $old_que_ans_session);
 					}
 
+
+
 					$session_data = $this->session->userdata('propietario');
+
+					foreach ($session_data as $key => $value) {
+						print_r($value['porcentaje_condominio']);
+					}
 					
-						print_r($session_data);
+							
+					
+					
 						$this->crearPropietario();	
 			}
 
