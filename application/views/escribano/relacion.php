@@ -4,7 +4,7 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-    <?=form_open(base_url().'index.php/C_escribano/crearRelacion')?>
+    <?=form_open(base_url().'index.php/C_escribano/registro_ph')?>
        <form method="post">
       <h3 align="center">
          Crear Minuta
@@ -12,7 +12,7 @@
       <small>Registrar Propietario</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li><a href="<?=base_url().'index.php/c_escribano/crearParcela'?>"></i> Parcela</a></li>
+         <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"></i> Parcela</a></li>
          <li class="active">Propietario</li>
       </ol>
    </section>

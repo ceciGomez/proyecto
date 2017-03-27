@@ -73,20 +73,22 @@
    <section class="content-body">
       <div class="box box-default">
          <div class="box-header with-border">
+           <?=form_open(base_url().'index.php/C_escribano/registrarPropietario')?>
+            <form method="post">
             <div class="box-body">
                <div class="row">
                  <div class="form-group">
                    <div class="col-md-3">                   
-                 <label >Tipo propietario</label>
+                 <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipoPropietario" id="persona" value="option1" onclick="persona()" checked>
+                      <input type="radio" name="propietario" id="persona" value="persona" onclick="persona()" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipoPropietario" id="empresa" value="option2" onclick="empresa()">
+                      <input type="radio" name="propietario" id="empresa" value="empresa" onclick="empresa()">
                       Empresa
                     </label>
                   </div>  
@@ -94,16 +96,16 @@
                   <div class="form-group">    
                    </div>            
                    <div class="col-md-3">                           
-                 <label >Propietario</label>
+                 <label >Tipo Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="radioAdquiriente" value="option1" >
+                      <input type="radio" name="tipo_propetario" id="adquiriente" value="adquiriente" >
                       Adquiriente
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="optionsRadios" id="radioTransmitente" value="option2" >
+                      <input type="radio" name="tipo_propietario" id="transmitente" value="transmitente" >
                       Transmitente
                     </label>
                   </div>                 
@@ -125,12 +127,12 @@
                      <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
+                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" <?php echo "value='$nombreyapellido'" ?>  name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
                         <div style="color:red;" ><p><?=form_error('nombreyapellido')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select id="sexo_combobox" class="form-control select2"  style="width: 100%;">
+                        <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" <?php echo "value='$sexo_combobox'" ?> style="width: 100%;">
                            <option value="0" selected="selected">Seleccionar</option>
                            <option value="27" >Femenino</option>
                            <option value="20" >Masculino</option>
@@ -139,12 +141,12 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">DNI</label>
-                        <input type="number" class="form-control" id="dni" placeholder="DNI" onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" onKeyUp="limitText(this,8);"/>
+                        <input type="number" class="form-control" id="dni" name="dni" placeholder="DNI" <?php echo "value='$dni'" ?>  onkeypress="return isNumberKey(event)" onKeyDown="limitText(this,8);" onKeyUp="limitText(this,8);"/>
                         <div style="color:red;" ><p><?=form_error('dni')?></p></div>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
-                        <input type="text" class="form-control" id="cuit" placeholder="CUIT" disabled >
+                        <input type="text" class="form-control" id="cuit" name="cuit[]" placeholder="CUIT" disabled >
                         <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                      </div>
@@ -153,18 +155,18 @@
                      <div class="form-group">
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" placeholder="CUIL" disabled >
+                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL" disabled >
                         <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
                      </div>
                                        
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Conyuge</label>
-                        <input type="text" class="form-control" id="conyuge" placeholder="Conyuge">
+                        <input type="text" class="form-control" id="conyuge" name="conyuge" <?php echo "value='$conyuge'" ?>  placeholder="Conyuge">
                         <div style="color:red;" ><p><?=form_error('conyuge')?></p></div>
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Dirección</label>
-                        <input type="text" class="form-control" id="direccion" placeholder="Dirección">
+                        <input type="text" class="form-control" id="direccion" name="direccion" <?php echo "value='$direccion'" ?>  placeholder="Dirección">
                         <div style="color:red;" ><p><?=form_error('direccion')?></p></div>
                      </div>
                      <div class="col-md-3">
@@ -181,24 +183,34 @@
                         </div>
                         <div class="row">
                         <div class="form-group">
-                     <div class="col-md-3">
-                        <label>Localidad</label>
-                        <select class="form-control select2"  style="width: 100%;">                          
-                        </select>
-                     </div>
                        <div class="col-md-3">
-                        <label>Localidad</label>
-                        <select class="form-control select2"  style="width: 100%;">                          
-                        </select>
-                     </div>
+                             <label>Departamento</label>
+                              <select class="form-control select2 departamentos" id="departamentos"  name="departamentos" style="width: 100%;">
+                                  <option value="" selected="">Selecciona departamento</option>
+                                 <?php foreach($arraydepartamentos as $each){ ?>
+                                    <option value="<?php echo $each->idDepartamento; ?>"<?php if($departamentos==$each->nombre) echo 'selected="selected"'; ?>><?php echo $each->nombre; ?></option>
+                                    <?php } ?>
+                             </select>
+                            <div style="color:red;" ><p><?=form_error('departamentos')?></p></div>                                  
+                             </div>                      
+                               <div class="col-md-3">
+                                 <label>Localidad</label>
+                                <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
+                                  <option value="">Seleccione localidad</option>  
+                                  </select>
+                               <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                           </div>
                </div>
             </div>
             <div class="box-footer">
-             <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Guardar y Registrar Otro Propietario</a>
-               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarMinuta'?>" >Finalizar Minuta</a>
+             <button type="submit" class="btn btn-primary" >Registrar Adquiriente/Transmitente</button>
+               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarMinuta'?>" >Guardar Minuta</a>
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
+         </div>
+         </form>
+         </div>
          </div>
   </section>
 <!-- /.content-wrapper -->
@@ -294,11 +306,10 @@
       <script language="javascript"><!--
 
 		function empresa() { 		 
-  		  document.getElementById("sexo_combobox").disabled = true; 
-  		   document.getElementById("dni").disabled = true; 
+  		document.getElementById("sexo_combobox").disabled = true; 
+  		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
-
-          document.getElementById("cuil").disabled = false; 
+      document.getElementById("cuil").disabled = false; 
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
@@ -307,10 +318,9 @@
 <!--
 
 		function persona() { 		 
-  		  document.getElementById("sexo_combobox").disabled = false;  	
-  		  document.getElementById("dni").disabled = false; 
+  		document.getElementById("sexo_combobox").disabled = false;  	
+  		document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
-
  	 	  document.getElementById("cuil").disabled = true; 
 		}
 		</script>
@@ -433,3 +443,85 @@
              el.value =el.value.trim().toUpperCase();
             }
           </script>
+
+          <script>
+   $(document).ready(function(){
+
+           console.log($('#departamentos').val());
+   if($('#departamentos').val()!=""){
+    localidadOnReady($('#departamentos').val());}
+    });
+   $("#departamentos").on("change",function(){
+        localidad($('#departamentos').val());
+   })
+   function localidad(iddepartamento) {
+             console.log($('#departamentos').val());  
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){  
+             $("#localidades").empty();
+             $("#localidades").append("<option>Seleccione localidad</option>");
+            var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });           
+   
+       }
+      })
+    }
+     function localidadOnReady(iddepartamento) { 
+      $.ajax({
+         type:'POST',
+         datatype:'json',
+         data:{id_departamento: iddepartamento},
+         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+         success:function(response){  
+         console.log( <?php echo json_encode($localidades); ?>); 
+              $("#localidades").empty();
+              $("#localidades").append("<option>Seleccione localidad</option>");
+             var json = $.parseJSON(response);
+              $(json).each(function(i,val){             
+                 $("#localidades").append("<option>"+val.nombre+"</option");  
+             });  
+              $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
+           
+         }
+        })
+      }
+   
+   </script>
+      <!-- controla el ingreso de numero flotante -->
+   <script type="text/javascript">
+     function isNumberKey(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode == 46){
+        var inputValue = $("#superficie").val();
+        var count = (inputValue.match(/'.'/g) || []).length;
+        if(count<1){
+            if (inputValue.indexOf('.') < 1){
+                return true;
+            }
+            return false;
+        }else{
+            return false;
+        }
+    }
+    if (charCode != 46 && charCode > 31 && (charCode < 48 || charCode > 57)){
+        return false;
+    }
+    return true;
+   }
+   </script>
+   <script>
+    function isNumber(evt){
+    var charCode = (evt.which) ? evt.which : event.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+        return false;
+    return true;
+    }
+     </script>
+
+
