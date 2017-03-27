@@ -96,9 +96,9 @@
                               <?php }
                                  }}?>
                            </td>
-                           <td><?php echo $value->planoAprobado; ?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
                            
+                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
+                           <td><?php echo $value->planoAprobado; ?></td>
                                <td>Circ. <?php echo $value->circunscripcion; ?> - 
                               Sec.<?php echo $value->seccion; ?> -
                               <?php if ($value->chacra !=NULL): 
