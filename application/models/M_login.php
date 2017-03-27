@@ -124,6 +124,21 @@ class M_login extends CI_Model {
 				$this->session->set_flashdata('usuario_incorrecto','La registracion del escribano fue rechazada por el siguiente motivo: '.$query->row()->motivoRechazo);
 				redirect(base_url().'index.php/c_login_escribano','refresh');
 			}else {
+					$pass = sha1($contraseña);
+						$query = $this->db->query("
+						SELECT idEscribano, nomyap, usuario, contraseña, 
+						concat(substring(fechaReg, 9, 2), '/' ,substring(fechaReg, 6, 2) , '/', substring(fechaReg, 1, 4)) as fechaReg, matricula,
+						telefono, email, direccion, foto, motivoRechazo
+						FROM usuarioescribano 
+						WHERE usuario = '$usuario'
+						and contraseña = '$pass'
+						and baja='1'
+						");
+						if($query->num_rows() == 1){
+					$this->session->set_flashdata('usuario_incorrecto','Escribano dado de baja, por favor comunicarse con el administrador de SiRMI');
+				redirect(base_url().'index.php/c_login_escribano','refresh');
+						}else{
+
 				$this->session->set_flashdata('usuario_incorrecto','Los datos introducidos son incorrectos');
 				redirect(base_url().'index.php/c_login_escribano','refresh');
 			}
@@ -134,6 +149,7 @@ class M_login extends CI_Model {
 			
 		}
 		}
+	}
 		} catch (Exception $e) {
 			return false;
 		}
