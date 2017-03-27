@@ -399,15 +399,18 @@ class C_escribano extends CI_Controller {
 					'localidad' => $this->input->post('localidad'),
 
 				);
-				 /*$this->session->set_userdata($datos_propietario);*/
-				 if($this->session->userdata('propietario')) {
+
+				$propietarios  = array($datos_propietario );
+				 				 
+				 if($this->session->userdata('propietarios')) {
 				 
-				 	$this->session->set_userdata('propietario', array_merge($this->session->get_userdata('propietario', $datos_propietario)));
+				 	$this->session->set_userdata('propietarios', array_merge($this->session->userdata('propietarios'), $datos_propietario));
+				 		
 				 }else { 
-					$this->session->set_userdata('propietario',$datos_propietario); 
+				$this->session->set_userdata('propietarios',$propietarios); 
 					}
 
-					$session_data = $this->session->userdata('propietario');
+					$session_data = $this->session->userdata('propietarios');
 					
 						print_r($session_data);
 						$this->crearPropietario();	
