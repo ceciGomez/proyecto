@@ -43,7 +43,7 @@
                <!--  <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Pendientes </a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Rechazadas</a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Buscar Minutas</a></li> -->
-               <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"><i class="fa fa-circle-o"></i>Registrar Nueva Minuta</a></li>
+               <li><a href="<?=base_url().'index.php/c_escribano/crearParcela'?>"><i class="fa fa-circle-o"></i>Registrar Nueva Minuta</a></li>
                <li><a href="<?=base_url().'index.php/c_escribano/buscarParcelas'?>"><i class="fa fa-circle-o"></i>Buscar Parcelas</a></li>
             </ul>
 
