@@ -850,7 +850,14 @@ public function reportesPedidos()
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-		
+				$checked = $this->input->post('cambiar_pass');
+				if ($checked == 1) {
+					# code...
+					$this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+				    $this->form_validation->set_rules('repeContraseña', 'repeContraseña', 'required|matches[contraseña]',array('required' => 'Debes volver a ingresar la contraseña ','matches'=> 'Las dos contraseñas no coinciden ') );
+
+				}
 		
 			if($this->form_validation->run() == FALSE)
 			{	
@@ -859,18 +866,33 @@ public function reportesPedidos()
 			}else{
 		//actualizo
 		
-		$operadorAct= array(
-			//Nombre del campo en la bd -----> valor del campo name en la vista
-			'nomyap' => $this->input->post("nomyap"),
-			'usuario' => $this->input->post("usuario"),	
-			'dni' => $this->input->post("dni"),	
-			'telefono' => $this->input->post("telefono"),
-			'direccion' => $this->input->post("direccion"),	
-			//'idLocalidad' => $this->input->post('localidad'),	
-			'email' => $this->input->post('email'),	
-			'baja' => $this->input->post('baja'),	
+		if ($checked == 1) {
+				$contraseña = $this->input->post('contraseña');
+				$operadorAct= array(
+					//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email'),
+					'contraseña' => sha1($contraseña)
+					
+					);
+			} else {
+				$operadorAct= array(
+				//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email')
+				);
+			}	
 	
-			);
 
 		$ctrl=$this->M_administrador->actualizarOperador($operadorAct,$idUsuario);
 		$this->editarOperador($idUsuario,TRUE,TRUE);
