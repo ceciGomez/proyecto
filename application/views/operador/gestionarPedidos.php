@@ -75,8 +75,9 @@
                         <thead>
                           <tr> 
                           <th>Operaciones</th>
+                           <th>Fecha de Pedido</th>
                           <th>Fecha de Respuesta</th>
-                          <th>Fecha de Pedido</th>
+                         
                           <th>Numero de Pedido</th>
                           <th> Escribano</th>
                           <th>Estado</th>
@@ -94,10 +95,10 @@
 
                             foreach ($pedidos as $si){ 
 
-                               $date=new DateTime($si->fechaPedido);
-                              $date_formated=$date->format('d/m/Y ');
-                               $date2=new DateTime($si->fechaRta);
+                               $date2=new DateTime($si->fechaPedido);
                               $date_formated2=$date2->format('d/m/Y ');
+                               $date=new DateTime($si->fechaRta);
+                              $date_formated=$date->format('d/m/Y ');
                          ?>
                             <?php 
                          /*
@@ -127,8 +128,8 @@
                                 ?>
                             </td>
 
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td data-order="<?php echo $si->fechaPedido; ?>">  <?php  echo "$date_formated"; ?></td>
+                            <td data-order="<?php echo $si->fechaRta;?>">  <?php  echo "$date_formated2"; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                              <td><?php 
                               if($si->idEscribano==null) echo "";else {
@@ -197,7 +198,7 @@
                     var dtable=$('#pedidos').DataTable(
                         {
                            autoWidht:false,
-
+                           "order": [[ 1, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Pedidos",

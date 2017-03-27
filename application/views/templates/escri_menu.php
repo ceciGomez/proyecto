@@ -12,7 +12,6 @@
          <div class="pull-left info">
             <p><?php echo $this->session->userdata('nomyap') ?></p>
             <p><?php echo $this->session->userdata('perfil') ?></p>
-            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
          </div>
       </div>
       <!-- search form 
@@ -43,7 +42,7 @@
                <!--  <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Pendientes </a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Ver Minutas Rechazadas</a></li>
                   <li><a href="#"><i class="fa fa-circle-o"></i> Buscar Minutas</a></li> -->
-               <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"><i class="fa fa-circle-o"></i>Registrar Nueva Minuta</a></li>
+               <li><a href="<?=base_url().'index.php/c_escribano/crearParcela'?>"><i class="fa fa-circle-o"></i>Registrar Nueva Minuta</a></li>
                <li><a href="<?=base_url().'index.php/c_escribano/buscarParcelas'?>"><i class="fa fa-circle-o"></i>Buscar Parcelas</a></li>
             </ul>
 
@@ -79,7 +78,7 @@
             
          </li>
          <a href="#">
-         <i class="fa fa-calendar"></i> <span>Calendario</span>
+         <i class="fa fa-calendar"  id="calendario"  data-provide="datepicker"></i> <span>Calendario</span>
          </a>
          </li>
       </ul>

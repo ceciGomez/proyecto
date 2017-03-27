@@ -9,7 +9,7 @@
       <!-- Main row -->
       <div class="row">
         <!-- Left col -->
-         <h3  align="center">Gestión de Escribanos</h3>
+         <h3  align="center">Gestionar Escribanos</h3>
         <section >
          
 
@@ -142,7 +142,7 @@
                                   <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo $es->idEscribano; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               
                            </td>
-                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
+                            <td data-order="<?php echo $es->fechaReg ?>" style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->dni==null) echo "";else echo "$es->dni"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php   if($es->nomyap==null) echo "";else echo "$es->nomyap"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>
@@ -288,7 +288,7 @@
                         <div class="modal-content">
                          <div class="modal-header">
                           <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white"> Eliminar Escribano</h3>
+                          <h3 class="modal-title" style="color:white"> Baja de Escribano</h3>
                          </div>
                          <div class="modal-body">
                          <h3> Confirmar dar de baja al Escribano</h3>
@@ -321,6 +321,7 @@
                     var dtable=$('#escribanos').DataTable(
                         {
                            autoWidht:false,
+                           "order": [[ 1, "desc" ]],
                              language: {
                                 "sProcessing":     "Procesando...",
                             "sLengthMenu":     "Mostrar _MENU_ Escribanos",

@@ -6,12 +6,23 @@ while (ob_get_level())
 ob_end_clean();
 header("Content-Encoding: None", true);
 
+        $fechaPedidoDesde=new DateTime();
+        $fechaPedidoHasta=new DateTime();
+        $fechaPedidoDesde= date_format($fechaPedidoDesde->createFromFormat('d/m/Y',$_GET['fechaPedidoDesde']), 'Y-m-d');
+        $fechaPedidoHasta=date_format($fechaPedidoHasta->createFromFormat('d/m/Y',$_GET['fechaPedidoHasta']), 'Y-m-d');
+      
 
-$fechaPedidoDesde= date_format(date_create($_GET['fechaPedidoDesde']),'Y-m-d');
+//$fechaPedidoDesde= date_format(date_create($_GET['fechaPedidoDesde']),'Y-m-d');
 
-$fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
+//$fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
 
-$pedidos = mysqli_query($conexion,"SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,p.rtaPedido,p.estadoPedido,p.idEscribano, p.idUsuario  FROM pedidos p");
+$pedidos = mysqli_query($conexion,
+    "SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,
+    p.rtaPedido,p.estadoPedido,p.idEscribano, p.idUsuario  
+    FROM pedidos p
+    where p.fechaPedido 
+    between '".$fechaPedidoDesde."' and '".$fechaPedidoHasta."'
+   ");
 if($pedidos === FALSE) { 
         die(mysqli_error($conexion)); // better error handling
     }
@@ -58,14 +69,16 @@ function Footer()
 public function sanitizarFecha($fecha)
 {
     //$date = date_create_from_format('d-m-Y', $fecha);
-    $date = date_create($fecha);
-    return date_format($date,'Y-m-d');
+    $date =New DateTime();
+   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'Y-m-d');
 }
+    
 public function sanitizarFechaF($fecha)
 {
     //$date = date_create_from_format('d-m-Y', $fecha);
-    $date = date_create($fecha);
-    return date_format($date,'d-m-Y');
+   $date =New DateTime();
+   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'Y-m-d');
+    
 }
 }
 

@@ -92,6 +92,13 @@
   <link rel="stylesheet" type="text/css"  href="<?=base_url()?>assets/plugins/datatables/jquery.dataTables.min.css">
 
 <script src="<?=base_url()?>assets/plugins/modal/bootstrap-modal.js"></script>
+<script type="text/javascript">
+      
+          $( document ).ready(function() {
+                           $('#calendario').datepicker();
+                       });
+                          
+</script>
 </body>
 </html>
 

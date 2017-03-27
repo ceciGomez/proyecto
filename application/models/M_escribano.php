@@ -14,7 +14,7 @@ class M_escribano extends CI_Model
 		try {
 			$query= $this->db->query("
 					SELECT m.idMinuta as idMinuta, idEscribano, 
-		concat(substring(fechaIngresoSys, 6, 2), '/' ,substring(fechaIngresoSys, 9, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
+		concat(substring(fechaIngresoSys, 9, 2), '/' ,substring(fechaIngresoSys, 6, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
 					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
 					from minuta m inner join 
 					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x

@@ -9,7 +9,6 @@ class C_administrador extends CI_Controller {
     }
 
 
-
 	public function index()
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
@@ -19,7 +18,8 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
-
+		$admin=$this->db->get_where('usuariosys', array('idUsuario'=>$this->session->userdata('id_usuario')))->row();
+		$data['admin']=$admin;
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
 		$this->load->view('home/admin',$data);
@@ -49,7 +49,6 @@ class C_administrador extends CI_Controller {
 			$data['usuario'] = $this->input->post('usuario');
 			$data['direccion'] = $this->input->post('direccion');
 
-		
 
 		}else{
 			$data['nomyap']='';
@@ -61,9 +60,7 @@ class C_administrador extends CI_Controller {
 			$data{'contraseña'}='';
 			$data{'repeContraseña'}='';
 
-
-		};
-		
+		};		
 
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
@@ -122,8 +119,7 @@ class C_administrador extends CI_Controller {
 			'baja' => '0' );	
 			$this->db->insert("usuariosys", $datos_usuarios);
 
-			
-
+		
 			$data['provincias'] = $this->db->get("provincia")->result();
 		 
 		    $this->crearOperador(TRUE,TRUE);
@@ -218,8 +214,6 @@ class C_administrador extends CI_Controller {
 
 				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
 
-			    
-
 		
 		
 			if($this->form_validation->run() == FALSE)
@@ -238,7 +232,6 @@ class C_administrador extends CI_Controller {
 			'direccion' => $this->input->post("direccion"),	
 			'idLocalidad' => $this->input->post('localidad'),	
 			'email' => $this->input->post('email'),	
-			'estado' => $this->input->post('estado'),
 			'baja' => $this->input->post('baja'),	
 	
 
@@ -257,15 +250,11 @@ class C_administrador extends CI_Controller {
                'baja' => "1",
               
             );
-		$this->db->where('idUsuario', $idUsuario);
-		
-
+		$this->db->where('idUsuario', $idUsuario);		
 		$this->db->where('idUsuario', $idUsuario);
 		$this->db->update('usuariosys', $data); 
 
       }
-
-
 
 
 	public function editarEscribano($idEscribano="",$exito=FALSE, $hizo_post=FALSE)
@@ -328,9 +317,6 @@ class C_administrador extends CI_Controller {
 
 			    $this->form_validation->set_rules('estadoAprobacion', 'estadoAprobacin', 'required',array('required' => 'Debes seleccionar un Estado ') );
 
-
-
-		
 		
 			if($this->form_validation->run() == FALSE)
 			{	
@@ -352,10 +338,6 @@ class C_administrador extends CI_Controller {
 			'email' => $this->input->post('email'),	
 			'baja' => $this->input->post('baja'),	
 
-
-
-
-
 			);
 
 		
@@ -366,9 +348,7 @@ class C_administrador extends CI_Controller {
 	
 	}
 
-
 //para el menu minutas
-
 
 	public function detalles_esc(){
 			$idEscribano=$_POST["idEscribano"];
@@ -429,7 +409,6 @@ class C_administrador extends CI_Controller {
       }
 	
 
-
 	public function detalles_minuta(){
 
 		$minuta = $this->M_escribano->getUnaMinuta($_POST['idMinuta']);
@@ -446,34 +425,34 @@ class C_administrador extends CI_Controller {
          <h2 class='page-header' align='center'><i><b>Minuta de Inscripción de Titulo</b></i>
          </h2>
          <p align='justify'>
-            Departamento  <strong>". $unEscribano[0]->nombreDpto."</strong>
-            - Provincia de <strong>". $unEscribano[0]->nombreProv.".</strong><br> 
-            <u>FUNCIONARIO AUTORIZANTE: </u> Esc: <strong>". $unEscribano[0]->nomyap."</strong><br><br>";
+            Departamento  <strong>". $unEscribano[0]->nombreDpto." </strong>
+            - Provincia de <strong>". $unEscribano[0]->nombreProv.". </strong><br> 
+            <u>FUNCIONARIO AUTORIZANTE: </u> Esc: <strong>". $unEscribano[0]->nomyap." </strong><br><br>";
             foreach ($parcelas as $value) { 
             echo" <u>NOMENCLATURA CATASTRAL: </u>
             CIRCUNSCRIPCION: <strong>".$value->circunscripcion ."</strong>
-            SECCION: <strong>".$value->seccion ."</strong>
-            CHACRA: <strong>".$value->chacra."</strong>
-            MANZANA: <strong>". $value->manzana ."</strong>
-            PARCELA: <strong>".$value->parcela ."</strong> <br>
+            SECCION: <strong>".$value->seccion ." </strong>
+            CHACRA: <strong>".$value->chacra." </strong>
+            MANZANA: <strong>". $value->manzana ." </strong>
+            PARCELA: <strong>".$value->parcela ." </strong> <br>
             <br>
             Superficie:   <strong>". $value->superficie. "mts. </strong>
-            Tipo Propiedad: <strong>". $value->tipoPropiedad ."</strong> <br>
+            Tipo Propiedad: <strong>". $value->tipoPropiedad ." </strong> <br>
             <u>Plano:</u>
-            Nro de Plano aprobado:  <strong>" .$value->planoAprobado ."</strong> 
+            Nro de Plano aprobado:  <strong>" .$value->planoAprobado ." </strong> 
             Fecha:  <strong>". $value->fechaPlanoAprobado ." </strong> 
-            <u>Localidad:</u> <strong>". $value->nombreLocalidad. "</strong><br>
+            <u>Localidad:</u> <strong>". $value->nombreLocalidad. " </strong><br>
 <br>
             <u>INSCRIPCION: </u>
-            NRO MATRICULA: <strong> ".$value->nroMatriculaRPI ."</strong>
-            FECHA:  <strong> ". $value->fechaMatriculaRPI ."</strong>
-            TOMO:  <strong>".$value->tomo ."</strong>
-            FOLIO:  <strong> ". $value->folio ."</strong>
-            FINCA:  <strong>". $value->finca ."</strong>
-            AÑO:  <strong> ".$value->año ."</strong>
+            NRO MATRICULA: <strong> ".$value->nroMatriculaRPI ." </strong>
+            FECHA:  <strong> ". $value->fechaMatriculaRPI ." </strong>
+            TOMO:  <strong>".$value->tomo ." </strong>
+            FOLIO:  <strong> ". $value->folio ." </strong>
+            FINCA:  <strong>". $value->finca ." </strong>
+            AÑO:  <strong> ".$value->año ." </strong>
             <br>
 
-            <u>DESCRIPCION: </u><strong>". $value->descripcion."</strong>.<br><br>";
+            <u>DESCRIPCION: </u><strong>". $value->descripcion." </strong>.<br><br>";
             $propietarios = $this->M_escribano->getPropietarios($value->idParcela);
              foreach ( $propietarios as $key) { 
                $nroProp = 0;
@@ -483,23 +462,23 @@ class C_administrador extends CI_Controller {
             
             if ($key->nroUfUc != NULL):echo " NRO UF/UC: <strong> ". $key->nroUfUc ."-". $key->tipoUfUc."</strong>";endif;
 
-             if ($key->fechaEscritura != NULL) :  echo" Fecha de Escritura: <strong> ". $key->fechaEscritura ."</strong>";
-             if ($key->titular != NULL): echo "Nombre y Apellido: <strong> ". $key->titular."</strong>" ;endif;
+             if ($key->fechaEscritura != NULL) :  echo" Fecha de Escritura: <strong> ". $key->fechaEscritura . " </strong>";
+             if ($key->titular != NULL): echo "Nombre y Apellido: <strong> ". $key->titular." </strong>" ;endif;
 
-             if ($key->porcentajeCondominio != NULL): echo "PORCENTAJE DE CONDOMINIO: <strong> ". $key->porcentajeCondominio; echo '% "</strong>"'; endif;
+             if ($key->porcentajeCondominio != NULL): echo " PORCENTAJE DE CONDOMINIO: <strong> ". $key->porcentajeCondominio; echo '% "</strong>"'; endif;
            
-             if ($key->cuitCuil != NULL): echo "Cuit - Cuil: <strong> ".$key->cuitCuil."</strong>" ; endif;
+             if ($key->cuitCuil != NULL): echo "Cuit - Cuil: <strong> ".$key->cuitCuil." </strong>" ; endif;
 
-             if ($key->direccion != NULL): echo "Direccion: <strong> ". $key->direccion."</strong>";  endif;
+             if ($key->direccion != NULL): echo "Direccion: <strong> ". $key->direccion." </strong>";  endif;
 
              if ($key->planoAprobado != NULL) echo "Plano Aprobado: <strong> ". $key->planoAprobado ."</strong>";endif;
 
              if ($key->fechaPlanoAprobado != NULL): echo "Fecha de Plano Aprobado: <strong>".$key->fechaPlanoAprobado ."</strong>"; endif;
 
-             if ($key->poligonos != NULL) : echo "Poligonos: <strong>". $key->poligonos ."</strong>"; endif;
+             if ($key->poligonos != NULL) : echo "Poligonos: <strong>". $key->poligonos ." </strong>"; endif;
 
              if ($key->porcentajeUfUc != NULL):echo "Porcentaje de Uf/Uc: <strong> ".$key->porcentajeUfUc; echo "% </strong><br>" ;endif;
-             if ($key->conyuge != NULL):echo" Asentimiento Conyugal: <strong> ". $key->conyuge."</strong><br>" ; endif;
+             if ($key->conyuge != NULL):echo" Asentimiento Conyugal: <strong> ". $key->conyuge." </strong><br>" ; endif;
              } 
             } 
          echo "</p>
@@ -614,8 +593,7 @@ class C_administrador extends CI_Controller {
 			}
 
 					 }
-
-			
+		
 
 	}
 //para obtener las localidades
@@ -649,7 +627,7 @@ class C_administrador extends CI_Controller {
 		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
 		foreach ($localidades as $l ) {
 				
-				echo"<option value='$l->idLocalidad'>$l->nombre</option>";
+			echo"<option value='$l->idLocalidad'>$l->nombre</option>";
 			
 		}
 	}
@@ -704,7 +682,6 @@ class C_administrador extends CI_Controller {
 		$this->db->from('departamento');
 		$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
 		
-
 		echo $this->db->get()->row()->idProvincia;
 	}
 	public function motivoRechazo(){
@@ -733,7 +710,6 @@ class C_administrador extends CI_Controller {
 		$parcelas= $this->db->get()->result();
 	
 		$data['parcelas']=$parcelas;
-
 
 		$data['titulo'] = 'Bienvenido Administrador';
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -843,14 +819,10 @@ public function reportesPedidos()
 		$this->db->select('*');
 		$this->db->from('pedidos');
 		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
-
-		
 		
 		$pedidos= $this->db->get()->result();
 	
 		$data['pedidos']=$pedidos;
-
 
 		$data['titulo'] = 'Bienvenido Administrador';
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -870,5 +842,164 @@ public function reportesPedidos()
 		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
 
 		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+	}
+
+	public function imprimirMinuta()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$idMinuta=$_POST['resg_idMinuta'];
+		$data["minuta"] = $this->M_administrador->getUnaMinuta($idMinuta);
+		//var_dump($data["minuta"] );
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		//var_dump($idEscribano);
+		$data["unEscribano"] = $this->M_administrador->getUnEscribano($idEscribano);
+		//var_dump($data["unEscribano"]);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		//var_dump($idMinuta );
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		//var_dump($data["parcelas"]);
+		//$this->load->view('templates/cabecera_escribano',$data);
+		//$this->load->view('templates/escri_menu',$data);
+		$this->load->view('administrador/imprimirMinuta',$data);
+		//$this->load->view('templates/pie',$data);
+	}
+	public function reportesMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Administrador';
+
+		$minutas=$this->M_reportes->getMinutas();
+
+		$data['minutas']=$minutas;
+
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('reportes/minutasPorFecha_adm',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function imprimirMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+
+		$fechaIngresoDesde=$_GET['fechaIngresoDesde'];
+		$fechaIngresoHasta=$_GET['fechaIngresoHasta'];
+
+		redirect(base_url().'reporteMinutas.php?fechaIngresoDesde='.$fechaIngresoDesde.'&fechaIngresoHasta='.$fechaIngresoHasta);
+	}
+
+		public function verPerfil()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+
+		$idAdmin =  $this->session->userdata('id_usuario');
+		$data['unAdministrador'] = $this->M_operador->getUnOperador($idAdmin);
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('administrador/perfil_administrador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+	public function editarAdministrador($idUsuario="",$exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'Administrador')
+		{
+			redirect(base_url().'index.php/c_login_administrador');
+		}
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Administrador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$data["unAdministrador"] = $this->M_administrador->getUnAdmin($idUsuario);
+		//var_dump($data["operador"]);
+		$this->load->view('templates/cabecera_administrador',$data);
+		$this->load->view('templates/admin_menu',$data);
+		$this->load->view('administrador/perfil_administrador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function actualizarAdministrador()
+	{
+
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data['titulo'] = 'Bienvenido Administrador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$hizo_post=TRUE;	
+
+		$this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			  
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+		
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarAdministrador($idUsuario,FALSE,TRUE);
+			}else{
+		//actualizo
+		
+		$adminAct= array(
+			//Nombre del campo en la bd -----> valor del campo name en la vista
+			'nomyap' => $this->input->post("nomyap"),
+			'usuario' => $this->input->post("usuario"),	
+			'dni' => $this->input->post("dni"),	
+			'telefono' => $this->input->post("telefono"),
+			'direccion' => $this->input->post("direccion"),	
+			//'idLocalidad' => $this->input->post('localidad'),	
+			'email' => $this->input->post('email'),	
+			'baja' => $this->input->post('baja'),	
+	
+			);
+
+		$ctrl=$this->M_administrador->actualizarAdministrador($adminAct,$idUsuario);
+		$this->editarAdministrador($idUsuario,TRUE,TRUE);
+	}
+	
 	}
 }

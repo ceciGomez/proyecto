@@ -5,7 +5,7 @@
       <h1 align="center">
          Reporte de Minutas por fecha
       </h1>
-      <h4  align="center" >Lista todas las  Minuta dado un rango de fechas</h4>
+     
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li class="active">Minuta</li>
@@ -20,46 +20,46 @@
 
                </div>
                <!-- /.box-header -->
-               <div class="row">
-          <form action="<?php echo base_url()?>index.php/c_reportes_escribano/minutas_PorFecha" method="get" accept-charset="utf-8">
-        <div class="form-group col-xs-3">
-               <label>Indicar Fecha de Inicio</label>
-               <div class="form-group">
-                  <div class='input-group date' id='datetimepickerPa'>
-                     <span class="input-group-addon">
-                     <span class="fa fa-calendar"></span>
-                     </span>
-                     <input type="text" class="form-control" id="fdesde" 
-                       data-inputmask="'alias': 'dd/mm/aaaa"
-                        data-mask name="fdesde" placeholder="dd/mm/aaaa" required/>
+               <div class="box box-primary">
+            <div class="box-header">
+
+             
+
+                 <label>Filtrar Minutas por :</label>
+                   <form   style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirMinutas"  method="GET" accept-charset="utf-8" >
+                  <div class="box-body" style="background-color: lightblue;">
+                  
+                       <div class="row">
+                      <div class="col-md-3">
+                          <label>Fecha Ingreso desde :</label><br>
+                        <input type="text"   id="fechaIngresoDesde" name="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   '> 
+                      </div>
+
+                       <div class="col-md-3">
+                          <label>Fecha Ingreso hasta :</label><br>
+                        <input type="text"   id="fechaIngresoHasta" name="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" > 
+                      </div>
+              
+                </div> 
+                </div> 
+                <br>
+               <div align="center">
+                <button type="submit" class="btn btn-primary">Imprimir Minutas</button>               
+                      </div>
+                </form>
+                  
+                        
+
+
+
+                  
                   </div>
-               </div>
-               <!-- /.input group -->
-            </div>
-             <div class="form-group col-xs-3">
-               <label>Indicar Fecha de Fin</label>
-               <div class="form-group">
-                  <div class='input-group date' id='datetimepickerPe'>
-                     <span class="input-group-addon">
-                     <span class="fa fa-calendar"></span>
-                     </span>
-                     <input type="text" class="form-control" id="fhasta" 
-                        data-inputmask="'alias': 'dd/mm/aaaa'"
-                        data-mask name="fhasta" placeholder="dd/mm/aaaa " required/>
                   </div>
-               </div>
-               <!-- /.input group -->
-            </div> <br>
-            <div class="form-group col-xs-3">
-            <button class="btn btn-primary btn-md" type="submit">Buscar</button>
-            </div>
-      </form>
-      </div>
                <div class="box-body table-responsive no-padding">
-                  <table id="minutas" class="table-bordered" style="display: none">
+                  <table id="minutas" class="table-bordered" style="display: none"> 
                      <thead>
                         <tr>
-                           
+                         
                            <th>Fecha Ingreso</th>
                            <th>Nro de Minuta</th>
                            <th>Estado</th>
@@ -72,13 +72,16 @@
                         </tr>
                      </thead>
                      <tbody>
-                        <?php foreach ($minutas_por_fecha as $value) :
+                        <?php foreach ($minutas as $value) :
                            //var_dump($value)
                            ?>
                         <tr>
-                             <td colspan="" rowspan="" headers="" data-order="<?php echo$value->fechaIngresoSys;?>"><?php echo $value->fechaIngresoSys;?></td>
+                          <td colspan="" rowspan="" headers="" data-order="<?php echo$value->fechaIngresoSys;?>"><?php 
+                           $date=new DateTime($value->fechaIngresoSys);
+                              $date_formated=$date->format('d/m/Y ');
+                          echo $date_formated;?></td>
                            <td colspan="" rowspan="" headers=""><?php echo $value->idMinuta;?></td>
-                        
+                         
                            <td colspan="" rowspan="" headers="">
                               <?php if ($value->estadoMinuta == 'A')  {?>
                               <span class="label label-success">Aprobado</span>
@@ -96,9 +99,9 @@
                               <?php }
                                  }}?>
                            </td>
-                           
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
                            <td><?php echo $value->planoAprobado; ?></td>
+                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
+                           
                                <td>Circ. <?php echo $value->circunscripcion; ?> - 
                               Sec.<?php echo $value->seccion; ?> -
                               <?php if ($value->chacra !=NULL): 
@@ -131,21 +134,16 @@
                <!-- /.box-body -->
             </div>
          </div>
-      <div class="row col-sm-12 pull-right">
-<!--  <a href="http://localhost/proyecto/reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
-<span>Imprimir Reporte</span></i></a>
- -->
- <a href="<?php echo base_url()?>reporteMinutas_escri.php?fechaInicio=<?php echo $fechaInicio;?>&fechaFin=<?php echo $fechaFin;?>&idUsuario=<?php echo  $this->session->userdata('idEscribano')?>"; class= "btn btn-primary btn-sm" target="_blank" role="button">
-<span>Imprimir Reporte</span></i></a>
-
-  </div>
+      
       </div>
    <!-- /.row -->
    </section>
 </div>
 <!-- /.content-wrapper -->
-
- <script>
+  
+                  <script type="text/javascript">
+            
+                   
 
                    $(document).ready(function(){
 
@@ -175,8 +173,7 @@
                                 "sPrevious": "Anterior"
                               }},
                                 } );
-                           
-                
+                   
                     //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
@@ -196,15 +193,56 @@
                       document.getElementById('minutas_filter').style.display='none';
 
                        $( "#minutas" ).show();
-                     })
-    $(function () {
-            $('#datetimepickerPa').datepicker({format: 'yyyy-mm-dd'});
+
+
+               
+
+                   $.fn.dataTableExt.afnFiltering.push(
+                            function( oSettings, aData, iDataIndex ) {
+                                var iFini = document.getElementById('fechaIngresoDesde').value;
+                                var iFfin = document.getElementById('fechaIngresoHasta').value;
+                                var iStartDateCol = 0;
+                                var iEndDateCol = 0;
+                         
+                                iFini=iFini.substring(6,10) + iFini.substring(3,5)+ iFini.substring(0,2);
+                                iFfin=iFfin.substring(6,10) + iFfin.substring(3,5)+ iFfin.substring(0,2);
+                         
+                                var datofini=aData[iStartDateCol].substring(6,10) + aData[iStartDateCol].substring(3,5)+ aData[iStartDateCol].substring(0,2);
+                                var datoffin=aData[iEndDateCol].substring(6,10) + aData[iEndDateCol].substring(3,5)+ aData[iEndDateCol].substring(0,2);
+                         
+                                if ( iFini === "" && iFfin === "" )
+                                {
+                                    return true;
+                                }
+                                else if ( iFini <= datofini && iFfin === "")
+                                {
+                                    return true;
+                                }
+                                else if ( iFfin >= datoffin && iFini === "")
+                                {
+                                    return true;
+                                }
+                                else if (iFini <= datofini && iFfin >= datoffin)
+                                {
+                                    return true;
+                                }
+                                return false;
+                            });
+
+                             $('#fechaIngresoDesde').select( function() { dtable.draw(); } );
+                              $('#fechaIngresoHasta').select( function() { dtable.draw(); } );
+             
+                })
+
+
+
+                                                                      
+                                      
+                      $(function () {
+            $('#fechaIngresoDesde').datepicker({format: 'dd/mm/yyyy'});
           });
        $(function () {
-            $('#datetimepickerPe').datepicker({format: 'yyyy-mm-dd'});
+            $('#fechaIngresoHasta').datepicker({format: 'dd/mm/yyyy'});
             });
- $(function () {           
-           $("[data-mask]").inputmask();
-         });
 
          </script>

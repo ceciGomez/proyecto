@@ -17,8 +17,8 @@
                         overflow:hidden;
                           }
                             #parcelas {
-  width:2500px;
-}
+       width:2500px;
+      }
    </style>
     <!-- CSS para quitar las flechas de los input number -->
    <style type="text/css">
@@ -32,6 +32,29 @@
      margin: 0;
     }
 </style>
+    <!-- Cambia el color del boton en el datatable de buscar personas -->
+<style type="text/css">
+.seleccionar
+{
+    background-color: #228b22;
+}
+.button:hover
+{
+    background-image: #228b22;
+}
+</style>
+ <script language="javascript"><!--
+
+    function noPh() {      
+        document.getElementById("porcentaje_condominio").disabled = true; 
+        document.getElementById("nro_ucuf").disabled = true; 
+        document.getElementById("tipo_ucuf").disabled = true; 
+        document.getElementById("plano_aprobado").disabled = true; 
+        document.getElementById("fecha_plano_aprobado").disabled = true; 
+        document.getElementById("porcentaje_ucuf").disabled = true; 
+        document.getElementById("poligonos").disabled = true; 
+    }
+    </script>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
@@ -111,7 +134,7 @@
                             <?php 
                             echo" <button   value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
-                         echo" Tiene ". count($notificaciones_si). "pedidos de información contestadas";
+                         echo" Tiene ". count($notificaciones_si). " pedidos de información contestados";
 
                          ?>
                            <?=form_close()?>
