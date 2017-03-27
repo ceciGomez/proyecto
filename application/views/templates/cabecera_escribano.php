@@ -226,7 +226,7 @@
                              echo "<input  type='hidden' name='idMinuta' value='$mr->idMinuta'>";
 
                              echo "<i class='glyphicon glyphicon-list-alt text-red'></i> ";
-                             echo" La minuta número $mr->idMinuta fue rechazadas";
+                             echo" La minuta número $mr->idMinuta fue rechazada";
                            
                               ?>
                              <?=form_close()?>
