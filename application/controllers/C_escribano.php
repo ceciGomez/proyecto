@@ -937,11 +937,11 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/pie',$data);
 	}
 
-	public function actualizarAdministrador()
+	public function actualizarEscribano()
 	{
 
-		$data["notificaciones_mp"]=$this->notificaciones_mp();
-		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Escribano';
 		$idUsuario = $this->session->userdata('idEscribano');
@@ -961,6 +961,8 @@ class C_escribano extends CI_Controller {
 
 	  
 	    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+
+	    $this->form_validation->set_rules('matricula', 'matricula', 'required',array('required' => 'Debes ingresar una matricula ') );
 	   
 
 		$this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
@@ -978,38 +980,40 @@ class C_escribano extends CI_Controller {
 				
 				$this->editarEscribano($idUsuario,FALSE,TRUE);
 			}else{
-		//actualizo
-		if ($checked == 1) {
-				$contraseña = $this->input->post('contraseña');
-				$escriAct= array(
-					//Nombre del campo en la bd -----> valor del campo name en la vista
-					'nomyap' => $this->input->post("nomyap"),
-					'usuario' => $this->input->post("usuario"),	
-					'dni' => $this->input->post("dni"),	
-					'telefono' => $this->input->post("telefono"),
-					'direccion' => $this->input->post("direccion"),	
-					//'idLocalidad' => $this->input->post('localidad'),	
-					'email' => $this->input->post('email'),
-					'contraseña' => sha1($contraseña)
-					
-					);
-			} else {
-				$escriAct= array(
-				//Nombre del campo en la bd -----> valor del campo name en la vista
-					'nomyap' => $this->input->post("nomyap"),
-					'usuario' => $this->input->post("usuario"),	
-					'dni' => $this->input->post("dni"),	
-					'telefono' => $this->input->post("telefono"),
-					'direccion' => $this->input->post("direccion"),	
-					//'idLocalidad' => $this->input->post('localidad'),	
-					'email' => $this->input->post('email')
-				);
-			}	
-	
-		
-		$ctrl=$this->M_escribano->actualizarEscribano($escriAct,$idUsuario);
-		$this->editarEscribano($idUsuario,TRUE,TRUE);
-	}
+			//actualizo
+				if ($checked == 1) {
+						$contraseña = $this->input->post('contraseña');
+						$escriAct= array(
+							//Nombre del campo en la bd -----> valor del campo name en la vista
+							'nomyap' => $this->input->post("nomyap"),
+							'usuario' => $this->input->post("usuario"),	
+							'dni' => $this->input->post("dni"),	
+							'telefono' => $this->input->post("telefono"),
+							'direccion' => $this->input->post("direccion"),	
+							//'idLocalidad' => $this->input->post('localidad'),	
+							'email' => $this->input->post('email'),
+							'matricula' => $this->input->post('matricula'),
+							'contraseña' => sha1($contraseña)
+							
+							);
+					} else {
+						$escriAct= array(
+						//Nombre del campo en la bd -----> valor del campo name en la vista
+							'nomyap' => $this->input->post("nomyap"),
+							'usuario' => $this->input->post("usuario"),	
+							'dni' => $this->input->post("dni"),	
+							'telefono' => $this->input->post("telefono"),
+							'direccion' => $this->input->post("direccion"),	
+							//'idLocalidad' => $this->input->post('localidad'),	
+							'email' => $this->input->post('email'),
+							'matricula' => $this->input->post('matricula')
+						);
+					}	
+			
+				
+				$ctrl=$this->M_escribano->actualizarEscribano($escriAct,$idUsuario);
+				$this->editarEscribano($idUsuario,TRUE,TRUE);
+			}
 	
 	}
 
