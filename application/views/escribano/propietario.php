@@ -25,12 +25,13 @@
                          <div class="row">
                             <div class="col-md-3">
                                <label>Apellido y nombre:</label><br>
-                              <input type='text' id="nombrePersona"  class='filter' data-column-index='0'>
+                              <input type='text' id="nombrePersona"  class='filter' data-column-index='1'>
                             </div>
                             <div class="col-md-3">
                                <label>DNI:</label><br>
-                              <input type='text' id="dniPersona"  class='filter' data-column-index='1'>
+                              <input type='text' id="dniPersona"  class='filter' data-column-index='2'>
                             </div> 
+                            
                           </div>                       
                                       
                   </div>
@@ -43,12 +44,15 @@
                      <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
                           <tr>
-                             <th>Selecc</th>
+                             <th>Seleccionar</th>
                             <th>Nombre y Apellido</th>
-                              <th>Cuit/cuil</th>
-                              <th>Dni</th>                
+                              <th>Dni</th>
+                              <th>Cuit/cuil</th>                
                               <th>Direccion</th>     
                               <th>Conyuge</th>  
+                               <th style="display: none">Tipo</th> 
+                                <th style="display: none">localidad</th> 
+                                 <th style="display: none">fechaNac</th> 
                           </tr>
                         </thead>
 
@@ -58,10 +62,16 @@
                          <tr>
                          <td><button class="btn btn-success">Seleccionar</button></td>
                            <td><?php echo $c->apynom; ?></td>
-                           <td><?php echo $c->dni; ?></td>       
-                            <td><?php echo $c->cuitCuil; ?></td>    
+                           <td><?php echo $c->dni ;?></td>       
+                            <td><?php echo $c->cuitCuil;echo $c->dni ; ?></td>    
                            <td><?php echo $c->direccion; ?></td>  
-                            <td><?php echo $c->conyuge; ?></td>       
+                            <td><?php echo $c->conyuge ;  ?></td>       
+                             <td style="display: none"><?php echo $c->empresa; ?></td>  
+                             <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
+                              <td style="display: none"><?php 
+                                $date=new DateTime($c->fechaNac);
+                                $date_formated=$date->format('d/m/Y ');
+                                echo $date_formated;?></td>        
                         </tr>
 
              <?php endforeach; ?>
@@ -82,13 +92,13 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="persona" onclick="funcionpersona();" checked>
+                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="empresa" onclick="funcionempresa();">
+                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
                       Empresa
                     </label>
                   </div>  
@@ -398,11 +408,35 @@
      
                        $('#personas tbody').on('click', 'tr', function () {
                       var data = $('#personas').DataTable().row( this ).data();
-                     document.getElementById("nombreyapellido").value = data[0]; 
-                     document.getElementById("dni").value = data[1];  
-                     document.getElementById("cuit").value = data[2]; 
-                     document.getElementById("direccion").value = data[3]; 
-                    document.getElementById("conyuge").value = data[4]; 
+                     document.getElementById("nombreyapellido").value = data[1]; 
+                     document.getElementById("dni").value = data[2];  
+                     document.getElementById("cuit").value = data[3]; 
+                     document.getElementById("direccion").value = data[4]; 
+                    document.getElementById("conyuge").value = data[5]; 
+                  
+                    //para mostrar la fecha es en campo fechaNacimiento       
+                    
+                     document.getElementById("fecha_nacimiento").value=data[8]; 
+                     //para mostrar la localidad y departemento
+                       idLocalidad=data[7];
+       $.post("<?=base_url()?>index.php/c_escribano/obtenerDepartamento_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+            //seleccciona la provincia de la localidad
+             document.getElementById("departamentos").selectedIndex=data;
+             //cargo todas las localidades
+              midepartamento=$('#departamentos').val();
+              console.log(midepartamento);
+             $.post("<?=base_url()?>index.php/c_escribano/mostrarLocalidad", { midepartamento: midepartamento}, function(data){
+                  $("#localidades").html(data);
+
+                  //selecciono la localidad del escribano
+                 document.getElementById("localidades").selectedIndex=idLocalidad-1;
+
+                  });
+        });
+                //seleccionar la localidad y provincia del propietario
+                   
+     
+
                       } );
 
                      
@@ -410,6 +444,7 @@
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
+                       
                           dtable.column($(this).data('columnIndex')).search(this.value).draw();
                            if( $(this).val() ) {
                               $( "#personas" ).show(); }
@@ -422,7 +457,7 @@
                       $( ".dataTables_filter input" ).on( 'keyup change',function() {
                        //clear column search values
                           dtable.columns().search('');
-                         //clear input values
+                        
                          $('.filter').val('');
                          if( $(this).val() ) {
                               $( "#personas" ).show(); }
@@ -431,10 +466,15 @@
                               }
                           
                     }); 
-                     
+
+                      //filtras por personas u organizaciones
+                       dtable.column('6').search('P').draw();
+
+                      $("input[name='propietario']").change(function(){
+               dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
+});
                     
-                      //quitar el campo de busqueda por defecto
-                                      
+          
                       } );              
                   
          </script>
@@ -523,6 +563,9 @@
         return false;
     return true;
     }
+        $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker();
+        });
      </script>
 
 
