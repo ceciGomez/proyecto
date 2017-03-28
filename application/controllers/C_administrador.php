@@ -953,6 +953,7 @@ public function reportesPedidos()
 
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 		$data['titulo'] = 'Bienvenido Administrador';
 		$idUsuario = $this->session->userdata('id_usuario');
 		$hizo_post=TRUE;	
