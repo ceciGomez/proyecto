@@ -134,7 +134,7 @@
                             <?php 
                             echo" <button   value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
-                         echo" Tiene ". count($notificaciones_si). "pedidos de información contestadas";
+                         echo" Tiene ". count($notificaciones_si). " pedidos de información contestados";
 
                          ?>
                            <?=form_close()?>
@@ -226,7 +226,7 @@
                              echo "<input  type='hidden' name='idMinuta' value='$mr->idMinuta'>";
 
                              echo "<i class='glyphicon glyphicon-list-alt text-red'></i> ";
-                             echo" La minuta número $mr->idMinuta fue rechazadas";
+                             echo" La minuta número $mr->idMinuta fue rechazada";
                            
                               ?>
                              <?=form_close()?>
@@ -265,7 +265,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil de usuario</a>
+                  <a href="<?=base_url().'index.php/c_escribano/verPerfil'?>" class="btn btn-default btn-flat">Perfil de usuario</a>
                 </div>
                 <div class="pull-right">
                 <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login_escribano/logout_ci'?>" > Cerrar Sesión</a>

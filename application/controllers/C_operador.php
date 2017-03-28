@@ -21,7 +21,8 @@ class C_operador extends CI_Controller {
 		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$data['titulo'] = 'Bienvenido Operador';
-
+		$operador=$this->db->get_where('usuariosys', array('idUsuario'=>$this->session->userdata('id_usuario')))->row();
+		$data['operador']=$operador;
 		$this->load->view('templates/cabecera_operador',$data);
 		$this->load->view('templates/operador_menu',$data);
 		$this->load->view('home/operador',$data);
@@ -343,7 +344,7 @@ class C_operador extends CI_Controller {
 		}
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
-				$data["notificaciones_si"]=$this->notificaciones_si();
+		$data["notificaciones_si"]=$this->notificaciones_si();
 
 		$this->db->select('*');
 		$this->db->from('minuta');
@@ -407,7 +408,6 @@ class C_operador extends CI_Controller {
 			}
 
 					 }
-
 			
 
 	}
@@ -521,13 +521,10 @@ class C_operador extends CI_Controller {
 		$this->db->from('pedidos');
 		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
 
-
-		
-		
+	
 		$pedidos= $this->db->get()->result();
 	
 		$data['pedidos']=$pedidos;
-
 
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_operador',$data);
@@ -535,7 +532,6 @@ class C_operador extends CI_Controller {
 		$this->load->view('operador/gestionarPedidos',$data);
 		$this->load->view('templates/pie',$data);
 	}
-
 		
 	public function buscar_si(){
 			if ($_POST["idPedido"]==null) {
@@ -548,7 +544,6 @@ class C_operador extends CI_Controller {
 		   $this->session->set_flashdata('noti_si',$noti_si); 
 		    redirect(base_url().'index.php/c_operador/gestionarPedidos');
 	}
-
 
 	public function contestar_pedido (){
 			$idPedido=$_POST["idPedido"];
@@ -721,5 +716,187 @@ public function reportesPedidos()
 		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
 
 		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+	}
+
+	public function imprimirMinuta()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$idMinuta=$_POST['resg_idMinuta'];
+		$data['titulo'] = 'Bienvenido Operador';
+		$data["minuta"] = $this->M_administrador->getUnaMinuta($idMinuta);
+		//var_dump($data["minuta"] );
+		$idEscribano = $data["minuta"][0]->idEscribano;
+		//var_dump($idEscribano);
+		$data["unEscribano"] = $this->M_administrador->getUnEscribano($idEscribano);
+		//var_dump($data["unEscribano"]);
+		$idMinuta = $data["minuta"][0]->idMinuta;
+		//var_dump($idMinuta );
+		$data["parcelas"] =$this->M_escribano->getParcelas($idMinuta);
+		//var_dump($data["parcelas"]);
+		//$this->load->view('templates/cabecera_escribano',$data);
+		//$this->load->view('templates/escri_menu',$data);
+		$this->load->view('operador/imprimirMinuta',$data);
+		//$this->load->view('templates/pie',$data);
+	}
+	//Carga la pagina para ver/editar los datos de usuario.
+
+	public function reportesMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Operador';
+
+		$minutas=$this->M_reportes->getMinutas();
+
+		$data['minutas']=$minutas;
+
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('reportes/minutasPorFecha_op',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+		public function imprimirMinutas()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+
+		$fechaIngresoDesde=$_GET['fechaIngresoDesde'];
+		$fechaIngresoHasta=$_GET['fechaIngresoHasta'];
+
+		redirect(base_url().'reporteMinutas.php?fechaIngresoDesde='.$fechaIngresoDesde.'&fechaIngresoHasta='.$fechaIngresoHasta);
+	}
+
+	public function verPerfil()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+
+		$idOperador =  $this->session->userdata('id_usuario');
+		$data['unOperador'] = $this->M_operador->getUnOperador($idOperador);
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/perfil_operador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+	public function editarOperador($idUsuario="",$exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'operador')
+		{
+			redirect(base_url().'index.php/c_login_operador');
+		}
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
+		//muestra las notificaciones
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Operador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$data["unOperador"] = $this->M_operador->getUnOperador($idUsuario);
+		//var_dump($data["operador"]);
+		$this->load->view('templates/cabecera_operador',$data);
+		$this->load->view('templates/operador_menu',$data);
+		$this->load->view('operador/perfil_operador',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function actualizarOperador()
+	{
+
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data['titulo'] = 'Bienvenido Operador';
+		$idUsuario = $this->session->userdata('id_usuario');
+		$hizo_post=TRUE;	
+
+		$this->load->helper(array('form', 'url'));
+
+			    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+			    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+			    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+			    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+			  
+			    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+			   
+
+				 $this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+
+				$checked = $this->input->post('cambiar_pass');
+				if ($checked == 1) {
+					# code...
+					$this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+				    $this->form_validation->set_rules('repeContraseña', 'repeContraseña', 'required|matches[contraseña]',array('required' => 'Debes volver a ingresar la contraseña ','matches'=> 'Las dos contraseñas no coinciden ') );
+
+				}
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarOperador($idUsuario,FALSE,TRUE);
+			}else{
+		//actualizo
+		
+		if ($checked == 1) {
+				$contraseña = $this->input->post('contraseña');
+				$operadorAct= array(
+					//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email'),
+					'contraseña' => sha1($contraseña)
+					
+					);
+			} else {
+				$operadorAct= array(
+				//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email')
+				);
+			}	
+	
+
+		$ctrl=$this->M_administrador->actualizarOperador($operadorAct,$idUsuario);
+		$this->editarOperador($idUsuario,TRUE,TRUE);
+	}
+	
 	}
 }

@@ -115,7 +115,7 @@
                             <?php 
                             echo" <button  value='ver' type='submit' style='background-color:white;border-style:  0.5px solid black;' />";
                           echo "<i class='glyphicon glyphicon-envelope text-blue'></i> ";
-                         echo" Tiene ". count($notificaciones_si). "solicitudes de información pendientes de revisión";
+                         echo" Tiene ". count($notificaciones_si). " solicitudes de información pendientes de revisión";
 
                          ?>
                            <?=form_close()?>
@@ -227,13 +227,13 @@
           <!-- User Account: style can be found in dropdown.less -->
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
+              <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="user-image" alt="User Image">
               <span class="hidden-xs"> <?php echo $this->session->userdata('nomyap') ?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url()?>assets/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+                <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
 
                 <p>
                   <?php echo $this->session->userdata('nomyap') ?>  [<?php echo $this->session->userdata('perfil') ?>]
@@ -244,7 +244,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil de usuario</a>
+                  <a href="<?=base_url().'index.php/c_operador/verPerfil'?>" class="btn btn-default btn-flat">Perfil de usuario</a>
                 </div>
                 <div class="pull-right">
                 <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login_operador/logout_ci'?>" > Cerrar Sesión</a>
