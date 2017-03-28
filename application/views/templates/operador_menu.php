@@ -17,7 +17,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">Menu Operador</li>
+        <li class="header">Menú Operador</li>
         
               
         <li class="treeview">
