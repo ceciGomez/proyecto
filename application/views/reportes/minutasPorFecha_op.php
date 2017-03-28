@@ -99,8 +99,13 @@
                               <?php }
                                  }}?>
                            </td>
+                          
+                           <td colspan="" rowspan="" headers="" data-order="<?php echo$value->fechaEstado;?>"><?php 
+                           $date=new DateTime($value->fechaEstado);
+                              $date_formated=$date->format('d/m/Y ');
+                          echo $date_formated;?></td>
+
                            <td><?php echo $value->planoAprobado; ?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
                            
                                <td>Circ. <?php echo $value->circunscripcion; ?> - 
                               Sec.<?php echo $value->seccion; ?> -
