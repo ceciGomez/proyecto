@@ -83,29 +83,24 @@
                            <label>Dirección :</label><br>
                            <input type="text" value="<?php echo $unOperador[0]->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                         </div>
-                        <div class="col-md-3">
-                           <label>Baja de Usuario</label> <br>
-                           <input type="hidden"  value="<?php echo $unOperador[0]->baja; ?>" name="estadoBaja" id="estadoBaja" >
-                           <select name="baja" id="baja">
-                              <option value="1">Si </option>
-                              <option value="0">No </option>
-                           </select>
-                        </div>
+                       
                      </div>
-                     <div class="row">
+                              <div class="col-md-12" >
+                           <label>Cambiar contraseña</label>
+                           <input type="checkbox"  name="cambiar_pass" id="cambiar_pass" value="1">
+                        </div> <br>
                         <div class="col-md-4">
-                           <label for="nomyap" class="col-md-4 control-label" >
+                           <label for="contraseña" class="col-md-4 control-label" >
                               <center>Contraseña</center>
                            </label>
-                           <input type="password" class="" id="pass" name="pass" placeholder="Contraseña" value="<?php echo $unOperador[0]->contraseña ?>">
+                           <input type="password" class="" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
                         </div>
                         <div class="col-md-5">
-                           <label for="nomyap" class="col-md-5 control-label" >
-                              <center>Repetir Contraseña</center>
+                           <label for="contraseña" class="col-md-5 control-label" >
+                           <center>Repetir Contraseña</center>
                            </label>
-                           <input type="password" class="" id="pass" name="pass" placeholder="Contraseña" value="<?php echo $unOperador[0]->contraseña ?>">
+                           <input type="password" class="" id="repeContraseña" name="repeContraseña" placeholder="Contraseña" value="">
                         </div>
-                     </div>
                      <br>
                      <input type="hidden"  value="<?php echo $unOperador[0]->idUsuario ?>" name="idUsuario" id="idUsuario" >
                      <div align="center">

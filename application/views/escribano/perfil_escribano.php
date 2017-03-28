@@ -22,19 +22,19 @@
             <div class="modal-content">
                <div class="modal-header">
                   <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h3 class="modal-title" style="color:white" >Edición Operador</h3>
+                  <h3 class="modal-title" style="color:white" >Edición Escribano</h3>
                </div>
                <div class="modal-body">
                   <?php if( $exito ==TRUE) { ?>
                   <div>
                      <img src="<?=base_url().'images/exito.png'?>" width='40px' height="40px" > 
-                     <h3> El operador se editó exitosamente.</h3>
+                     <h3> El escribano se editó exitosamente.</h3>
                   </div>
                   <?php } else{ ?>
                   <div>
                      <img src="<?=base_url().'images/error.png'?>" width='40px' height="40px" > 
                      <label>
-                        <h3>El operador no se pudo editar, compruebe que los campos de edición sean correctos.</h3>
+                        <h3>El escribano no se pudo editar, compruebe que los campos de edición sean correctos.</h3>
                      </label>
                   </div>
                   <?php } ?>
@@ -50,14 +50,14 @@
          </div>
       </div>
       <div class="row">
-         <h3  align="center">Editar Operador</h3>
+         <h3  align="center">Editar Escribano</h3>
          <!-- left column -->
          <div class="col-md-12" >
             <!-- general form elements -->
             <div class="box box-primary" >
                <div class="box-body">
                   <div class="form-group">
-                     <?=form_open(base_url().'index.php/c_escribano/actualizarOperador')?>
+                     <?=form_open(base_url().'index.php/c_escribano/actualizarEscribano')?>
                      <div class="row">
                         <div class="col-md-3">
                            <label>Nombre y Apellido:</label><br>
@@ -83,31 +83,28 @@
                            <label>Dirección :</label><br>
                            <input type="text" value="<?php echo $unEscribano[0]->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
                         </div>
-                        <div class="col-md-3">
-                           <label>Baja de Usuario</label> <br>
-                           <input type="hidden"  value="<?php echo $unEscribano[0]->baja; ?>" name="estadoBaja" id="estadoBaja" >
-                           <select name="baja" id="baja">
-                              <option value="1">Si </option>
-                              <option value="0">No </option>
-                           </select>
-                        </div>
+                     
                      </div>
+                         <div class="col-md-12" >
+                           <label>Cambiar contraseña</label>
+                           <input type="checkbox"  name="cambiar_pass" id="cambiar_pass" value="1">
+                        </div> <br>
                      <div class="row">
                         <div class="col-md-4">
                            <label for="nomyap" class="col-md-4 control-label" >
                               <center>Contraseña</center>
                            </label>
-                           <input type="password" class="" id="pass" name="pass" placeholder="Contraseña" value="<?php echo $unEscribano[0]->contraseña ?>">
+                           <input type="password" class="" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
                         </div>
                         <div class="col-md-5">
-                           <label for="nomyap" class="col-md-5 control-label" >
+                           <label for="contraseña" class="col-md-5 control-label" >
                               <center>Repetir Contraseña</center>
                            </label>
-                           <input type="password" class="" id="pass" name="pass" placeholder="Contraseña" value="<?php echo $unEscribano[0]->contraseña ?>">
+                           <input type="password" class="" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
                         </div>
                      </div>
                      <br>
-                     <input type="hidden"  value="<?php echo $unEscribano[0]->idUsuario ?>" name="idUsuario" id="idUsuario" >
+                    
                      <div align="center">
                         <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
                         <a   class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_escribano/verPerfil'?>" > Cancelar</a>
@@ -124,11 +121,11 @@
                      <div align="center" style="color:red;" >
                         <p><?=form_error('telefono')?></p>
                      </div>
-                     <div align="center" style="color:red;" >
+                    <!--  <div align="center" style="color:red;" >
                         <p><?=form_error('provincia')?></p>
                      </div>
                      <div align="center" style="color:red;" >
-                        <p><?=form_error('localidad')?></p>
+                        <p><?=form_error('localidad')?></p> -->
                      </div>
                      <div align="center" style="color:red;" >
                         <p><?=form_error('usuario')?></p>

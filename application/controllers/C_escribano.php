@@ -184,6 +184,8 @@ class C_escribano extends CI_Controller {
 					'idMinuta' => 2,					
 					'nroMatriculaRPI' => $this->input->post('nroMatriculaRPI'),
 					'fechaMatriculaRPI' => $this->input->post('fechaMatriculaRPI'),
+					'departamentos' => $this->input->post('departamentos'),
+					'localidades' => $this->input->post('localidades'),
 					'tomo' => $this->input->post('tomo'),
 					'folio' => $this->input->post('folio'),
 					'finca' => $this->input->post('finca'),
@@ -240,7 +242,7 @@ class C_escribano extends CI_Controller {
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
-		$this->load->view('escribano/datos_relacion',$data);
+		$this->load->view('escribano/relacion',$data);
 		$this->load->view('templates/pie',$data);
 
 	}
@@ -270,8 +272,6 @@ class C_escribano extends CI_Controller {
 				$this->crearRelacion(FALSE,TRUE);
 
 			} else{
-
-                   
                   
 				$datos_ph= array (
 					'ph' => $this->input->post('ph'),
@@ -284,8 +284,8 @@ class C_escribano extends CI_Controller {
 					'poligonos' => $this->input->post('poligonos'), 
 
 				);
-					$this->session->set_userdata($datos_ph);	
-					$this->crearPropietario();		
+					$this->session->set_userdata('datos_ph',$datos_ph);	
+					$this->crearPropietario(FALSE,FALSE);		
 			}
 
      }
@@ -311,7 +311,7 @@ class C_escribano extends CI_Controller {
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['porcentaje_condominio'] = $this->input->post('porcentaje_condominio');
-			
+			$data['tipo_propietario'] = $this->input->post('tipo_propietario');
 			$data['empresa'] = $this->input->post('empresa');
 			$data['nombreyapellido'] = $this->input->post('nombreyapellido');
 			$data['sexo_combobox']=$this->input->post('sexo_combobox');
@@ -328,6 +328,7 @@ class C_escribano extends CI_Controller {
 		}else{
 
 			$data['porcentaje_condominio']='';
+			$data['tipo_propietario']='';
 			$data['empresa']='';
 			$data['nombreyapellido']='';
 			$data['sexo_combobox']='';
@@ -359,7 +360,8 @@ class C_escribano extends CI_Controller {
                  if($this->input->post('propietario')=='persona'){
 			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
-			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes ingresar un dni ') );
+			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes seleccionar un tipo de propietario ') );
+			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
 					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
 					$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
@@ -369,6 +371,7 @@ class C_escribano extends CI_Controller {
 					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
   				else{
+  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes seleccionar un tipo de propietario ') );
  			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
 			   		$this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
@@ -387,30 +390,52 @@ class C_escribano extends CI_Controller {
 
 			} else{
 
-                   
-                  
+                /*si es empresa tomo el cuil*/   
+               if($this->input->post('propietario')=='Empresa')   { 
 				$datos_propietario= array (
+					'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
 					'nombreyapellido' => $this->input->post('nombreyapellido'),
 					'sexo_combobox' => $this->input->post('sexo_combobox'),
 					'dni' => $this->input->post('dni'),
-					'cuil' => $this->input->post('cuil'),
+					'cuit_cuil' => $this->input->post('cuil'),
+					'direccion' => $this->input->post('direccion'),
+					'conyuge' => $this->input->post('conyuge'),
 					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
-					'localidad' => $this->input->post('localidad'),
-
-				);
+					'localidad' => $this->input->post('localidad'),	);
+			    }else{
+			    		$datos_propietario= array (
+			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
+					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
+					'nombreyapellido' => $this->input->post('nombreyapellido'),
+					'sexo_combobox' => $this->input->post('sexo_combobox'),
+					'dni' => $this->input->post('dni'),
+					'cuit_cuil' => $this->input->post('cuit'),
+					'direccion' => $this->input->post('direccion'),
+					'conyuge' => $this->input->post('conyuge'),
+					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
+					'localidad' => $this->input->post('localidad'),	);
+				}
 				 /*$this->session->set_userdata($datos_propietario);*/
+
 				 if($this->session->userdata('propietario')) {
 				 
-				 	$this->session->set_userdata('propietario', array_merge($this->session->get_userdata('propietario', $datos_propietario)));
+					$old_que_ans_session =  $this->session->userdata('propietario');
+					array_push($old_que_ans_session, $datos_propietario);
+					$this->session->set_userdata('propietario', $old_que_ans_session);
 				 }else { 
-					$this->session->set_userdata('propietario',$datos_propietario); 
+				 	$array = array();
+					$this->session->set_userdata('propietario',$array); 
+					$propetario_anterior =  $this->session->userdata('propietario');
+					array_push($propetario_anterior, $datos_propietario);
+					$this->session->set_userdata('propietario', $propetario_anterior);
 					}
-
 					$session_data = $this->session->userdata('propietario');
-					
-						print_r($session_data);
-						$this->crearPropietario();	
+					$datos_p = $this->session->userdata('datos_ph');
+              	    $this->M_escribano->insertarParcela();
+        
+					$this->crearPropietario();	
+
 			}
 
      }
@@ -868,5 +893,124 @@ class C_escribano extends CI_Controller {
 			 	 </tr>
                          "; 
                          }
+
+    public function verPerfil()
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+		//muestra las notificaciones
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+
+		$idEscribano =  $this->session->userdata('idEscribano');
+		$data['unEscribano'] = $this->M_escribano->getUnEscribano($idEscribano);
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/perfil_escribano',$data);
+		$this->load->view('templates/pie',$data);
+	}
+	public function editarEscribano($idUsuario="",$exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+
+		//muestra las notificaciones
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Escribano';
+		$idEscribano = $this->session->userdata('idEscribano');
+		$data["unEscribano"] =  $this->M_escribano->getUnEscribano($idEscribano);
+		//var_dump($data["operador"]);
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/perfil_escribano',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	public function actualizarAdministrador()
+	{
+
+		$data["notificaciones_mp"]=$this->notificaciones_mp();
+		$data["notificaciones_ep"]=$this->notificaciones_ep();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$data['titulo'] = 'Bienvenido Escribano';
+		$idUsuario = $this->session->userdata('idEscribano');
+		$hizo_post=TRUE;	
+
+		$this->load->helper(array('form', 'url'));
+
+	    $this->form_validation->set_rules('nomyap', 'nomyap', 'required',array('required' => 'Debes ingresar un Nombre y Apellido ') );
+
+
+	    $this->form_validation->set_rules('dni', 'dni', 'required',array('required' => 'Debes ingresar DNI '));
+
+
+	    $this->form_validation->set_rules('email', 'email', 'required',array('required' => 'Debes ingresar un correo ') );
+
+	    $this->form_validation->set_rules('telefono', 'telefono', 'required',array('required' => 'Debes ingresar numero de teleéfono ') );
+
+	  
+	    $this->form_validation->set_rules('direccion', 'direccion', 'required',array('required' => 'Debes ingresar una dirección ') );
+	   
+
+		$this->form_validation->set_rules('usuario', 'usuario',  'required|min_length[6]',array('required' => 'Debes ingresar un nombre de Usuario ','min_length'=> 'El nombre de usuario debe ser de al menos 6 digitos') );
+		$checked = $this->input->post('cambiar_pass');
+		if ($checked == 1) {
+			# code...
+			$this->form_validation->set_rules('contraseña', 'contraseña', 'required|min_length[6]',array('required' => 'Debes ingresar una contraseña ','min_length'=> 'La contraseña debe ser de al menos 6 dígitos ') );
+
+		    $this->form_validation->set_rules('repeContraseña', 'repeContraseña', 'required|matches[contraseña]',array('required' => 'Debes volver a ingresar la contraseña ','matches'=> 'Las dos contraseñas no coinciden ') );
+
+		}
+		
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarEscribano($idUsuario,FALSE,TRUE);
+			}else{
+		//actualizo
+		if ($checked == 1) {
+				$contraseña = $this->input->post('contraseña');
+				$escriAct= array(
+					//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email'),
+					'contraseña' => sha1($contraseña)
+					
+					);
+			} else {
+				$escriAct= array(
+				//Nombre del campo en la bd -----> valor del campo name en la vista
+					'nomyap' => $this->input->post("nomyap"),
+					'usuario' => $this->input->post("usuario"),	
+					'dni' => $this->input->post("dni"),	
+					'telefono' => $this->input->post("telefono"),
+					'direccion' => $this->input->post("direccion"),	
+					//'idLocalidad' => $this->input->post('localidad'),	
+					'email' => $this->input->post('email')
+				);
+			}	
+	
+		
+		$ctrl=$this->M_escribano->actualizarEscribano($escriAct,$idUsuario);
+		$this->editarEscribano($idUsuario,TRUE,TRUE);
+	}
+	
+	}
 
 }

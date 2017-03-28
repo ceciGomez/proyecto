@@ -34,55 +34,55 @@
                         <div class="box-body">
                            <div class="form-group">                             
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Circunscripción</label>
-                                    <input type="number" class="form-control"  id="exampleInputEmail1" name="circunscripcion" <?php echo "value='$circunscripcion'" ?> placeholder="Circunscripción" onKeyDown="limitText(this,8);">
+                                    <label for="circunscripcion">Circunscripción</label>
+                                    <input type="text" class="form-control"  id="circunscripcion" name="circunscripcion" onkeyup="changeToUpperCase(this)" <?php echo "value='$circunscripcion'" ?> placeholder="Ejemplo: IV " onKeyDown="limitText(this,8);">
                                     <div style="color:red;" ><p><?=form_error('circunscripcion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Sección</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="seccion" <?php echo "value='$seccion'" ?> placeholder="A o C" onkeyup="changeToUpperCase(this)" maxlength="1">
+                                    <label for="seccion">Sección</label>
+                                    <input type="text" class="form-control" id="seccion" name="seccion" <?php echo "value='$seccion'" ?> placeholder="Ejemplo: A" onkeyup="changeToUpperCase(this)" maxlength="1">
                                     <div style="color:red;" ><p><?=form_error('seccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Chacra</label>
-                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="chacra" <?php echo "value='$chacra'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <label for="chacra">Chacra</label>
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="chacra" name="chacra" <?php echo "value='$chacra'" ?> placeholder="Ejemplo: 999" onKeyDown="limitText(this,4);">
                                     <div style="color:red;" ><p><?=form_error('chacra')?></p></div>
                                  </div>                             
                             
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Quinta</label>
-                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="quinta" <?php echo "value='$quinta'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <label for="quinta">Quinta</label>
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="quinta" name="quinta" <?php echo "value='$quinta'" ?> placeholder="Ejemplo: 999" onKeyDown="limitText(this,4);">
                                     <div style="color:red;" ><p><?=form_error('quinta')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Fracción</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="fraccion" onkeyup="changeToUpperCase(this)" <?php echo "value='$fraccion'" ?> placeholder="Fracción" >
+                                    <label for="fraccion">Fracción</label>
+                                    <input type="text" class="form-control" id="fraccion" name="fraccion" onkeyup="changeToUpperCase(this)"  onKeyDown="limitText(this,8);"<?php echo "value='$fraccion'" ?> placeholder="Ejemplo: 99999999" >
                                     <div style="color:red;" ><p><?=form_error('fraccion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Manzana</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="manzana" onkeyup="changeToUpperCase(this)" <?php echo "value='$manzana'" ?> placeholder="Entero">
+                                    <label for="manzana">Manzana</label>
+                                    <input type="text" class="form-control" id="manzana" name="manzana" onKeyDown="limitText(this,5);" onkeyup="changeToUpperCase(this)" <?php echo "value='$manzana'" ?> placeholder="Ejemplo: 66554">
                                     <div style="color:red;" ><p><?=form_error('manzana')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Parcela</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="parcela" onkeyup="changeToUpperCase(this)" <?php echo "value='$parcela'" ?> placeholder="entero">
+                                    <label for="parcela">Parcela</label>
+                                    <input type="text" class="form-control" id="parcela" name="parcela"  maxlength="6" onkeyup="changeToUpperCase(this)" <?php echo "value='$parcela'" ?> placeholder="Ejemlo:123456">
                                     <div style="color:red;" ><p><?=form_error('parcela')?></p></div>
                                  </div>                              
                               
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Superficie</label>
-                                    <input type="text" class="form-control" id="superficie" name="superficie" <?php echo "value='$parcela'" ?>  onkeypress="return isNumberKey(event)" placeholder="Ej: 25.000">
+                                    <label for="superficie">Superficie</label>
+                                    <input type="text" class="form-control" id="superficie"  maxlength="10"  name="superficie" <?php echo "value='$parcela'" ?>  onkeypress="return isNumberKey(event)" placeholder="Ejemplo: 2500000000">
                                     <div style="color:red;" ><p><?=form_error('superficie')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Partida</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" min="0" <?php echo "value='$partida'" ?>  onkeypress="return isNumberKey(event)" name="partida" placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <label for="partida">Partida</label>
+                                    <input type="text" class="form-control" id="partida" min="0" <?php echo "value='$partida'" ?>  onkeypress="return isNumberKey(event)" name="partida" placeholder="Ejemplo: 999999" onKeyDown="limitText(this,6);">
                                     <div style="color:red;" ><p><?=form_error('partida')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Plano Aprobado</label>
-                                    <input type="text" class="form-control" id="exampleInputEmail1" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22 - 22/222/RE">
+                                    <label for="planoAprobado">Plano Aprobado</label>
+                                    <input type="text" class="form-control"  maxlength="10" id="planoAprobado" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22">
                                     <div style="color:red;" ><p><?=form_error('planoAprobado')?></p></div>
                                  </div>
                                   <div class=" col-md-3">
@@ -102,28 +102,29 @@
                                        <option value="">Tipo propiedad</option>
                                        <option value="Urbano" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Urbano" ? TRUE : FALSE )); ?>>Urbano</option>
                                        <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Rural" ? TRUE : FALSE )); ?>>Rural</option>
+                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "SubUrbano" ? TRUE : FALSE )); ?>>SubUrbano</option>
                                     </select>
                                     <div style="color:red;" ><p><?=form_error('tipoPropiedad')?></p></div>
                                  </div>
                              
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Tomo</label>
-                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="tomo" <?php echo "value='$tomo'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <label for="tomo">Tomo</label>
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="tomo" name="tomo" <?php echo "value='$tomo'" ?> placeholder="Ejemplo: 87124" onKeyDown="limitText(this,5);">
                                     <div style="color:red;" ><p><?=form_error('tomo')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Folio</label>
-                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="folio" <?php echo "value='$folio'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <label for="folio">Folio</label>
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="folio" name="folio" <?php echo "value='$folio'" ?> placeholder="Ejemplo:89126" onKeyDown="limitText(this,5);">
                                     <div style="color:red;" ><p><?=form_error('folio')?></p></div>
                                  </div>
                                  <div class="col-md-3">
                                     <label for="exampleInputEmail1">Finca</label>
-                                    <input type="number" class="form-control" mmin="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="finca" <?php echo "value='$finca'" ?> placeholder="Entero" onKeyDown="limitText(this,8);">
+                                    <input type="number" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="finca" <?php echo "value='$finca'" ?> placeholder="Ejemplo: 72622" onKeyDown="limitText(this,5);">
                                     <div style="color:red;" ><p><?=form_error('finca')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Año</label>
-                                    <input type="number" class="form-control" id="exampleInputEmail1" min="0" onkeypress="return isNumber(event)" name="año" <?php echo "value='$año'" ?> placeholder="aaaa">
+                                    <label for="año">Año</label>
+                                    <input type="number" class="form-control" id="año" min="0" onkeypress="return isNumber(event)" name="año" <?php echo "value='$año'" ?> placeholder="Ejemplo: 2017">
                                     <div style="color:red;" ><p><?=form_error('año')?></p></div>
                                  </div>                              
                                   <div class="col-md-3">
@@ -149,8 +150,8 @@
                                     <div style="color:red;" ><p><?=form_error('descripcion')?></p></div>
                                  </div>
                                  <div class="col-md-3">
-                                    <label for="exampleInputEmail1">Matrícula RPI</label>
-                                    <input type="text" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="exampleInputEmail1" name="nroMatriculaRPI" <?php echo "value='$nroMatriculaRPI'" ?> placeholder="Entero">
+                                    <label for="nroMatriculaRPI">Matrícula RPI</label>
+                                    <input type="text" class="form-control" min="0" onkeypress="return isNumberKey(event)" id="nroMatriculaRPI"  maxlength="8" name="nroMatriculaRPI" <?php echo "value='$nroMatriculaRPI'" ?> placeholder=" Ejemplo: 18282888">
                                     <div style="color:red;" ><p><?=form_error('nroMatriculaRPI')?></p></div>
                                  </div>
                                  <div class="form-group col-md-3">
