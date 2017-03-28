@@ -82,7 +82,7 @@
                                  </div>
                                  <div class="col-md-3">
                                     <label for="planoAprobado">Plano Aprobado</label>
-                                    <input type="text" class="form-control"  maxlength="10" id="planoAprobado" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22 - 22/222/RE">
+                                    <input type="text" class="form-control"  maxlength="10" id="planoAprobado" name="planoAprobado" <?php echo "value='$planoAprobado'" ?> placeholder="22/222/22">
                                     <div style="color:red;" ><p><?=form_error('planoAprobado')?></p></div>
                                  </div>
                                   <div class=" col-md-3">
