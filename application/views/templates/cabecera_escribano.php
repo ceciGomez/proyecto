@@ -265,7 +265,7 @@
               <!-- Menu Footer-->
               <li class="user-footer">
                 <div class="pull-left">
-                  <a href="#" class="btn btn-default btn-flat">Perfil de usuario</a>
+                  <a href="<?=base_url().'index.php/c_escribano/verPerfil'?>" class="btn btn-default btn-flat">Perfil de usuario</a>
                 </div>
                 <div class="pull-right">
                 <a class="btn btn-default btn-flat" href="<?=base_url().'index.php/c_login_escribano/logout_ci'?>" > Cerrar Sesión</a>
