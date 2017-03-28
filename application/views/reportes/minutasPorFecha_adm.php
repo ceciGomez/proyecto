@@ -32,12 +32,12 @@
                        <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Ingreso desde :</label><br>
-                        <input type="text"   id="fechaIngresoDesde" name="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   '> 
+                        <input type="text"   id="fechaIngresoDesde" name="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy" required> 
                       </div>
 
                        <div class="col-md-3">
                           <label>Fecha Ingreso hasta :</label><br>
-                        <input type="text"   id="fechaIngresoHasta" name="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" > 
+                        <input type="text"   id="fechaIngresoHasta" name="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" required> 
                       </div>
               
                 </div> 
