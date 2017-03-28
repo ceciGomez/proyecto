@@ -26,7 +26,7 @@
                     <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Ingreso desde :</label><br>
-                        <input type="text"   id="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   '> 
+                        <input type="text"   id="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   > 
                       </div>
 
                        <div class="col-md-3">

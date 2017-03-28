@@ -26,12 +26,12 @@
                     <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Ingreso desde :</label><br>
-                        <input type="text"   id="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   '> 
+                        <input type="text"   id="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/aaaa"   class='filter2' > 
                       </div>
 
                        <div class="col-md-3">
                           <label>Fecha Ingreso hasta :</label><br>
-                        <input type="text"   id="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/aaaa" > 
+                        <input type="text"   id="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/aaaa"  class='filter2' > 
                       </div>
 
                        <div class="col-md-3">
@@ -271,6 +271,13 @@
                           //clear global search values
                           dtable.search('');
                           dtable.column($(this).data('columnIndex')).search(String(this.value)).draw();
+
+                      });
+
+                        $('.filter2').on('keyup change', function () {
+                          //clear global search values
+                          dtable.search('');
+                     
 
                       });
                       
