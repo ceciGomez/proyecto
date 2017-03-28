@@ -248,9 +248,9 @@ public function getPropietarios($idParcela)
 		}
 	}
 
-		public function getNombreDepartamento($idDepartamento)
-	{
-		try {
+		public function getNombreDepartamento($idDepartamento)	{
+			if ($idDepartamento!="") {
+				try {
 			$query = $this->db->query("
 				SELECT nombre
 				FROM departamento
@@ -259,6 +259,11 @@ public function getPropietarios($idParcela)
 		} catch (Exception $e) {
 			return false;
 		}
+			} else {
+				return false;
+			}
+			
+		
 	}
 
 	public function getMinutasRechazadas($idEscribano)
@@ -334,6 +339,54 @@ public function getPropietarios($idParcela)
  			return FALSE;
  		}
  	}
+
+/*Funciones para insertar una minuta nueva*/
+
+function insertarParcela(){
+	$idEscribano = $this->session->userdata('idEscribano');
+	$fechaIngresoSys = date('Y-m-d H:i:s');
+	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
+    $this->db->query($order);
+    $idMinuta = $this->db->insert_id();
+
+    $nombreLocalidad = $this->session->userdata('localidades');
+    $idLocalidad = $this -> getIdLocalidad($nombreLocalidad);
+    $circunscripcion = $this->session->userdata('circunscripcion');
+    $seccion = $this->session->userdata('seccion');
+    $chacra = $this->session->userdata('chacra');
+    $quinta= $this->session->userdata('quinta');
+    $fraccion = $this->session->userdata('fraccion');
+    $manzana = $this->session->userdata('parcela');
+    $parcela = $this->session->userdata('parcela');
+    $superficie = $this->session->userdata('superficie');
+    $partida = $this->session->userdata('partida');
+    $tipoPropiedad = $this->session->userdata('tipoPropiedad');
+    $planoAprobado = $this->session->userdata('planoAprobado');
+    $fechaPlanoAprobado = $this->session->userdata('fechaPlanoAprobado');
+    $descripcion = $this->session->userdata('descripcion');
+    $nroMatriculaRPI = $this->session->userdata('nroMatriculaRPI');
+    $fechaMatriculaRPI = $this->session->userdata('fechaMatriculaRPI');
+    $tomo = $this->session->userdata('folio');
+    $folio = $this->session->userdata('folio');
+    $finca = $this->session->userdata('finca');
+    $año = $this->session->userdata('año');
+    $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idEscribano','$fechaIngresoSys')";
+}
+
+/*recibe el nombre de localidad y devuelve el id*/
+	public function getIdLocalidad($localidad)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT idLocalidad
+				FROM localidad
+				WHERE nombre='$localidad'");
+				return $query->row()->idLocalidad;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+
 
 }
 

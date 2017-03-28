@@ -183,6 +183,8 @@ class C_escribano extends CI_Controller {
 					'idMinuta' => 2,					
 					'nroMatriculaRPI' => $this->input->post('nroMatriculaRPI'),
 					'fechaMatriculaRPI' => $this->input->post('fechaMatriculaRPI'),
+					'departamentos' => $this->input->post('departamentos'),
+					'localidades' => $this->input->post('localidades'),
 					'tomo' => $this->input->post('tomo'),
 					'folio' => $this->input->post('folio'),
 					'finca' => $this->input->post('finca'),
@@ -239,7 +241,7 @@ class C_escribano extends CI_Controller {
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
-		$this->load->view('escribano/datos_relacion',$data);
+		$this->load->view('escribano/relacion',$data);
 		$this->load->view('templates/pie',$data);
 
 	}
@@ -269,8 +271,6 @@ class C_escribano extends CI_Controller {
 				$this->crearRelacion(FALSE,TRUE);
 
 			} else{
-
-                   
                   
 				$datos_ph= array (
 					'ph' => $this->input->post('ph'),
@@ -283,8 +283,8 @@ class C_escribano extends CI_Controller {
 					'poligonos' => $this->input->post('poligonos'), 
 
 				);
-					$this->session->set_userdata($datos_ph);	
-					$this->crearPropietario();		
+					$this->session->set_userdata('datos_ph',$datos_ph);	
+					$this->crearPropietario(FALSE,FALSE);		
 			}
 
      }
@@ -416,15 +416,11 @@ class C_escribano extends CI_Controller {
 
 
 					$session_data = $this->session->userdata('propietario');
-
-					foreach ($session_data as $key => $value) {
-						print_r($value['porcentaje_condominio']);
-					}
-					
-							
-					
-					
-						$this->crearPropietario();	
+					$datos_p = $this->session->userdata('datos_ph');
+              	    print_r($datos_p['poligonos']);
+              	    $this->M_escribano->insertarParcela();
+																	
+					$this->crearPropietario();	
 			}
 
      }
