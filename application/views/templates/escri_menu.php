@@ -27,7 +27,7 @@
       /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-         <li class="header">Menu Escribano</li>
+         <li class="header">Menú Escribano</li>
          <li class="treeview">
             <a href="#">
             <i class="fa fa-edit"></i> <span>Gestionar Minutas</span>

@@ -21,7 +21,7 @@
                          
                             <div class="col-md-3">
                                  <label style="display: block;">Ingrese pedido de Información:</label>
-                                <textarea id="pedido" name="pedido" rows="10" cols="100" ></textarea>
+                                <textarea id="pedido" name="pedido" rows="10" cols="100" required></textarea>
                             </div>
                           </div>
                         
