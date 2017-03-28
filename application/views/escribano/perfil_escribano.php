@@ -60,49 +60,52 @@
                      <?=form_open(base_url().'index.php/c_escribano/actualizarEscribano')?>
                      <div class="row">
                         <div class="col-md-3">
-                           <label>Nombre y Apellido:</label><br>
+                           <label>Nombre y Apellido</label><br>
                            <input type='text' name="nomyap" id="nomyap" placeholder="Nombre y Apellido" value='<?php echo $unEscribano[0]->nomyap; ?>'  style="text-transform:uppercase;" onkeypress="return validar(event)" onkeyup="javascript:this.value=this.value.toUpperCase();">
                         </div>
                         <div class="col-md-3">
-                           <label>Usuario :</label><br>
+                           <label>Usuario</label><br>
                            <input type="text"  value="<?php echo $unEscribano[0]->usuario ?>" name="usuario" id="usuario" placeholder="Usuario">
                         </div>
                         <div class="col-md-3">
-                           <label>DNI :</label><br>
+                           <label>DNI</label><br>
                            <input type="text" value="<?php echo $unEscribano[0]->dni ?>" name="dni" id="dni" placeholder="DNI" maxlength="8" onkeypress="return NumbersOnly(event);">
                         </div>
                         <div class="col-md-3">
-                           <label>Email :</label><br>
+                           <label>Email</label><br>
                            <input type="text"  value="<?php echo $unEscribano[0]->email ?>" name="email" id="email" placeholder="email">
                         </div>
                         <div class="col-md-3">
-                           <label>Telefono :</label><br>
+                           <label>Telefono</label><br>
                            <input type="text" maxlength="15"   placeholder="+54" value="<?php echo $unEscribano[0]->telefono ?>" name="telefono" id="telefono" placeholder="teléfono" onkeypress="return NumbersOnly(event);">
                         </div>
                         <div class="col-md-3">
-                           <label>Dirección :</label><br>
+                           <label>Dirección</label><br>
                            <input type="text" value="<?php echo $unEscribano[0]->direccion ?>" name="direccion" id="direccion" placeholder="Dirección">
+                        </div>
+                         <div class="col-md-3">
+                           <label>Matricula</label><br>
+                           <input type="text" value="<?php echo $unEscribano[0]->matricula ?>" name="matricula" id="matricula" placeholder="Dirección">
                         </div>
                      
                      </div>
-                         <div class="col-md-12" >
+                        <div class="col-md-12" >
                            <label>Cambiar contraseña</label>
                            <input type="checkbox"  name="cambiar_pass" id="cambiar_pass" value="1">
                         </div> <br>
-                     <div class="row">
                         <div class="col-md-4">
-                           <label for="nomyap" class="col-md-4 control-label" >
+                           <label for="contraseña" class="col-md-4 control-label" >
                               <center>Contraseña</center>
                            </label>
                            <input type="password" class="" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
                         </div>
                         <div class="col-md-5">
                            <label for="contraseña" class="col-md-5 control-label" >
-                              <center>Repetir Contraseña</center>
+                           <center>Repetir Contraseña</center>
                            </label>
-                           <input type="password" class="" id="contraseña" name="contraseña" placeholder="Contraseña" value="">
+                           <input type="password" class="" id="repeContraseña" name="repeContraseña" placeholder="Contraseña" value="">
                         </div>
-                     </div>
+                        
                      <br>
                     
                      <div align="center">
