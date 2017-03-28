@@ -82,13 +82,13 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="persona" onclick="persona()" checked>
+                      <input type="radio" name="propietario" id="persona" value="persona" onclick="funcionpersona();" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="empresa" onclick="empresa()">
+                      <input type="radio" name="propietario" id="empresa" value="empresa" onclick="funcionempresa();">
                       Empresa
                     </label>
                   </div>  
@@ -99,16 +99,17 @@
                  <label >Tipo Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propetario" id="adquiriente" value="adquiriente" >
+                      <input type="radio" name="tipo_propetario" id="adquiriente" value="A" >
                       Adquiriente
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propietario" id="transmitente" value="transmitente" >
+                      <input type="radio" name="tipo_propietario" id="transmitente" value="T" >
                       Transmitente
                     </label>
-                  </div>                 
+                  </div>      
+                  <div style="color:red;" ><p><?=form_error('tipo_propietario')?></p></div>           
                 </div>
                    </div> 
                    </div>                
@@ -133,7 +134,7 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" <?php echo "value='$sexo_combobox'" ?> style="width: 100%;">
-                           <option value="0" selected="selected">Seleccionar</option>
+                           <option value="" selected="selected">Seleccionar</option>
                            <option value="27" >Femenino</option>
                            <option value="20" >Masculino</option>
                         </select>
@@ -146,7 +147,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
-                        <input type="text" class="form-control" id="cuit" name="cuit[]" placeholder="CUIT" disabled >
+                        <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT" disabled >
                         <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                      </div>
@@ -305,7 +306,7 @@
       <!--Deshabilita campos sexo, dni y conyuge-->
       <script language="javascript"><!--
 
-		function empresa() { 		 
+		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
@@ -317,7 +318,7 @@
 		<script language="javascript">
 <!--
 
-		function persona() { 		 
+		function funcionpersona() { 		 
   		document.getElementById("sexo_combobox").disabled = false;  	
   		document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 

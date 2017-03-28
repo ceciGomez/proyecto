@@ -4,8 +4,7 @@
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
    <section class="content-header">
-    <?=form_open(base_url().'index.php/C_escribano/registro_ph')?>
-       <form method="post">
+    
       <h3 align="center">
          Crear Minuta
       </h3>
@@ -19,6 +18,8 @@
    <!-- Main content -->
    <section class="content-body">
       <div class="box box-default">
+      <?=form_open(base_url().'index.php/C_escribano/registrarRelacion')?>
+       <form method="post">
          <div class="box-header with-border">
             <h3 class="box-title">Tipo de parcela</h3>
             <!-- /.box-header -->
@@ -48,7 +49,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" placeholder="Fecha de Escritura">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="Fecha de Escritura">
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
@@ -105,9 +106,10 @@
              <button type="submit" class="btn btn-primary"  >Agregar propietario</button>            
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
+
               </form>
-         </div>
-  </div>
+           </div>
+      </section>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>
