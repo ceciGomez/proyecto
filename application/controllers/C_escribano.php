@@ -1013,4 +1013,33 @@ class C_escribano extends CI_Controller {
 	
 	}
 
+	public function obtenerDepartamento_x_idLoc(){
+		$idLocalidad=$_POST["idLocalidad"];
+		$this->db->select('*');
+		$this->db->from('departamento');
+		$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
+		$this->db->where('localidad.idLocalidad', $idLocalidad);	
+			echo $this->db->get()->row()->idDepartamento;
+	}
+
+
+		public function mostrarLocalidad()
+	{
+		$id_dep=$_POST["midepartamento"];
+		
+		$this->db->select('localidad.idLocalidad, localidad.nombre');
+		$this->db->from('localidad');
+		$this->db->where('localidad.idDepartamento', $id_dep);	
+		
+
+		$localidades=$this->db->get()->result();
+	   	
+		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
+		foreach ($localidades as $l ) {
+				
+			echo"<option value='$l->idLocalidad'>$l->nombre</option>";
+			
+		}
+	}
+
 }
