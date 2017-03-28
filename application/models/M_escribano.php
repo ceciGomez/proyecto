@@ -347,8 +347,8 @@ function insertarParcela(){
 	$fechaIngresoSys = date('Y-m-d H:i:s');
 	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
     $this->db->query($order);
-    $idMinuta = $this->db->insert_id();
-
+    /*preparo para insertar una parcela*/
+    $idMinuta = $this->db->insert_id();    
     $nombreLocalidad = $this->session->userdata('localidades');
     $idLocalidad = $this -> getIdLocalidad($nombreLocalidad);
     $circunscripcion = $this->session->userdata('circunscripcion');
@@ -370,7 +370,32 @@ function insertarParcela(){
     $folio = $this->session->userdata('folio');
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
-    $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idEscribano','$fechaIngresoSys')";
+    $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
+    $this->db->query($order2);
+    /*preparo para insertar una relacion*/
+    $idParcela = ($this->db->insert_id());
+    $this->session->set_userdata($idParcela);
+    $fecha_Escritura = $this->session->userdata('fecha_Escritura');
+    $nro_ucuf = $this->session->userdata('nro_ucuf');
+    $tipo_ucuf = $this->session->userdata('tipo_ucuf');
+    $plano_aprobado = $this->session->userdata('plano_aprobado');
+    $fecha_plano_aprobado = $this->session->userdata('fecha_plano_aprobado');
+    $porcentaja_ucuf = $this->session->userdata('porcentaja_ucuf');
+    $poligonos = $this->session->userdata('poligonos');
+    $order3 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_Escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
+    $this->db->query($order3);
+    /*preparo para insertar propietarios*/
+    $idRelacion = ($this->db->insert_id());
+    $propietarios = $this->session->userdata('propietario');
+    foreach ($propietarios as $value) {
+    	$order4 = "insert into persona (apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[nombreyapellido]', '$value[cuit_cuil]',$value[dni],'$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$this->db->query($order4);
+    	$idPersona = ($this->db->insert_id());
+    	/*preparo para insertar propietario*/
+    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, $value[porcentaje_condominio], '$value[tipo_propietario]')";
+    	$this->db->query($insertar_propietario);
+
+    }
 }
 
 /*recibe el nombre de localidad y devuelve el id*/
