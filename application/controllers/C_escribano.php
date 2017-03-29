@@ -457,13 +457,7 @@ class C_escribano extends CI_Controller {
    						$this->M_escribano->insertarParcela();
    						$this->finMinutas();
 					}        
-<<<<<<< HEAD
-			
-=======
-					
 
-					        
->>>>>>> refs/remotes/ceciGomez/master
 
 					
 
