@@ -404,7 +404,7 @@ class C_escribano extends CI_Controller {
 					'direccion' => $this->input->post('direccion'),
 					'conyuge' => $this->input->post('conyuge'),
 					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
-					'localidad' => $this->input->post('localidad'),	);
+					'localidad' => $this->input->post('localidades'),	);
 			    }else{
 			    		$datos_propietario= array (
 			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
@@ -416,7 +416,7 @@ class C_escribano extends CI_Controller {
 					'direccion' => $this->input->post('direccion'),
 					'conyuge' => $this->input->post('conyuge'),
 					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
-					'localidad' => $this->input->post('localidad'),	);
+					'localidad' => $this->input->post('localidades'),	);
 				}
 				 /*$this->session->set_userdata($datos_propietario);*/
 
@@ -1050,6 +1050,15 @@ class C_escribano extends CI_Controller {
 			echo"<option value='$l->idLocalidad' >$l->nombre</option>";
 			
 		}
+	}
+
+	function sacarPropietario(){
+		$posicion=$_POST['posicion'];
+		$nuevosPropietarios=$this->session->userdata('propietario');
+		unset($nuevosPropietarios[$posicion]);
+		$this->session->set_userdata('propietario', $nuevosPropietarios);
+	redirect(base_url().'index.php/c_escribano/crearPropietario');	
+
 	}
 
 }

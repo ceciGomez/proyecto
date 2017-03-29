@@ -41,7 +41,7 @@
     </div>   
 
      
-
+      <h3 align="center">Propietarios Registrados en el Sistema</h2>
        <div class="box-body table-responsive no-padding">                   
                      <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
@@ -79,8 +79,60 @@
             <?php endforeach; ?>
            </tbody>
           </table>
+          <?php if($this->session->userdata('propietario')!=null) {?>
+        </div>
+        <br>
+        <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h2>
+           <div class="box-body table-responsive no-padding">                   
+                     <table id="propietarios_subidos" class="display" style="display: none" data-page-length="4">
+                        <thead>
+                          <tr>
+                             <th>Eliminar</th>
+                            <th>Nombre y Apellido</th>
+                              <th>Dni</th>
+                              <th>Cuit/cuil</th>                
+                              <th>Tipo de Propietario</th>     
+                              <th>Porcentaje de Codominio</th>  
+                                <th>Dirección</th> 
+                                <th>Localidad</th> 
+                                <th>Fecha de Nacimiento</th>
+                                <th>Sexo</th>
+                                <th>Conyuge</th>
+                              
+                          </tr>
+                        </thead>
+
+                      <tbody >
+                      <?php
+                      $posicion=0;
+                       foreach ($this->session->userdata('propietario') as $c):
+                        $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();        ?>
+
+                         <tr>
+                         <td><button class="btn btn-danger" onclick="sacarPropietario(<?php echo $posicion; ?>)">Eliminar</button></td>
+                           <td><?php echo $c['nombreyapellido']; ?></td>
+                           <td><?php echo $c['dni'] ;?></td>       
+                            <td><?php echo $c['cuit_cuil']; ?></td>  
+                            <td><?php echo $c['tipo_propietario' ];  ?></td>  
+                            <td><?php echo $c['porcentaje_condominio' ];  ?></td>   
+                            <td><?php echo $c['direccion' ];  ?></td>
+                            <td><?php echo $localidad->nombre;  ?></td>  
+                             <td ><?php 
+                               
+                                echo $c['fecha_nacimiento'];?></td>   
+                           <td><?php echo $c['sexo_combobox']; ?></td>  
+                            <td><?php echo $c['conyuge' ];  ?></td>     
+                               
+                        </tr>
+
+            <?php
+            $posicion=$posicion+1;    
+             endforeach; ?>
+           </tbody>
+          </table>
 
         </div>
+        <?php } ?>
 
    <section class="content">
       <div class="box box-default">
@@ -504,8 +556,50 @@
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
 });
                     
-          
-                      } );              
+            
+                  if ( $("#propietarios_subidos").length > 0 ) {
+
+                 
+                    var dtable=$('#propietarios_subidos').DataTable(
+                        {
+                           autoWidht:false,
+                             language: {
+                              "columnDefs": [ {
+                                     "targets": -1,
+                                         "data": null,
+                                           "defaultContent": "<button>Click!</button>"
+                                                } ],
+                                "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningúna persona encontrada",
+                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                              }},
+                                } ) ;
+                                $( "#propietarios_subidos" ).show();              
+                  ;};
+
+                     
+                      } );         
+                function sacarPropietario(posicion){
+                    
+                    $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
+                     
+            });
+                  }     
+
                   
          </script>
            <script >
