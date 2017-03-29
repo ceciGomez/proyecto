@@ -32,6 +32,8 @@
                               <input type='text' id="dniPersona"  class='filter' data-column-index='2'>
                             </div> 
                             
+                             <input type="hidden" value= '<?php echo $localidades  ?>' id="localidadPost">
+                              <input type="hidden" value= '<?php echo $departamentos ?>' id="departamentoPost">
                           </div>                       
                                       
                   </div>
@@ -99,7 +101,7 @@
                   <div class="radio">
                     <label>
                       <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
-                      Empresa
+                      Empresa u Otros
                     </label>
                   </div>  
                   </div>
@@ -166,7 +168,7 @@
                      <div class="form-group">
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL" disabled >
+                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL"  >
                         <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
                      </div>
                                        
@@ -215,7 +217,7 @@
             </div>
             <div class="box-footer">
              <button type="submit" class="btn btn-primary" >Agregar Adquiriente/Transmitente</button>
-               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Guardar Minuta</a>
+               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/crearMinuta'?>" >Guardar Minuta</a>
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
@@ -316,12 +318,19 @@
 
       <!--Deshabilita campos sexo, dni y conyuge-->
       <script language="javascript"><!--
+        localidadPost=document.getElementById("localidadPost").value ;
+        departamentoPost=document.getElementById("departamentoPost").value;
+            $("#localidades option[value="+localidadPost +"]").attr("selected",true);
+             $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+
 
 		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
-      document.getElementById("cuil").disabled = false; 
+      document.getElementById("cuil").disabled = true;
+         document.getElementById("cuit").disabled = false; 
+
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
@@ -333,7 +342,8 @@
   		document.getElementById("sexo_combobox").disabled = false;  	
   		document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
- 	 	  document.getElementById("cuil").disabled = true; 
+ 	 	  document.getElementById("cuit").disabled = true; 
+      document.getElementById("cuit").disabled = false; 
 		}
 		</script>
 		<!--Valida el porcentaje-->
@@ -405,12 +415,15 @@
                                 } )               
                   ;
 
-                 
-     
+                    //en caso de que venga de un post rellena los campos departamento y localidad
+                
                        $('#personas tbody').on('click', 'tr', function () {
                       var data = $('#personas').DataTable().row( this ).data();
                      document.getElementById("nombreyapellido").value = data[1]; 
                      document.getElementById("dni").value = data[2];  
+                       if ($('input:radio[name=propietario]:checked').val()=='O') {
+                        document.getElementById("cuit").value = data[3]; 
+                      }else { document.getElementById("cuil").value = data[3]; };
                      document.getElementById("cuit").value = data[3]; 
                      document.getElementById("direccion").value = data[4]; 
                     document.getElementById("conyuge").value = data[5]; 
@@ -430,7 +443,9 @@
                   $("#localidades").html(data);
 
                   //selecciono la localidad del escribano
-                 document.getElementById("localidades").selectedIndex=idLocalidad-1;
+                  $("#localidades option[value="+ idLocalidad +"]").attr("selected",true);
+          
+                 console.log(data);
 
                   });
         });
@@ -472,6 +487,20 @@
                        dtable.column('6').search('P').draw();
 
                       $("input[name='propietario']").change(function(){
+                        //vaciar todos los campos
+                     document.getElementById("nombreyapellido").value = ""; 
+                     document.getElementById("dni").value = "";  
+                     document.getElementById("cuit").value =""; 
+                      document.getElementById("cuil").value = "";
+                     document.getElementById("direccion").value = ""; 
+                    document.getElementById("conyuge").value =""; 
+                     document.getElementById("departamentos").selectedIndex=0;
+                     document.getElementById("localidades").selectedIndex=0;
+                    
+                     document.getElementById("fecha_nacimiento").value=""; 
+                   $("#localidades option[value="+ 0 +"]").attr("selected",true);
+                    $("#departamentos option[value="+ 0 +"]").attr("selected",true);
+                    //para que solo busque por personas u organizaciones
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
 });
                     
@@ -489,7 +518,7 @@
           <script>
    $(document).ready(function(){
 
-           console.log($('#departamentos').val());
+          
    if($('#departamentos').val()!=""){
     localidadOnReady($('#departamentos').val());}
     });
@@ -508,7 +537,7 @@
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });           
    
        }
@@ -526,7 +555,7 @@
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idDepartamento+"'>"+val.nombre+"</option");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            

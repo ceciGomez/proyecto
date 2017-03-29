@@ -357,13 +357,14 @@ class C_escribano extends CI_Controller {
 
 				 $this->load->helper(array('form', 'url'));
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
-                 if($this->input->post('propietario')=='persona'){
-			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+                 if($this->input->post('propietario')=='P'){
+			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
+			   		 $this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
 					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
-					$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );
+					/*$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );*/
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
 			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
 			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
@@ -371,9 +372,10 @@ class C_escribano extends CI_Controller {
 					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
   				else{
+  					 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
   					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
  			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
-			   		$this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
+			   		$this->form_validation->set_rules('cuit', 'cuit', 'required',array('required' => 'Debes ingresar un cuit ') );
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
 			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
 			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
@@ -391,7 +393,7 @@ class C_escribano extends CI_Controller {
 			} else{
 
                 /*si es empresa tomo el cuil*/   
-               if($this->input->post('propietario')=='Empresa')   { 
+               if($this->input->post('propietario')=='P')   { 
 				$datos_propietario= array (
 					'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
@@ -423,23 +425,26 @@ class C_escribano extends CI_Controller {
 					$propietario_anterior =  $this->session->userdata('propietario');
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
+					var_dump($this->session->userdata('propietario'));
 				 }else { 
 				 	$array = array();
 					$this->session->set_userdata('propietario',$array); 
 					$propietario_anterior =  $this->session->userdata('propietario');
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
+					var_dump($this->session->userdata('propietario'));
 					}
 					        
-					
-						$this->M_escribano->insertarParcela();
+					redirect(base_url().'index.php/c_escribano/crearPropietario');	
 					
 
 			}
 
      }
 
-    
+    function crearMinuta(){
+    	$this->M_escribano->insertarParcela();
+    }
 
 
     //verifica que haya seleccionado alguna localidad
@@ -1038,11 +1043,11 @@ class C_escribano extends CI_Controller {
 		
 
 		$localidades=$this->db->get()->result();
-	   	
+	   		echo"<option value=''>Seleccione una localidad</option>";
 		//en este caso quiero que en el value aparezca el id que esta en la tabla , porque este valor me va a servir para insertar en la tabla usuarioescribano
 		foreach ($localidades as $l ) {
 				
-			echo"<option value='$l->idLocalidad'>$l->nombre</option>";
+			echo"<option value='$l->idLocalidad' >$l->nombre</option>";
 			
 		}
 	}
