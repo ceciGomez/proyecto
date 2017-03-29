@@ -399,12 +399,7 @@ function insertarParcela(){
     /*preparo para insertar una relacion*/
     $idParcela = ($this->db->insert_id());
     $this->session->set_userdata($idParcela);
-    $this->insertarPh();
-}
-
-public function insertarPh(){
-    $idParcela = ($this->session->userdata('idParcela'));
-	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
+  	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
     $nro_ucuf = $this->session->userdata('nro_ucuf');
     $tipo_ucuf = $this->session->userdata('tipo_ucuf');
     $plano_aprobado = $this->session->userdata('plano_aprobado');
