@@ -232,8 +232,8 @@
                         <div style="color:red;" ><p><?=form_error('dni')?></p></div>
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
-                        <label for="exampleInputEmail1">CUIT</label>
-                        <input type="text" class="form-control" id="cuit" name="cuit" placeholder="CUIT" disabled >
+                        <label for="exampleInputEmail1">CUIL</label>
+                        <input type="text" class="form-control" id="cuil" name="cuil" placeholder="CUIL" disabled >
                         <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                      </div>
@@ -241,8 +241,8 @@
                      <div class="row">
                      <div class="form-group">
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
-                        <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL"  >
+                        <label for="exampleInputEmail1">CUIT</label>
+                        <input type="text" class="form-control" id="cuit" name="cuit" <?php echo "value='$cuit'" ?>  placeholder="CUIT"  >
                         <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
                      </div>
                                        
@@ -412,15 +412,18 @@
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
 		
-		<script language="javascript">
-<!--
+		<script language="javascript"><!--
+    
+    $(document).ready(function () {
+        funcionpersona();
+    });
 
 		function funcionpersona() { 		 
   		document.getElementById("sexo_combobox").disabled = false;  	
   		document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
  	 	  document.getElementById("cuit").disabled = true; 
-      document.getElementById("cuit").disabled = false; 
+      document.getElementById("cuit").disabled = true; 
 		}
 		</script>
 		<!--Valida el porcentaje-->
