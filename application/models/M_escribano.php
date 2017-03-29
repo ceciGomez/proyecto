@@ -239,7 +239,7 @@ public function getPropietarios($idParcela)
 	{
 		try {
 			$query = $this->db->query("
-				SELECT nombre, idDepartamento
+				SELECT nombre, idDepartamento, idLocalidad
 				FROM localidad
 				WHERE idDepartamento=$idDepartamento");
 			return $query->result();
@@ -364,7 +364,7 @@ public function getPropietarios($idParcela)
 		}
  	}
 
-/*Funciones para insertar una minuta nueva*/
+/*Funciones para ar una minuta nueva*/
 
 function insertarParcela(){
 	$idEscribano = $this->session->userdata('idEscribano');
@@ -373,8 +373,7 @@ function insertarParcela(){
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
-    $nombreLocalidad = $this->session->userdata('localidades');
-    $idLocalidad = $this -> getIdLocalidad($nombreLocalidad);
+    $idLocalidad = $this->getIdLocalidad($this->session->userdata('localidades'));
     $circunscripcion = $this->session->userdata('circunscripcion');
     $seccion = $this->session->userdata('seccion');
     $chacra = $this->session->userdata('chacra');
@@ -390,7 +389,7 @@ function insertarParcela(){
     $descripcion = $this->session->userdata('descripcion');
     $nroMatriculaRPI = $this->session->userdata('nroMatriculaRPI');
     $fechaMatriculaRPI = $this->session->userdata('fechaMatriculaRPI');
-    $tomo = $this->session->userdata('folio');
+    $tomo = $this->session->userdata('tomo');
     $folio = $this->session->userdata('folio');
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
