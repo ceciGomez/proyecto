@@ -430,7 +430,7 @@ class C_operador extends CI_Controller {
 
 		public function mostrarLocalidad()
 	{
-		$id_prov=$_POST["miprovincia"];
+	$id_prov=$_POST["miprovincia"];
 		
 		$this->db->select('localidad.idLocalidad, localidad.nombre');
 		$this->db->from('localidad');
@@ -496,10 +496,10 @@ class C_operador extends CI_Controller {
 		$this->db->select('*');
 		$this->db->from('departamento');
 		$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
-		
-
+		$this->db->where('localidad.idLocalidad', $idLocalidad);
 		echo $this->db->get()->row()->idProvincia;
 	}
+	
 	public function motivoRechazo(){
 				$idEscribano=$_POST["idEscribano"];
 				$escribano=  $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();

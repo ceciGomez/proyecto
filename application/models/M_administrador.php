@@ -121,6 +121,7 @@ class M_administrador extends CI_Model
 		}
 
 		}
+
 		public function reportePedido()
 		{
 				try {$query=$this->db->query("SELECT p.idPedido, 
@@ -140,6 +141,19 @@ class M_administrador extends CI_Model
 					return false;
 				}
 		}
+
+	public function actualizarFoto($usuario, $idUsuario)
+ 	{
+ 		try{
+			$this->db->where('idUsuario',$idUsuario);
+			$this->db->UPDATE('usuariosys',$usuario);
+			return TRUE;
+
+			} catch (Exception $e) {
+			return false;
+		}
+ 	}
+
 
 
 }

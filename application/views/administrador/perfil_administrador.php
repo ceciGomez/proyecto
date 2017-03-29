@@ -104,10 +104,11 @@
                         </div>
                         
                     
-                     <br>
+                     <br><br><br>
                      <input type="hidden"  value="<?php echo $unAdministrador[0]->idUsuario ?>" name="idUsuario" id="idUsuario" >
                      <div align="center">
                         <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
+                        <a href="<?=base_url()?>index.php/upload" class="btn btn-info">Cambiar foto </a>
                         <a   class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_administrador/verPerfil'?>" > Cancelar</a>
                      </div>
                      <div align="center" style="color:red;" >

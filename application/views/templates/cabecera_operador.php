@@ -62,7 +62,7 @@
 
     <script src="<?=base_url()?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
+    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.js" />
 
 
 
@@ -233,7 +233,9 @@
             <ul class="dropdown-menu">
               <!-- User image -->
               <li class="user-header">
-                <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+              <a href="<?=base_url()?>index.php/upload">
+                <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image" width="100" height="100" >
+                </a>
 
                 <p>
                   <?php echo $this->session->userdata('nomyap') ?>  [<?php echo $this->session->userdata('perfil') ?>]
