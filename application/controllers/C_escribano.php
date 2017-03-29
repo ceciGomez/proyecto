@@ -438,17 +438,14 @@ class C_escribano extends CI_Controller {
 					$propietario_anterior =  $this->session->userdata('propietario');
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
-					var_dump($this->session->userdata('propietario'));
 				 }else { 
 				 	$array = array();
 					$this->session->set_userdata('propietario',$array); 
 					$propietario_anterior =  $this->session->userdata('propietario');
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
-					var_dump($this->session->userdata('propietario'));
-					}
-
-					 
+					
+					}		 
 					/*verifica si presionó boton agregar propietario o guardar*/ 
 					if($this->input->post('minuta') == "agregar") { 
     						$this->crearPropietario(FALSE,FALSE);
@@ -456,10 +453,7 @@ class C_escribano extends CI_Controller {
 					} else {
    						$this->M_escribano->insertarParcela();
    						$this->finMinutas();
-					}        
-
-
-					
+					}        					
 
 			}
 
