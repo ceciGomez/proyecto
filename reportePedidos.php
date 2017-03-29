@@ -2,6 +2,19 @@
 require('fpdf.php');
 require('conexionRepor.php');
 
+$usuarioQuery = "select u.nomyap as nombre
+                from usuariosys u 
+                where u.idUsuario = '".$_GET['idUsuario']."'
+                ";
+$usuario = mysqli_query($conexion,$usuarioQuery);
+if($usuario === FALSE) { 
+        die(mysqli_error($conexion)); // better error handling
+    }
+$nomyap = mysqli_fetch_assoc($usuario);
+$nomyap = $nomyap['nombre'];
+$GLOBALS['nomyap'] = $nomyap;
+
+
 while (ob_get_level())
 ob_end_clean();
 header("Content-Encoding: None", true);
@@ -17,8 +30,13 @@ header("Content-Encoding: None", true);
 //$fechaPedidoHasta= date_format(date_create($_GET['fechaPedidoHasta']),'Y-m-d');
 
 $pedidos = mysqli_query($conexion,
-    "SELECT p.idPedido, p.fechaPedido,p.fechaRta,p.descripcion,
-    p.rtaPedido,p.estadoPedido,p.idEscribano, p.idUsuario  
+    "SELECT p.idPedido, 
+    concat(substring(p.fechaPedido, 9, 2), '/' ,substring(p.fechaPedido, 6, 2) , '/', substring(p.fechaPedido, 1, 4)) as fechaPedido,
+    concat(substring(p.fechaRta, 9, 2), '/' ,substring(p.fechaRta, 6, 2) , '/', substring(p.fechaRta, 1, 4)) as fechaRta,
+    
+    substring(p.descripcion, 1, 46) as descripcion,
+    substring(p.rtaPedido, 1, 46) as rtaPedido,
+    p.estadoPedido,p.idEscribano, p.idUsuario  
     FROM pedidos p
     where p.fechaPedido 
     between '".$fechaPedidoDesde."' and '".$fechaPedidoHasta."'
@@ -42,9 +60,12 @@ function Header()
     //$this->Cell(30,10,'Title',1,0,'C');
     $this->Cell(70);
     $this->SetFont('Arial','',9);
-    $this->Cell(50,10,'Fecha: '.date('d-m-Y').'',0);
+    $this->Cell(50,10,'Fecha: '.date('d/m/Y').'',0);
     $this->Ln(5);
     $this->Cell(150);
+
+    $this->Cell(50,10,'Generado por: '.$GLOBALS['nomyap']);
+
     $this->Ln(10);
     $this->Cell(45);
     //setea fuente de titulo
@@ -70,14 +91,14 @@ public function sanitizarFecha($fecha)
 {
     //$date = date_create_from_format('d-m-Y', $fecha);
     $date =New DateTime();
-   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'Y-m-d');
+   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'd/m/Y');
 }
     
 public function sanitizarFechaF($fecha)
 {
     //$date = date_create_from_format('d-m-Y', $fecha);
    $date =New DateTime();
-   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'Y-m-d');
+   return   $fechaPedidoDesde= date_format($date->createFromFormat('d/m/Y',$fecha), 'd/m/Y');
     
 }
 }
@@ -91,16 +112,16 @@ $pdf->AddPage();
 $pdf->SetFont('Times','B',8);
 
 $pdf->Cell(10,8,'Pedido',1,0,'C');
-$pdf->Cell(25,8,'F. Pedido',1,0,'C');
+$pdf->Cell(15,8,'F. Pedido',1,0,'C');
 
-$pdf->Cell(25,8,'F. Respuesta',1,0,'C');
-$pdf->Cell(17,8,'Estado',1,0,'C');
-$pdf->Cell(40,8,'Descripcion',1,0,'C');
-$pdf->Cell(40,8,'Rta Pedido',1,0,'C');
+$pdf->Cell(15,8,'F. Rta.',1,0,'C');
+$pdf->Cell(5,8,'Est.',1,0,'C');
+$pdf->Cell(54,8,'Descripcion',1,0,'C');
+$pdf->Cell(54,8,'Rta. Pedido',1,0,'C');
 
 //$pdf->Cell(23,8,'Donaciones(Und.)',1,0,'C');
-$pdf->Cell(25,8,'Escribano',1,0,'C');
-$pdf->Cell(19,8,'Usuario',1,0,'C');
+$pdf->Cell(29,8,'Escribano',1,0,'C');
+$pdf->Cell(15,8,'Usuario',1,0,'C');
 $pdf->Ln(8);
 $pdf->SetFont('Times','',8);
 //fin cabecera de tabla
@@ -110,7 +131,7 @@ while($fila = mysqli_fetch_array($pedidos)){
     if($fila['idEscribano']==null)
         {$escribano="";}
     else{
-            $usuarioQuery = "select u.nomyap as nombre
+            $usuarioQuery = "select substring(u.nomyap, 1 , 15) as nombre
                             from usuarioescribano u 
                             where u.idEscribano = '".$fila['idEscribano']."'
                             ";
@@ -125,7 +146,7 @@ while($fila = mysqli_fetch_array($pedidos)){
         {$operador="";}
     else{
             //obtengo nombre del operador
-             $usuarioQuery = "select u.nomyap as nombre
+             $usuarioQuery = "select substring(u.nomyap, 1 , 11) as nombre
                             from usuariosys u 
                             where u.idUsuario = '".$fila['idUsuario']."'
                             ";
@@ -139,15 +160,15 @@ while($fila = mysqli_fetch_array($pedidos)){
 
    
     $pdf->Cell(10,8,$fila['idPedido'],1,0,'C');
-    $pdf->Cell(25,8,$fila['fechaPedido'],1,0,'C');
-    $pdf->Cell(25,8,$fila['fechaRta'],1,0, 'C');
-    $pdf->Cell(17,8,$fila['estadoPedido'],1,0,'C');
-    $pdf->Cell(40,8,$fila['descripcion'],1,0,'C');
-    $pdf->Cell(40,8,$fila['rtaPedido'],1,0,'C');
+    $pdf->Cell(15,8,$fila['fechaPedido'],1,0,'C');
+    $pdf->Cell(15,8,$fila['fechaRta'],1,0, 'C');
+    $pdf->Cell(5,8,$fila['estadoPedido'],1,0,'C');
+    $pdf->Cell(54,8,$fila['descripcion'],1,0,'C');
+    $pdf->Cell(54,8,$fila['rtaPedido'],1,0,'C');
 
-    $pdf->Cell(25,8,$escribano,1,0,'C');
+    $pdf->Cell(29,8,$escribano,1,0,'C');
    
-    $pdf->Cell(19,8,$operador,1,0,'C');
+    $pdf->Cell(15,8,$operador,1,0,'C');
     $pdf->Ln(8);
 
 }

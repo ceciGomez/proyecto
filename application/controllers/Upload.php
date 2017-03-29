@@ -149,7 +149,7 @@ class Upload extends CI_Controller {
                                         
                                         $this->load->view('templates/cabecera_administrador',$data);
                                         $this->load->view('templates/admin_menu',$data);
-                                        $this->load->view('upload_success', $data);
+                                        $this->load->view('upload_success_admin', $data);
                                         $this->load->view('templates/pie',$data);
                                 } else {
                                         $error = 'En este momento no se puede cambiar la foto. Intente nuevamente mas tarde';
@@ -181,7 +181,7 @@ class Upload extends CI_Controller {
                                         
                                         $this->load->view('templates/cabecera_operador',$data);
                                         $this->load->view('templates/operador_menu',$data);
-                                        $this->load->view('upload_success', $data);
+                                        $this->load->view('upload_success_operador', $data);
                                         $this->load->view('templates/pie',$data);
                                 } else {
                                         $error = 'En este momento no se puede cambiar la foto. Intente nuevamente mas tarde';

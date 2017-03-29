@@ -55,12 +55,7 @@
             <li><a href="<?=base_url()?>index.php/c_administrador/reportesMinutas"><i class="fa fa-circle-o"></i> Reporte de Minutas</a></li>
             <li><a href="<?=base_url()?>index.php/c_administrador/reportesPedidos"><i class="fa fa-circle-o"></i> Reporte de Pedido</a></li>
           </ul>
-        </li>
-      
-          <a href="#">
-            <i class="fa fa-calendar"  id="calendario"  data-provide="datepicker"></i> <span>Calendario</span>
-          </a>
-        </li>
+        
        
         
 
