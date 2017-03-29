@@ -460,7 +460,6 @@ class C_escribano extends CI_Controller {
 					
 
 					        
-					redirect(base_url().'index.php/c_escribano/crearPropietario');	
 
 					
 
@@ -477,8 +476,7 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/finMinuta',$data);
 		$this->load->view('templates/pie',$data);
 
-    function crearMinuta(){
-    	$this->M_escribano->insertarParcela();
+    
 
     }
 
