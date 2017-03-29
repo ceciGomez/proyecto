@@ -10,7 +10,7 @@
       <small>Registrar Propietario</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"></i> Parcela</a></li>
+         <li><a href="<?=base_url()?>index.php/c_escribano/CrearMinuta"> Parcela</a></li>
          <li class="active">Propietario</li>
       </ol>
    </section>
@@ -74,13 +74,13 @@
                                 echo $date_formated;?></td>        
                         </tr>
 
-             <?php endforeach; ?>
-              </tbody>
-                 </table>
+            <?php endforeach; ?>
+           </tbody>
+          </table>
 
-                 </div>
+        </div>
 
-   <section class="content-body">
+   <section class="content">
       <div class="box box-default">
          <div class="box-header with-border">
            <?=form_open(base_url().'index.php/C_escribano/registrarPropietario')?>
@@ -109,13 +109,13 @@
                  <label >Tipo Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propetario" id="adquiriente" value="A" >
+                      <input type="radio" name="tipo_propietario" id="adquiriente" <?php echo set_radio('tipo_propietario', 'A', TRUE); ?>   value="A" >
                       Adquiriente
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propietario" id="transmitente" value="T" >
+                      <input type="radio" name="tipo_propietario" id="transmitente" <?php echo set_radio('tipo_propietario', 'T', TRUE); ?>  value="T" >
                       Transmitente
                     </label>
                   </div>      
@@ -181,41 +181,41 @@
                         <div style="color:red;" ><p><?=form_error('direccion')?></p></div>
                      </div>
                      <div class="col-md-3">
-                                    <label>Fecha de Nacimiento/Creación</label>
-                                    <div class="input-group date">
-                                       <div class="input-group-addon">
-                                          <i class="fa fa-calendar"></i>
-                                       </div>
-                                       <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
-                                    </div>
-                                    <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
-                        </div>
+                          <label>Fecha de Nacimiento/Creación</label>
+                            <div class="input-group date">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                             </div>
+                         <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
+                            </div>
+                         <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
+                      </div>
                         </div>
                         </div>
                         <div class="row">
                         <div class="form-group">
                        <div class="col-md-3">
-                             <label>Departamento</label>
+                           <label>Departamento</label>
                               <select class="form-control select2 departamentos" id="departamentos"  name="departamentos" style="width: 100%;">
                                   <option value="" selected="">Selecciona departamento</option>
                                  <?php foreach($arraydepartamentos as $each){ ?>
                                     <option value="<?php echo $each->idDepartamento; ?>"<?php if($departamentos==$each->nombre) echo 'selected="selected"'; ?>><?php echo $each->nombre; ?></option>
                                     <?php } ?>
-                             </select>
-                            <div style="color:red;" ><p><?=form_error('departamentos')?></p></div>                                  
-                             </div>                      
-                               <div class="col-md-3">
+                            </select>
+                        <div style="color:red;" ><p><?=form_error('departamentos')?></p></div>                                  
+                        </div>                      
+                         <div class="col-md-3">
                                  <label>Localidad</label>
-                                <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
+                               <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
                                   <option value="">Seleccione localidad</option>  
                                   </select>
-                               <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
-                           </div>
+                             <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                         </div>
                </div>
             </div>
             <div class="box-footer">
-             <button type="submit" class="btn btn-primary" >Registrar Adquiriente/Transmitente</button>
-               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarMinuta'?>" >Guardar Minuta</a>
+             <button type="submit" class="btn btn-primary" >Agregar Adquiriente/Transmitente</button>
+               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/registrarPropietario'?>" >Guardar Minuta</a>
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
@@ -224,6 +224,7 @@
          </div>
          </div>
   </section>
+  </div>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>
@@ -567,5 +568,10 @@
             $('#fecha_nacimiento').datepicker();
         });
      </script>
+     <script>
+        $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker();
+        });      
+    </script>
 
 
