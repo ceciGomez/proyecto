@@ -37,6 +37,14 @@ class C_escribano extends CI_Controller {
 		
 	public function crearParcela($exito=FALSE, $hizo_post=FALSE)
 	{
+
+		if($this->input->post('finminuta') == "agregarph") { 
+    			$this->session->unset_userdata('datos_ph');
+    			var_dump('borra datos');
+    			var_dump($this->session->userdata('datos_ph'));
+    		}     					
+
+
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
@@ -372,7 +380,6 @@ class C_escribano extends CI_Controller {
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
                  if($this->input->post('propietario')=='P'){
 			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
-			   		 $this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );

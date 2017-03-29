@@ -29,7 +29,7 @@ tr:hover{background-color:#f5f5f5}
           <!-- Profile Image -->
           <div class="box box-primary">
              <?=form_open(base_url().'index.php/C_escribano/registrarParcela')?>
-                     <form method="post">
+            <form method="post">
                 <!-- Tabla para mostrar datos de parcela -->
              <table class="table" class="table-bordered" style="tr:hover {background-color: #f5f5f5}" >
              <p class="bg-primary">Parcela</p>          
@@ -84,8 +84,9 @@ tr:hover{background-color:#f5f5f5}
         </tbody>
        </table>
        <div class="box-footer">
-        <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/crearRelacion" >Agregar Ph</a>  
-        <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>                         
+        <a class="btn btn-primary" name="finminuta" value="agregarph" href="<?=base_url()?>index.php/c_escribano/crearRelacion" >Agregar Ph</a>  
+        <a class="btn btn-primary" name="finminuta" value="agregarparcela" href="<?=base_url()?>index.php/c_escribano/crearParcela" >Agregar Parcela</a> 
+        <a class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>                         
        </div>
        </form>
        </div>
