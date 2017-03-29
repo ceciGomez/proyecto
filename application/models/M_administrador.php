@@ -141,6 +141,18 @@ class M_administrador extends CI_Model
 				}
 		}
 
+	public function actualizarFoto($usuario, $idUsuario)
+ 	{
+ 		try{
+			$this->db->where('idUsuario',$idUsuario);
+			$this->db->UPDATE('usuariosys',$usuario);
+			return TRUE;
+
+			} catch (Exception $e) {
+			return false;
+		}
+ 	}
+
 
 }
 
