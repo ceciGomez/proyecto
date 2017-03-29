@@ -360,7 +360,7 @@ class C_escribano extends CI_Controller {
                  if($this->input->post('propietario')=='persona'){
 			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
-			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes seleccionar un tipo de propietario ') );
+			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
 					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
 					$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );
@@ -371,7 +371,7 @@ class C_escribano extends CI_Controller {
 					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
   				else{
-  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes seleccionar un tipo de propietario ') );
+  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
  			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
 			   		$this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
