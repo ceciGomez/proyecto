@@ -714,8 +714,9 @@ public function reportesPedidos()
 
 		$fechaPedidoDesde=$_GET['fechaPedidoDesde'];
 		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
+		$idUsuario=$this->session->userdata('id_usuario');
 
-		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta.'&idUsuario='.$idUsuario);
 	}
 
 	public function imprimirMinuta()

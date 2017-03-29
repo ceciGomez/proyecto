@@ -26,7 +26,7 @@
                        <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Pedido desde :</label><br>
-                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   '> 
+                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   > 
                       </div>
 
                        <div class="col-md-3">

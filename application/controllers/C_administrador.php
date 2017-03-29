@@ -816,13 +816,10 @@ public function reportesPedidos()
 		
 		$data['titulo'] = 'Bienvenido Administrador';
 
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
 		
-		$pedidos= $this->db->get()->result();
+		$solPedido= $this->M_administrador->reportePedido();
 	
-		$data['pedidos']=$pedidos;
+		$data['pedidos']=$solPedido;
 
 		$data['titulo'] = 'Bienvenido Administrador';
 		$this->load->view('templates/cabecera_administrador',$data);
@@ -840,8 +837,9 @@ public function reportesPedidos()
 
 		$fechaPedidoDesde=$_GET['fechaPedidoDesde'];
 		$fechaPedidoHasta=$_GET['fechaPedidoHasta'];
+		$idUsuario=$this->session->userdata('id_usuario');
 
-		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta);
+		redirect(base_url().'reportePedidos.php?fechaPedidoDesde='.$fechaPedidoDesde.'&fechaPedidoHasta='.$fechaPedidoHasta.'&idUsuario='.$idUsuario);
 	}
 
 	public function imprimirMinuta()

@@ -77,10 +77,7 @@
 
                             foreach ($pedidos as $si){ 
 
-                               $date=new DateTime($si->fechaPedido);
-                              $date_formated=$date->format('d/m/Y ');
-                               $date2=new DateTime($si->fechaRta);
-                              $date_formated2=$date2->format('d/m/Y ');
+                              
                          ?>
                             <?php 
                          /*
@@ -94,8 +91,8 @@
                           <tr>
                           
 
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td>  <?php  echo $si->fechaPedido; ?></td>
+                            <td>  <?php  echo $si->fechaRta; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                              <td>  <?php 
                                       if ($si->idEscribano==null) {

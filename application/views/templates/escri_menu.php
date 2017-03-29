@@ -77,10 +77,8 @@
             </ul>
             
          </li>
-         <a href="#">
-         <i class="fa fa-calendar"  id="calendario"  data-provide="datepicker"></i> <span>Calendario</span>
-         </a>
-         </li>
+         
+         
       </ul>
    </section>
    <!-- /.sidebar -->
