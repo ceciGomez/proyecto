@@ -62,7 +62,7 @@
 
     <script src="<?=base_url()?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 
-    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
+    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.js" />
 
 
 

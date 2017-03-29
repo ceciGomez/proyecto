@@ -187,6 +187,7 @@
          </section>
       </section>
    </div>
+   </section>
 </div>
 <!-- /.content-wrapper -->
 

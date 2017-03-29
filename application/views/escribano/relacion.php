@@ -11,7 +11,7 @@
       <small>Registrar Propietario</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li><a href="<?=base_url().'index.php/c_escribano/CrearMinuta'?>"></i> Parcela</a></li>
+         <li><a href="<?=base_url()?>index.php/c_escribano/CrearMinuta">Parcela</a></li>
          <li class="active">Propietario</li>
       </ol>
    </section>
@@ -110,6 +110,7 @@
               </form>
            </div>
       </section>
+      </div>
 <!-- /.content-wrapper -->
      <!--Muestra el calendario para fecha de escritura-->
    <script>

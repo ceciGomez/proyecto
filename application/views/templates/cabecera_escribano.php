@@ -43,18 +43,6 @@
     background-image: #228b22;
 }
 </style>
- <script language="javascript"><!--
-
-    function noPh() {      
-        document.getElementById("porcentaje_condominio").disabled = true; 
-        document.getElementById("nro_ucuf").disabled = true; 
-        document.getElementById("tipo_ucuf").disabled = true; 
-        document.getElementById("plano_aprobado").disabled = true; 
-        document.getElementById("fecha_plano_aprobado").disabled = true; 
-        document.getElementById("porcentaje_ucuf").disabled = true; 
-        document.getElementById("poligonos").disabled = true; 
-    }
-    </script>
 
    <link rel="stylesheet" href="<?=base_url()?>assets/plugins/bootstrap-3.3.5/dist/css/bootstrap.css"/>
   <!-- Font Awesome -->
@@ -69,11 +57,11 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/iCheck/flat/blue.css"/>
   <!-- Morris chart -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/plugins/morris/morris.css"/
+  <link rel="stylesheet" href="<?=base_url()?>assets/plugins/morris/morris.css"/>
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/jvectormap/jquery-jvectormap-1.2.2.css"/>
   <!-- Date Picker -->
-  <link rel="stylesheet" href="<?=base_url()?>assets/plugins/datepicker/datepicker3.css"/
+  <link rel="stylesheet" href="<?=base_url()?>assets/plugins/datepicker/datepicker3.css"/>
   <!-- Daterange picker -->
   <link rel="stylesheet" href="<?=base_url()?>assets/plugins/daterangepicker/daterangepicker.css"/>
   <!-- bootstrap wysihtml5 - text editor -->
@@ -84,7 +72,7 @@
 
     <link type="text/javascript" href="<?=base_url()?>assets/plugins/timepicker/bootstrap-timepicker.min.js" />
 
-    <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.min.js"></script>
+    <script src="<?=base_url()?>assets/plugins/datepicker/bootstrap-datepicker.js"></script>
 
   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
   
