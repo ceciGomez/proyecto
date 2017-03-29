@@ -275,8 +275,10 @@
               <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
 
 
+
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
+
             <!-- /.row -->
          </div>
          </form>
