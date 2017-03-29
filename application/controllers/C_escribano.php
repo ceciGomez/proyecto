@@ -477,10 +477,7 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/finMinuta',$data);
 		$this->load->view('templates/pie',$data);
 
-    function crearMinuta(){
-    	$this->M_escribano->insertarParcela();
-
-    }}
+   }
 
 
     //verifica que haya seleccionado alguna localidad
