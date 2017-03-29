@@ -445,9 +445,7 @@ class C_escribano extends CI_Controller {
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
 					
-					}
-
-					 
+					}		 
 					/*verifica si presionó boton agregar propietario o guardar*/ 
 					if($this->input->post('minuta') == "agregar") { 
     						$this->crearPropietario(FALSE,FALSE);
@@ -455,10 +453,7 @@ class C_escribano extends CI_Controller {
 					} else {
    						$this->M_escribano->insertarParcela();
    						$this->finMinutas();
-					}        
-
-
-					
+					}        					
 
 			}
 
