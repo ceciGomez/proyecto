@@ -65,7 +65,7 @@
                          <td><button class="btn btn-success">Seleccionar</button></td>
                            <td><?php echo $c->apynom; ?></td>
                            <td><?php echo $c->dni ;?></td>       
-                            <td><?php echo $c->cuitCuil;echo $c->dni ; ?></td>    
+                            <td><?php echo $c->cuitCuil;?></td>    
                            <td><?php echo $c->direccion; ?></td>  
                             <td><?php echo $c->conyuge ;  ?></td>       
                              <td style="display: none"><?php echo $c->empresa; ?></td>  
@@ -272,6 +272,11 @@
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
               <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
+
+
+
+                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+            </div>
 
             <!-- /.row -->
          </div>
