@@ -447,7 +447,6 @@ class C_escribano extends CI_Controller {
 					$this->session->set_userdata('propietario', $propietario_anterior);
 					var_dump($this->session->userdata('propietario'));
 					}
-        //master <<<<<<
 
 					 
 					/*verifica si presionó boton agregar propietario o guardar*/ 
@@ -459,16 +458,15 @@ class C_escribano extends CI_Controller {
    						$this->finMinutas();
 					}        
 					
-/// aca se corta
+
 					        
 					redirect(base_url().'index.php/c_escribano/crearPropietario');	
- /// >>>>master
+
 					
 
 			}
 
      }
-//master <<<<< 2
 
     function finMinutas(){
     	$data["notificaciones_ma"]=$this->notificaciones_ma();
@@ -478,10 +476,10 @@ class C_escribano extends CI_Controller {
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/finMinuta',$data);
 		$this->load->view('templates/pie',$data);
-//aca se corta
+
     function crearMinuta(){
     	$this->M_escribano->insertarParcela();
-//master >>>>>> 2
+
     }
 
 
