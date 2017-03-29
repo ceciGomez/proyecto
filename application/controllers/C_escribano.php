@@ -8,6 +8,7 @@ class C_escribano extends CI_Controller {
     {
         parent::__construct();
         $this->load->library('session');
+        $this->load->model('M_escribano');
     }
 	
 	
@@ -284,7 +285,19 @@ class C_escribano extends CI_Controller {
 					'poligonos' => $this->input->post('poligonos'), 
 
 				);
-					$this->session->set_userdata('datos_ph',$datos_ph);	
+				 
+				 if($this->session->userdata('datos_ph')) {
+				 	$ph_anterior =  $this->session->userdata('datos_ph');
+					array_push($ph_anterior, $datos_ph);
+					$this->session->set_userdata('propietario', $ph_anterior);
+				 }else { 
+				 	$array = array();
+					$this->session->set_userdata('datos_ph',$array); 
+					$ph_anterior =  $this->session->userdata('datos_ph');
+					array_push($ph_anterior, $datos_ph);
+					$this->session->set_userdata('datos_ph', $ph_anterior);
+					}
+					
 					$this->crearPropietario(FALSE,FALSE);		
 			}
 
@@ -434,16 +447,41 @@ class C_escribano extends CI_Controller {
 					$this->session->set_userdata('propietario', $propietario_anterior);
 					var_dump($this->session->userdata('propietario'));
 					}
+        //master <<<<<<
+
+					 
+					/*verifica si presionó boton agregar propietario o guardar*/ 
+					if($this->input->post('minuta') == "agregar") { 
+    						$this->crearPropietario(FALSE,FALSE);
+
+					} else {
+   						$this->M_escribano->insertarParcela();
+   						$this->finMinutas();
+					}        
+					
+/// aca se corta
 					        
 					redirect(base_url().'index.php/c_escribano/crearPropietario');	
+ /// >>>>master
 					
 
 			}
 
      }
+//master <<<<< 2
 
+    function finMinutas(){
+    	$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+    	$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/finMinuta',$data);
+		$this->load->view('templates/pie',$data);
+//aca se corta
     function crearMinuta(){
     	$this->M_escribano->insertarParcela();
+//master >>>>>> 2
     }
 
 
