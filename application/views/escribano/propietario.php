@@ -106,6 +106,7 @@
                       <?php
                       $posicion=0;
                        foreach ($this->session->userdata('propietario') as $c):
+                        echo $c['localidad'];
                         $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();        ?>
 
                          <tr>
