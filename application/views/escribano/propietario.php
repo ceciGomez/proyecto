@@ -632,7 +632,7 @@
                   
                   }
                   function eliminarProp(){
-                     $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
+                     $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:pos}, function(data){
                      
             });
                   }     

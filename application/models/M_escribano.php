@@ -373,7 +373,7 @@ function insertarParcela(){
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
-    $idLocalidad = $this ->this->session->userdata('localidades');
+    $idLocalidad = $this->getIdLocalidad($this->session->userdata('localidades'));
     $circunscripcion = $this->session->userdata('circunscripcion');
     $seccion = $this->session->userdata('seccion');
     $chacra = $this->session->userdata('chacra');
@@ -389,7 +389,7 @@ function insertarParcela(){
     $descripcion = $this->session->userdata('descripcion');
     $nroMatriculaRPI = $this->session->userdata('nroMatriculaRPI');
     $fechaMatriculaRPI = $this->session->userdata('fechaMatriculaRPI');
-    $tomo = $this->session->userdata('folio');
+    $tomo = $this->session->userdata('tomo');
     $folio = $this->session->userdata('folio');
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
