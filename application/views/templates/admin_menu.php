@@ -5,8 +5,8 @@
       <!-- Sidebar user panel -->
       <div class="user-panel">
         <div class="pull-left image">
-          <img src="<?=base_url()?>assets/dist/img/user.png" class="img-circle" alt="User Image">
-        </div>
+            <img src="<?=base_url()?>assets/dist/img/<?php echo $this->session->userdata('foto'); ?>" class="img-circle" alt="User Image">
+         </div>
         <div class="pull-left info">
           <p><?php echo $this->session->userdata('nomyap') ?></p>
           <p><?php echo $this->session->userdata('perfil') ?></p>
@@ -16,7 +16,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu">
-        <li class="header">Menu Administrador</li>
+        <li class="header">Menú Administrador</li>
         
               
         <li class="treeview">

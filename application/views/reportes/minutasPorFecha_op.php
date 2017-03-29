@@ -32,12 +32,12 @@
                        <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Ingreso desde :</label><br>
-                        <input type="text"   id="fechaIngresoDesde" name="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   '> 
+                        <input type="text"   id="fechaIngresoDesde" name="fechaIngresoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"  required> 
                       </div>
 
                        <div class="col-md-3">
                           <label>Fecha Ingreso hasta :</label><br>
-                        <input type="text"   id="fechaIngresoHasta" name="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" > 
+                        <input type="text"   id="fechaIngresoHasta" name="fechaIngresoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" required> 
                       </div>
               
                 </div> 
@@ -99,8 +99,13 @@
                               <?php }
                                  }}?>
                            </td>
+                          
+                           <td colspan="" rowspan="" headers="" data-order="<?php echo$value->fechaEstado;?>"><?php 
+                           $date=new DateTime($value->fechaEstado);
+                              $date_formated=$date->format('d/m/Y ');
+                          echo $date_formated;?></td>
+
                            <td><?php echo $value->planoAprobado; ?></td>
-                           <td colspan="" rowspan="" headers=""><?php echo $value->fechaEstado;?></td>
                            
                                <td>Circ. <?php echo $value->circunscripcion; ?> - 
                               Sec.<?php echo $value->seccion; ?> -

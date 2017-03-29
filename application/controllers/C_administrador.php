@@ -681,7 +681,7 @@ class C_administrador extends CI_Controller {
 		$this->db->select('*');
 		$this->db->from('departamento');
 		$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
-		
+		$this->db->where('localidad.idLocalidad', $idLocalidad);
 		echo $this->db->get()->row()->idProvincia;
 	}
 	public function motivoRechazo(){

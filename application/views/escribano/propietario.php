@@ -25,12 +25,15 @@
                          <div class="row">
                             <div class="col-md-3">
                                <label>Apellido y nombre:</label><br>
-                              <input type='text' id="nombrePersona"  class='filter' data-column-index='0'>
+                              <input type='text' id="nombrePersona"  class='filter' data-column-index='1'>
                             </div>
                             <div class="col-md-3">
                                <label>DNI:</label><br>
-                              <input type='text' id="dniPersona"  class='filter' data-column-index='1'>
+                              <input type='text' id="dniPersona"  class='filter' data-column-index='2'>
                             </div> 
+                            
+                             <input type="hidden" value= '<?php echo $localidades  ?>' id="localidadPost">
+                              <input type="hidden" value= '<?php echo $departamentos ?>' id="departamentoPost">
                           </div>                       
                                       
                   </div>
@@ -38,17 +41,20 @@
     </div>   
 
      
-
+      <h3 align="center">Propietarios Registrados en el Sistema</h2>
        <div class="box-body table-responsive no-padding">                   
                      <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
                           <tr>
-                             <th>Selecc</th>
+                             <th>Seleccionar</th>
                             <th>Nombre y Apellido</th>
-                              <th>Cuit/cuil</th>
-                              <th>Dni</th>                
+                              <th>Dni</th>
+                              <th>Cuit/cuil</th>                
                               <th>Direccion</th>     
                               <th>Conyuge</th>  
+                               <th style="display: none">Tipo</th> 
+                                <th style="display: none">localidad</th> 
+                                 <th style="display: none">fechaNac</th> 
                           </tr>
                         </thead>
 
@@ -58,17 +64,75 @@
                          <tr>
                          <td><button class="btn btn-success">Seleccionar</button></td>
                            <td><?php echo $c->apynom; ?></td>
-                           <td><?php echo $c->dni; ?></td>       
-                            <td><?php echo $c->cuitCuil; ?></td>    
+                           <td><?php echo $c->dni ;?></td>       
+                            <td><?php echo $c->cuitCuil;echo $c->dni ; ?></td>    
                            <td><?php echo $c->direccion; ?></td>  
-                            <td><?php echo $c->conyuge; ?></td>       
+                            <td><?php echo $c->conyuge ;  ?></td>       
+                             <td style="display: none"><?php echo $c->empresa; ?></td>  
+                             <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
+                              <td style="display: none"><?php 
+                                $date=new DateTime($c->fechaNac);
+                                $date_formated=$date->format('d/m/Y ');
+                                echo $date_formated;?></td>        
                         </tr>
 
             <?php endforeach; ?>
            </tbody>
           </table>
+          <?php if($this->session->userdata('propietario')!=null) {?>
+        </div>
+        <br>
+        <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h2>
+           <div class="box-body table-responsive no-padding">                   
+                     <table id="propietarios_subidos" class="display" style="display: none" data-page-length="4">
+                        <thead>
+                          <tr>
+                             <th>Eliminar</th>
+                            <th>Nombre y Apellido</th>
+                              <th>Dni</th>
+                              <th>Cuit/cuil</th>                
+                              <th>Tipo de Propietario</th>     
+                              <th>Porcentaje de Codominio</th>  
+                                <th>Dirección</th> 
+                                <th>Localidad</th> 
+                                <th>Fecha de Nacimiento</th>
+                                <th>Sexo</th>
+                                <th>Conyuge</th>
+                              
+                          </tr>
+                        </thead>
+
+                      <tbody >
+                      <?php
+                      $posicion=0;
+                       foreach ($this->session->userdata('propietario') as $c):
+                        $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();        ?>
+
+                         <tr>
+                         <td><button class="btn btn-danger" onclick="sacarPropietario(<?php echo $posicion; ?>)">Eliminar</button></td>
+                           <td><?php echo $c['nombreyapellido']; ?></td>
+                           <td><?php echo $c['dni'] ;?></td>       
+                            <td><?php echo $c['cuit_cuil']; ?></td>  
+                            <td><?php echo $c['tipo_propietario' ];  ?></td>  
+                            <td><?php echo $c['porcentaje_condominio' ];  ?></td>   
+                            <td><?php echo $c['direccion' ];  ?></td>
+                            <td><?php echo $localidad->nombre;  ?></td>  
+                             <td ><?php 
+                               
+                                echo $c['fecha_nacimiento'];?></td>   
+                           <td><?php echo $c['sexo_combobox']; ?></td>  
+                            <td><?php echo $c['conyuge' ];  ?></td>     
+                               
+                        </tr>
+
+            <?php
+            $posicion=$posicion+1;    
+             endforeach; ?>
+           </tbody>
+          </table>
 
         </div>
+        <?php } ?>
 
    <section class="content">
       <div class="box box-default">
@@ -82,14 +146,14 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="persona" onclick="funcionpersona();" checked>
+                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="empresa" onclick="funcionempresa();">
-                      Empresa
+                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
+                      Empresa u Otros
                     </label>
                   </div>  
                   </div>
@@ -156,7 +220,7 @@
                      <div class="form-group">
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL" disabled >
+                        <input type="text" class="form-control" id="cuil" name="cuil" <?php echo "value='$cuil'" ?>  placeholder="CUIL"  >
                         <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
                      </div>
                                        
@@ -204,9 +268,14 @@
                </div>
             </div>
             <div class="box-footer">
+<<<<<<< HEAD
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
               <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
+=======
+             <button type="submit" class="btn btn-primary" >Agregar Adquiriente/Transmitente</button>
+               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/crearMinuta'?>" >Guardar Minuta</a>
+>>>>>>> refs/remotes/ceciGomez/master
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
@@ -307,12 +376,19 @@
 
       <!--Deshabilita campos sexo, dni y conyuge-->
       <script language="javascript"><!--
+        localidadPost=document.getElementById("localidadPost").value ;
+        departamentoPost=document.getElementById("departamentoPost").value;
+            $("#localidades option[value="+localidadPost +"]").attr("selected",true);
+             $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+
 
 		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
-      document.getElementById("cuil").disabled = false; 
+      document.getElementById("cuil").disabled = true;
+         document.getElementById("cuit").disabled = false; 
+
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
@@ -324,7 +400,8 @@
   		document.getElementById("sexo_combobox").disabled = false;  	
   		document.getElementById("dni").disabled = false; 
  		  document.getElementById("conyuge").disabled = false; 	 
- 	 	  document.getElementById("cuil").disabled = true; 
+ 	 	  document.getElementById("cuit").disabled = true; 
+      document.getElementById("cuit").disabled = false; 
 		}
 		</script>
 		<!--Valida el porcentaje-->
@@ -396,15 +473,44 @@
                                 } )               
                   ;
 
-                 
-     
+                    //en caso de que venga de un post rellena los campos departamento y localidad
+                
                        $('#personas tbody').on('click', 'tr', function () {
                       var data = $('#personas').DataTable().row( this ).data();
-                     document.getElementById("nombreyapellido").value = data[0]; 
-                     document.getElementById("dni").value = data[1];  
-                     document.getElementById("cuit").value = data[2]; 
-                     document.getElementById("direccion").value = data[3]; 
-                    document.getElementById("conyuge").value = data[4]; 
+                     document.getElementById("nombreyapellido").value = data[1]; 
+                     document.getElementById("dni").value = data[2];  
+                       if ($('input:radio[name=propietario]:checked').val()=='O') {
+                        document.getElementById("cuit").value = data[3]; 
+                      }else { document.getElementById("cuil").value = data[3]; };
+                     document.getElementById("cuit").value = data[3]; 
+                     document.getElementById("direccion").value = data[4]; 
+                    document.getElementById("conyuge").value = data[5]; 
+                  
+                    //para mostrar la fecha es en campo fechaNacimiento       
+                    
+                     document.getElementById("fecha_nacimiento").value=data[8]; 
+                     //para mostrar la localidad y departemento
+                       idLocalidad=data[7];
+       $.post("<?=base_url()?>index.php/c_escribano/obtenerDepartamento_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+            //seleccciona la provincia de la localidad
+             document.getElementById("departamentos").selectedIndex=data;
+             //cargo todas las localidades
+              midepartamento=$('#departamentos').val();
+              console.log(midepartamento);
+             $.post("<?=base_url()?>index.php/c_escribano/mostrarLocalidad", { midepartamento: midepartamento}, function(data){
+                  $("#localidades").html(data);
+
+                  //selecciono la localidad del escribano
+                  $("#localidades option[value="+ idLocalidad +"]").attr("selected",true);
+          
+                 console.log(data);
+
+                  });
+        });
+                //seleccionar la localidad y provincia del propietario
+                   
+     
+
                       } );
 
                      
@@ -412,6 +518,7 @@
                      $('.filter').on('keyup change', function () {
                           //clear global search values
                           dtable.search('');
+                       
                           dtable.column($(this).data('columnIndex')).search(this.value).draw();
                            if( $(this).val() ) {
                               $( "#personas" ).show(); }
@@ -424,7 +531,7 @@
                       $( ".dataTables_filter input" ).on( 'keyup change',function() {
                        //clear column search values
                           dtable.columns().search('');
-                         //clear input values
+                        
                          $('.filter').val('');
                          if( $(this).val() ) {
                               $( "#personas" ).show(); }
@@ -433,11 +540,72 @@
                               }
                           
                     }); 
-                     
+
+                      //filtras por personas u organizaciones
+                       dtable.column('6').search('P').draw();
+
+                      $("input[name='propietario']").change(function(){
+                        //vaciar todos los campos
+                     document.getElementById("nombreyapellido").value = ""; 
+                     document.getElementById("dni").value = "";  
+                     document.getElementById("cuit").value =""; 
+                      document.getElementById("cuil").value = "";
+                     document.getElementById("direccion").value = ""; 
+                    document.getElementById("conyuge").value =""; 
+                     document.getElementById("departamentos").selectedIndex=0;
+                     document.getElementById("localidades").selectedIndex=0;
                     
-                      //quitar el campo de busqueda por defecto
-                                      
-                      } );              
+                     document.getElementById("fecha_nacimiento").value=""; 
+                   $("#localidades option[value="+ 0 +"]").attr("selected",true);
+                    $("#departamentos option[value="+ 0 +"]").attr("selected",true);
+                    //para que solo busque por personas u organizaciones
+               dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
+});
+                    
+            
+                  if ( $("#propietarios_subidos").length > 0 ) {
+
+                 
+                    var dtable=$('#propietarios_subidos').DataTable(
+                        {
+                           autoWidht:false,
+                             language: {
+                              "columnDefs": [ {
+                                     "targets": -1,
+                                         "data": null,
+                                           "defaultContent": "<button>Click!</button>"
+                                                } ],
+                                "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sZeroRecords":    "No se encontraron resultados",
+                            "sEmptyTable":     "Ningúna persona encontrada",
+                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
+                            "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
+                            "sInfoPostFix":    "",
+                            "sSearch":         "Buscar:",
+                            "sUrl":            "",
+                            "sInfoThousands":  ",",
+                            "sLoadingRecords": "Cargando...",
+                            "oPaginate": {
+                                "sFirst":    "Primero",
+                                "sLast":     "Último",
+                                "sNext":     "Siguiente",
+                                "sPrevious": "Anterior"
+                              }},
+                                } ) ;
+                                $( "#propietarios_subidos" ).show();              
+                  ;};
+
+                     
+                      } );         
+                function sacarPropietario(posicion){
+                    
+                    $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
+                     
+            });
+                  }     
+
                   
          </script>
            <script >
@@ -450,7 +618,7 @@
           <script>
    $(document).ready(function(){
 
-           console.log($('#departamentos').val());
+          
    if($('#departamentos').val()!=""){
     localidadOnReady($('#departamentos').val());}
     });
@@ -469,7 +637,7 @@
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });           
    
        }
@@ -487,7 +655,7 @@
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idDepartamento+"'>"+val.nombre+"</option");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            
@@ -525,6 +693,9 @@
         return false;
     return true;
     }
+        $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker();
+        });
      </script>
      <script>
         $( document ).ready(function() {
