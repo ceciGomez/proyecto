@@ -656,7 +656,7 @@
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option value='"+val.idDepartamento+"'>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            
