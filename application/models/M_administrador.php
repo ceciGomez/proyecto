@@ -18,8 +18,24 @@ class M_administrador extends CI_Model
 
 	public function getEscribanos(){
 
-		$escribanos =$this->db->get("usuarioescribano")->result();
-		return $escribanos;
+		try {
+			$query = $this->db->query("
+
+				select case 
+					when estadoAprobacion = 'P' then 0
+					when estadoAprobacion = 'A' then 1
+					when estadoAprobacion = 'R' then 2 else 3 end
+				as id, u.*
+				from usuarioescribano u
+			
+
+				order by id asc
+
+				");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
 	}
 
 	public function getUnOperador($idUsuario)
@@ -121,6 +137,27 @@ class M_administrador extends CI_Model
 		}
 
 		}
+
+		public function reportePedido()
+		{
+				try {$query=$this->db->query("SELECT p.idPedido, 
+    concat(substring(p.fechaPedido, 9, 2), '/' ,substring(p.fechaPedido, 6, 2) , '/', substring(p.fechaPedido, 1, 4)) as fechaPedido,
+    concat(substring(p.fechaRta, 9, 2), '/' ,substring(p.fechaRta, 6, 2) , '/', substring(p.fechaRta, 1, 4)) as fechaRta,
+    
+    substring(p.descripcion, 1, 46) as descripcion,
+    substring(p.rtaPedido, 1, 46) as rtaPedido,
+    p.estadoPedido,p.idEscribano, u.nomyap  
+    FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario "
+
+
+    );
+    return $query->result();
+					
+				} catch (Exception $e) {
+					return false;
+				}
+		}
+
 	public function actualizarFoto($usuario, $idUsuario)
  	{
  		try{
