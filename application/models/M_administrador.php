@@ -121,6 +121,7 @@ class M_administrador extends CI_Model
 		}
 
 		}
+
 		public function reportePedido()
 		{
 				try {$query=$this->db->query("SELECT p.idPedido, 
