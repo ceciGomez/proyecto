@@ -269,6 +269,7 @@
             </div>
             <div class="box-footer">
 <<<<<<< HEAD
+<<<<<<< HEAD
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
               <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
@@ -276,6 +277,17 @@
              <button type="submit" class="btn btn-primary" >Agregar Adquiriente/Transmitente</button>
                <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/crearMinuta'?>" >Guardar Minuta</a>
 >>>>>>> refs/remotes/ceciGomez/master
+=======
+ <!-- Master <<<<<<<< -->
+
+             <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
+              <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
+              <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
+<!-- aca se corta -->
+             <button type="submit" class="btn btn-primary" >Agregar Adquiriente/Transmitente</button>
+               <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/crearMinuta'?>" >Guardar Minuta</a>
+<!-- master >>>>>> -->
+>>>>>>> origin/master
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
             <!-- /.row -->
