@@ -109,13 +109,13 @@
                  <label >Tipo Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propetario" id="adquiriente" value="A" >
+                      <input type="radio" name="tipo_propietario" id="adquiriente" <?php echo set_radio('tipo_propietario', 'A', TRUE); ?>   value="A" >
                       Adquiriente
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="tipo_propietario" id="transmitente" value="T" >
+                      <input type="radio" name="tipo_propietario" id="transmitente" <?php echo set_radio('tipo_propietario', 'T', TRUE); ?>  value="T" >
                       Transmitente
                     </label>
                   </div>      
