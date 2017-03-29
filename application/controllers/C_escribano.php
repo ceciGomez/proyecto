@@ -420,25 +420,26 @@ class C_escribano extends CI_Controller {
 
 				 if($this->session->userdata('propietario')) {
 				 
-					$old_que_ans_session =  $this->session->userdata('propietario');
-					array_push($old_que_ans_session, $datos_propietario);
-					$this->session->set_userdata('propietario', $old_que_ans_session);
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $datos_propietario);
+					$this->session->set_userdata('propietario', $propietario_anterior);
 				 }else { 
 				 	$array = array();
 					$this->session->set_userdata('propietario',$array); 
-					$propetario_anterior =  $this->session->userdata('propietario');
-					array_push($propetario_anterior, $datos_propietario);
-					$this->session->set_userdata('propietario', $propetario_anterior);
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $datos_propietario);
+					$this->session->set_userdata('propietario', $propietario_anterior);
 					}
-					$session_data = $this->session->userdata('propietario');
-					$datos_p = $this->session->userdata('datos_ph');
-              	    $this->M_escribano->insertarParcela();
-        
-					$this->crearPropietario();	
+					        
+					
+						$this->M_escribano->insertarParcela();
+					
 
 			}
 
      }
+
+    
 
 
     //verifica que haya seleccionado alguna localidad
