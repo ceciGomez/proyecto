@@ -106,12 +106,16 @@
                            <input type="password" class="" id="repeContraseña" name="repeContraseña" placeholder="Contraseña" value="">
                         </div>
                         
-                     <br>
+                     <br> <br> <br>
                     
-                     <div align="center">
+                     <div class="form-group" align="center">
                         <button type="submit" data-toggle="modal" class="btn btn-primary">Guardar Cambios</button>
-                        <a   class="btn btn-default" style="text-decoration: none;" href="<?=base_url().'index.php/c_escribano/verPerfil'?>" > Cancelar</a>
+                        <a href="<?=base_url()?>index.php/upload" class="btn btn-info">Cambiar foto </a>
+                        <a   class="btn btn-default" href="<?=base_url().'index.php/c_escribano/verPerfil'?>" > Cancelar</a>
+                        
                      </div>
+
+                      
                      <div align="center" style="color:red;" >
                         <p><?=form_error('nomyap')?></p>
                      </div>
