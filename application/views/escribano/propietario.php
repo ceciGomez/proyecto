@@ -110,7 +110,7 @@
                         $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();        ?>
 
                          <tr>
-                         <td><button class="btn btn-danger" onclick="sacarPropietario(<?php echo $posicion; ?>)">Eliminar</button></td>
+                         <td><button class="btn btn-danger" data-toggle="modal"  href="#Eliminar"  onclick="ventanaEliminarProp(<?php echo $posicion ?>)">Eliminar</button></td>
                            <td><?php echo $c['nombreyapellido']; ?></td>
                            <td><?php echo $c['dni'] ;?></td>       
                             <td><?php echo $c['cuit_cuil']; ?></td>  
@@ -134,6 +134,27 @@
 
         </div>
         <?php } ?>
+
+
+                <div class="modal" id="Eliminar">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar Propietario</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar Eliminar Propietario</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary"  onclick="eliminarProp()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
 
    <section class="content">
       <div class="box box-default">
@@ -377,11 +398,8 @@
 
       <!--Deshabilita campos sexo, dni y conyuge-->
       <script language="javascript"><!--
-        localidadPost=document.getElementById("localidadPost").value ;
-        departamentoPost=document.getElementById("departamentoPost").value;
-            $("#localidades option[value="+localidadPost +"]").attr("selected",true);
-             $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
 
+      
 
 		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
@@ -553,8 +571,7 @@
                       document.getElementById("cuil").value = "";
                      document.getElementById("direccion").value = ""; 
                     document.getElementById("conyuge").value =""; 
-                     document.getElementById("departamentos").selectedIndex=0;
-                     document.getElementById("localidades").selectedIndex=0;
+               
                     
                      document.getElementById("fecha_nacimiento").value=""; 
                    $("#localidades option[value="+ 0 +"]").attr("selected",true);
@@ -597,12 +614,25 @@
                                 } ) ;
                                 $( "#propietarios_subidos" ).show();              
                   ;};
+                      //cargar las localidades y departamentos del post
+                       localidadPost=document.getElementById("localidadPost").value ;
+                       console.log('esto es la localidad'+localidadPost)
+                        departamentoPost=document.getElementById("departamentoPost").value;
+                         console.log('esto es la departamento'+departamentoPost)
+                         $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+                       $("#localidades option[value="+localidadPost +"]").attr("selected",true);
 
-                     
-                      } );         
-                function sacarPropietario(posicion){
-                    
-                    $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
+
+
+                      } );    
+                  pos="";     
+                function ventanaEliminarProp(posicion){
+                    pos=posicion;
+                   
+                  
+                  }
+                  function eliminarProp(){
+                     $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
                      
             });
                   }     
