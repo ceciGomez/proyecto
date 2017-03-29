@@ -480,7 +480,7 @@ class C_escribano extends CI_Controller {
     function crearMinuta(){
     	$this->M_escribano->insertarParcela();
 
-    }
+    }}
 
 
     //verifica que haya seleccionado alguna localidad
