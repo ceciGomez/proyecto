@@ -457,7 +457,13 @@ class C_escribano extends CI_Controller {
    						$this->M_escribano->insertarParcela();
    						$this->finMinutas();
 					}        
+<<<<<<< HEAD
 			
+=======
+					
+
+					        
+>>>>>>> refs/remotes/ceciGomez/master
 
 					
 
@@ -474,7 +480,7 @@ class C_escribano extends CI_Controller {
 		$this->load->view('escribano/finMinuta',$data);
 		$this->load->view('templates/pie',$data);
 
-   }
+
 
 
     //verifica que haya seleccionado alguna localidad
