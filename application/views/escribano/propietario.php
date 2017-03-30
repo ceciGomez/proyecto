@@ -721,11 +721,15 @@
         return false;
     return true;
     }
+
       </script>
      <script>
         $( document ).ready(function() {
             $('#fecha_nacimiento').datepicker();
         });      
     </script>
+
+     
+
 
 
