@@ -37,6 +37,8 @@ class C_escribano extends CI_Controller {
 		
 	public function crearParcela($exito=FALSE, $hizo_post=FALSE)
 	{
+  					
+
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
@@ -372,7 +374,6 @@ class C_escribano extends CI_Controller {
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
                  if($this->input->post('propietario')=='P'){
 			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
-			   		 $this->form_validation->set_rules('cuil', 'cuil', 'required',array('required' => 'Debes ingresar un cuil ') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
 			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
@@ -408,6 +409,7 @@ class C_escribano extends CI_Controller {
                 /*si es empresa tomo el cuil*/   
                if($this->input->post('propietario')=='P')   { 
 				$datos_propietario= array (
+					'propietario' => $this->input->post('propietario'),
 					'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
 					'nombreyapellido' => $this->input->post('nombreyapellido'),
@@ -420,6 +422,7 @@ class C_escribano extends CI_Controller {
 					'localidad' => $this->input->post('localidades'),	);
 			    }else{
 			    		$datos_propietario= array (
+			    	'propietario' => $this->input->post('propietario'),		
 			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
 					'nombreyapellido' => $this->input->post('nombreyapellido'),
@@ -451,7 +454,7 @@ class C_escribano extends CI_Controller {
     						$this->crearPropietario(FALSE,FALSE);
 
 					} else {
-   						$this->M_escribano->insertarParcela();
+   					
    						$this->finMinutas();
 					}        					
 
@@ -470,6 +473,24 @@ class C_escribano extends CI_Controller {
 
 }
 
+function checkPost(){
+    
+		if($this->input->post('finminuta') == "agregarph") { 
+
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario');
+    			var_dump('borra datos ph');
+    			var_dump($this->session->userdata('datos_ph'));
+    			$this->crearRelacion();
+    		}else{
+    			$this->session->unset_userdata('datos_parcela');
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario');
+    			var_dump('borra datos parcela');
+    			var_dump($this->session->userdata('datos_parcela'));
+               $this->crearParcela();
+}
+}
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		

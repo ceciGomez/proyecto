@@ -214,7 +214,7 @@
                      <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" <?php echo "value='$nombreyapellido'" ?>  name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
+                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Nombre y Apellido" <?php echo "value='$nombreyapellido'" ?>  name="nombreyapellido" onkeydown="upperCaseF(this)" maxlength="100">
                         <div style="color:red;" ><p><?=form_error('nombreyapellido')?></p></div>
                      </div>
                      <div class="col-md-3">
@@ -293,9 +293,6 @@
 
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
-              <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
-
-
 
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
@@ -327,14 +324,14 @@
         var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
        }else if((business%11)==1 && $("#sexo_combobox").val()==20){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
        }else if((business%11)==1 && $("#sexo_combobox").val()==27){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }}
          });
 
@@ -346,16 +343,16 @@
         var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
        }else if((business%11)==1 && $("#sexo_combobox").val()==20){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
        }else if((business%11)==1 && $("#sexo_combobox").val()==27){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }} else {
-       	$("#cuit").val("");
+       	$("#cuil").val("");
        }     
          });
 
@@ -397,16 +394,13 @@
       </script>
 
       <!--Deshabilita campos sexo, dni y conyuge-->
-      <script language="javascript"><!--
-
-      
-
-		function funcionempresa() { 		 
+      <script language="javascript"><!--    
+  		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
       document.getElementById("cuil").disabled = true;
-         document.getElementById("cuit").disabled = false; 
+      document.getElementById("cuit").disabled = false; 
 
 		}
 		</script>
@@ -581,11 +575,10 @@
                     $("#departamentos option[value="+ 0 +"]").attr("selected",true);
                     //para que solo busque por personas u organizaciones
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
-});
+                      });
                     
             
                   if ( $("#propietarios_subidos").length > 0 ) {
-
                  
                     var dtable=$('#propietarios_subidos').DataTable(
                         {
@@ -642,11 +635,12 @@
 
                   
          </script>
-           <script >
-           function changeToUpperCase(el)
-           {
-             el.value =el.value.trim().toUpperCase();
-            }
+        <script >
+        function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
           </script>
 
           <script>
@@ -727,10 +721,15 @@
         return false;
     return true;
     }
+
+      </script>
+     <script>
         $( document ).ready(function() {
             $('#fecha_nacimiento').datepicker();
-        });
-     </script>
+        });      
+    </script>
+
      
+
 
 
