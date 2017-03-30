@@ -721,11 +721,19 @@
         return false;
     return true;
     }
+<<<<<<< HEAD
       </script>
      <script>
         $( document ).ready(function() {
             $('#fecha_nacimiento').datepicker();
         });      
     </script>
+=======
+        $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker();
+        });
+     </script>
+     
+>>>>>>> refs/remotes/ceciGomez/master
 
 
