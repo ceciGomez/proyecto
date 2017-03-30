@@ -74,6 +74,7 @@ class C_escribano extends CI_Controller {
 			$data['descripcion'] = $this->input->post('descripcion');
 			$data['nroMatriculaRPI'] = $this->input->post('nroMatriculaRPI');
 			$data['fechaMatriculaRPI'] = $this->input->post('fechaMatriculaRPI');
+			$data['superficie'] = $this->input->post('superficie'); 
 		
 
 		}else{
@@ -97,6 +98,7 @@ class C_escribano extends CI_Controller {
 			$data{'descripcion'}='';
 			$data{'nroMatriculaRPI'}='';
 			$data{'fechaMatriculaRPI'}='';
+			$data['superficie'] ="";
 
 		}
 
