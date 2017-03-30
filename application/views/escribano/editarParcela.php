@@ -25,11 +25,11 @@
                   <!-- general form elements -->
                   <div class="box box-primary">
                      <div class="box-header with-border">
-                        <h3 class="box-title">Editar Parcela</h3>
+                        <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
-                      <?=form_open(base_url().'index.php/C_escribano/registrarParcela')?>
+                      <?=form_open(base_url().'index.php/C_escribano/registrarEditarParcela')?>
                      <form method="post">
                         <div class="box-body">
                            <div class="form-group">                             
@@ -100,9 +100,9 @@
                                     <label>Tipo de Propiedad</label>
                                     <select class="form-control select2" name="tipoPropiedad" <?php echo "value='$tipoPropiedad'" ?> style="width: 100%;">
                                        <option value="">Tipo propiedad</option>
-                                       <option value="Urbano" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Urbano" ? TRUE : FALSE )); ?>>Urbano</option>
-                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Rural" ? TRUE : FALSE )); ?>>Rural</option>
-                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "SubUrbano" ? TRUE : FALSE )); ?>>SubUrbano</option>
+                                       <option value="U" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "U" ? TRUE : FALSE )); ?>>Urbano</option>
+                                       <option value="R" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "R" ? TRUE : FALSE )); ?>>Rural</option>
+                                       <option value="S" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "S" ? TRUE : FALSE )); ?>>SubUrbano</option>
                                     </select>
                                     <div style="color:red;" ><p><?=form_error('tipoPropiedad')?></p></div>
                                  </div>
@@ -165,9 +165,12 @@
                                     <div style="color:red;" ><p><?=form_error('fechaMatriculaRPI')?></p></div>
                                     <!-- /.input group -->
                                  </div>
+                               <input type="hidden" value= '<?php echo $localidades  ?>' id="localidadPost">
+                              <input type="hidden" value= '<?php echo $departamentos ?>' id="departamentoPost">
+
                               <div class="col-md-12">
                               <div class="box-footer">
-                                  <button type="submit" class="btn btn-primary" >Registrar Propietario</button>
+                                  <button type="submit" class="btn btn-primary" >Editar PH</button>
                                    <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
                                 
                               </div>
@@ -225,14 +228,22 @@
    <script>
    $(document).ready(function(){
 
-           console.log($('#departamentos').val());
+
+   //PARA QUE BUSQUE APENAS CARGA
+    localidadPost=document.getElementById("localidadPost").value ;
+     departamentoPost=document.getElementById("departamentoPost").value;
+  $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+  $("#localidades option[value="+localidadPost +"]").attr("selected",true);
+       
    if($('#departamentos').val()!=""){
     localidadOnReady($('#departamentos').val());}
+
+
     });
    $("#departamentos").on("change",function(){
         localidad($('#departamentos').val());
    })
-   function localidad(iddepartamento) {
+    function localidad(iddepartamento) {
              console.log($('#departamentos').val());  
       $.ajax({
          type:'POST',
@@ -244,7 +255,7 @@
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });           
    
        }
@@ -262,7 +273,7 @@
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            

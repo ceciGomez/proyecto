@@ -1097,14 +1097,14 @@ function checkPost(){
 
 //Para editar la minuta rechazada
 
-  	public function editarMinuta($param="")
+  	public function editarMinuta($param)
 	{
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 	$this->session->set_userdata('idMinutaEditar',$param); 
-	var_dump($param);
+	var_dump('$param');
 			redirect(base_url().'index.php/c_escribano/editarParcela');
 
 
@@ -1128,9 +1128,13 @@ function checkPost(){
 
 		
 
-		$parcelas=$this->db->get_where('parcela', array('idMinuta'=>8))->result();
+		$parcelas=$this->db->get_where('parcela', array('idMinuta'=>$this->session->userdata('idMinutaEditar')))->result();
 		$cantidadParcelasEditar=count($parcelas);
-
+		$this->session->set_userdata('cantidadParcelasEditar',$cantidadParcelasEditar); 
+		$siguienteParcelaEditar=$numeroParcela+1;
+		$this->session->set_userdata('siguienteParcelaEditar',$siguienteParcelaEditar); 
+		$idParcela=$parcelas[$numeroParcela]->idParcela;
+		 $this->session->set_userdata('idParcelaEditar',$idParcela);
 
 
 		if($this->input->post() && !$exito){
@@ -1169,17 +1173,25 @@ function checkPost(){
 			$data['parcela']=$parcelas[$numeroParcela]->parcela;
 			$data['partida']=$parcelas[$numeroParcela]->partida;
 			$data['planoAprobado']=$parcelas[$numeroParcela]->planoAprobado;
-			$data['fechaPlanoAprobado']=$parcelas[$numeroParcela]->fechaPlanoAprobado;
+			$fechaPlanoAprobado=New DateTime($parcelas[$numeroParcela]->fechaPlanoAprobado);
+			$data['fechaPlanoAprobado']= date_format($fechaPlanoAprobado, 'm/d/Y');
 			$data['tipoPropiedad']=$parcelas[$numeroParcela]->tipoPropiedad;
 			$data['tomo']=$parcelas[$numeroParcela]->tomo;
 			$data['folio']=$parcelas[$numeroParcela]->folio;
 			$data['finca']=$parcelas[$numeroParcela]->finca;
 			$data['año']=$parcelas[$numeroParcela]->año;
 			$data['localidades']=$parcelas[$numeroParcela]->idLocalidad;
-			$data['departamentos']='';
+
+			$this->db->select('*');
+			$this->db->from('departamento');
+			$this->db->join('localidad', 'localidad.idDepartamento = departamento.idDepartamento');
+			$this->db->where('localidad.idLocalidad', $data['localidades']);	
+			$idDepartamento=$this->db->get()->row()->idDepartamento;
+			$data['departamentos']=$idDepartamento;
 			$data['descripcion']=$parcelas[$numeroParcela]->descripcion;
 			$data['nroMatriculaRPI']=$parcelas[$numeroParcela]->nroMatriculaRPI;
-			$data['fechaMatriculaRPI']=$parcelas[$numeroParcela]->fechaMatriculaRPI;
+			$fechaMatriculaRPI=New DateTime($parcelas[$numeroParcela]->fechaMatriculaRPI);
+			$data['fechaMatriculaRPI']=date_format($fechaMatriculaRPI, 'm/d/Y');
 
 		}
 
@@ -1249,7 +1261,7 @@ function checkPost(){
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->crearParcela(FALSE,TRUE);
+				$this->editarParcela(FALSE,TRUE);
 
 			}else{
 				
@@ -1279,9 +1291,323 @@ function checkPost(){
 				);
 
 				$this->session->set_userdata($datos_parcela);
-				$this->crearRelacion(FALSE,FALSE);
+				$this->editarRelacion(TRUE,FALSE,FALSE);
 				
 						
 			}
 		 }
+
+     public function editarRelacion($vinoParcela=TRUE,$exito=FALSE, $hizo_post=FALSE,$numeroRelacion=0){
+
+			if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+        		$data["notificaciones_ma"]=$this->notificaciones_ma();
+				$data["notificaciones_mr"]=$this->notificaciones_mr();
+				$data["notificaciones_si"]=$this->notificaciones_si();
+				$data['exito']= $exito; 
+				$data['hizo_post']=$hizo_post;
+
+		$parcelas=$this->db->get_where('parcela', array('idMinuta'=>$this->session->userdata('idMinutaEditar')))->result();
+		 $idParcela=$this->session->userdata('idParcelaEditar');
+
+		$relaciones=$this->db->get_where('relacion', array('idParcela'=>$idParcela))->result();
+		$cantidadRelaciones=count($relaciones);
+
+		$this->session->set_userdata('cantidadRelacionesEditar',$cantidadRelaciones); 
+		$siguienteRelacion=$numeroRelacion+1;
+		$this->session->set_userdata('siguienteRelacionEditar',$siguienteRelacion); 
+		$idRelacion=$relaciones[$numeroRelacion]->idRelacion;
+		$this->session->set_userdata('idRelacionEditar',$idRelacion); 
+
+		if($this->input->post()&&!$vinoParcela&&!$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['ph'] = $this->input->post('ph');
+			$data['fecha_escritura'] = $this->input->post('fecha_escritura');
+			$data['nro_ucuf'] = $this->input->post('nro_ucuf');
+			$data['tipo_ucuf'] = $this->input->post('tipo_ucuf');
+			$data['plano_aprobado'] = $this->input->post('plano_aprobado');
+			$data['fecha_plano_aprobado'] =$this->input->post('fecha_plano_aprobado');
+			$data['porcentaje_ucuf'] = $this->input->post('porcentaje_ucuf');
+			$data['poligonos'] = $this->input->post('poligonos');					
+		
+
+		}else{
+			if ($relaciones[$numeroRelacion]->poligonos==	NULL) {
+				$data['ph']='noph';
+				$data{'nro_ucuf'}="";
+				$data{'tipo_ucuf'}='';
+				$data{'plano_aprobado'}='';
+				$data{'fecha_plano_aprobado'}='';
+				$data{'porcentaje_ucuf'}='';
+				$data{'poligonos'}='';
+			}else
+			{
+
+				$ph='ph';
+				
+				$data['ph']='ph';
+				$data{'nro_ucuf'}= $relaciones[$numeroRelacion]->nroUfUc;
+				$data{'tipo_ucuf'}=$relaciones[$numeroRelacion]->tipoUfUc;
+				$data{'plano_aprobado'}=$relaciones[$numeroRelacion]->planoAprobado;
+
+				$fechaPlanoAprobado=New DateTime($relaciones[$numeroRelacion]->fechaPlanoAprobado);
+				$data['fecha_plano_aprobado']=date_format($fechaPlanoAprobado, 'm/d/Y');
+
+				$data{'porcentaje_ucuf'}=$relaciones[$numeroRelacion]->porcentajeUfUc;
+				$data{'poligonos'}=$relaciones[$numeroRelacion]->poligonos;
+			}
+
+			
+			if ($relaciones[$numeroRelacion]->fechaEscritura!=NULL) {
+				$fecha_escritura=New DateTime($relaciones[$numeroRelacion]->fechaEscritura);
+				$data['fecha_escritura']=date_format($fecha_escritura, 'm/d/Y');
+			}else {$data['fecha_escritura']="";}
+			
+		
+
+			
+			
+
+		}
+
+		
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/editarRelacion',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+
+     public function registrarEditarRelacion(){
+
+				$hizo_post=TRUE;
+
+				 $this->load->helper(array('form', 'url'));
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
+                 if($this->input->post('ph')=='noph'){
+			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+			    }else{
+ 			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+			    $this->form_validation->set_rules('nro_ucuf', 'nro_ucuf', 'required',array('required' => 'Debes ingresar un número ') );
+				$this->form_validation->set_rules('tipo_ucuf', 'tipo_ucuf','required|callback_check_tipoucuf');
+				$this->form_validation->set_message('check_tipoucuf', 'Debes seleccionar un tipo');
+			    $this->form_validation->set_rules('plano_aprobado', 'plano_aprobado', 'required',array('required' => 'Debes ingresar un nro de plano ') );
+			    $this->form_validation->set_rules('fecha_plano_aprobado', 'fecha_plano_aprobado', 'required',array('required' => 'Debes ingresar una fecha ') );
+			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_ucuf', 'required',array('required' => 'Debes ingresar un porcentaje ') );
+			    $this->form_validation->set_rules('poligonos', 'poligonos', 'required',array('required' => 'Debes ingresar un poligono ') );}
+
+			   
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarRelacion(FALSE,FALSE,TRUE);
+
+			} else{
+                  
+				$datos_ph= array (
+					'ph' => $this->input->post('ph'),
+					'fecha_escritura' => $this->input->post('fecha_escritura'),
+					'nro_ucuf' => $this->input->post('nro_ucuf'),
+					'tipo_ucuf' => $this->input->post('tipo_ucuf'),
+					'plano_aprobado' => $this->input->post('plano_aprobado'),
+					'fecha_plano_aprobado' => $this->input->post('fecha_plano_aprobado'),
+					'porcentaje_ucuf' => $this->input->post('porcentaje_ucuf'),
+					'poligonos' => $this->input->post('poligonos'), 
+
+				);
+				 
+				 if($this->session->userdata('datos_ph')) {
+				 	$ph_anterior =  $this->session->userdata('datos_ph');
+					array_push($ph_anterior, $datos_ph);
+					$this->session->set_userdata('propietario', $ph_anterior);
+				 }else { 
+				 	$array = array();
+					$this->session->set_userdata('datos_ph',$array); 
+					$ph_anterior =  $this->session->userdata('datos_ph');
+					array_push($ph_anterior, $datos_ph);
+					$this->session->set_userdata('datos_ph', $ph_anterior);
+					}
+					
+					$this->EditarPropietario(FALSE,FALSE);		
+			}
+
+     }
+
+	public function EditarPropietario($exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
+		$data["personas"] = $this->M_escribano->getPersonas();
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+		$data['titulo'] = 'Bienvenido Escribano';
+		
+
+		$propietarios=$this->db->get_where('propietario', array('idRelacion'=>$this->session->userdata('idRelacionEditar')))->result();
+
+		foreach ($propietarios as $p ) {
+			 if($this->session->userdata('propietario')) {
+				 
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $p);
+					$this->session->set_userdata('propietario', $propietario_anterior);
+				 }else { 
+				 	$array = array();
+					$this->session->set_userdata('propietario',$array); 
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $p);
+					$this->session->set_userdata('propietario', $propietario_anterior);
+					
+					}	
+		}
+		
+			if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['porcentaje_condominio'] = $this->input->post('porcentaje_condominio');
+			$data['tipo_propietario'] = $this->input->post('tipo_propietario');
+			$data['empresa'] = $this->input->post('empresa');
+			$data['nombreyapellido'] = $this->input->post('nombreyapellido');
+			$data['sexo_combobox']=$this->input->post('sexo_combobox');
+			$data['dni']=$this->input->post('dni');
+			$data['cuit'] = $this->input->post('cuit');
+			$data['cuil'] = $this->input->post('cuil');
+			$data['conyuge'] = $this->input->post('conyuge');
+			$data['fecha_nacimiento'] = $this->input->post('fecha_nacimiento');
+			$data['direccion'] =$this->input->post('direccion');
+			$data['departamentos'] = $this->input->post('departamentos');
+			$data['localidades'] = $this->input->post('localidades');			
+
+
+		}else{
+
+			$data['porcentaje_condominio']='';
+			$data['tipo_propietario']='';
+			$data['empresa']='';
+			$data['nombreyapellido']='';
+			$data['sexo_combobox']='';
+			$data['dni']='';
+			$data{'cuit'}='';
+			$data{'cuil'}='';
+			$data{'conyuge'}='';
+			$data{'fecha_nacimiento'}='';
+			$data{'direccion'}='';
+			$data{'departamentos'}='';
+			$data{'localidades'}='';
+			
+
+		}
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/editarPropietario',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+
+	 public function registrarEditarPropietario(){
+
+				$hizo_post=TRUE;
+
+				 $this->load->helper(array('form', 'url'));
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
+                 if($this->input->post('propietario')=='P'){
+			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
+			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
+			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
+					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
+					/*$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );*/
+					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
+			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
+			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
+  					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+  					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
+  				else{
+  					 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
+  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
+ 			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
+			   		$this->form_validation->set_rules('cuit', 'cuit', 'required',array('required' => 'Debes ingresar un cuit ') );
+					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
+			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
+			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
+  					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+  					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
+			    }
+
+			   
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->crearPropietario(FALSE,TRUE);
+
+			} else{
+
+                /*si es empresa tomo el cuil*/   
+               if($this->input->post('propietario')=='P')   { 
+				$datos_propietario= array (
+					'propietario' => $this->input->post('propietario'),
+					'tipo_propietario' => $this->input->post('tipo_propietario'),
+					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
+					'nombreyapellido' => $this->input->post('nombreyapellido'),
+					'sexo_combobox' => $this->input->post('sexo_combobox'),
+					'dni' => $this->input->post('dni'),
+					'cuit_cuil' => $this->input->post('cuil'),
+					'direccion' => $this->input->post('direccion'),
+					'conyuge' => $this->input->post('conyuge'),
+					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
+					'localidad' => $this->input->post('localidades'),	);
+			    }else{
+			    		$datos_propietario= array (
+			    	'propietario' => $this->input->post('propietario'),		
+			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
+					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
+					'nombreyapellido' => $this->input->post('nombreyapellido'),
+					'sexo_combobox' => $this->input->post('sexo_combobox'),
+					'dni' => $this->input->post('dni'),
+					'cuit_cuil' => $this->input->post('cuit'),
+					'direccion' => $this->input->post('direccion'),
+					'conyuge' => $this->input->post('conyuge'),
+					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
+					'localidad' => $this->input->post('localidades'),	);
+				}
+				 /*$this->session->set_userdata($datos_propietario);*/
+
+				 if($this->session->userdata('propietario')) {
+				 
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $datos_propietario);
+					$this->session->set_userdata('propietario', $propietario_anterior);
+				 }else { 
+				 	$array = array();
+					$this->session->set_userdata('propietario',$array); 
+					$propietario_anterior =  $this->session->userdata('propietario');
+					array_push($propietario_anterior, $datos_propietario);
+					$this->session->set_userdata('propietario', $propietario_anterior);
+					
+					}		 
+					/*verifica si presionó boton agregar propietario o guardar*/ 
+					if($this->input->post('minuta') == "agregar") { 
+    						$this->crearPropietario(FALSE,FALSE);
+
+					} else {
+   					
+   						$this->finMinutas();
+					}        					
+
+			}
+
+     }
+
 }

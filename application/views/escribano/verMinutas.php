@@ -92,7 +92,7 @@
                                 <a class="btn btn-sm " href="#" disabled="" title="Editar Minuta"><button><i class="fa fa-pencil"></i></button></a> 
                               <?php endif ?> 
                               <?php if ($value->estadoMinuta == 'R'): ?>
-                                <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/editarMinuta/"<?php echo $value->idMinuta?> title="Editar Minuta" ><button><i class="fa fa-pencil" ></i></button></a> 
+                                <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $value->idMinuta?> " title="Editar Minuta" ><button><i class="fa fa-pencil" ></i></button></a> 
                               <?php endif ?>
 
                                  <a class="btn btn-sm " href="<?=base_url()?>index.php/c_escribano/verUnaMinuta/<?php echo $value->idMinuta?>" title="Ver Detalle de minuta"> <button><i class="fa fa-eye"></i></button></a>
