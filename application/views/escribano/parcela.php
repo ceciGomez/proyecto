@@ -194,10 +194,14 @@
 
    <script>
         $( document ).ready(function() {
-            $('#fechaMatriculaRPI').datepicker();
+            $('#fechaMatriculaRPI').datepicker({
+      autoclose: true
+    });
         });
          $( document ).ready(function() {
-            $('#fechaPlanoAprobado').datepicker();
+            $('#fechaPlanoAprobado').datepicker({
+      autoclose: true
+    });
         });
 
     </script>
