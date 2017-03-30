@@ -39,6 +39,7 @@ class C_escribano extends CI_Controller {
 	{
 
 		if($this->input->post('finminuta') == "agregarph") { 
+			
     			$this->session->unset_userdata('datos_ph');
     			var_dump('borra datos');
     			var_dump($this->session->userdata('datos_ph'));
@@ -415,6 +416,7 @@ class C_escribano extends CI_Controller {
                 /*si es empresa tomo el cuil*/   
                if($this->input->post('propietario')=='P')   { 
 				$datos_propietario= array (
+					'propietario' => $this->input->post('propietario'),
 					'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
 					'nombreyapellido' => $this->input->post('nombreyapellido'),
@@ -427,6 +429,7 @@ class C_escribano extends CI_Controller {
 					'localidad' => $this->input->post('localidades'),	);
 			    }else{
 			    		$datos_propietario= array (
+			    	'propietario' => $this->input->post('propietario'),		
 			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
 					'nombreyapellido' => $this->input->post('nombreyapellido'),
