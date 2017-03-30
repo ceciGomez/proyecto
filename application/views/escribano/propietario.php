@@ -41,7 +41,7 @@
     </div>   
 
      
-      <h3 align="center">Propietarios Registrados en el Sistema</h2>
+      <h3 align="center">Propietarios Registrados en el Sistema</h3>
        <div class="box-body table-responsive no-padding">                   
                      <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
@@ -82,7 +82,7 @@
           <?php if($this->session->userdata('propietario')!=null) {?>
         </div>
         <br>
-        <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h2>
+        <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h3>
            <div class="box-body table-responsive no-padding">                   
                      <table id="propietarios_subidos" class="display" style="display: none" data-page-length="4">
                         <thead>
@@ -128,12 +128,11 @@
 
             <?php
             $posicion=$posicion+1;    
-             endforeach; ?>
-           </tbody>
-          </table>
-
-        </div>
-        <?php } ?>
+               endforeach; ?>
+               </tbody>
+              </table>
+              </div>
+            <?php } ?>
 
 
                 <div class="modal" id="Eliminar">
@@ -304,19 +303,8 @@
          </div>
   </section>
   </div>
-<!-- /.content-wrapper -->
-     <!--Muestra el calendario para fecha de escritura-->
-   <script>
-        $( document ).ready(function() {
-            $('#fecha-escritura').datepicker();
-        });
-    </script>
-     <!--Muestra el calendario para fecha de plano aprobado-->
-    <script>
-        $( document ).ready(function() {
-            $('#fecha-plano-aprobado').datepicker();
-        });
-    </script>
+
+  
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo_combobox").on("focusout", function () {
@@ -384,7 +372,7 @@
           }
        });
     </script>
-    <!--Limita campo nombre y apellido a 10 caracteres-->
+    <!--Limita campo nombre y apellido a 100 caracteres-->
       <script language="javascript" type="text/javascript">
           $('input[name="nombreyapellido"]').keypress(function() {
             if (this.value.length >= 100) {
@@ -424,7 +412,7 @@
 
 		
 
-		<!--Valida el porentaje-->
+		<!--Valida el porcentaje-->
 
 		<script language="javascript">
 		$('#porcentaje_condominio').keyup(function (e) {
@@ -522,14 +510,10 @@
                  console.log(data);
 
                   });
-        });
-                //seleccionar la localidad y provincia del propietario
-                   
+              });
+                //seleccionar la localidad y provincia del propietario                  
      
-
-                      } );
-
-                     
+                      } );                   
                          //para el filtrado
                      $('.filter').on('keyup change', function () {
                           //clear global search values
@@ -636,26 +620,24 @@
                   
          </script>
         <script >
-        function upperCaseF(a){
-    setTimeout(function(){
-        a.value = a.value.toUpperCase();
-    }, 1);
-}
+          function upperCaseF(a){
+         setTimeout(function(){
+            a.value = a.value.toUpperCase();
+           }, 1);
+            }
           </script>
 
           <script>
-   $(document).ready(function(){
-
-          
-   if($('#departamentos').val()!=""){
-    localidadOnReady($('#departamentos').val());}
-    });
-   $("#departamentos").on("change",function(){
-        localidad($('#departamentos').val());
-   })
-   function localidad(iddepartamento) {
+           $(document).ready(function(){          
+        if($('#departamentos').val()!=""){
+          localidadOnReady($('#departamentos').val());}
+          });
+        $("#departamentos").on("change",function(){
+           localidad($('#departamentos').val());
+         })
+              function localidad(iddepartamento) {
              console.log($('#departamentos').val());  
-      $.ajax({
+          $.ajax({
          type:'POST',
          datatype:'json',
          data:{id_departamento: iddepartamento},
@@ -667,23 +649,22 @@
               $(json).each(function(i,val){             
                  $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });           
-   
-       }
-      })
-    }
-     function localidadOnReady(iddepartamento) { 
-      $.ajax({
-         type:'POST',
-         datatype:'json',
-         data:{id_departamento: iddepartamento},
-         url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
-         success:function(response){  
-         console.log( <?php echo json_encode($localidades); ?>); 
+             }
+             })
+            }
+             function localidadOnReady(iddepartamento) { 
+               $.ajax({
+              type:'POST',
+               datatype:'json',
+               data:{id_departamento: iddepartamento},
+               url:"<?php echo base_url('index.php/C_escribano/cargarLocalidades');?>",
+              success:function(response){  
+              console.log( <?php echo json_encode($localidades); ?>); 
               $("#localidades").empty();
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option>");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            
@@ -724,9 +705,12 @@
 
       </script>
      <script>
-        $( document ).ready(function() {
+      /*  $( document ).ready(function() {
             $('#fecha_nacimiento').datepicker();
-        });      
+        }); */
+        $('#fecha_nacimiento').datepicker({
+      autoclose: true
+    });     
     </script>
 
     
