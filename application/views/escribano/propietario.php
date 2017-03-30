@@ -110,7 +110,7 @@
                         $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();        ?>
 
                          <tr>
-                         <td><button class="btn btn-danger" onclick="sacarPropietario(<?php echo $posicion; ?>)">Eliminar</button></td>
+                         <td><button class="btn btn-danger" data-toggle="modal"  href="#Eliminar"  onclick="ventanaEliminarProp(<?php echo $posicion ?>)">Eliminar</button></td>
                            <td><?php echo $c['nombreyapellido']; ?></td>
                            <td><?php echo $c['dni'] ;?></td>       
                             <td><?php echo $c['cuit_cuil']; ?></td>  
@@ -134,6 +134,27 @@
 
         </div>
         <?php } ?>
+
+
+                <div class="modal" id="Eliminar">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar Propietario</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar Eliminar Propietario</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="" class="btn btn-primary"  onclick="eliminarProp()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
 
    <section class="content">
       <div class="box box-default">
@@ -193,7 +214,7 @@
                      <div class="form-group">
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Apellido y Nombre</label>
-                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Apellido" <?php echo "value='$nombreyapellido'" ?>  name="nombreyapellido" onkeyup="changeToUpperCase(this)"  maxlength="100">
+                        <input type="text"  class="form-control" id="nombreyapellido" placeholder="Nombre y Apellido" <?php echo "value='$nombreyapellido'" ?>  name="nombreyapellido" onkeydown="upperCaseF(this)" maxlength="100">
                         <div style="color:red;" ><p><?=form_error('nombreyapellido')?></p></div>
                      </div>
                      <div class="col-md-3">
@@ -272,9 +293,6 @@
 
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
-              <!--  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/insertarMinuta'?>" >Guardar Minuta</a> -->
-
-
 
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
@@ -306,14 +324,14 @@
         var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
        }else if((business%11)==1 && $("#sexo_combobox").val()==20){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
        }else if((business%11)==1 && $("#sexo_combobox").val()==27){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }}
          });
 
@@ -325,16 +343,16 @@
         var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
                         +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
         if((business%11)==0){
-            $("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
        }else if((business%11)==1 && $("#sexo_combobox").val()==20){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 9);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
        }else if((business%11)==1 && $("#sexo_combobox").val()==27){
-      		$("#cuit").val(23+" "+$("#dni").val()+ " "+ 4);
+      		$("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
        }
        else{
-       		$("#cuit").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       		$("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
        }} else {
-       	$("#cuit").val("");
+       	$("#cuil").val("");
        }     
          });
 
@@ -376,19 +394,13 @@
       </script>
 
       <!--Deshabilita campos sexo, dni y conyuge-->
-      <script language="javascript"><!--
-        localidadPost=document.getElementById("localidadPost").value ;
-        departamentoPost=document.getElementById("departamentoPost").value;
-            $("#localidades option[value="+localidadPost +"]").attr("selected",true);
-             $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
-
-
-		function funcionempresa() { 		 
+      <script language="javascript"><!--    
+  		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
       document.getElementById("cuil").disabled = true;
-         document.getElementById("cuit").disabled = false; 
+      document.getElementById("cuit").disabled = false; 
 
 		}
 		</script>
@@ -556,19 +568,17 @@
                       document.getElementById("cuil").value = "";
                      document.getElementById("direccion").value = ""; 
                     document.getElementById("conyuge").value =""; 
-                     document.getElementById("departamentos").selectedIndex=0;
-                     document.getElementById("localidades").selectedIndex=0;
+               
                     
                      document.getElementById("fecha_nacimiento").value=""; 
                    $("#localidades option[value="+ 0 +"]").attr("selected",true);
                     $("#departamentos option[value="+ 0 +"]").attr("selected",true);
                     //para que solo busque por personas u organizaciones
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
-});
+                      });
                     
             
                   if ( $("#propietarios_subidos").length > 0 ) {
-
                  
                     var dtable=$('#propietarios_subidos').DataTable(
                         {
@@ -600,23 +610,37 @@
                                 } ) ;
                                 $( "#propietarios_subidos" ).show();              
                   ;};
+                      //cargar las localidades y departamentos del post
+                       localidadPost=document.getElementById("localidadPost").value ;
+              
+                        departamentoPost=document.getElementById("departamentoPost").value;
+            
+                         $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+                       $("#localidades option[value="+localidadPost +"]").attr("selected",true);
 
-                     
-                      } );         
-                function sacarPropietario(posicion){
-                    
-                    $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:posicion}, function(data){
+
+
+                      } );    
+                  pos="";     
+                function ventanaEliminarProp(posicion){
+                    pos=posicion;
+                   
+                  
+                  }
+                  function eliminarProp(){
+                     $.post("<?=base_url()?>index.php/c_escribano/sacarPropietario",{posicion:pos}, function(data){
                      
             });
                   }     
 
                   
          </script>
-           <script >
-           function changeToUpperCase(el)
-           {
-             el.value =el.value.trim().toUpperCase();
-            }
+        <script >
+        function upperCaseF(a){
+    setTimeout(function(){
+        a.value = a.value.toUpperCase();
+    }, 1);
+}
           </script>
 
           <script>
@@ -697,14 +721,15 @@
         return false;
     return true;
     }
-        $( document ).ready(function() {
-            $('#fecha_nacimiento').datepicker();
-        });
-     </script>
+
+      </script>
      <script>
         $( document ).ready(function() {
             $('#fecha_nacimiento').datepicker();
         });      
     </script>
+
+     
+
 
 

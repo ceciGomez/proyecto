@@ -239,7 +239,7 @@ public function getPropietarios($idParcela)
 	{
 		try {
 			$query = $this->db->query("
-				SELECT nombre, idDepartamento
+				SELECT nombre, idDepartamento, idLocalidad
 				FROM localidad
 				WHERE idDepartamento=$idDepartamento");
 			return $query->result();
@@ -364,17 +364,26 @@ public function getPropietarios($idParcela)
 		}
  	}
 
-/*Funciones para insertar una minuta nueva*/
+/*Funciones para ar una minuta nueva*/
 
 function insertarParcela(){
+	if(!$this->session->userdata('otraParcela') ){
 	$idEscribano = $this->session->userdata('idEscribano');
 	$fechaIngresoSys = date('Y-m-d H:i:s');
 	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
-    $nombreLocalidad = $this->session->userdata('localidades');
-    $idLocalidad = $this -> getIdLocalidad($nombreLocalidad);
+    $this->session->set_userdata('idMinuta',$idMinuta); 
+}
+	if($this->session->userdata('otraParcela') ){
+		$this->session->unset_userdata('otraParcela');
+	}
+
+	if(!$this->session->userdata('otraParcela')&& !$this->session->userdata('otroPH')  ) {
+
+	$idMinuta=$this->session->userdata('idMinuta');
+    $idLocalidad = $this->getIdLocalidad($this->session->userdata('localidades'));
     $circunscripcion = $this->session->userdata('circunscripcion');
     $seccion = $this->session->userdata('seccion');
     $chacra = $this->session->userdata('chacra');
@@ -390,7 +399,7 @@ function insertarParcela(){
     $descripcion = $this->session->userdata('descripcion');
     $nroMatriculaRPI = $this->session->userdata('nroMatriculaRPI');
     $fechaMatriculaRPI = $this->session->userdata('fechaMatriculaRPI');
-    $tomo = $this->session->userdata('folio');
+    $tomo = $this->session->userdata('tomo');
     $folio = $this->session->userdata('folio');
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
@@ -398,7 +407,15 @@ function insertarParcela(){
     $this->db->query($order2);
     /*preparo para insertar una relacion*/
     $idParcela = ($this->db->insert_id());
+    
+
     $this->session->set_userdata($idParcela);
+}
+
+if($this->session->userdata('otroPH') ){
+		$this->session->unset_userdata('otroPH');
+	}
+
   	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
     $nro_ucuf = $this->session->userdata('nro_ucuf');
     $tipo_ucuf = $this->session->userdata('tipo_ucuf');
@@ -412,14 +429,15 @@ function insertarParcela(){
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order4 = "insert into persona (apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[nombreyapellido]', '$value[cuit_cuil]',$value[dni],'$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]',$value[dni],'$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
     	$this->db->query($order4);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
-    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, $value[porcentaje_condominio], '$value[tipo_propietario]')";
+    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, '$value[porcentaje_condominio]', '$value[tipo_propietario]')";
     	$this->db->query($insertar_propietario);
 
     }
+    
 }
 
 /*recibe el nombre de localidad y devuelve el id*/

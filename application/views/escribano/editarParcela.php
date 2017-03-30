@@ -5,7 +5,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h3 align="center">
-         Crear Minuta
+        Editar  Minuta
       </h3>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,11 +25,11 @@
                   <!-- general form elements -->
                   <div class="box box-primary">
                      <div class="box-header with-border">
-                        <h3 class="box-title">Registrar Parcela</h3>
+                        <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
-                      <?=form_open(base_url().'index.php/C_escribano/registrarParcela')?>
+                      <?=form_open(base_url().'index.php/C_escribano/registrarEditarParcela')?>
                      <form method="post">
                         <div class="box-body">
                            <div class="form-group">                             
@@ -165,9 +165,12 @@
                                     <div style="color:red;" ><p><?=form_error('fechaMatriculaRPI')?></p></div>
                                     <!-- /.input group -->
                                  </div>
+                               <input type="hidden" value= '<?php echo $localidades  ?>' id="localidadPost">
+                              <input type="hidden" value= '<?php echo $departamentos ?>' id="departamentoPost">
+
                               <div class="col-md-12">
                               <div class="box-footer">
-                                  <button type="submit" class="btn btn-primary" >Registrar Propietario</button>
+                                  <button type="submit" class="btn btn-primary" >Editar PH</button>
                                    <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
                                 
                               </div>
@@ -225,9 +228,17 @@
    <script>
    $(document).ready(function(){
 
-           console.log($('#departamentos').val());
+
+   //PARA QUE BUSQUE APENAS CARGA
+    localidadPost=document.getElementById("localidadPost").value ;
+     departamentoPost=document.getElementById("departamentoPost").value;
+  $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+  $("#localidades option[value="+localidadPost +"]").attr("selected",true);
+       
    if($('#departamentos').val()!=""){
     localidadOnReady($('#departamentos').val());}
+
+
     });
    $("#departamentos").on("change",function(){
         localidad($('#departamentos').val());
