@@ -517,14 +517,10 @@ class C_operador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data["notificaciones_si"]=$this->notificaciones_si();
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
+		
+		$solPedidos= $this->M_administrador->reportePedido();
 	
-		$pedidos= $this->db->get()->result();
-	
-		$data['pedidos']=$pedidos;
+		$data['pedidos']=$solPedidos;
 
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_operador',$data);
@@ -685,17 +681,9 @@ public function reportesPedidos()
 
 		$data['titulo'] = 'Bienvenido Operador';
 
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
-
-		
-		
-		$pedidos= $this->db->get()->result();
+		$solPedidos= $this->M_administrador->reportePedido();
 	
-		$data['pedidos']=$pedidos;
-
+		$data['pedidos']=$solPedidos;
 
 		$data['titulo'] = 'Bienvenido Operador';
 		$this->load->view('templates/cabecera_operador',$data);
