@@ -366,7 +366,7 @@ public function getPropietarios($idParcela)
 
 /*Funciones para ar una minuta nueva*/
 
-function insertarParcela(){
+function insertarMinuta(){
 	if(!$this->session->userdata('otraParcela') ){
 	$idEscribano = $this->session->userdata('idEscribano');
 	$fechaIngresoSys = date('Y-m-d H:i:s');
@@ -376,11 +376,9 @@ function insertarParcela(){
     $idMinuta = $this->db->insert_id();    
     $this->session->set_userdata('idMinuta',$idMinuta); 
 }
-	if($this->session->userdata('otraParcela') ){
-		$this->session->unset_userdata('otraParcela');
-	}
+	
 
-	if(!$this->session->userdata('otraParcela')&& !$this->session->userdata('otroPH')  ) {
+	if(!$this->session->userdata('otraParcela')  || !$this->session->userdata('otroPH')  ) {
 
 	$idMinuta=$this->session->userdata('idMinuta');
     $idLocalidad = $this->getIdLocalidad($this->session->userdata('localidades'));
@@ -415,7 +413,10 @@ function insertarParcela(){
 if($this->session->userdata('otroPH') ){
 		$this->session->unset_userdata('otroPH');
 	}
-
+	if($this->session->userdata('otraParcela') ){
+		$this->session->unset_userdata('otraParcela');
+	}
+	var_dump($idParcela);
   	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
     $nro_ucuf = $this->session->userdata('nro_ucuf');
     $tipo_ucuf = $this->session->userdata('tipo_ucuf');

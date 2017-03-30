@@ -115,13 +115,19 @@
      <!--Muestra el calendario para fecha de escritura-->
    <script>
         $( document ).ready(function() {
-            $('#fecha_escritura').datepicker();
+            $('#fecha_escritura').datepicker(
+              {
+      autoclose: true
+    });
         });
     </script>
      <!--Muestra el calendario para fecha de plano aprobado-->
     <script>
         $( document ).ready(function() {
-            $('#fecha_plano_aprobado').datepicker();
+            $('#fecha_plano_aprobado').datepicker(
+              {
+      autoclose: true
+    });
         });
     </script>
     
