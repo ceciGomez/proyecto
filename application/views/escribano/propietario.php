@@ -731,10 +731,6 @@
             $('#fecha_nacimiento').datepicker();
         });
      </script>
-     <script>
-        $( document ).ready(function() {
-            $('#fecha_nacimiento').datepicker();
-        });      
-    </script>
+     
 
 
