@@ -37,14 +37,7 @@ class C_escribano extends CI_Controller {
 		
 	public function crearParcela($exito=FALSE, $hizo_post=FALSE)
 	{
-
-		if($this->input->post('finminuta') == "agregarph") { 
-			
-    			$this->session->unset_userdata('datos_ph');
-    			var_dump('borra datos');
-    			var_dump($this->session->userdata('datos_ph'));
-    		}     					
-
+  					
 
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
@@ -461,7 +454,7 @@ class C_escribano extends CI_Controller {
     						$this->crearPropietario(FALSE,FALSE);
 
 					} else {
-   						$this->M_escribano->insertarParcela();
+   					
    						$this->finMinutas();
 					}        					
 
@@ -480,6 +473,24 @@ class C_escribano extends CI_Controller {
 
 }
 
+function checkPost(){
+    
+		if($this->input->post('finminuta') == "agregarph") { 
+
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario');
+    			var_dump('borra datos ph');
+    			var_dump($this->session->userdata('datos_ph'));
+    			$this->crearRelacion();
+    		}else{
+    			$this->session->unset_userdata('datos_parcela');
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario');
+    			var_dump('borra datos parcela');
+    			var_dump($this->session->userdata('datos_parcela'));
+               $this->crearParcela();
+}
+}
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		

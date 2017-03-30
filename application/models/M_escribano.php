@@ -415,10 +415,11 @@ function insertarParcela(){
     	$this->db->query($order4);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
-    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, $value[porcentaje_condominio], '$value[tipo_propietario]')";
+    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, '$value[porcentaje_condominio]', '$value[tipo_propietario]')";
     	$this->db->query($insertar_propietario);
 
     }
+    
 }
 
 /*recibe el nombre de localidad y devuelve el id*/
