@@ -410,7 +410,9 @@ function insertarParcela(){
     
 
     $this->session->set_userdata($idParcela);
-}if($this->session->userdata('otroPH') ){
+}
+
+if($this->session->userdata('otroPH') ){
 		$this->session->unset_userdata('otroPH');
 	}
 
