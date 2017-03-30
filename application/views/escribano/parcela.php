@@ -100,9 +100,9 @@
                                     <label>Tipo de Propiedad</label>
                                     <select class="form-control select2" name="tipoPropiedad" <?php echo "value='$tipoPropiedad'" ?> style="width: 100%;">
                                        <option value="">Tipo propiedad</option>
-                                       <option value="Urbano" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Urbano" ? TRUE : FALSE )); ?>>Urbano</option>
-                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "Rural" ? TRUE : FALSE )); ?>>Rural</option>
-                                       <option value="Rural" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "SubUrbano" ? TRUE : FALSE )); ?>>SubUrbano</option>
+                                       <option value="U" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "U" ? TRUE : FALSE )); ?>>Urbano</option>
+                                       <option value="R" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "R" ? TRUE : FALSE )); ?>>Rural</option>
+                                       <option value="S" <?php echo set_select('add_fields_type','input', ( !empty($tipoPropiedad) && $tipoPropiedad == "S" ? TRUE : FALSE )); ?>>SubUrbano</option>
                                     </select>
                                     <div style="color:red;" ><p><?=form_error('tipoPropiedad')?></p></div>
                                  </div>
@@ -232,7 +232,7 @@
    $("#departamentos").on("change",function(){
         localidad($('#departamentos').val());
    })
-   function localidad(iddepartamento) {
+    function localidad(iddepartamento) {
              console.log($('#departamentos').val());  
       $.ajax({
          type:'POST',
@@ -244,7 +244,7 @@
              $("#localidades").append("<option>Seleccione localidad</option>");
             var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });           
    
        }
@@ -262,7 +262,7 @@
               $("#localidades").append("<option>Seleccione localidad</option>");
              var json = $.parseJSON(response);
               $(json).each(function(i,val){             
-                 $("#localidades").append("<option>"+val.nombre+"</option");  
+                 $("#localidades").append("<option value='"+val.idLocalidad+"'>"+val.nombre+"</option");  
              });  
               $("#localidades").val( <?php echo json_encode($localidades); ?>);                 
            

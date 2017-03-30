@@ -612,9 +612,9 @@
                   ;};
                       //cargar las localidades y departamentos del post
                        localidadPost=document.getElementById("localidadPost").value ;
-                       console.log('esto es la localidad'+localidadPost)
+              
                         departamentoPost=document.getElementById("departamentoPost").value;
-                         console.log('esto es la departamento'+departamentoPost)
+            
                          $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
                        $("#localidades option[value="+localidadPost +"]").attr("selected",true);
 
