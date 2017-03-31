@@ -5,11 +5,7 @@
       <h1 align="center">
          Reporte de Minutas por fecha
       </h1>
-      <h4  align="center" >Lista todas las  Minuta dado un rango de fechas</h4>
-      <ol class="breadcrumb">
-         <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
-         <li class="active">Minuta</li>
-      </ol>
+      
    </section>
    <!-- Main content -->
    <section class="content">
@@ -31,7 +27,7 @@
                      </span>
                      <input type="text" class="form-control" id="fdesde" 
                        data-inputmask="'alias': 'dd/mm/aaaa"
-                        data-mask name="fdesde" placeholder="dd/mm/aaaa" required/>
+                        data-mask name="fdesde" placeholder="aaaa/mm/dd" required/>
                   </div>
                </div>
                <!-- /.input group -->
@@ -45,7 +41,7 @@
                      </span>
                      <input type="text" class="form-control" id="fhasta" 
                         data-inputmask="'alias': 'dd/mm/aaaa'"
-                        data-mask name="fhasta" placeholder="dd/mm/aaaa " required/>
+                        data-mask name="fhasta" placeholder="aaaa/mm/dd" required/>
                   </div>
                </div>
                <!-- /.input group -->
