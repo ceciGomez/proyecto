@@ -453,8 +453,6 @@ if($this->session->userdata('otroPH') ){
 			return false;
 		}
 	}
-
-
 }
 
 

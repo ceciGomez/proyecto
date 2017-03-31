@@ -25,7 +25,7 @@
                   <!-- general form elements -->
                   <div class="box box-primary">
                      <div class="box-header with-border">
-                        <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
+                        <h3 class="box-title">Editar Parcelas <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
