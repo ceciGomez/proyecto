@@ -339,9 +339,9 @@ class C_escribano extends CI_Controller {
 		
          var_dump($this->input->post('idPersonaSelect'));
          if ($this->input->post('idPersonaSelect')==NULL) {
-         	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'))
+         	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'));
          }else{
-         	$this->session->unset_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'))
+         	$this->session->set_userdata('idPersonaSelect', NULL);
          }
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
