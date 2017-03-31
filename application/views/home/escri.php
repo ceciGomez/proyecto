@@ -43,36 +43,35 @@ tr:hover{background-color:#f5f5f5}
              <table class="table" class="table-bordered" >
             <tbody>
               <tr>
-          <th> Nombre y Apellido</th><td> <?php echo $escribano->nomyap ?> </td>
+          <th> Nombre y Apellido</th><td> <?php echo $escribano[0]->nomyap ?> </td>
         </tr>
         <tr>
-          <th> Nombre de Usuario</th><td> <?php echo $escribano->usuario ?></td>
+          <th> Nombre de Usuario</th><td> <?php echo $escribano[0]->usuario ?></td>
         </tr>
         <tr>
-          <th> Fecha de Registración</th><td> <?php echo $escribano->fechaReg ?> </td>
+          <th> Fecha de Registración</th><td> <?php echo $escribano[0]->fechaReg ?> </td>
         </tr>
         <tr>
-          <th> DNI</th><td><?php echo $escribano->dni ?> </td>
+          <th> DNI</th><td><?php echo $escribano[0]->dni ?> </td>
         </tr>
          <tr>
-          <th> Dirección</th><td> <?php echo $escribano->matricula ?> </td>
+          <th> Dirección</th><td> <?php echo $escribano[0]->matricula ?> </td>
         </tr>
         <tr>
-          <th> Teléfono</th><td> <?php echo $escribano->telefono ?> </td>
+          <th> Teléfono</th><td> <?php echo $escribano[0]->telefono ?> </td>
         </tr>
        
         <tr>
-          <th> Email</th><td> <?php echo $escribano->email ?> </td>
+          <th> Email</th><td> <?php echo $escribano[0]->email ?> </td>
         </tr>
         <tr>
          <tr>
-          <th> Dirección</th><td> <?php echo $escribano->direccion ?> </td>
+          <th> Dirección</th><td> <?php echo $escribano[0]->direccion ?> </td>
         </tr>
-          <th> Localidad</th><td> <?php
-            if($escribano->idLocalidad==null){echo "";}else{ $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$escribano->idLocalidad))->row(); echo $localidad->nombre ;}?></td>
+          <th> Localidad</th><td> <?php echo $escribano[0]->nombreLocalidad?></td>
         </tr>
         <tr>
-          <th> Perfil</th><td> Operador </td>
+          <th> Perfil</th><td> Escribano </td>
         </tr>
         </tbody>
             </table>
