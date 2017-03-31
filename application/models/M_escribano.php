@@ -118,7 +118,7 @@ public function getPedidos($idEscribano)
 			SELECT idPedido, p.idEscribano, descripcion, 
 			
 			concat(substring(fechaPedido, 6, 2), '/' ,substring(fechaPedido, 9, 2) , '/', substring(fechaPedido, 1, 4)) as fechaPedido,
-			estadoPedido, 
+			case when estadoPedido = 'P' then 'Pendiente'  else 'Contestado' end as estadoPedido, 
 			rtaPedido, 
 			
 			concat(substring(fechaRta, 6, 2), '/' ,substring(fechaRta, 9, 2) , '/', substring(fechaRta, 1, 4)) as fechaRta,
