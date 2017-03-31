@@ -140,14 +140,15 @@ class M_administrador extends CI_Model
 
 		public function reportePedido()
 		{
-				try {$query=$this->db->query("SELECT p.idPedido, 
-    concat(substring(p.fechaPedido, 9, 2), '/' ,substring(p.fechaPedido, 6, 2) , '/', substring(p.fechaPedido, 1, 4)) as fechaPedido,
-    concat(substring(p.fechaRta, 9, 2), '/' ,substring(p.fechaRta, 6, 2) , '/', substring(p.fechaRta, 1, 4)) as fechaRta,
-    
-    substring(p.descripcion, 1, 46) as descripcion,
-    substring(p.rtaPedido, 1, 46) as rtaPedido,
-    p.estadoPedido,p.idEscribano, u.nomyap  
-    FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario "
+				try {$query=$this->db->query("
+					SELECT p.idPedido, 
+					    concat(substring(p.fechaPedido, 9, 2), '/' ,substring(p.fechaPedido, 6, 2) , '/', substring(p.fechaPedido, 1, 4)) as fechaPedido,
+					    concat(substring(p.fechaRta, 9, 2), '/' ,substring(p.fechaRta, 6, 2) , '/', substring(p.fechaRta, 1, 4)) as fechaRta,
+					    
+					    substring(p.descripcion, 1, 46) as descripcion,
+					    substring(p.rtaPedido, 1, 46) as rtaPedido,
+					    p.estadoPedido,p.idEscribano, u.nomyap  
+					 FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario "
 
 
     );

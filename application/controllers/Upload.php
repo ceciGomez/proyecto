@@ -9,59 +9,59 @@ class Upload extends CI_Controller {
         }
 
         public function index()
-        {
-                $perfil = $this->session->userdata('perfil');
-        switch ($perfil) {
-                case 'escribano':
-                       if($perfil == FALSE ||$perfil != 'escribano')
-                        {
-                                redirect(base_url().'index.php/c_login_escribano');
-                        } else{
-                                $data["notificaciones_ma"]=$this->notificaciones_ma();
-                                $data["notificaciones_mr"]=$this->notificaciones_mr();
-                                $data["notificaciones_si"]=$this->notificaciones_si_es();
-                                $data['titulo'] = 'Bienvenido Escribano';
-                                $this->load->view('templates/cabecera_escribano',$data);
-                                $this->load->view('templates/escri_menu',$data);
-                                $this->load->view('upload_form', array('error' => ' ' ));
-                                $this->load->view('templates/pie',$data);
-                        }
-                        break;
-                case 'Administrador':
-                        if($perfil == FALSE ||$perfil != 'Administrador')
-                        {
-                                redirect(base_url().'index.php/c_login_administrador');
-                        } else{
-                               $data["notificaciones_mp"]=$this->notificaciones_mp();
-                                $data["notificaciones_ep"]=$this->notificaciones_ep();
-                                $data["notificaciones_si"]=$this->notificaciones_si();
-                                $data['titulo'] = 'Bienvenido administrador';
-                                $this->load->view('templates/cabecera_administrador',$data);
-                                $this->load->view('templates/admin_menu',$data);
-                                $this->load->view('upload_form_admin', array('error' => ' ' ));
-                                $this->load->view('templates/pie',$data);
-                        }
-                        break;
-                case 'operador':
-                         if($perfil == FALSE ||$perfil != 'operador')
-                        {
-                                redirect(base_url().'index.php/c_login_operador');
-                        } else{
-                               $data["notificaciones_mp"]=$this->notificaciones_mp();
-                                $data["notificaciones_ep"]=$this->notificaciones_ep();
-                                $data["notificaciones_si"]=$this->notificaciones_si();
-                                $data['titulo'] = 'Bienvenido Operador';
-                                $this->load->view('templates/cabecera_operador',$data);
-                                $this->load->view('templates/operador_menu',$data);
-                                $this->load->view('upload_form_operador', array('error' => ' ' ));
-                                $this->load->view('templates/pie',$data);
-                        }
-                        break;
-                
-                default:
-                        # code...
-                        break;
-        }
+            {
+            $perfil = $this->session->userdata('perfil');
+            switch ($perfil) {
+                    case 'escribano':
+                           if($perfil == FALSE ||$perfil != 'escribano')
+                            {
+                                    redirect(base_url().'index.php/c_login_escribano');
+                            } else{
+                                    $data["notificaciones_ma"]=$this->notificaciones_ma();
+                                    $data["notificaciones_mr"]=$this->notificaciones_mr();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido Escribano';
+                                    $this->load->view('templates/cabecera_escribano',$data);
+                                    $this->load->view('templates/escri_menu',$data);
+                                    $this->load->view('upload_form', array('error' => ' ' ));
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    case 'Administrador':
+                            if($perfil == FALSE ||$perfil != 'Administrador')
+                            {
+                                    redirect(base_url().'index.php/c_login_administrador');
+                            } else{
+                                   $data["notificaciones_mp"]=$this->notificaciones_mp();
+                                    $data["notificaciones_ep"]=$this->notificaciones_ep();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido administrador';
+                                    $this->load->view('templates/cabecera_administrador',$data);
+                                    $this->load->view('templates/admin_menu',$data);
+                                    $this->load->view('upload_form_admin', array('error' => ' ' ));
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    case 'operador':
+                             if($perfil == FALSE ||$perfil != 'operador')
+                            {
+                                    redirect(base_url().'index.php/c_login_operador');
+                            } else{
+                                   $data["notificaciones_mp"]=$this->notificaciones_mp();
+                                    $data["notificaciones_ep"]=$this->notificaciones_ep();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido Operador';
+                                    $this->load->view('templates/cabecera_operador',$data);
+                                    $this->load->view('templates/operador_menu',$data);
+                                    $this->load->view('upload_form_operador', array('error' => ' ' ));
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    
+                    default:
+                            # code...
+                            break;
+            }
 
 
         }
@@ -79,9 +79,60 @@ class Upload extends CI_Controller {
 
                 if ( ! $this->upload->do_upload('userfile'))
                 {
-                        $error = array('error' => $this->upload->display_errors());
+                    $error = array('error' => $this->upload->display_errors());
+                    $perfil = $this->session->userdata('perfil');
+                    switch ($perfil) {
+                    case 'escribano':
+                           if($perfil == FALSE ||$perfil != 'escribano')
+                            {
+                                    redirect(base_url().'index.php/c_login_escribano');
+                            } else{
+                                    $data["notificaciones_ma"]=$this->notificaciones_ma();
+                                    $data["notificaciones_mr"]=$this->notificaciones_mr();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido Escribano';
+                                    $this->load->view('templates/cabecera_escribano',$data);
+                                    $this->load->view('templates/escri_menu',$data);
+                                    $this->load->view('upload_form', $error);
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    case 'Administrador':
+                            if($perfil == FALSE ||$perfil != 'Administrador')
+                            {
+                                    redirect(base_url().'index.php/c_login_administrador');
+                            } else{
+                                   $data["notificaciones_mp"]=$this->notificaciones_mp();
+                                    $data["notificaciones_ep"]=$this->notificaciones_ep();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido administrador';
+                                    $this->load->view('templates/cabecera_administrador',$data);
+                                    $this->load->view('templates/admin_menu',$data);
+                                    $this->load->view('upload_form_admin', $error);
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    case 'operador':
+                             if($perfil == FALSE ||$perfil != 'operador')
+                            {
+                                    redirect(base_url().'index.php/c_login_operador');
+                            } else{
+                                   $data["notificaciones_mp"]=$this->notificaciones_mp();
+                                    $data["notificaciones_ep"]=$this->notificaciones_ep();
+                                    $data["notificaciones_si"]=$this->notificaciones_si();
+                                    $data['titulo'] = 'Bienvenido Operador';
+                                    $this->load->view('templates/cabecera_operador',$data);
+                                    $this->load->view('templates/operador_menu',$data);
+                                    $this->load->view('upload_form_operador', $error);
+                                    $this->load->view('templates/pie',$data);
+                            }
+                            break;
+                    
+                    default:
+                            # code...
+                            break;
+                        }
 
-                        $this->load->view('upload_form', $error);
                 }
                 else
                 {

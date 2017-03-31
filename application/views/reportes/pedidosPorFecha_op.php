@@ -1,7 +1,6 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-  
+    <!-- Content Header (Page header) -->  
 
     <!-- Main content -->
     <section class="content">
@@ -12,12 +11,9 @@
          <h3 align="center">Reportes de Pedidos de Información</h3>
         <section >
          
-
                <!-- TO DO List -->
           <div class="box box-primary">
-            <div class="box-header">
-
-             
+            <div class="box-header">             
 
                  <label>Filtrar Pedidos por :</label>
                    <form   style="display:inline; "  action="<?php echo base_url()?>index.php/c_operador/imprimirPedidos"  method="GET" accept-charset="utf-8" >
@@ -42,16 +38,9 @@
                       </div>
                 </form>
                   
-                        
-
-
-
                   
                   </div>
                   </div>
-                  
-               
-
 
                    <div class="box-body table-responsive no-padding">               
                          <table id="pedidos" class="table-bordered" style="display: none" >
@@ -74,28 +63,18 @@
                        
                             <?php 
                             
-
                             foreach ($pedidos as $si){ 
 
-                               $date=new DateTime($si->fechaPedido);
-                              $date_formated=$date->format('d/m/Y ');
-                               $date2=new DateTime($si->fechaRta);
-                              $date_formated2=$date2->format('d/m/Y ');
+
                          ?>
                             <?php 
-                         /*
-                         $this->db->from('estadominuta');
-                         $this->db->where('idMinuta', $mi->idMinuta); 
-                         $this->db->order_by('idEstadoMinuta', 'DESC');
-                         $estadoMinuta= $this->db->get()->row();
-                         */
                              ?>
 
                           <tr>
                           
 
-                            <td>  <?php  echo "$date_formated"; ?></td>
-                            <td>  <?php  echo "$date_formated2"; ?></td>
+                            <td>  <?php  echo $si->fechaPedido; ?></td>
+                            <td>  <?php  echo $si->fechaRta; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                              <td>  <?php 
                                       if ($si->idEscribano==null) {
