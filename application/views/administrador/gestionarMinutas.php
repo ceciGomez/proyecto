@@ -342,7 +342,7 @@
                   function rechazar( ){
 
                     var motivoRechazo=document.getElementById('motivoRechazo').value;
-                    console.log(idEstMin);
+                    console.log(idUsuario);
                     
                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                      
