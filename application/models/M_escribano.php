@@ -47,9 +47,9 @@ class M_escribano extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.nomyap, u.usuario, 
+				SELECT u.nomyap as nomyap, u.usuario as usuario, 
 				concat(substring(u.fechaReg, 9, 2), '/' ,substring(u.fechaReg, 6, 2) , '/', substring(u.fechaReg, 1, 4)) as	fechaReg, 
-				u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
+				u.email as email, u.dni as dni, u.direccion as direccion, u.telefono as telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
 				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
 				inner join departamento d
