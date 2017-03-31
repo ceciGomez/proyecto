@@ -61,10 +61,10 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
-                        <select id="tipo_ucuf" name="tipo_ucuf" <?php echo "value='$tipo_ucuf'" ?>  class="form-control select2"  style="width: 100%;">
-                           <option vale="" >Seleccionar</option>
-                           <option value="C" <?php echo  set_select('tipo_ucuf', 'C', TRUE); ?>>C</option>
-                           <option value="F" <?php echo  set_select('tipo_ucuf', 'F', TRUE); ?> >F</option>
+                        <select id="tipo_ucuf" name="tipo_ucuf" class="form-control select2"  style="width: 100%;">
+                            <option value="" selected="selected">Seleccionar</option>
+                           <option value="C" <?php if ($tipo_ucuf=="C") echo 'selected="selected"';?>>Femenino</option>
+                           <option value="F" <?php if ($tipo_ucuf=="F") echo 'selected="selected"';?>>Masculino</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
                      </div>
