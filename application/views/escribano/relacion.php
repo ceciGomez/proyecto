@@ -49,7 +49,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd//mm/aaaa">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd/mm/aaaa">
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
