@@ -49,7 +49,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="Fecha de Escritura">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd//mm/aaaa">
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
@@ -61,10 +61,10 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
-                        <select id="tipo_ucuf" name="tipo_ucuf" <?php echo "value='$tipo_ucuf'" ?> <?php echo "value='$tipo_ucuf'" ?>  class="form-control select2"  style="width: 100%;">
-                           <option vale="" >Seleccionar</option>
-                           <option >C</option>
-                           <option >F</option>
+                        <select id="tipo_ucuf" name="tipo_ucuf" class="form-control select2"  style="width: 100%;">
+                            <option value="" selected="selected">Seleccionar</option>
+                           <option value="C" <?php if ($tipo_ucuf=="C") echo 'selected="selected"';?>>Femenino</option>
+                           <option value="F" <?php if ($tipo_ucuf=="F") echo 'selected="selected"';?>>Masculino</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
                      </div>
@@ -74,13 +74,17 @@
                         <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" <?php echo "value='$plano_aprobado'" ?>  placeholder="Plano Aprobado de la UF/UC">
                         <div style="color:red;" ><p><?=form_error('plano_aprobado')?></p></div>
                      </div>
+                     </div>
+                     </div>
+                     <div class="row">
+                     <div class="form-group">
                     <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
                           <div class="input-group date">
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                          </div>
-                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" <?php echo "value='$fecha_plano_aprobado'" ?>  placeholder="Fecha Plano Aprobado">
+                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" <?php echo "value='$fecha_plano_aprobado'" ?>  placeholder="dd/mm/aaaa">
                      </div>
                      <div style="color:red;" ><p><?=form_error('fecha_plano_aprobado')?></p></div>
                   </div>             
@@ -91,7 +95,7 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Poligonos</label>
-                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholde<?php echo "value='$poligonos'" ?>  r="Poligonos">
+                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholder="Poligonos" <?php echo "value='$poligonos'" ?>  >
                         <div style="color:red;" ><p><?=form_error('poligonos')?></p></div>
                      </div>
                   </div>
@@ -115,19 +119,29 @@
      <!--Muestra el calendario para fecha de escritura-->
    <script>
         $( document ).ready(function() {
-            $('#fecha_escritura').datepicker();
+            $('#fecha_escritura').datepicker(
+              {
+      autoclose: true
+    });
         });
     </script>
      <!--Muestra el calendario para fecha de plano aprobado-->
     <script>
         $( document ).ready(function() {
-            $('#fecha_plano_aprobado').datepicker();
+            $('#fecha_plano_aprobado').datepicker(
+              {
+      autoclose: true
+    });
         });
     </script>
     
       <!--deshabilita campos si es ph-->
       <script language="javascript"><!--
-
+     $(document).ready(function(){
+   if ($("input[name='ph']:checked").val() == 'noph'){
+     noPh();
+  }
+    });
 		function noPh() { 		 
   		  document.getElementById("nro_ucuf").disabled = true; 
  		    document.getElementById("tipo_ucuf").disabled = true; 
@@ -135,6 +149,13 @@
         document.getElementById("fecha_plano_aprobado").disabled = true; 
         document.getElementById("porcentaje_ucuf").disabled = true; 
         document.getElementById("poligonos").disabled = true; 
+        /*Limpio los campos que deshabilito*/
+        document.getElementById("nro_ucuf").value = '';
+        document.getElementById("tipo_ucuf").value = '';
+        document.getElementById("plano_aprobado").value = '';
+        document.getElementById("fecha_plano_aprobado").value = '';
+        document.getElementById("porcentaje_ucuf").value = '';
+        document.getElementById("poligonos").value = '';
 		}
 		</script>
 		<!--habilita campos si no es ph-->		
