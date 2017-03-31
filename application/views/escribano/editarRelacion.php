@@ -107,8 +107,8 @@
 
             </div>
             <div class="box-footer">
-             <button type="submit" class="btn btn-primary"  >Editar propietario</button>            
-                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+             <button type="submit" class="btn btn-primary"  >Editar Relacion</button>            
+                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
             </div>
 
               </form>
