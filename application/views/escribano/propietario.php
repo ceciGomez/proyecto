@@ -292,7 +292,13 @@
   </section>
   </div>
 
-  
+  <script>
+      $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker({
+      autoclose: true
+    });
+        });   
+    </script>
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo_combobox").on("focusout", function () {
@@ -701,13 +707,7 @@
     }
 
       </script>
-     <script>
-      $( document ).ready(function() {
-            $('#fecha_nacimiento').datepicker({
-      autoclose: true
-    });
-        });   
-    </script>
+     
 
     
      
