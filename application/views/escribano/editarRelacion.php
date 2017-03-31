@@ -18,7 +18,7 @@
    <!-- Main content -->
    <section class="content-body">
       <div class="box box-default">
-      <?=form_open(base_url().'index.php/C_escribano/registrarEditarRelacion')?>
+      <?=form_open(base_url().'index.php/C_escribano/modificarPH')?>
        <form method="post">
          <div class="box-header with-border">
            <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteRelacionEditar'). " de un total de ". $this->session->userdata('cantidadRelacionesEditar')?></h3>
@@ -107,8 +107,8 @@
 
             </div>
             <div class="box-footer">
-             <button type="submit" class="btn btn-primary"  >Editar propietario</button>            
-                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+             <button type="submit" class="btn btn-primary"  >Editar Relacion</button>            
+                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
             </div>
 
               </form>
