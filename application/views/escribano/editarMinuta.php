@@ -60,8 +60,9 @@ table, th, td {
                 <br>
                 
                 <div class="box-body" >
-                <a  href="<?=base_url()?>index.php/c_escribano/agregarParcela/<?php echo $idMinutaEditar?> " title="Agregar  Parcela" ><button class="btn btn-info">Agregar Parcela</button></a> 
+             
 
+      
                 <?php 
                 $nroParcela=0;
                 foreach ($parcelas as $parcela){ 
@@ -71,7 +72,7 @@ table, th, td {
                 $fecha_planoAprobado=$date_formated;
 
                 $date2=new DateTime($parcela->fechaMatriculaRPI);
-                      $date_formated2=$date->format('d/m/Y ');
+                      $date_formated2=$date2->format('d/m/Y ');
                       $fecha_matriculaRPI=$date_formated;
                           
                  ?>              
@@ -137,7 +138,7 @@ table, th, td {
                                         
                  </table>
                  <br>
-                   <button  class="btn btn-success"  data-toggle="modal" title="Editar Parcela" onclick="editarParcela(<?php echo $parcela->idParcela ?>)">Editar Parcela</button></a> 
+                     <a  href="<?=base_url()?>index.php/c_escribano/editarParcela/<?php echo $parcela->idParcela?> " title="Editar  Parcela" ><button class="btn btn-success">Editar Parcela</button></a> 
                    
                  <br>
                  <br>
@@ -255,7 +256,7 @@ table, th, td {
 
                         </table>
                          <br>
-                   <button  class="btn btn-success"  data-toggle="modal" title="Editar PH" onclick="editarPH(<?php echo $relacion->idRelacion ?>)">Editar PH</button></a> 
+                    <a  href="<?=base_url()?>index.php/c_escribano/editarPH/<?php echo $relacion->idRelacion?> " title="Editar PH" ><button class="btn btn-success">Editar PH</button></a> 
                     
                    <br>
                    <br>

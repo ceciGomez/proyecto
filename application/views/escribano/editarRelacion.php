@@ -18,7 +18,7 @@
    <!-- Main content -->
    <section class="content-body">
       <div class="box box-default">
-      <?=form_open(base_url().'index.php/C_escribano/registrarEditarRelacion')?>
+      <?=form_open(base_url().'index.php/C_escribano/modificarPH')?>
        <form method="post">
          <div class="box-header with-border">
            <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteRelacionEditar'). " de un total de ". $this->session->userdata('cantidadRelacionesEditar')?></h3>
