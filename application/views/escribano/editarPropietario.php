@@ -5,9 +5,9 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h1>
-         Crear Minuta
+      Editar Minutas
       </h1>
-      <small>Registrar Propietario</small>
+      <small>Editar Propietario</small>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
          <li><a href="<?=base_url()?>index.php/c_escribano/CrearMinuta"> Parcela</a></li>
@@ -41,7 +41,7 @@
     </div>   
 
      
-      <h3 align="center">Propietarios Registrados en el PH N° <?php echo $this->session->userdata('siguienteRelacionEditar') ?></h2>
+      <h3 align="center">Propietarios Registrados en el Sistema <?php echo $this->session->userdata('siguienteRelacionEditar') ?></h2>
        <div class="box-body table-responsive no-padding">                   
                      <table id="personas" class="display" style="display: none" data-page-length="4">
                         <thead>
@@ -79,87 +79,13 @@
             <?php endforeach; ?>
            </tbody>
           </table>
-          <?php if($this->session->userdata('propietario')!=null) {?>
-        </div>
-        <br>
-        <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h2>
-           <div class="box-body table-responsive no-padding">                   
-                     <table id="propietarios_subidos" class="display" style="display: none" data-page-length="4">
-                        <thead>
-                          <tr>
-                             <th>Eliminar</th>
-                            <th>Nombre y Apellido</th>
-                              <th>Dni</th>
-                              <th>Cuit/cuil</th>                
-                              <th>Tipo de Propietario</th>     
-                              <th>Porcentaje de Codominio</th>  
-                                <th>Dirección</th> 
-                                <th>Localidad</th> 
-                                <th>Fecha de Nacimiento</th>
-                             
-                                <th>Conyuge</th>
-                              
-                          </tr>
-                        </thead>
-                         ?>
-                      <tbody >
-                      <?php
-                      $posicion=0;
-                       foreach ($this->session->userdata('propietario') as $c):
-                    
-                     $localidad=$this->db->get_where('localidad', array('idLocalidad'=> $c['localidad']))->row();     ?>
+         
 
-                         <tr>
-                         <td><button class="btn btn-danger" data-toggle="modal"  href="#Eliminar"  onclick="ventanaEliminarProp(<?php echo $posicion ?>)">Eliminar</button></td>
-                           <td><?php echo $c['nombreyapellido']; ?></td>
-                           <td><?php echo $c['dni'] ;?></td>       
-                            <td><?php echo $c['cuit_cuil']; ?></td>  
-                            <td><?php echo $c['tipo_propietario' ];  ?></td>  
-                            <td><?php echo $c['porcentaje_condominio' ];  ?></td>   
-                            <td><?php echo $c['direccion' ];  ?></td>
-                            <td><?php echo $localidad->nombre;  ?></td>  
-                             <td ><?php 
-                               
-                                echo $c['fecha_nacimiento'];?></td>   
-                            
-                            <td><?php echo $c['conyuge' ];  ?></td>     
-                               
-                        </tr>
-
-            <?php
-            $posicion=$posicion+1;    
-             endforeach; ?>
-           </tbody>
-          </table>
-
-        </div>
-        <?php } ?>
-
-
-                <div class="modal" id="Eliminar">
-                      <div class="modal-dialog modal-lg">
-                        <div class="modal-content">
-                         <div class="modal-header">
-                          <button type="button" class="close" data-dismiss="modal">&times;</button>
-                          <h3 class="modal-title" style="color:white"> Eliminar Propietario</h3>
-                         </div>
-                         <div class="modal-body">
-                         <h3> Confirmar Eliminar Propietario</h3>
-                        
-
-                         <div class="modal-footer">
-                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                          <a href="" class="btn btn-primary"  onclick="eliminarProp()">Aceptar</a>
-                         </div>
-                      </div>
-                    </div>
-                  </div>
-                   </div>
 
    <section class="content">
       <div class="box box-default">
          <div class="box-header with-border">
-           <?=form_open(base_url().'index.php/C_escribano/registrarEditarPropietario')?>
+           <?=form_open(base_url().'index.php/C_escribano/modificarPropietario')?>
             <form method="post">
             <div class="box-body">
                <div class="row">
@@ -291,10 +217,11 @@
             </div>
             <div class="box-footer">
 
-             <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
-              <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
+             <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Guardar Propietario</button>
+            
 
-                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+                        <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
+
             </div>
 
             <!-- /.row -->

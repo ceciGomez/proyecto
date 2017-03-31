@@ -61,8 +61,10 @@ table, th, td {
                 
                 <div class="box-body" >
              
+                <br>
 
-      
+                    <a  href="<?=base_url()?>index.php/c_escribano/nuevaMinuta/<?php echo  $idMinutaEditar?> " title="Nueva Parcela" ><button class="btn btn-info">Nueva Parcela</button></a> 
+
                 <?php 
                 $nroParcela=0;
                 foreach ($parcelas as $parcela){ 
@@ -139,10 +141,11 @@ table, th, td {
                  </table>
                  <br>
                      <a  href="<?=base_url()?>index.php/c_escribano/editarParcela/<?php echo $parcela->idParcela?> " title="Editar  Parcela" ><button class="btn btn-success">Editar Parcela</button></a> 
+                       <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarParcela/<?php echo  $parcela->idParcela ?>" >Eliminar Parcela</a>
                    
                  <br>
                  <br>
-                  <button  class="btn btn-info"  data-toggle="modal" title="Agregar  PH" onclick="agregarPH(<?php echo $parcela->idParcela ?>)">Agregar PH</button></a> 
+                   <a  href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo  $parcela->idParcela?> " title="Nuevo PH" ><button class="btn btn-info">Nuevo PH</button></a> 
                   <br>
                     <?php 
                     $relaciones=$this->db->get_where('relacion', array('idParcela'=>$parcela->idParcela))->result();
@@ -257,10 +260,10 @@ table, th, td {
                         </table>
                          <br>
                     <a  href="<?=base_url()?>index.php/c_escribano/editarPH/<?php echo $relacion->idRelacion?> " title="Editar PH" ><button class="btn btn-success">Editar PH</button></a> 
-                    
+                     <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPH/<?php echo  $relacion->idRelacion ?>" >Eliminar PH</a>
                    <br>
                    <br>
-                   <button  class="btn btn-info"  data-toggle="modal" title="Agregar Propietario" onclick="agregarPropietario(<?php echo $relacion->idRelacion ?>)">Agregar Propietario</button></a> 
+                  <a  href="<?=base_url()?>index.php/c_escribano/nuevoPropietario/<?php echo $relacion->idRelacion?> " title="Nuevo Propietario" ><button class="btn btn-info">Nuevo Propietario</button></a> 
                         <br>
                         <br>
                      <?php 
@@ -386,7 +389,8 @@ table, th, td {
                      </tbody>
                        </table>
                        <br>
-                        <button  class="btn btn-success"  data-toggle="modal" title="Editar Propiatario" onclick="editarPropietario(<?php echo $propietario->id ?>)">Editar Propietario</button></a> 
+                          <a  href="<?=base_url()?>index.php/c_escribano/editarPropietario/<?php echo $propietario->id?> " title="Editar Propietario" ><button class="btn btn-success">Editar Propietario</button></a> 
+                            <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPropietario/<?php echo  $propietario->id ?>" >Eliminar Propietario</a>
                        <br>
                        <br>                 
                     <?php }
@@ -394,7 +398,7 @@ table, th, td {
                     } ?>
                 </div>
                 <div align="center">
-                    <button   class="btn btn-warning"  data-toggle="modal" title="Finalizar Edición " onclick="finEditarMinuta(<?php echo $idMinutaEditar?>)">Finalizar Edición</button></a> 
+                    <a  href="<?=base_url()?>index.php/c_escribano/finalizarEdicion/<?php echo $idMinutaEditar ?> " title="Finalizar Edición Minuta" ><button class="btn btn-success">Finalizar Edición Minuta</button></a> 
                 </div>
                   </div>    
 

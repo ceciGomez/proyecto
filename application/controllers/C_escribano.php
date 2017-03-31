@@ -738,17 +738,9 @@ function checkPost(){
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
 		$idEscribano=$this->session->userdata('idEscribano');
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
-		$this->db->where('idEscribano', $idEscribano);
-
-		
-		
-		$pedidos= $this->db->get()->result();
 	
-		$data['pedidos']=$pedidos;
+	
+		$data['pedidos']=$this->M_escribano->getPedidos($idEscribano);
 
 
 		$data['titulo'] = 'Bienvenido Escribano';
@@ -1459,6 +1451,212 @@ function checkPost(){
 			}
 
      }	
+
+	public function editarPropietario($idPropietario,$exito=FALSE, $hizo_post=FALSE)
+	{
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
+		$data["personas"] = $this->M_escribano->getPersonas();
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+		$data['titulo'] = 'Bienvenido Escribano';
+		
+
+			if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['propietario'] = $this->input->post('propietario');	
+			$data['porcentaje_condominio'] = $this->input->post('porcentaje_condominio');
+			$data['tipo_propietario'] = $this->input->post('tipo_propietario');
+			$data['empresa'] = $this->input->post('empresa');
+			$data['nombreyapellido'] = $this->input->post('nombreyapellido');
+			$data['sexo_combobox']=$this->input->post('sexo_combobox');
+			$data['dni']=$this->input->post('dni');
+			$data['cuit'] = $this->input->post('cuit');
+			$data['cuil'] = $this->input->post('cuil');
+			$data['conyuge'] = $this->input->post('conyuge');
+			$data['fecha_nacimiento'] = $this->input->post('fecha_nacimiento');
+			$data['direccion'] =$this->input->post('direccion');
+			$data['departamentos'] = $this->input->post('departamentos');
+			$data['localidades'] = $this->input->post('localidades');			
+
+
+		}else{
+				$propietario=$this->db->get_where('propietario', array('id'=>$idPropietario))->row();
+				$persona=$this->db->get_where('persona', array('idPersona'=>$propietario->idPersona))->row();
+			$data['propietario']=$persona->empresa;
+			$data['tipo_propietario']=$propietario->tipoPropietario;
+			$data['porcentaje_condominio']=$propietario->porcentajeCondominio;
+			$data['nombreyapellido']=$persona->apynom;
+				$data['sexo_combobox']='';
+			$data['dni']=$persona->dni;
+			if (	$data['propietario']=$persona->empresa=='O') {
+				$data['cuit']=$persona->cuitCuil;
+				$data['cuil']='';
+			}else{
+					$data['cuil']=$persona->cuitCuil;
+					$data['cuit']='';}
+
+			
+			$data['conyuge']=$persona->conyuge;
+			$date=new DateTime($persona->fechaNac);
+              $fechaNac=$date->format('d/m/Y ');
+			$data['fecha_nacimiento']=$fechaNac;
+			$data['direccion']=$persona->direccion;
+				 $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$persona->idLocalidad))->row();
+
+			$data['departamentos']= $localidad->idDepartamento;
+			$data['localidades']=$persona->idLocalidad;
+			
+			$this->session->set_userdata('idPropietarioEditar',$propietario->id);
+				$this->session->set_userdata('idPersonaEditar',$persona->idPersona);
+
+		}
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/editarPropietario',$data);
+		$this->load->view('templates/pie',$data);
+
+	}
+
+	 public function modificarPropietario(){
+	 	$idPropietario=$this->session->userdata('idPropietarioEditar');
+	 		$idPersona=$this->session->userdata('idPersonaEditar');
+				$hizo_post=TRUE;
+
+				 $this->load->helper(array('form', 'url'));
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
+                 if($this->input->post('propietario')=='P'){
+			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
+			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
+			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
+			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
+					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
+					/*$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );*/
+					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
+			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
+			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
+  					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+  					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
+  				else{
+  					 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
+  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
+ 			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
+			   		$this->form_validation->set_rules('cuit', 'cuit', 'required',array('required' => 'Debes ingresar un cuit ') );
+					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
+			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
+			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
+  					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
+					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
+  					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
+			    }
+
+			   
+			if($this->form_validation->run() == FALSE)
+			{	
+				
+				$this->editarPropietario($idPropietario,FALSE,TRUE);
+
+			} else{
+
+               
+			    	
+			    $date2=str_replace('/','-',$this->input->post('fecha_nacimiento'));
+				$date2=new DateTime($date2);
+               $fecha_nacimiento=$date2->format('Y-m-d ');
+
+			    		$datos_propietario= array (
+			    		
+			    	'tipoPropietario' => $this->input->post('tipo_propietario'),
+					'porcentajeCondominio' => $this->input->post('porcentaje_condominio'),
+					);
+
+			    		$datos_persona=array(
+			    	'empresa' => $this->input->post('propietario'),	
+			    	'apynom' => $this->input->post('nombreyapellido'),
+					'dni' => $this->input->post('dni'),
+					'cuitCuil' => $this->input->post('cuit'),
+					'direccion' => $this->input->post('direccion'),
+					'conyuge' => $this->input->post('conyuge'),
+					'fechaNac' => $fecha_nacimiento,
+					'idLocalidad' => $this->input->post('localidades'),	
+			    			);
+
+			    		$this->db->where('id', $idPropietario);
+						$this->db->update('propietario', $datos_propietario);
+
+						$this->db->where('idPersona', $idPersona);
+						$this->db->update('persona', $datos_persona);
+						
+
+
+						
+
+				}
+				$this->editarMinuta($this->session->userdata('idMinutaEditar'));
+
+				        					
+
+			}
+
+		public function finalizarEdicion($idMinuta){
+			$datetime_variable = new DateTime();
+				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+
+			$data = array(
+			   'idMinuta' => $idMinuta ,
+			   'estadoMinuta' => 'P' ,
+			  'fechaEstado'=>$datetime_formatted ,
+			);
+
+			$this->db->insert('estadoMinuta', $data); 
+			$this->verMinutas();
+		}
+
+    public  function nuevaParcela(){
+
+     }
+
+    public function nuevoPH(){
+
+    }
+       public function nuevoPropietario(){
+
+    }
+    public function eliminarPH($idRelacion){
+    			
+    					$this->db->delete('propietario', array('idRelacion' => $idRelacion)); 
+    					$this->editarMinuta($this->session->userdata('idMinutaEditar'));
+
+    			
+    }
+       public function eliminarParcela($idParcela){
+       		   	$relaciones=$this->db->get_where('relacion ', array('idParcela'=>$idParcela))->result();
+
+       						foreach ($relaciones as $r) {
+       							$this->db->delete('propietario', array('idRelacion' => $r->idRelacion)); 
+
+       						}
+       						$this->db->delete('relacion', array('idParcela' => $idParcela)); 
+       							$this->db->delete('parcela', array('idParcela' => $idParcela)); 
+       						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
+
+    }
+    public function eliminarPropietario($idPropietario){
+
+    					$this->db->delete('propietario', array('id' => $idPropietario)); 
+
+    						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
+
+    }
 
 
 }
