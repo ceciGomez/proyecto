@@ -218,7 +218,7 @@
             <div class="box-footer">
 
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Guardar Propietario</button>
-              <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPropietario/<?php echo  $this->session->userdata('idPropietarioEditar') ?>" >Eliminar Propietario</a>
+            
 
                         <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
 
