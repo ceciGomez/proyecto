@@ -111,6 +111,27 @@ class M_escribano extends CI_Model
 		}
 	}
 
+public function getPedidos($idEscribano)
+{
+	try {
+		$query = $this->db->query("
+			SELECT idPedido, p.idEscribano, descripcion, 
+			
+			concat(substring(fechaPedido, 6, 2), '/' ,substring(fechaPedido, 9, 2) , '/', substring(fechaPedido, 1, 4)) as fechaPedido,
+			case when estadoPedido = 'P' then 'Pendiente'  else 'Contestado' end as estadoPedido, 
+			rtaPedido, 
+			
+			concat(substring(fechaRta, 6, 2), '/' ,substring(fechaRta, 9, 2) , '/', substring(fechaRta, 1, 4)) as fechaRta,
+			 u.nomyap
+			FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario
+			where p.idEscribano = $idEscribano
+			");
+		return $query->result();
+
+	} catch (Exception $e) {
+		return false;
+	}
+}
 public function getPropietarios($idParcela)
 	{
 		try {
@@ -427,7 +448,7 @@ function insertarMinuta(){
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]',$value[dni],'$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
     	$this->db->query($order4);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/

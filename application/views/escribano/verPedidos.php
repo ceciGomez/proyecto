@@ -1,8 +1,6 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-  
-
     <!-- Main content -->
     <section class="content">
     
@@ -11,15 +9,11 @@
         <!-- Left col -->
          <h3 align="center">  Ver Pedidos de Información</h3>
         <section >
-         
 
                <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
-
-             
-
-                 <label>Filtrar Solicitudes por :</label>
+           <label>Filtrar Solicitudes por :</label>
                  
                   <div class="box-body" style="background-color: lightblue;">
                       
@@ -55,23 +49,16 @@
                 </div>   
                 <br><br>
                   
-                        
-
-
-
-                  
                   </div>
                   </div>
                   
-               
-
 
                    <div class="box-body table-responsive no-padding">               
                          <table id="pedidos" class="table-bordered" style="display: none" >
                         <thead>
                           <tr> 
-                          <th>Fecha de Respuesta</th>
                           <th>Fecha de Pedido</th>
+                          <th>Fecha de Respuesta</th>
                           <th>Numero de Pedido</th>
                           <th>Estado</th>
                           <th>Operador</th>
@@ -85,28 +72,18 @@
                        
                             <?php 
                             
-
                             foreach ($pedidos as $si){ 
 
-                               $date=new DateTime($si->fechaPedido);
-                              $date_formated=$date->format('d/m/Y ');
-                               $date2=new DateTime($si->fechaRta);
-                              $date_formated2=$date2->format('d/m/Y ');
                          ?>
                             <?php 
-                         /*
-                         $this->db->from('estadominuta');
-                         $this->db->where('idMinuta', $mi->idMinuta); 
-                         $this->db->order_by('idEstadoMinuta', 'DESC');
-                         $estadoMinuta= $this->db->get()->row();
-                         */
+  
                              ?>
 
                           <tr>
                             
 
-                            <td date-order="<?php echo $si->fechaPedido; ?>">  <?php  echo "$date_formated"; ?></td>
-                            <td date-order="<?php echo $si->fechaRta; ?>">  <?php  echo "$date_formated2"; ?></td>
+                            <td date-order="<?php echo $si->fechaPedido; ?>">  <?php  echo $si->fechaPedido;; ?></td>
+                            <td date-order="<?php echo $si->fechaRta; ?>">  <?php  echo $si->fechaRta; ?></td>
                             <td>  <?php  echo $si->idPedido; ?> </td>
                             <td>  <?php  echo $si->estadoPedido; ?> </td>
                              <td>  <?php  echo $si->nomyap; ?> </td>
