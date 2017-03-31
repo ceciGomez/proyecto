@@ -341,8 +341,10 @@ class C_escribano extends CI_Controller {
          if ($this->input->post('idPersonaSelect')==NULL) {
          	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'));
          }else{
+
          	$this->session->set_userdata('idPersonaSelect', NULL);
-         }
+
+        }
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['propietario'] = $this->input->post('propietario');	
@@ -1622,7 +1624,7 @@ function checkPost(){
 			  'fechaEstado'=>$datetime_formatted ,
 			);
 
-			$this->db->insert('estadoMinuta', $data); 
+			$this->db->insert('estadominuta', $data); 
 			$this->verMinutas();
 		}
 

@@ -44,10 +44,13 @@
                         <?php 
                            foreach ($minutas as $mi){ 
                            
-                              $date=new DateTime($mi["fechaIngresoSys"]);
-                             $date_formated=$date->format('d/m/Y ');
+                               $date_formated=$mi["fechaIngresoSys"];
+                                  
+                            if($mi["fechaEdicion"]!=null){
                               $date2=new DateTime($mi["fechaEdicion"]);
                              $date_formated2=$date2->format('d/m/Y ');
+                           }else {
+                            $date_formated2="";}
                            ?>
                         <?php 
                            /*
