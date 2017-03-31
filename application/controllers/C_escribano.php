@@ -1622,7 +1622,7 @@ function checkPost(){
 			  'fechaEstado'=>$datetime_formatted ,
 			);
 
-			$this->db->insert('estadoMinuta', $data); 
+			$this->db->insert('estadominuta', $data); 
 			$this->verMinutas();
 		}
 
