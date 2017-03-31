@@ -1647,12 +1647,29 @@ function checkPost(){
 
     }
     public function eliminarPH($idRelacion){
+    			
+    					$this->db->delete('propietario', array('idRelacion' => $idRelacion)); 
+    					$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
+    			
     }
        public function eliminarParcela($idParcela){
+       		   	$relaciones=$this->db->get_where('relacion ', array('idParcela'=>$idParcela))->result();
+
+       						foreach ($relaciones as $r) {
+       							$this->db->delete('propietario', array('idRelacion' => $r->idRelacion)); 
+
+       						}
+       						$this->db->delete('relacion', array('idParcela' => $idParcela)); 
+       							$this->db->delete('parcela', array('idParcela' => $idParcela)); 
+       						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
     public function eliminarPropietario($idPropietario){
+
+    					$this->db->delete('propietario', array('id' => $idPropietario)); 
+
+    						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
 
