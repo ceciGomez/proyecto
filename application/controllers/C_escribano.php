@@ -381,8 +381,7 @@ class C_escribano extends CI_Controller {
 			
 
 		}
-		$date = str_replace('/', '-', $data['fecha_nacimiento']);
-  var_dump(date("Y-m-d",strtotime($date)));
+		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
