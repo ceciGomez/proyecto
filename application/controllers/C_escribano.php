@@ -478,22 +478,19 @@ class C_escribano extends CI_Controller {
 function checkPost(){
     
 		if($this->input->post('finminuta') == "agregarph") { 
-
+				var_dump('agregarph');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otroPh');
-    			$this->session->set_userdata('otraParcela');
-    			var_dump('borra datos ph');
-    			var_dump($this->session->userdata('datos_ph'));
-    				var_dump($this->session->userdata('datos_parcela'));
+    			$this->session->set_userdata('otroPh',TRUE);
+    			$this->session->set_userdata('otraParcela',TRUE);
+    				var_dump($this->session->userdata('otraParcela'));
     			$this->crearRelacion();
     		}else{
     			$this->session->unset_userdata('datos_parcela');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otraParcela');
-    			var_dump('borra datos parcela');
-    			var_dump($this->session->userdata('datos_parcela'));
+    			$this->session->set_userdata('otraParcela',TRUE);
+    			$this->session->set_userdata('otroPh',FALSE);
                $this->crearParcela();
 }
 }
