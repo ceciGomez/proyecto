@@ -744,17 +744,9 @@ function checkPost(){
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
 		$idEscribano=$this->session->userdata('idEscribano');
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
-		$this->db->where('idEscribano', $idEscribano);
-
-		
-		
-		$pedidos= $this->db->get()->result();
 	
-		$data['pedidos']=$pedidos;
+	
+		$data['pedidos']=$this->M_escribano->getPedidos($idEscribano);
 
 
 		$data['titulo'] = 'Bienvenido Escribano';
