@@ -18,8 +18,9 @@ class C_administrador extends CI_Controller {
 		$data["notificaciones_mp"]=$this->notificaciones_mp();
 		$data["notificaciones_ep"]=$this->notificaciones_ep();
 		$data['titulo'] = 'Bienvenido Administrador';
-		$admin=$this->db->get_where('usuariosys', array('idUsuario'=>$this->session->userdata('id_usuario')))->row();
-		$data['admin']=$admin;
+
+		$idAdmin=$this->session->userdata('id_usuario');
+		$data['admin']=$this->M_administrador->getUnAdmin($idAdmin);
 		$this->load->view('templates/cabecera_administrador',$data);
 		$this->load->view('templates/admin_menu',$data);
 		$this->load->view('home/admin',$data);
