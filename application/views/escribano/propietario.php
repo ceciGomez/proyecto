@@ -47,14 +47,15 @@
                         <thead>
                           <tr>
                              <th>Seleccionar</th>
-                            <th>Nombre y Apellido</th>
+                              <th>Nombre y Apellido</th>
                               <th>Dni</th>
                               <th>Cuit/cuil</th>                
                               <th>Direccion</th>     
                               <th>Conyuge</th>  
-                               <th style="display: none">Tipo</th> 
-                                <th style="display: none">localidad</th> 
-                                 <th style="display: none">fechaNac</th> 
+                              <th style="display: none">Tipo</th> 
+                              <th style="display: none">localidad</th> 
+                              <th style="display: none">fechaNac</th> 
+                              <th style="display: none">idPersonaSelect</th> 
                           </tr>
                         </thead>
 
@@ -72,8 +73,8 @@
                              <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
                               <td style="display: none"><?php 
                                 $date=new DateTime($c->fechaNac);
-                                $date_formated=$date->format('d/m/Y ');
-                                echo $date_formated;?></td>        
+                                $date_formated=$date->format('d/m/Y ');?></td>   
+                              <td style="display: none"><?php echo $c->idPersona; ?></td>     
                         </tr>
 
             <?php endforeach; ?>
@@ -255,6 +256,8 @@
                             </div>
                          <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
                       </div>
+                      <input type="hidden" name="idPersonaSelect" id="idPersonaSelect" />
+
                         </div>
                         </div>
                         <div class="row">
@@ -492,39 +495,33 @@
                     //en caso de que venga de un post rellena los campos departamento y localidad
                 
                        $('#personas tbody').on('click', 'tr', function () {
-                      var data = $('#personas').DataTable().row( this ).data();
-                     document.getElementById("nombreyapellido").value = data[1]; 
-                     document.getElementById("dni").value = data[2];  
-                       if ($('input:radio[name=propietario]:checked').val()=='O') {
-                        document.getElementById("cuit").value = data[3]; 
-                      }else { document.getElementById("cuil").value = data[3]; };
-                     document.getElementById("cuit").value = data[3]; 
-                     document.getElementById("direccion").value = data[4]; 
-                    document.getElementById("conyuge").value = data[5]; 
-                  
-                    //para mostrar la fecha es en campo fechaNacimiento       
-                    
-                     document.getElementById("fecha_nacimiento").value=data[8]; 
-                     //para mostrar la localidad y departemento
-                       idLocalidad=data[7];
-       $.post("<?=base_url()?>index.php/c_escribano/obtenerDepartamento_x_idLoc",{idLocalidad:idLocalidad}, function(data){
-            //seleccciona la provincia de la localidad
-             document.getElementById("departamentos").selectedIndex=data;
-             //cargo todas las localidades
-              midepartamento=$('#departamentos').val();
-              console.log(midepartamento);
-             $.post("<?=base_url()?>index.php/c_escribano/mostrarLocalidad", { midepartamento: midepartamento}, function(data){
-                  $("#localidades").html(data);
+                         var data = $('#personas').DataTable().row( this ).data();
+                         document.getElementById("nombreyapellido").value = data[1]; 
+                         document.getElementById("dni").value = data[2];  
+                         if ($('input:radio[name=propietario]:checked').val()=='O') {
+                             document.getElementById("cuit").value = data[3]; 
+                         }else {
+                          document.getElementById("cuil").value = data[3]; };
+                          document.getElementById("cuit").value = data[3]; 
+                          document.getElementById("direccion").value = data[4]; 
+                          document.getElementById("conyuge").value = data[5];                            
+                          document.getElementById("fecha_nacimiento").value=data[8]; 
+                          document.getElementById("idPersonaSelect").value=data[9]; 
+                         //para mostrar la localidad y departemento
+                         idLocalidad=data[7];
+                         $.post("<?=base_url()?>index.php/c_escribano/obtenerDepartamento_x_idLoc",{idLocalidad:idLocalidad}, function(data){
+                           //seleccciona la provincia de la localidad
+                         document.getElementById("departamentos").selectedIndex=data;
+                         //cargo todas las localidades
+                          midepartamento=$('#departamentos').val();
+                         console.log(midepartamento);
+                         $.post("<?=base_url()?>index.php/c_escribano/mostrarLocalidad", { midepartamento: midepartamento}, function(data){
+                         $("#localidades").html(data);
 
-                  //selecciono la localidad del escribano
-                  $("#localidades option[value="+ idLocalidad +"]").attr("selected",true);
-          
-                 console.log(data);
-
-                  });
-              });
-                //seleccionar la localidad y provincia del propietario                  
-     
+                           //selecciono la localidad del escribano
+                        $("#localidades option[value="+ idLocalidad +"]").attr("selected",true);          
+                          });
+                        });     
                       } );                   
                          //para el filtrado
                      $('.filter').on('keyup change', function () {
