@@ -522,6 +522,23 @@ function insertarMinuta(){
 		} 
 	}
 
+		public function getMinutas2(){
+		try {
+			$query= $this->db->query("
+					SELECT m.idMinuta as idMinuta, idEscribano, 
+		concat(substring(fechaIngresoSys, 9, 2), '/' ,substring(fechaIngresoSys, 6, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
+					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
+					from minuta m inner join 
+					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x
+					on x.idMinuta = m.idMinuta left join estadominuta em 
+					on em.idEstadoMinuta = x.idEstadoMinuta and em.idMinuta = x.idMinuta 
+					order by m.idMinuta
+				  	");
+			return $query->result_array();
+		 } catch (Exception $e) {
+			return false;
+		} 
+	}
 
 }
 
