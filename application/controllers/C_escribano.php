@@ -1101,20 +1101,113 @@ function checkPost(){
 
 //Para editar la minuta rechazada
 
-  	public function editarMinuta($param)
-	{
-		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+  	public function editarMinuta($idMinuta)
+	{if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-	$this->session->set_userdata('idMinutaEditar',$param); 
-	var_dump('$param');
-			redirect(base_url().'index.php/c_escribano/editarMinuta');
+	
+		//muestra las notificaciones
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+
+		$data['titulo'] = 'Bienvenido Escribano';
+		
+		$data['idMinutaEditar']=$idMinuta;
+		$data['fechaInscMinuta']=$this->M_escribano->getfechaInscMinuta($idMinuta);
+		$data['motivoRechazo']=$this->M_escribano->getMinutaxId($idMinuta)->motivoRechazo;
+		
+
+		$data['parcelas']=$this->db->get_where('parcela', array('idMinuta'=>$idMinuta))->result();
+		
+		//var_dump($data["operador"]);
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/editarMinuta',$data);
+		$this->load->view('templates/pie',$data);
+	
+	
+		
 
 
 
 	}
+	public function agregarParcela($minuta='',$exito=FALSE, $hizo_post=FALSE)
+	{
+  					
 
+		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
+		{
+			redirect(base_url().'index.php/c_login_escribano');
+		}
+		$data["notificaciones_ma"]=$this->notificaciones_ma();
+		$data["notificaciones_mr"]=$this->notificaciones_mr();
+		$data["notificaciones_si"]=$this->notificaciones_si();
+        
+		$data['arraydepartamentos'] = $this->M_escribano->getDepartamentos();
+		$data['exito']= $exito; 
+		$data['hizo_post']=$hizo_post;
+		$data['titulo'] = 'Bienvenido Escribano';
+
+		if($this->input->post() && !$exito){
+			//seteo los demas input segun lo que ingreso anteriormente
+			$data['circunscripcion'] = $this->input->post('circunscripcion');
+			$data['seccion']=$this->input->post('seccion');
+			$data['chacra'] = $this->input->post('chacra');
+			$data['quinta'] = $this->input->post('quinta');
+			$data['fraccion'] = $this->input->post('fraccion');
+			$data['manzana'] =$this->input->post('manzana');
+			$data['parcela'] = $this->input->post('parcela');
+			$data['partida'] = $this->input->post('partida');
+			$data['planoAprobado'] = $this->input->post('planoAprobado');			
+			$data['fechaPlanoAprobado'] = $this->input->post('fechaPlanoAprobado');
+			$data['tipoPropiedad'] = $this->input->post('tipoPropiedad');
+			$data['tomo'] = $this->input->post('tomo');
+			$data['folio'] = $this->input->post('folio');
+			$data['finca'] = $this->input->post('finca');
+			$data['año'] = $this->input->post('año');
+			$data['localidades'] = $this->input->post('localidades');
+			$data['departamentos'] = $this->M_escribano->getNombreDepartamento($this->input->post('departamentos'));
+			$data['descripcion'] = $this->input->post('descripcion');
+			$data['nroMatriculaRPI'] = $this->input->post('nroMatriculaRPI');
+			$data['fechaMatriculaRPI'] = $this->input->post('fechaMatriculaRPI');
+			$data['superficie'] = $this->input->post('superficie'); 
+		
+
+		}else{
+			$data['circunscripcion']='';
+			$data['seccion']='';
+			$data['chacra']='';
+			$data{'quinta'}='';
+			$data{'fraccion'}='';
+			$data{'manzana'}='';
+			$data{'parcela'}='';
+			$data{'partida'}='';
+			$data{'planoAprobado'}='';
+			$data{'fechaPlanoAprobado'}='';
+			$data{'tipoPropiedad'}='';
+			$data{'tomo'}='';
+			$data{'folio'}='';
+			$data{'finca'}='';
+			$data{'año'}='';
+			$data{'localidades'}='';
+			$data{'departamentos'}='';
+			$data{'descripcion'}='';
+			$data{'nroMatriculaRPI'}='';
+			$data{'fechaMatriculaRPI'}='';
+			$data['superficie'] ="";
+
+		}
+
+
+		$this->load->view('templates/cabecera_escribano',$data);
+		$this->load->view('templates/escri_menu',$data);
+		$this->load->view('escribano/editarParcela',$data);
+		$this->load->view('templates/pie',$data);
+	}
+
+	
 
 
 }

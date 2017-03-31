@@ -454,6 +454,55 @@ if($this->session->userdata('otroPH') ){
 			return false;
 		}
 	}
+
+	public function getfechaInscMinuta($idMinuta)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT fechaIngresoSys
+				FROM minuta
+				WHERE idMinuta='$idMinuta'");
+				return $query->row()->fechaIngresoSys;
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	public function getPropietariosxidRelacion($idRelacion)
+	{
+		try {
+			
+			$query = $this->db->query("
+				SELECT *
+					 FROM propietario e, persona p
+					
+					 WHERE p.idPersona =e.idPersona AND e.idRelacion=$idRelacion 
+					
+					 ");
+			return $query->result();	
+		} catch (Exception $e) {
+			return FALSE;
+		}
+	}
+	public function getMinutaxId($idMinuta){
+		try {
+			$query= $this->db->query("
+					SELECT m.idMinuta as idMinuta, idEscribano, 
+		concat(substring(fechaIngresoSys, 9, 2), '/' ,substring(fechaIngresoSys, 6, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
+					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
+					from minuta m inner join 
+					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x
+					on x.idMinuta = m.idMinuta left join estadominuta em 
+					on em.idEstadoMinuta = x.idEstadoMinuta and em.idMinuta = x.idMinuta 
+					where m.idMinuta=$idMinuta
+					order by m.idMinuta
+				  	");
+			return $query->row();
+		 } catch (Exception $e) {
+			return false;
+		} 
+	}
+
+
 }
 
 
