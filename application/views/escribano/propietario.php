@@ -125,13 +125,11 @@
 
             <?php
             $posicion=$posicion+1;    
-               endforeach; ?>
+               endforeach; } ?>
                </tbody>
               </table>
               </div>
-            <?php } ?>
-
-
+           
                 <div class="modal" id="Eliminar">
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -162,19 +160,19 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" checked>
+                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" <?php if ($propietario == 'P') echo 'checked'; ?>  checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
+                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();" <?php if ($propietario == 'O') echo 'checked'; ?>  >
                       Empresa u Otros
                     </label>
                   </div>  
                   </div>
-                  <div class="form-group">    
-                   </div>            
+                  </div>
+                  <div class="form-group">                                
                    <div class="col-md-3">                           
                  <label >Tipo Propietario</label>
                   <div class="radio">
@@ -214,7 +212,7 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" style="width: 100%;">
-                           <option value="" selected="selected">Seleccionar</option>
+                           <option value="0" selected="selected">Seleccionar</option>
                            <option value="27" <?php echo  set_select('sexo_combobox', '27', TRUE); ?>>Femenino</option>
                            <option value="20" <?php echo  set_select('sexo_combobox', '20', TRUE); ?>>Masculino</option>
                         </select>
@@ -227,8 +225,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" placeholder="CUIL" disabled >
-                        <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
+                        <input type="text" class="form-control" id="cuil" name="cuil" placeholder="CUIL" disabled >                        
                      </div>
                      </div>
                      </div>
@@ -237,7 +234,7 @@
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" name="cuit" <?php echo "value='$cuit'" ?>  placeholder="CUIT"  >
-                        <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
+                        <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                                        
                      <div class="col-md-3">
@@ -375,22 +372,33 @@
       </script>
 
       <!--Deshabilita campos sexo, dni y conyuge-->
-      <script language="javascript"><!--    
+      <script language="javascript"><!--   
+       $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'O'){
+     noPh();
+  }
+    });
   		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
       document.getElementById("cuil").disabled = true;
       document.getElementById("cuit").disabled = false; 
-
+      /*Limpia los campos deshabilitados*/
+      document.getElementById("sexo_combobox").val='';
+      document.getElementById("dni").val='';
+      document.getElementById("conyuge").val='';
+      document.getElementById("cuil").val='';
+      document.getElementById("cuit").val='';
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
 		
 		<script language="javascript"><!--
-    
-    $(document).ready(function () {
-        funcionpersona();
+    $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'P'){
+     noPh();
+  }
     });
 
 		function funcionpersona() { 		 

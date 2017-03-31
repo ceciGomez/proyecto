@@ -228,8 +228,6 @@
    <!-- Llena lista de localidades dependiendo del departamento seleccionado -->
    <script>
    $(document).ready(function(){
-
-           console.log($('#departamentos').val());
    if($('#departamentos').val()!=""){
     localidadOnReady($('#departamentos').val());}
     });

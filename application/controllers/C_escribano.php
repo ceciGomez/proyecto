@@ -345,6 +345,7 @@ class C_escribano extends CI_Controller {
 
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
+			$data['propietario'] = $this->input->post('propietario');	
 			$data['porcentaje_condominio'] = $this->input->post('porcentaje_condominio');
 			$data['tipo_propietario'] = $this->input->post('tipo_propietario');
 			$data['empresa'] = $this->input->post('empresa');
@@ -362,6 +363,8 @@ class C_escribano extends CI_Controller {
 
 		}else{
 
+			$data['propietario']='';
+			$data['tipo_propietario']='';
 			$data['porcentaje_condominio']='';
 			$data['tipo_propietario']='';
 			$data['empresa']='';
