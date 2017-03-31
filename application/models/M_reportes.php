@@ -12,7 +12,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  			
  			$query = $this->db->query("
 				SELECT m.idMinuta, e.estadoMinuta, e.motivoRechazo, ue.idEscribano,
-			m.fechaIngresoSys,e.fechaEstado,
+			concat(substring(m.fechaIngresoSys, 9, 2), '/' ,substring(m.fechaIngresoSys, 6, 2) , '/', substring(m.fechaIngresoSys, 1, 4)) as	fechaIngresoSys,
+			concat(substring(fechaEstado, 9, 2), '/' ,substring(fechaEstado, 6, 2) , '/', substring(fechaEstado, 1, 4)) as	fechaEstado,
 				p.circunscripcion, p.seccion, p.chacra, p.quinta, p.fraccion, p.manzana, p.parcela, p.nroMatriculaRPI, p.planoAprobado,
 				l.nombre as localidad
 						

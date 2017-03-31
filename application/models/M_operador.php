@@ -22,7 +22,7 @@ class M_operador extends CI_Model
 	{
 		try{
 			$this->db->where('idEscribano',$id);
-			return $this->db->UPDATE('usuarioEscribano',$escribano);
+			return $this->db->UPDATE('usuarioescribano',$escribano);
 
 			} catch (Exception $e) {
 			return false;
