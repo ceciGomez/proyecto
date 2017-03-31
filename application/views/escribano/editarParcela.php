@@ -171,6 +171,7 @@
                               <div class="col-md-12">
                               <div class="box-footer">
                                   <button type="submit" class="btn btn-primary" >Editar Parcela</button>
+                                     <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
                                  
                                 
                               </div>

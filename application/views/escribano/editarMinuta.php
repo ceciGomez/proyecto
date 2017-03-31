@@ -73,7 +73,7 @@ table, th, td {
 
                 $date2=new DateTime($parcela->fechaMatriculaRPI);
                       $date_formated2=$date2->format('d/m/Y ');
-                      $fecha_matriculaRPI=$date_formated;
+                      $fecha_matriculaRPI=$date_formated2;
                           
                  ?>              
                           <table class="table-bordered"  >
@@ -236,7 +236,7 @@ table, th, td {
                                 }?>
                                   
                                 </td>
-                                <td>
+                               
                                   <td><?php if ($relacion->poligonos==null) {
 
                                   echo "";

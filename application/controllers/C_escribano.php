@@ -1301,8 +1301,15 @@ function checkPost(){
 				$this->editarParcela($idParcela,FALSE,TRUE, FALSE);
 
 			}else{
-		$fechaMatriculaRPI=$this->input->post('fechaMatriculaRPI');
-        $fechaPlanoAprobado=$this->input->post('fechaPlanoAprobado');
+
+					$date1=str_replace('/','-',$this->input->post('fechaMatriculaRPI'));
+				$date1=new DateTime($date1);
+               $fechaMatriculaRPI=$date1->format('Y-m-d ');
+
+            
+				$date2=str_replace('/','-',$this->input->post('fechaPlanoAprobado'));
+				$date2=new DateTime($date2);
+               $fechaPlanoAprobado=$date2->format('Y-m-d ');
       
 
 
@@ -1392,6 +1399,8 @@ function checkPost(){
 			$data['fecha_plano_aprobado']= $fechaPlanoAprobado;
 			$data['porcentaje_ucuf']= $relacion->porcentajeUfUc;
 			$data['poligonos']=$relacion->poligonos;		
+			$this->session->set_userdata('idParcelaEditar',$relacion->idParcela);
+			$this->session->set_userdata('idRelacionEditar',$relacion->idRelacion);
 
 		}
 		var_dump($data['tipo_ucuf']);
@@ -1404,7 +1413,7 @@ function checkPost(){
 	}
 
      public function modificarPH(){
-
+     		$idRelacion=$this->session->userdata('idRelacionEditar');
 				$hizo_post=TRUE;
 
 				 $this->load->helper(array('form', 'url'));
@@ -1425,35 +1434,35 @@ function checkPost(){
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->crearRelacion(FALSE,TRUE);
+				$this->editarPH(FALSE,TRUE);
 
 			} else{
                   
+			$date1=str_replace('/','-',$this->input->post('fecha_escritura'));
+				$date1=new DateTime($date1);
+               $fechaEscritura=$date1->format('Y-m-d ');
+
+            
+				$date2=str_replace('/','-',$this->input->post('fecha_plano_aprobado'));
+				$date2=new DateTime($date2);
+               $fechaPlanoAprobado=$date2->format('Y-m-d ');
+      
 				$datos_ph= array (
-					'ph' => $this->input->post('ph'),
-					'fecha_escritura' => $this->input->post('fecha_escritura'),
-					'nro_ucuf' => $this->input->post('nro_ucuf'),
-					'tipo_ucuf' => $this->input->post('tipo_ucuf'),
-					'plano_aprobado' => $this->input->post('plano_aprobado'),
-					'fecha_plano_aprobado' => $this->input->post('fecha_plano_aprobado'),
-					'porcentaje_ucuf' => $this->input->post('porcentaje_ucuf'),
+					'fechaEscritura' => $fechaEscritura,
+					'nroUfUc' => $this->input->post('nro_ucuf'),
+					'tipoUfUc' => $this->input->post('tipo_ucuf'),
+					'planoAprobado' => $this->input->post('plano_aprobado'),
+					'fechaPlanoAprobado' => $fechaPlanoAprobado,
+					'porcentajeUfUc' => $this->input->post('porcentaje_ucuf'),
 					'poligonos' => $this->input->post('poligonos'), 
 
+
 				);
-				 
-				 if($this->session->userdata('datos_ph')) {
-				 	$ph_anterior =  $this->session->userdata('datos_ph');
-					array_push($ph_anterior, $datos_ph);
-					$this->session->set_userdata('propietario', $ph_anterior);
-				 }else { 
-				 	$array = array();
-					$this->session->set_userdata('datos_ph',$array); 
-					$ph_anterior =  $this->session->userdata('datos_ph');
-					array_push($ph_anterior, $datos_ph);
-					$this->session->set_userdata('datos_ph', $ph_anterior);
-					}
-					
-					$this->crearPropietario(FALSE,FALSE);		
+				 	
+						$this->db->where('idRelacion', $idRelacion);
+						$this->db->update('relacion', $datos_ph);
+
+					$this->editarMinuta($this->session->userdata('idMinutaEditar'));	
 			}
 
      }	
