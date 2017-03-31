@@ -488,23 +488,15 @@ class C_administrador extends CI_Controller {
 		
      	}
 
-		  public function rechazar_min	(){
-		      		$idEstadoMinuta=$_POST["idEstadoMinuta"];
-		      		$motivoRechazo=$_POST["motivoRechazo"];
-
-
-		      
-		      		$datetime_variable = new DateTime();
-					$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+		  public function rechazar_min(){
 		      		$data = array(
-		               'estadoMinuta' => "R",
-		              	'motivoRechazo' =>"$motivoRechazo",
-		              	'idUsuario'=>$this->session->userdata('idUsuario'),
-		              	'fechaEstado'=> $datetime_formatted ,
-		            );
+               'motivoRechazo' => "hola",
+           
+            );
 
-				$this->db->where('idEstadoMinuta', 2);
-				$this->db->update('estadominuta', $data); 
+$this->db->where('idEstadoMinuta', '2');
+$this->db->update('estadominuta', $data); 
+
 
 		      }
 
