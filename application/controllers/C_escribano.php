@@ -25,8 +25,10 @@ class C_escribano extends CI_Controller {
 		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
 		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
 	//	                      var_dump($minutasRechazadas);
-		$escribano=$this->db->get_where('usuarioescribano', array('idEscribano'=>$this->session->userdata('idEscribano')))->row();
-		$data['escribano']=$escribano;
+		//$escribano=$this->db->get_where('usuarioescribano', array('idEscribano'=>$this->session->userdata('idEscribano')))->row();
+		$idEscri = $this->session->userdata('idEscribano');
+		$unEscribano=$this->M_escribano->getUnEscribano($idEscri);
+		$data['escribano']=$unEscribano;
 		//var_dump($this->session->userdata('usuario'));
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -35,7 +37,7 @@ class C_escribano extends CI_Controller {
 		
 		}	
 		
-	public function crearParcela($exito=FALSE, $hizo_post=FALSE)
+	public function crearParcela($exito=FALSE, $hizo_post=FALSE, $otra_Parcela=FALSE)
 	{
   					
 
@@ -43,6 +45,16 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
+		if($otra_Parcela == TRUE){
+			$this->session->set_userdata('otraParcela',TRUE);
+    			$this->session->set_userdata('otroPh',FALSE);
+		}else{
+			$this->session->set_userdata('otraParcela',FALSE);
+			$this->session->set_userdata('otroPh',FALSE);
+		}
+
+
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
@@ -168,7 +180,7 @@ class C_escribano extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->crearParcela(FALSE,TRUE);
+				$this->crearParcela(FALSE,TRUE, FALSE);
 
 			}else{
 				
@@ -205,11 +217,18 @@ class C_escribano extends CI_Controller {
 		 }
 		
 
-     public function crearRelacion($exito=FALSE, $hizo_post=FALSE){
+     public function crearRelacion($exito=FALSE, $hizo_post=FALSE, $otro_ph=FALSE){
 
 			if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+         /*Variables para evitar que inserte una minuta y parcela cuando quiere agregar otro ph*/
+		if($otro_ph==TRUE){
+			var_dump('entra en crearrelcion');
+			$this->session->set_userdata('otroPh',TRUE);
+    		$this->session->set_userdata('otraParcela',TRUE);
 		}
 
         		$data["notificaciones_ma"]=$this->notificaciones_ma();
@@ -235,15 +254,14 @@ class C_escribano extends CI_Controller {
 			$data['ph']='';
 			$data['fecha_escritura']='';
 			$data['nro_ucuf']='';
-			$data{'tipo_ucuf'}='';
-			$data{'plano_aprobado'}='';
-			$data{'fecha_plano_aprobado'}='';
-			$data{'porcentaje_ucuf'}='';
-			$data{'poligonos'}='';
-			
+			$data['tipo_ucuf']='';
+			$data['plano_aprobado']='';
+			$data['fecha_plano_aprobado']='';
+			$data['porcentaje_ucuf']='';
+			$data['poligonos']='';		
 
 		}
-
+		var_dump($data['tipo_ucuf']);
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -327,6 +345,7 @@ class C_escribano extends CI_Controller {
 
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
+			$data['propietario'] = $this->input->post('propietario');	
 			$data['porcentaje_condominio'] = $this->input->post('porcentaje_condominio');
 			$data['tipo_propietario'] = $this->input->post('tipo_propietario');
 			$data['empresa'] = $this->input->post('empresa');
@@ -344,19 +363,21 @@ class C_escribano extends CI_Controller {
 
 		}else{
 
+			$data['propietario']='';
+			$data['tipo_propietario']='';
 			$data['porcentaje_condominio']='';
 			$data['tipo_propietario']='';
 			$data['empresa']='';
 			$data['nombreyapellido']='';
 			$data['sexo_combobox']='';
 			$data['dni']='';
-			$data{'cuit'}='';
-			$data{'cuil'}='';
-			$data{'conyuge'}='';
-			$data{'fecha_nacimiento'}='';
-			$data{'direccion'}='';
-			$data{'departamentos'}='';
-			$data{'localidades'}='';
+			$data['cuit']='';
+			$data['cuil']='';
+			$data['conyuge']='';
+			$data['fecha_nacimiento']='';
+			$data['direccion']='';
+			$data['departamentos']='';
+			$data['localidades']='';
 			
 
 		}
@@ -450,7 +471,8 @@ class C_escribano extends CI_Controller {
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
 					
-					}		 
+					}		
+
 					/*verifica si presionó boton agregar propietario o guardar*/ 
 					if($this->input->post('minuta') == "agregar") { 
     						$this->crearPropietario(FALSE,FALSE);
@@ -478,23 +500,17 @@ class C_escribano extends CI_Controller {
 function checkPost(){
     
 		if($this->input->post('finminuta') == "agregarph") { 
-
+				var_dump('agregarph');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otroPh');
-    			$this->session->set_userdata('otraParcela');
-    			var_dump('borra datos ph');
-    			var_dump($this->session->userdata('datos_ph'));
-    				var_dump($this->session->userdata('datos_parcela'));
-    			$this->crearRelacion();
+    			
+    			$this->crearRelacion(FALSE, TRUE, TRUE);
     		}else{
     			$this->session->unset_userdata('datos_parcela');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otraParcela');
-    			var_dump('borra datos parcela');
-    			var_dump($this->session->userdata('datos_parcela'));
-               $this->crearParcela();
+    		
+               $this->crearParcela(FALSE, TRUE, TRUE);
 }
 }
 

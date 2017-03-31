@@ -34,7 +34,7 @@
                 </div> 
                 <br>
                <div align="center">
-                <button type="submit" class="btn btn-primary">Imprimir Pedidos</button>               
+               <a target="_blank"> <button type="submit" class="btn btn-primary" >Imprimir Pedidos</button></a>               
                       </div>
                 </form>
                   

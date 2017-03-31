@@ -47,7 +47,9 @@ class M_escribano extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
+				SELECT u.nomyap, u.usuario, 
+				concat(substring(u.fechaReg, 9, 2), '/' ,substring(u.fechaReg, 6, 2) , '/', substring(u.fechaReg, 1, 4)) as	fechaReg, 
+				u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
 				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
 				inner join departamento d
@@ -367,10 +369,12 @@ public function getPropietarios($idParcela)
 /*Funciones para ar una minuta nueva*/
 
 function insertarMinuta(){
-	if(!$this->session->userdata('otraParcela') ){
+
 	$idEscribano = $this->session->userdata('idEscribano');
 	$fechaIngresoSys = date('Y-m-d H:i:s');
 	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
+		if($this->session->userdata('otraParcela')==FALSE) {
+		var_dump('entra minuta');
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
@@ -378,10 +382,9 @@ function insertarMinuta(){
 }
 	
 
-	if(!$this->session->userdata('otraParcela')  || !$this->session->userdata('otroPH')  ) {
 
 	$idMinuta=$this->session->userdata('idMinuta');
-    $idLocalidad = $this->getIdLocalidad($this->session->userdata('localidades'));
+    $idLocalidad = $this->session->userdata('localidades');
     $circunscripcion = $this->session->userdata('circunscripcion');
     $seccion = $this->session->userdata('seccion');
     $chacra = $this->session->userdata('chacra');
@@ -402,21 +405,15 @@ function insertarMinuta(){
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
     $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
+    if($this->session->userdata('otraParcela') ==FALSE || $this->session->userdata('otroPh')==FALSE  ) {
+      var_dump('entra parcela');
     $this->db->query($order2);
     /*preparo para insertar una relacion*/
-    $idParcela = ($this->db->insert_id());
-    
+    $idParcela = ($this->db->insert_id());   
+    $this->session->set_userdata('idParcela',$idParcela);
+		}
 
-    $this->session->set_userdata($idParcela);
-}
-
-if($this->session->userdata('otroPH') ){
-		$this->session->unset_userdata('otroPH');
-	}
-	if($this->session->userdata('otraParcela') ){
-		$this->session->unset_userdata('otraParcela');
-	}
-	var_dump($idParcela);
+    $idParcela = $this->session->userdata('idParcela');
   	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
     $nro_ucuf = $this->session->userdata('nro_ucuf');
     $tipo_ucuf = $this->session->userdata('tipo_ucuf');
@@ -438,6 +435,8 @@ if($this->session->userdata('otroPH') ){
     	$this->db->query($insertar_propietario);
 
     }
+    $this->session->set_userdata('otroPh',FALSE);
+    $this->session->set_userdata('otraParcela', FALSE);
     
 }
 

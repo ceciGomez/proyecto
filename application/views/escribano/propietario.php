@@ -118,23 +118,18 @@
                             <td><?php echo $c['porcentaje_condominio' ];  ?></td>   
                             <td><?php echo $c['direccion' ];  ?></td>
                             <td><?php echo $localidad->nombre;  ?></td>  
-                             <td ><?php 
-                               
-                                echo $c['fecha_nacimiento'];?></td>   
-                           <td><?php echo $c['sexo_combobox']; ?></td>  
-                            <td><?php echo $c['conyuge' ];  ?></td>     
-                               
+                            <td ><?php echo $c['fecha_nacimiento'];?></td>   
+                            <td><?php echo $c['sexo_combobox']; ?></td>  
+                            <td><?php echo $c['conyuge' ];  ?></td>                                    
                         </tr>
 
             <?php
             $posicion=$posicion+1;    
-               endforeach; ?>
+               endforeach; } ?>
                </tbody>
               </table>
               </div>
-            <?php } ?>
-
-
+           
                 <div class="modal" id="Eliminar">
                       <div class="modal-dialog modal-lg">
                         <div class="modal-content">
@@ -143,9 +138,7 @@
                           <h3 class="modal-title" style="color:white"> Eliminar Propietario</h3>
                          </div>
                          <div class="modal-body">
-                         <h3> Confirmar Eliminar Propietario</h3>
-                        
-
+                         <h3> Confirmar Eliminar Propietario</h3>                       
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
                           <a href="" class="btn btn-primary"  onclick="eliminarProp()">Aceptar</a>
@@ -153,7 +146,7 @@
                       </div>
                     </div>
                   </div>
-                   </div>
+                 </div>
 
    <section class="content">
       <div class="box box-default">
@@ -167,19 +160,17 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" checked>
+                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" <?php if ($propietario == 'P') echo 'checked'; ?>  checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
+                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();" <?php if ($propietario == 'O') echo 'checked'; ?>  >
                       Empresa u Otros
                     </label>
                   </div>  
-                  </div>
-                  <div class="form-group">    
-                   </div>            
+                  </div>                               
                    <div class="col-md-3">                           
                  <label >Tipo Propietario</label>
                   <div class="radio">
@@ -218,10 +209,10 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
-                        <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" <?php echo "value='$sexo_combobox'" ?> style="width: 100%;">
+                        <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" style="width: 100%;">
                            <option value="" selected="selected">Seleccionar</option>
-                           <option value="27" >Femenino</option>
-                           <option value="20" >Masculino</option>
+                           <option value="27" <?php if ($sexo_combobox=="27") echo 'selected="selected"';?>>Femenino</option>
+                           <option value="20" <?php if ($sexo_combobox=="20") echo 'selected="selected"';?>>Masculino</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('sexo_combobox')?></p></div>
                      </div>
@@ -232,8 +223,7 @@
                      </div>
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIL</label>
-                        <input type="text" class="form-control" id="cuil" name="cuil" placeholder="CUIL" disabled >
-                        <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
+                        <input type="text" class="form-control" id="cuil" name="cuil" placeholder="CUIL" disabled >                        
                      </div>
                      </div>
                      </div>
@@ -242,7 +232,7 @@
                      <div class="col-md-3"> <!-- debe ser generado automaticamente -->
                         <label for="exampleInputEmail1">CUIT</label>
                         <input type="text" class="form-control" id="cuit" name="cuit" <?php echo "value='$cuit'" ?>  placeholder="CUIT"  >
-                        <div style="color:red;" ><p><?=form_error('cuil')?></p></div>
+                        <div style="color:red;" ><p><?=form_error('cuit')?></p></div>
                      </div>
                                        
                      <div class="col-md-3">
@@ -289,11 +279,9 @@
                </div>
             </div>
             <div class="box-footer">
-
-             <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
+              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Agregar Adquiriente/Transmitente</button>
               <button type="submit" class="btn btn-primary" name="minuta" value="guardar">Guardar Minuta</button>
-
-                 <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+              <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
             </div>
 
             <!-- /.row -->
@@ -304,7 +292,13 @@
   </section>
   </div>
 
-  
+  <script>
+      $( document ).ready(function() {
+            $('#fecha_nacimiento').datepicker({
+      autoclose: true
+    });
+        });   
+    </script>
     <!--Toma el valor del combobox sexo y lo agrega al campo CUIT-->
     <script>
       $("#sexo_combobox").on("focusout", function () {
@@ -382,22 +376,33 @@
       </script>
 
       <!--Deshabilita campos sexo, dni y conyuge-->
-      <script language="javascript"><!--    
+      <script language="javascript"><!--   
+       $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'O'){
+     funcionempresa();
+  }
+    });
   		function funcionempresa() { 		 
   		document.getElementById("sexo_combobox").disabled = true; 
   		document.getElementById("dni").disabled = true; 
  		  document.getElementById("conyuge").disabled = true; 
       document.getElementById("cuil").disabled = true;
       document.getElementById("cuit").disabled = false; 
-
+      /*Limpia los campos deshabilitados*/
+      document.getElementById("sexo_combobox").value='';
+      document.getElementById("dni").value='';
+      document.getElementById("conyuge").value='';
+      document.getElementById("cuil").value='';
+      document.getElementById("cuit").value='';
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
 		
 		<script language="javascript"><!--
-    
-    $(document).ready(function () {
-        funcionpersona();
+    $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'P'){
+     funcionpersona();
+  }
     });
 
 		function funcionpersona() { 		 
@@ -549,12 +554,10 @@
                      document.getElementById("nombreyapellido").value = ""; 
                      document.getElementById("dni").value = "";  
                      document.getElementById("cuit").value =""; 
-                      document.getElementById("cuil").value = "";
+                     document.getElementById("cuil").value = "";
                      document.getElementById("direccion").value = ""; 
-                    document.getElementById("conyuge").value =""; 
-               
-                    
-                     document.getElementById("fecha_nacimiento").value=""; 
+                    document.getElementById("conyuge").value ="";               
+                    document.getElementById("fecha_nacimiento").value=""; 
                    $("#localidades option[value="+ 0 +"]").attr("selected",true);
                     $("#departamentos option[value="+ 0 +"]").attr("selected",true);
                     //para que solo busque por personas u organizaciones
@@ -704,14 +707,7 @@
     }
 
       </script>
-     <script>
-      /*  $( document ).ready(function() {
-            $('#fecha_nacimiento').datepicker();
-        }); */
-        $('#fecha_nacimiento').datepicker({
-      autoclose: true
-    });     
-    </script>
+     
 
     
      

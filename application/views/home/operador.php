@@ -40,32 +40,29 @@ tr:hover{background-color:#f5f5f5}
             <table class="table" class="table-bordered" style="tr:hover {background-color: #f5f5f5}" >
             <tbody>
               <tr>
-          <th> Nombre y Apellido</th><td> <?php echo $operador->nomyap ?> </td>
+          <th> Nombre y Apellido</th><td> <?php echo $operador[0]->nomyap ?> </td>
         </tr>
         <tr>
-          <th> Nombre de Usuario</th><td> <?php echo $operador->usuario ?></td>
+          <th> Nombre de Usuario</th><td> <?php echo $operador[0]->usuario ?></td>
         </tr>
         <tr>
-          <th> Fecha de Registración</th><td> <?php echo $operador->fechaReg ?> </td>
+          <th> Fecha de Registración</th><td> <?php echo $operador[0]->fechaReg ?> </td>
         </tr>
         <tr>
-          <th> DNI</th><td><?php echo $operador->dni ?> </td>
+          <th> DNI</th><td><?php echo $operador[0]->dni ?> </td>
         </tr>
         <tr>
-          <th> Teléfono</th><td> <?php echo $operador->telefono ?> </td>
+          <th> Teléfono</th><td> <?php echo $operador[0]->telefono ?> </td>
         </tr>
        
         <tr>
-          <th> Email</th><td> <?php echo $operador->email ?> </td>
+          <th> Email</th><td> <?php echo $operador[0]->email ?> </td>
         </tr>
         <tr>
          <tr>
-          <th> Dirección</th><td> <?php echo $operador->direccion ?> </td>
+          <th> Dirección</th><td> <?php echo $operador[0]->direccion ?> </td>
         </tr>
-          <th> Localidad</th><td> <?php
-          if($operador->idLocalidad==null){echo "";}else{
-           $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$operador->idLocalidad))->row();
-           echo $localidad->nombre; }?></td>
+          <th> Localidad</th><td> <?php echo $operador[0]->localidad?></td>
         </tr>
         <tr>
           <th> Perfil</th><td> Operador </td>
