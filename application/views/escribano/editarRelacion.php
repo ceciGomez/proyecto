@@ -107,7 +107,9 @@
 
             </div>
             <div class="box-footer">
-             <button type="submit" class="btn btn-primary"  >Editar Relacion</button>            
+             <button type="submit" class="btn btn-primary"  >Guardar PH</button>  
+              <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPH/<?php echo  $this->session->userdata('idRelacionEditar') ?>" >Eliminar Propietario</a>
+          
                  <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
             </div>
 
