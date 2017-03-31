@@ -381,7 +381,7 @@ class C_escribano extends CI_Controller {
 			
 
 		}
-
+		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
@@ -421,7 +421,7 @@ class C_escribano extends CI_Controller {
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
 			    }
 
-			   
+			 
 			if($this->form_validation->run() == FALSE)
 			{	
 				
