@@ -49,7 +49,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="Fecha de Escritura">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd//mm/aaaa">
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
@@ -80,7 +80,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                          </div>
-                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" <?php echo "value='$fecha_plano_aprobado'" ?>  placeholder="Fecha Plano Aprobado">
+                          <input type="text" class="form-control pull-right" name="fecha_plano_aprobado" id="fecha_plano_aprobado" <?php echo "value='$fecha_plano_aprobado'" ?>  placeholder="dd/mm/aaaa">
                      </div>
                      <div style="color:red;" ><p><?=form_error('fecha_plano_aprobado')?></p></div>
                   </div>             
@@ -91,7 +91,7 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Poligonos</label>
-                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholde<?php echo "value='$poligonos'" ?>  r="Poligonos">
+                        <input type="text" class="form-control" id="poligonos" name="poligonos" placeholder="Poligonos" <?php echo "value='$poligonos'" ?>  >
                         <div style="color:red;" ><p><?=form_error('poligonos')?></p></div>
                      </div>
                   </div>
