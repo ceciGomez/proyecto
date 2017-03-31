@@ -5,7 +5,7 @@
    <!-- Content Header (Page header) -->
    <section class="content-header">
       <h3 align="center">
-        Editar  Minuta
+        Editar  Parcela
       </h3>
       <ol class="breadcrumb">
          <li><a href="<?=base_url()?>index.php/c_loginescri"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -25,11 +25,11 @@
                   <!-- general form elements -->
                   <div class="box box-primary">
                      <div class="box-header with-border">
-                        <h3 class="box-title">Editar PH <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
+                        <h3 class="box-title">Editar Parcelas <?php echo $this->session->userdata('siguienteParcelaEditar'). " de un total de ". $this->session->userdata('cantidadParcelasEditar')?></h3>
                      </div>
                      <!-- /.box-header -->
                      <!-- form start -->
-                      <?=form_open(base_url().'index.php/C_escribano/registrarEditarParcela')?>
+                      <?=form_open(base_url().'index.php/C_escribano/modificarParcela')?>
                      <form method="post">
                         <div class="box-body">
                            <div class="form-group">                             
@@ -170,8 +170,8 @@
 
                               <div class="col-md-12">
                               <div class="box-footer">
-                                  <button type="submit" class="btn btn-primary" >Editar PH</button>
-                                   <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Cancelar</a>
+                                  <button type="submit" class="btn btn-primary" >Editar Parcela</button>
+                                 
                                 
                               </div>
                               </div>
