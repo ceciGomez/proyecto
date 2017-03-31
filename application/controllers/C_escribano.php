@@ -35,7 +35,7 @@ class C_escribano extends CI_Controller {
 		
 		}	
 		
-	public function crearParcela($exito=FALSE, $hizo_post=FALSE)
+	public function crearParcela($exito=FALSE, $hizo_post=FALSE, $otra_Parcela=FALSE)
 	{
   					
 
@@ -43,6 +43,16 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
+
+		if($otra_Parcela == TRUE){
+			$this->session->set_userdata('otraParcela',TRUE);
+    			$this->session->set_userdata('otroPh',FALSE);
+		}else{
+			$this->session->set_userdata('otraParcela',FALSE);
+			$this->session->set_userdata('otroPh',FALSE);
+		}
+
+
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
@@ -168,7 +178,7 @@ class C_escribano extends CI_Controller {
 			if($this->form_validation->run() == FALSE)
 			{	
 				
-				$this->crearParcela(FALSE,TRUE);
+				$this->crearParcela(FALSE,TRUE, FALSE);
 
 			}else{
 				
@@ -205,11 +215,17 @@ class C_escribano extends CI_Controller {
 		 }
 		
 
-     public function crearRelacion($exito=FALSE, $hizo_post=FALSE){
+     public function crearRelacion($exito=FALSE, $hizo_post=FALSE, $otro_ph=FALSE){
 
 			if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
+		}
+
+		if($otro_ph==TRUE){
+			var_dump('entra en crearrelcion');
+			$this->session->set_userdata('otroPh',TRUE);
+    			$this->session->set_userdata('otraParcela',TRUE);
 		}
 
         		$data["notificaciones_ma"]=$this->notificaciones_ma();
@@ -450,7 +466,8 @@ class C_escribano extends CI_Controller {
 					array_push($propietario_anterior, $datos_propietario);
 					$this->session->set_userdata('propietario', $propietario_anterior);
 					
-					}		 
+					}		
+
 					/*verifica si presionó boton agregar propietario o guardar*/ 
 					if($this->input->post('minuta') == "agregar") { 
     						$this->crearPropietario(FALSE,FALSE);
@@ -481,17 +498,14 @@ function checkPost(){
 				var_dump('agregarph');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otroPh',TRUE);
-    			$this->session->set_userdata('otraParcela',TRUE);
-    				var_dump($this->session->userdata('otraParcela'));
-    			$this->crearRelacion();
+    			
+    			$this->crearRelacion(FALSE, TRUE, TRUE);
     		}else{
     			$this->session->unset_userdata('datos_parcela');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			$this->session->set_userdata('otraParcela',TRUE);
-    			$this->session->set_userdata('otroPh',FALSE);
-               $this->crearParcela();
+    		
+               $this->crearParcela(FALSE, TRUE, TRUE);
 }
 }
 
