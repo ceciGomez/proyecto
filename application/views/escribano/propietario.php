@@ -170,9 +170,7 @@
                       Empresa u Otros
                     </label>
                   </div>  
-                  </div>
-                  </div>
-                  <div class="form-group">                                
+                  </div>                               
                    <div class="col-md-3">                           
                  <label >Tipo Propietario</label>
                   <div class="radio">
@@ -212,9 +210,9 @@
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Sexo</label>
                         <select id="sexo_combobox" class="form-control select2" name="sexo_combobox" style="width: 100%;">
-                           <option value="0" selected="selected">Seleccionar</option>
-                           <option value="27" <?php echo  set_select('sexo_combobox', '27', TRUE); ?>>Femenino</option>
-                           <option value="20" <?php echo  set_select('sexo_combobox', '20', TRUE); ?>>Masculino</option>
+                           <option value="" selected="selected">Seleccionar</option>
+                           <option value="27" <?php if ($sexo_combobox=="27") echo 'selected="selected"';?>>Femenino</option>
+                           <option value="20" <?php if ($sexo_combobox=="20") echo 'selected="selected"';?>>Masculino</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('sexo_combobox')?></p></div>
                      </div>
@@ -375,7 +373,7 @@
       <script language="javascript"><!--   
        $(document).ready(function(){
    if ($("input[name='propietario']:checked").val() == 'O'){
-     noPh();
+     funcionempresa();
   }
     });
   		function funcionempresa() { 		 
@@ -385,11 +383,11 @@
       document.getElementById("cuil").disabled = true;
       document.getElementById("cuit").disabled = false; 
       /*Limpia los campos deshabilitados*/
-      document.getElementById("sexo_combobox").val='';
-      document.getElementById("dni").val='';
-      document.getElementById("conyuge").val='';
-      document.getElementById("cuil").val='';
-      document.getElementById("cuit").val='';
+      document.getElementById("sexo_combobox").value='';
+      document.getElementById("dni").value='';
+      document.getElementById("conyuge").value='';
+      document.getElementById("cuil").value='';
+      document.getElementById("cuit").value='';
 		}
 		</script>
 		<!--Habilita campos sexo, dni y conyuge-->
@@ -397,7 +395,7 @@
 		<script language="javascript"><!--
     $(document).ready(function(){
    if ($("input[name='propietario']:checked").val() == 'P'){
-     noPh();
+     funcionpersona();
   }
     });
 

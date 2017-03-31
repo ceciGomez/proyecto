@@ -224,10 +224,11 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 
+         /*Variables para evitar que inserte una minuta y parcela cuando quiere agregar otro ph*/
 		if($otro_ph==TRUE){
 			var_dump('entra en crearrelcion');
 			$this->session->set_userdata('otroPh',TRUE);
-    			$this->session->set_userdata('otraParcela',TRUE);
+    		$this->session->set_userdata('otraParcela',TRUE);
 		}
 
         		$data["notificaciones_ma"]=$this->notificaciones_ma();
@@ -253,15 +254,14 @@ class C_escribano extends CI_Controller {
 			$data['ph']='';
 			$data['fecha_escritura']='';
 			$data['nro_ucuf']='';
-			$data{'tipo_ucuf'}='';
-			$data{'plano_aprobado'}='';
-			$data{'fecha_plano_aprobado'}='';
-			$data{'porcentaje_ucuf'}='';
-			$data{'poligonos'}='';
-			
+			$data['tipo_ucuf']='';
+			$data['plano_aprobado']='';
+			$data['fecha_plano_aprobado']='';
+			$data['porcentaje_ucuf']='';
+			$data['poligonos']='';		
 
 		}
-
+		var_dump($data['tipo_ucuf']);
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -371,13 +371,13 @@ class C_escribano extends CI_Controller {
 			$data['nombreyapellido']='';
 			$data['sexo_combobox']='';
 			$data['dni']='';
-			$data{'cuit'}='';
-			$data{'cuil'}='';
-			$data{'conyuge'}='';
-			$data{'fecha_nacimiento'}='';
-			$data{'direccion'}='';
-			$data{'departamentos'}='';
-			$data{'localidades'}='';
+			$data['cuit']='';
+			$data['cuil']='';
+			$data['conyuge']='';
+			$data['fecha_nacimiento']='';
+			$data['direccion']='';
+			$data['departamentos']='';
+			$data['localidades']='';
 			
 
 		}
