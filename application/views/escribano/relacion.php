@@ -61,10 +61,10 @@
                      </div>
                      <div class="col-md-3">
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
-                        <select id="tipo_ucuf" name="tipo_ucuf" <?php echo "value='$tipo_ucuf'" ?> <?php echo "value='$tipo_ucuf'" ?>  class="form-control select2"  style="width: 100%;">
+                        <select id="tipo_ucuf" name="tipo_ucuf" <?php echo "value='$tipo_ucuf'" ?>  class="form-control select2"  style="width: 100%;">
                            <option vale="" >Seleccionar</option>
-                           <option >C</option>
-                           <option >F</option>
+                           <option value="C" <?php echo  set_select('tipo_ucuf', 'C', TRUE); ?>>C</option>
+                           <option value="F" <?php echo  set_select('tipo_ucuf', 'F', TRUE); ?> >F</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
                      </div>
@@ -74,6 +74,10 @@
                         <input type="text" class="form-control" id="plano_aprobado" name="plano_aprobado" <?php echo "value='$plano_aprobado'" ?>  placeholder="Plano Aprobado de la UF/UC">
                         <div style="color:red;" ><p><?=form_error('plano_aprobado')?></p></div>
                      </div>
+                     </div>
+                     </div>
+                     <div class="row">
+                     <div class="form-group">
                     <div class="col-md-3">
                         <label for="exampleInputEmail1">Fecha de Plano de Aprobado</label>                     
                           <div class="input-group date">
@@ -133,7 +137,11 @@
     
       <!--deshabilita campos si es ph-->
       <script language="javascript"><!--
-
+     $(document).ready(function(){
+   if ($("input[name='ph']:checked").val() == 'noph'){
+     noPh();
+  }
+    });
 		function noPh() { 		 
   		  document.getElementById("nro_ucuf").disabled = true; 
  		    document.getElementById("tipo_ucuf").disabled = true; 
@@ -141,6 +149,13 @@
         document.getElementById("fecha_plano_aprobado").disabled = true; 
         document.getElementById("porcentaje_ucuf").disabled = true; 
         document.getElementById("poligonos").disabled = true; 
+        /*Limpio los campos que deshabilito*/
+        document.getElementById("nro_ucuf").value = '';
+        document.getElementById("tipo_ucuf").value = '';
+        document.getElementById("plano_aprobado").value = '';
+        document.getElementById("fecha_plano_aprobado").value = '';
+        document.getElementById("porcentaje_ucuf").value = '';
+        document.getElementById("poligonos").value = '';
 		}
 		</script>
 		<!--habilita campos si no es ph-->		
