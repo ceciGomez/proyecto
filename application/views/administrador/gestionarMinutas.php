@@ -43,11 +43,13 @@
                      <tbody >
                         <?php 
                            foreach ($minutas as $mi){ 
-                           
-                              $date=new DateTime($mi["fechaIngresoSys"]);
-                             $date_formated=$date->format('d/m/Y ');
+                             $date_formated=$mi["fechaIngresoSys"];
+                                  
+                            if($mi["fechaEdicion"]!=null){
                               $date2=new DateTime($mi["fechaEdicion"]);
                              $date_formated2=$date2->format('d/m/Y ');
+                           }else {
+                            $date_formated2="";}
                            ?>
 
                         <tr>
@@ -325,7 +327,8 @@
                   function ventana_rech(idMinuta,idEstadoMinuta,idUsuario){
                   idEstMin=idUsuario;
                    idUsr=idUsuario;
-                   $.post("<?=base_url()?>index.php/c_adminstrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
+                   
+                   $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                      $("#rech_min").html(data);
                   });
                   }
@@ -337,7 +340,10 @@
                   }
                                      
                   function rechazar( ){
+
                     var motivoRechazo=document.getElementById('motivoRechazo').value;
+                    console.log(idUsuario);
+                    
                    $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                      
                   });

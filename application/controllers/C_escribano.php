@@ -24,10 +24,8 @@ class C_escribano extends CI_Controller {
 		$data['titulo'] = 'Bienvenido Escribano';
 		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
 		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
-	//	                      var_dump($minutasRechazadas);
-		//$escribano=$this->db->get_where('usuarioescribano', array('idEscribano'=>$this->session->userdata('idEscribano')))->row();
 		$idEscri = $this->session->userdata('idEscribano');
-		$unEscribano=$this->M_escribano->getUnEscribano($idEscri);
+		$unEscribano=$this->M_escribano->getUnEscribano(10);
 		$data['escribano']=$unEscribano;
 		//var_dump($this->session->userdata('usuario'));
 		$this->load->view('templates/cabecera_escribano',$data);
@@ -197,8 +195,7 @@ class C_escribano extends CI_Controller {
 					'tipoPropiedad' => $this->input->post('tipoPropiedad'),
 					'planoAprobado' => $this->input->post('planoAprobado'),
 					'fechaPlanoAprobado' => $this->input->post('fechaPlanoAprobado'),
-					'descripcion' => $this->input->post('descripcion'),					
-					'idMinuta' => 2,					
+					'descripcion' => $this->input->post('descripcion'),										
 					'nroMatriculaRPI' => $this->input->post('nroMatriculaRPI'),
 					'fechaMatriculaRPI' => $this->input->post('fechaMatriculaRPI'),
 					'departamentos' => $this->input->post('departamentos'),
@@ -226,7 +223,6 @@ class C_escribano extends CI_Controller {
 
          /*Variables para evitar que inserte una minuta y parcela cuando quiere agregar otro ph*/
 		if($otro_ph==TRUE){
-			var_dump('entra en crearrelcion');
 			$this->session->set_userdata('otroPh',TRUE);
     		$this->session->set_userdata('otraParcela',TRUE);
 		}
@@ -261,7 +257,6 @@ class C_escribano extends CI_Controller {
 			$data['poligonos']='';		
 
 		}
-		var_dump($data['tipo_ucuf']);
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -342,7 +337,14 @@ class C_escribano extends CI_Controller {
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
 		
+         var_dump($this->input->post('idPersonaSelect'));
+         if ($this->input->post('idPersonaSelect')==NULL) {
+         	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'));
+         }else{
 
+         	$this->session->set_userdata('idPersonaSelect', NULL);
+
+        }
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['propietario'] = $this->input->post('propietario');	
@@ -381,7 +383,7 @@ class C_escribano extends CI_Controller {
 			
 
 		}
-
+		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
 		$this->load->view('escribano/propietario',$data);
@@ -398,7 +400,7 @@ class C_escribano extends CI_Controller {
                  if($this->input->post('propietario')=='P'){
 			   		 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
 			  	    $this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
-			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
+			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes ingresar un nombre y apellido')) ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
 					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
 					/*$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );*/
@@ -410,7 +412,7 @@ class C_escribano extends CI_Controller {
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');    }
   				else{
   					 $this->form_validation->set_rules('porcentaje_condominio', 'porcentaje_condominio', 'required',array('required' => 'Debes ingresar porcentaje de codominio') );
-  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
+  					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required',array('required' => 'Debes ingresar un nombre y apellido'));
  			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
 			   		$this->form_validation->set_rules('cuit', 'cuit', 'required',array('required' => 'Debes ingresar un cuit ') );
 					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
@@ -421,7 +423,7 @@ class C_escribano extends CI_Controller {
   					$this->form_validation->set_message('check_localidad', 'Debes seleccionar una localidad');
 			    }
 
-			   
+			 
 			if($this->form_validation->run() == FALSE)
 			{	
 				
@@ -500,7 +502,6 @@ class C_escribano extends CI_Controller {
 function checkPost(){
     
 		if($this->input->post('finminuta') == "agregarph") { 
-				var_dump('agregarph');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
     			
@@ -744,17 +745,9 @@ function checkPost(){
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
 		$idEscribano=$this->session->userdata('idEscribano');
-		$this->db->select('*');
-		$this->db->from('pedidos');
-		$this->db->join('usuariosys', 'usuariosys.idUsuario = pedidos.idUsuario','left');
-
-		$this->db->where('idEscribano', $idEscribano);
-
-		
-		
-		$pedidos= $this->db->get()->result();
 	
-		$data['pedidos']=$pedidos;
+	
+		$data['pedidos']=$this->M_escribano->getPedidos($idEscribano);
 
 
 		$data['titulo'] = 'Bienvenido Escribano';
@@ -1403,7 +1396,6 @@ function checkPost(){
 			$this->session->set_userdata('idRelacionEditar',$relacion->idRelacion);
 
 		}
-		var_dump($data['tipo_ucuf']);
 		
 		$this->load->view('templates/cabecera_escribano',$data);
 		$this->load->view('templates/escri_menu',$data);
@@ -1632,7 +1624,7 @@ function checkPost(){
 			  'fechaEstado'=>$datetime_formatted ,
 			);
 
-			$this->db->insert('estadoMinuta', $data); 
+			$this->db->insert('estadominuta', $data); 
 			$this->verMinutas();
 		}
 
@@ -1647,12 +1639,29 @@ function checkPost(){
 
     }
     public function eliminarPH($idRelacion){
+    			
+    					$this->db->delete('propietario', array('idRelacion' => $idRelacion)); 
+    					$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
+    			
     }
        public function eliminarParcela($idParcela){
+       		   	$relaciones=$this->db->get_where('relacion ', array('idParcela'=>$idParcela))->result();
+
+       						foreach ($relaciones as $r) {
+       							$this->db->delete('propietario', array('idRelacion' => $r->idRelacion)); 
+
+       						}
+       						$this->db->delete('relacion', array('idParcela' => $idParcela)); 
+       							$this->db->delete('parcela', array('idParcela' => $idParcela)); 
+       						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
     public function eliminarPropietario($idPropietario){
+
+    					$this->db->delete('propietario', array('id' => $idPropietario)); 
+
+    						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
 

@@ -94,13 +94,13 @@
                  <label >Propietario</label>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona();" checked>
+                      <input type="radio" name="propietario" id="persona" value="P"  onclick="funcionpersona(); reseteapersona();" <?php if ($propietario == 'P') echo 'checked'; ?>  checked>
                       Persona
                     </label>
                   </div>
                   <div class="radio">
                     <label>
-                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa();">
+                      <input type="radio" name="propietario" id="empresa" value="O"  onclick="funcionempresa(); reseteaempresa();" <?php if ($propietario == 'O') echo 'checked'; ?>  >
                       Empresa u Otros
                     </label>
                   </div>  
@@ -218,7 +218,7 @@
             <div class="box-footer">
 
              <button type="submit" class="btn btn-primary" name="minuta" value="agregar">Guardar Propietario</button>
-              <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPropietario/<?php echo  $this->session->userdata('idPropietarioEditar') ?>" >Eliminar Propietario</a>
+            
 
                         <a class="btn btn-primary" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo  $this->session->userdata('idMinutaEditar') ?>" >Cancelar</a>
 
@@ -320,33 +320,51 @@
          });
       </script>
 
-      <!--Deshabilita campos sexo, dni y conyuge-->
-      <script language="javascript"><!--    
-  		function funcionempresa() { 		 
-  		document.getElementById("sexo_combobox").disabled = true; 
-  		document.getElementById("dni").disabled = true; 
- 		  document.getElementById("conyuge").disabled = true; 
-      document.getElementById("cuil").disabled = true;
-      document.getElementById("cuit").disabled = false; 
-
-		}
-		</script>
-		<!--Habilita campos sexo, dni y conyuge-->
-		
-		<script language="javascript"><!--
-    
-    $(document).ready(function () {
-        funcionpersona();
+     <!--Deshabilita campos sexo, dni y conyuge-->
+      <script language="javascript"><!--   
+       $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'O'){
+     funcionempresa();
+  }
     });
-
-		function funcionpersona() { 		 
-  		document.getElementById("sexo_combobox").disabled = false;  	
-  		document.getElementById("dni").disabled = false; 
- 		  document.getElementById("conyuge").disabled = false; 	 
- 	 	  document.getElementById("cuit").disabled = true; 
+      function funcionempresa() {      
+      document.getElementById("sexo_combobox").disabled = true; 
+      document.getElementById("dni").disabled = true; 
+      document.getElementById("conyuge").disabled = true; 
+      document.getElementById("cuil").disabled = true;
+      document.getElementById("cuit").disabled = false; }
+      /*Limpia los campos deshabilitados*/
+      function reseteaempresa() {   
+        document.getElementById("porcentaje_condominio").value=''; 
+      document.getElementById("sexo_combobox").value='';
+      document.getElementById("dni").value='';
+      document.getElementById("conyuge").value='';
+      document.getElementById("cuil").value='';
+    }
+    </script>
+    <!--Habilita campos sexo, dni y conyuge-->
+    
+    <script language="javascript"><!--
+    $(document).ready(function(){
+   if ($("input[name='propietario']:checked").val() == 'P'){
+     funcionpersona();
+  }
+    });
+      function reseteapersona() {      
+      document.getElementById("sexo_combobox").disabled = false;    
+      document.getElementById("dni").disabled = false; 
+      document.getElementById("conyuge").disabled = false;   
       document.getElementById("cuit").disabled = true; 
-		}
-		</script>
+      document.getElementById("cuil").disabled = true; 
+    }
+    function funcionpersona() {      
+      document.getElementById("sexo_combobox").disabled = false;    
+      document.getElementById("dni").disabled = false; 
+      document.getElementById("conyuge").disabled = false;   
+      document.getElementById("cuit").disabled = true; 
+      document.getElementById("cuil").disabled = true; 
+    }
+    </script>
 		<!--Valida el porcentaje-->
 
 		

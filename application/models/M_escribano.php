@@ -47,9 +47,9 @@ class M_escribano extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.nomyap, u.usuario, 
+				SELECT u.nomyap as nomyap, u.usuario as usuario, 
 				concat(substring(u.fechaReg, 9, 2), '/' ,substring(u.fechaReg, 6, 2) , '/', substring(u.fechaReg, 1, 4)) as	fechaReg, 
-				u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
+				u.email as email, u.dni as dni, u.direccion as direccion, u.telefono as telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv, matricula
 				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
 				inner join departamento d
@@ -111,6 +111,27 @@ class M_escribano extends CI_Model
 		}
 	}
 
+public function getPedidos($idEscribano)
+{
+	try {
+		$query = $this->db->query("
+			SELECT idPedido, p.idEscribano, descripcion, 
+			
+			concat(substring(fechaPedido, 6, 2), '/' ,substring(fechaPedido, 9, 2) , '/', substring(fechaPedido, 1, 4)) as fechaPedido,
+			case when estadoPedido = 'P' then 'Pendiente'  else 'Contestado' end as estadoPedido, 
+			rtaPedido, 
+			
+			concat(substring(fechaRta, 6, 2), '/' ,substring(fechaRta, 9, 2) , '/', substring(fechaRta, 1, 4)) as fechaRta,
+			 u.nomyap
+			FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario
+			where p.idEscribano = $idEscribano
+			");
+		return $query->result();
+
+	} catch (Exception $e) {
+		return false;
+	}
+}
 public function getPropietarios($idParcela)
 	{
 		try {
@@ -374,7 +395,6 @@ function insertarMinuta(){
 	$fechaIngresoSys = date('Y-m-d H:i:s');
 	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
 		if($this->session->userdata('otraParcela')==FALSE) {
-		var_dump('entra minuta');
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
@@ -406,7 +426,6 @@ function insertarMinuta(){
     $año = $this->session->userdata('año');
     $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
     if($this->session->userdata('otraParcela') ==FALSE || $this->session->userdata('otroPh')==FALSE  ) {
-      var_dump('entra parcela');
     $this->db->query($order2);
     /*preparo para insertar una relacion*/
     $idParcela = ($this->db->insert_id());   
@@ -427,7 +446,7 @@ function insertarMinuta(){
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]',$value[dni],'$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
     	$this->db->query($order4);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
@@ -501,6 +520,23 @@ function insertarMinuta(){
 		} 
 	}
 
+		public function getMinutas2(){
+		try {
+			$query= $this->db->query("
+					SELECT m.idMinuta as idMinuta, idEscribano, 
+		concat(substring(fechaIngresoSys, 9, 2), '/' ,substring(fechaIngresoSys, 6, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
+					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
+					from minuta m inner join 
+					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x
+					on x.idMinuta = m.idMinuta left join estadominuta em 
+					on em.idEstadoMinuta = x.idEstadoMinuta and em.idMinuta = x.idMinuta 
+					order by m.idMinuta
+				  	");
+			return $query->result_array();
+		 } catch (Exception $e) {
+			return false;
+		} 
+	}
 
 }
 

@@ -488,22 +488,15 @@ class C_administrador extends CI_Controller {
 		
      	}
 
-		  public function rechazar_min	(){
-		      		$idEstadoMinuta=$_POST["idEstadoMinuta"];
-		      		$motivoRechazo=$_POST["motivoRechazo"];
-		      		$idUsuario=$_POST["idUsuario"];
-		      		$datetime_variable = new DateTime();
-					$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
+		  public function rechazar_min(){
 		      		$data = array(
-		               'estadoMinuta' => "R",
-		              	'motivoRechazo' =>"$motivoRechazo",
-		              	'idUsuario'=>$this->session->userdata('idUsuario'),
-		              	'fechaEstado'=> $datetime_formatted ,
-		              	'idUsuario'=>$idUsuario
-		            );
+               'motivoRechazo' => "hola",
+           
+            );
 
-				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
-				$this->db->update('estadominuta', $data); 
+$this->db->where('idEstadoMinuta', '2');
+$this->db->update('estadominuta', $data); 
+
 
 		      }
 
@@ -511,12 +504,12 @@ class C_administrador extends CI_Controller {
 				$idEstadoMinuta=$_POST["idEstadoMinuta"];
 				$datetime_variable = new DateTime();
 				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
-				$idUsuario=$_POST["idUsuario"];
+				
 		      		$data = array(
 		               'estadoMinuta' => "A",
 			           	'idUsuario'=>$this->session->userdata('idUsuario'),
 			           	'fechaEstado'=> $datetime_formatted ,
-		              	'idUsuario'=>$idUsuario
+		              	
 		            );
 
 				$this->db->where('idEstadoMinuta', $idEstadoMinuta);
@@ -539,25 +532,7 @@ class C_administrador extends CI_Controller {
 		$minutas= $this->db->get()->result();
 		
 		//obtengo el ultimo estado de cada minuta
-		$min=null;
-		foreach ($minutas as $mi) {
-			  			$this->db->from('estadominuta');
-                         $this->db->where('idMinuta', $mi->idMinuta); 
-                         $this->db->order_by('idEstadoMinuta', 'DESC');
-                         $estadoMinuta= $this->db->get()->row();
-          // solo necesito guardar el estado y el idEstadoMinuta
-          //entonces junto creo una nueva variable
-           $datosMinutas=array("idMinuta" => "$mi->idMinuta","idEscribano" => "$mi->idEscribano", "fechaIngresoSys" => "$mi->fechaIngresoSys","fechaEdicion" => "$mi->fechaEdicion","idEstadoMinuta" => "$estadoMinuta->idEstadoMinuta","estadoMinuta" =>"$estadoMinuta->estadoMinuta");
-           $arreglo=array($datosMinutas);
-         	if ($min==null){
-         		$min=$arreglo;
-                
-         	}
-         	else{
-         		$min=array_merge($min,$arreglo);    
-		};
-         	}
-         		  
+		$min=$this->M_escribano->getMinutas2();
 		$data['minutas']=$min;
 
 

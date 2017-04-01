@@ -49,7 +49,7 @@
                             <div class="input-group-addon">
                              <i class="fa fa-calendar"></i>
                              </div>
-                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd//mm/aaaa">
+                          <input type="text" class="form-control pull-right" id="fecha_escritura" name="fecha_escritura" <?php echo "value='$fecha_escritura'" ?>  placeholder="dd/mm/aaaa">
                           </div>
                          <div style="color:red;" ><p><?=form_error('fecha_escritura')?></p></div>
                      </div>
@@ -63,8 +63,8 @@
                         <label for="exampleInputEmail1">Tipo UC/UF</label>
                         <select id="tipo_ucuf" name="tipo_ucuf" class="form-control select2"  style="width: 100%;">
                             <option value="" selected="selected">Seleccionar</option>
-                           <option value="C" <?php if ($tipo_ucuf=="C") echo 'selected="selected"';?>>Femenino</option>
-                           <option value="F" <?php if ($tipo_ucuf=="F") echo 'selected="selected"';?>>Masculino</option>
+                           <option value="C" <?php if ($tipo_ucuf=="C") echo 'selected="selected"';?>>C</option>
+                           <option value="F" <?php if ($tipo_ucuf=="F") echo 'selected="selected"';?>>F</option>
                         </select>
                         <div style="color:red;" ><p><?=form_error('tipo_ucuf')?></p></div>
                      </div>

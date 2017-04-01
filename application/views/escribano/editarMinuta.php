@@ -63,7 +63,7 @@ table, th, td {
              
                 <br>
 
-                    <a  href="<?=base_url()?>index.php/c_escribano/nuevaMinuta/<?php echo  $idMinutaEditar?> " title="Nueva Parcela" ><button class="btn btn-info">Nueva Parcela</button></a> 
+                  
 
                 <?php 
                 $nroParcela=0;
@@ -141,10 +141,11 @@ table, th, td {
                  </table>
                  <br>
                      <a  href="<?=base_url()?>index.php/c_escribano/editarParcela/<?php echo $parcela->idParcela?> " title="Editar  Parcela" ><button class="btn btn-success">Editar Parcela</button></a> 
+                       <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarParcela/<?php echo  $parcela->idParcela ?>" >Eliminar Parcela</a>
                    
                  <br>
                  <br>
-                   <a  href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo  $parcela->idParcela?> " title="Nuevo PH" ><button class="btn btn-info">Nuevo PH</button></a> 
+               
                   <br>
                     <?php 
                     $relaciones=$this->db->get_where('relacion', array('idParcela'=>$parcela->idParcela))->result();
@@ -259,10 +260,10 @@ table, th, td {
                         </table>
                          <br>
                     <a  href="<?=base_url()?>index.php/c_escribano/editarPH/<?php echo $relacion->idRelacion?> " title="Editar PH" ><button class="btn btn-success">Editar PH</button></a> 
-                    
+                     <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPH/<?php echo  $relacion->idRelacion ?>" >Eliminar PH</a>
                    <br>
                    <br>
-                  <a  href="<?=base_url()?>index.php/c_escribano/nuevoPropietario/<?php echo $relacion->idRelacion?> " title="Nuevo Propietario" ><button class="btn btn-info">Nuevo Propietario</button></a> 
+                 
                         <br>
                         <br>
                      <?php 
@@ -389,6 +390,7 @@ table, th, td {
                        </table>
                        <br>
                           <a  href="<?=base_url()?>index.php/c_escribano/editarPropietario/<?php echo $propietario->id?> " title="Editar Propietario" ><button class="btn btn-success">Editar Propietario</button></a> 
+                            <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPropietario/<?php echo  $propietario->id ?>" >Eliminar Propietario</a>
                        <br>
                        <br>                 
                     <?php }
@@ -396,7 +398,7 @@ table, th, td {
                     } ?>
                 </div>
                 <div align="center">
-                    <a  href="<?=base_url()?>index.php/c_escribano/finalizarEdicion/<?php echo $idMinutaEditar ?> " title="Finalizar Edición Minuta" ><button class="btn btn-success">Finalizad Edición Minuta</button></a> 
+                    <a  href="<?=base_url()?>index.php/c_escribano/finalizarEdicion/<?php echo $idMinutaEditar ?> " title="Finalizar Edición Minuta" ><button class="btn btn-success">Finalizar Edición Minuta</button></a> 
                 </div>
                   </div>    
 
