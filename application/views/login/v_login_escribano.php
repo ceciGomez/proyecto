@@ -19,9 +19,10 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 ?>
 
 <body>
-  <div class="login">
+  <div id="login">
 	<img src="<?php echo base_url('images/logo_escribano.png'); ?>" />
-		<?=form_open(base_url().'index.php/c_login_escribano/new_user')?>
+	<div id="formulario">	<?=form_open(base_url().'index.php/c_login_escribano/new_user')?>
+    
     <form method="post">
     	<!-- <input type="text" name="u" placeholder="Usuario" required="required" />
         <input type="password" name="p" placeholder="Contraseña" required="required" />
@@ -46,8 +47,7 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 		?>
     </form>
    <a href="<?=base_url().'index.php/c_registro'?>" class="text-center">Registrarme</a>
-       
-    
+  </div>    
 </div>
   
     <script src="js/index.js"></script>

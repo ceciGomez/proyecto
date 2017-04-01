@@ -154,7 +154,7 @@
                               }
                           } 
                             ?></td>
-                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo ""; else echo "$es->email"; ?></td>
+                           <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo "";  ?><a href="#"><?php echo "$es->email" ?></a></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->telefono==null) echo ""; else echo "$es->telefono"; ?></td>
                           
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>
