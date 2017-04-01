@@ -173,7 +173,7 @@
                         </div>
                         <div class="modal-body">
                            <h3>Confirmar aceptar la minuta</h3>
-                           <div  id="acep_min" ">
+                           <div  id="acep_min" >
                            </div>
                         </div>
                         <div class="modal-footer">
@@ -196,7 +196,7 @@
                            </div>
                            <div>
                               <label style="display: block;">Ingrese motivo de rechazo :</label>
-                              <textarea id="motivoRechazo" rows="10" cols="100" ></textarea>
+                              <textarea id="motivoRechazo" rows="10" cols="100" placeholder="Ingrese Motivo de Rechazo"></textarea>
                            </div>
                         </div>
                         <div class="modal-footer">
@@ -352,9 +352,11 @@
                   
                   function rechazar( ){
                     var motivoRechazo=document.getElementById('motivoRechazo').value;
+                  if (motivoRechazo =="") {alert ("Falta ingresar Motivo");}
+                    else{
                    $.post("<?=base_url()?>index.php/c_administrador/rechazarMin",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                      
-                  });
+                  });}
                    }
                   
           
