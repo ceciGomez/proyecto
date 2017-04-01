@@ -25,7 +25,13 @@ class M_administrador extends CI_Model
 					when estadoAprobacion = 'P' then 0
 					when estadoAprobacion = 'A' then 1
 					when estadoAprobacion = 'R' then 2 else 3 end
-				as id, u.*
+				as id, 
+				case 
+					when estadoAprobacion = 'P' then 'Pendiente'
+					when estadoAprobacion = 'A' then 'Aceptado'
+					when estadoAprobacion = 'R' then 'Rechazado' else '' end
+				as descEstado,
+				u.*
 				from usuarioescribano u
 			
 

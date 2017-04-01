@@ -1,5 +1,3 @@
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -11,14 +9,10 @@
         <!-- Left col -->
          <h3  align="center">Gestionar Escribanos</h3>
         <section >
-         
 
                <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
-                
-
-
                
                  <label>Filtrar Escribanos por :</label>
                
@@ -56,9 +50,9 @@
                             <input type="hidden" value= '<?php echo $this->session->flashdata('noti_esc')["estado"]; ?>' id="estado"> 
                             <select id="segunEstado">
                                  <option value=""></option>
-                                <option value="P">P</option>
-                                <option value="A">A</option>
-                                <option value="R">R</option>
+                                <option value="P">Pendiente</option>
+                                <option value="A">Aprobado</option>
+                                <option value="R">Rechazado</option>
                                
                             </select>
                           </div>
@@ -90,9 +84,7 @@
                   </div>    
                 </div>   
 
-              
-             
-             
+            
                   <div class="box-body table-responsive no-padding">                   
                      <table id="escribanos" class="table-bordered" style="display: none" >
                         <thead>
@@ -109,7 +101,6 @@
                             <th>Dirección</th>
                            <th>Localidad</th>
                            <th>Operador</th>
-                          
 
 
                           </tr>
@@ -148,7 +139,7 @@
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->usuario==null) echo ""; else echo "$es->usuario"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php   if($es->estadoAprobacion==null) echo "";else {
-                              echo "$es->estadoAprobacion";
+                              echo "$es->descEstado";
                               if ($es->estadoAprobacion=="R"){
                                       ?> 
                                           <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#motRechazo"  onclick="ventana_motivoRechazo(<?php echo $es->idEscribano ?>)"><i  title="Motivo Rechazo del Escribano" href="#motRechazo" >Motivo</i></button></a>
@@ -302,15 +293,6 @@
                     </div>
                   </div>
                    </div>
-
-
-
-
-
-               
-
-                
-
 
                   <script type="text/javascript">
 
