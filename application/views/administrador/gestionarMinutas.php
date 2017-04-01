@@ -23,9 +23,9 @@
                      <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
                      <select id="segunEstado">
                         <option value=""></option>
-                        <option value="P">P</option>
-                        <option value="A">A</option>
-                        <option value="R">R</option>
+                        <option value="P">Pendiente</option>
+                        <option value="A">Aceptado</option>
+                        <option value="R">Rechazado</option>
                      </select>
                   </div>
                </div>
