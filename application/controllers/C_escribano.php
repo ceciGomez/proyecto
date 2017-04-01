@@ -461,7 +461,7 @@ class C_escribano extends CI_Controller {
 				}
 				 /*$this->session->set_userdata($datos_propietario);*/
 
-				 if($this->session->userdata('propietario')) {
+				 if($this->session->userdata('propietario')&&(!$this->session->userdata('propietario')=='')) {
 				 
 					$propietario_anterior =  $this->session->userdata('propietario');
 					array_push($propietario_anterior, $datos_propietario);

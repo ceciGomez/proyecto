@@ -80,7 +80,9 @@
             <?php endforeach; ?>
            </tbody>
           </table>
-          <?php if($this->session->userdata('propietario')!=null) {?>
+          <?php 
+          var_dump($this->session->userdata('propietario'));
+          if(!$this->session->userdata('propietario')==""&& $this->session->userdata('propietario')!=null) {?>
         </div>
         <br>
         <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h3>
@@ -472,10 +474,10 @@
                                            "defaultContent": "<button>Click!</button>"
                                                 } ],
                                 "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sLengthMenu":     "Mostrar _MENU_ Personas",
                             "sZeroRecords":    "No se encontraron resultados",
                             "sEmptyTable":     "Ningúna persona encontrada",
-                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfo":           "Mostrando personas del _START_ al 5 de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -567,24 +569,17 @@
                     //para que solo busque por personas u organizaciones
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
                       });
-                    
-            
-                  if ( $("#propietarios_subidos").length > 0 ) {
+         
                  
-                    var dtable=$('#propietarios_subidos').DataTable(
+                    var dtable2=$('#propietarios_subidos').DataTable(
                         {
                            autoWidht:false,
                              language: {
-                              "columnDefs": [ {
-                                     "targets": -1,
-                                         "data": null,
-                                           "defaultContent": "<button>Click!</button>"
-                                                } ],
-                                "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Personas",
                             "sZeroRecords":    "No se encontraron resultados",
                             "sEmptyTable":     "Ningúna persona encontrada",
-                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfo":           "Mostrando Personas del _START_ al 5 de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -600,18 +595,20 @@
                               }},
                                 } ) ;
                                 $( "#propietarios_subidos" ).show();              
-                  ;};
+                
                       //cargar las localidades y departamentos del post
                        localidadPost=document.getElementById("localidadPost").value ;
               
                         departamentoPost=document.getElementById("departamentoPost").value;
             
                          $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+
                        $("#localidades option[value="+localidadPost +"]").attr("selected",true);
 
+                      
 
-
-                      } );    
+                      
+                       } );   
                   pos="";     
                 function ventanaEliminarProp(posicion){
                     pos=posicion;
