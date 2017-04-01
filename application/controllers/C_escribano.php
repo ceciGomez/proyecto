@@ -314,10 +314,7 @@ class C_escribano extends CI_Controller {
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
 		
-<<<<<<< HEAD
-=======
-        // var_dump($this->input->post('idPersonaSelect'));
->>>>>>> refs/remotes/ceciGomez/master
+
          if ($this->input->post('idPersonaSelect')==NULL) {
          	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'));
          }else{
