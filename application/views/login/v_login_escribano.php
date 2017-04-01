@@ -47,8 +47,7 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 		?>
     </form>
    <a href="<?=base_url().'index.php/c_registro'?>" class="text-center">Registrarme</a>
-       </div>
-    
+  </div>    
 </div>
   
     <script src="js/index.js"></script>

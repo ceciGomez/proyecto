@@ -107,10 +107,8 @@
                             <th>Email</th>
                             <th>Teléfono</th>
                             <th>Dirección</th>
-                           <th>Localidad</th>
-                            <th>Operador</th>
-                          
-
+                            <th>Localidad</th>
+                            <th>Operador</th>                         
 
                           </tr>
                         </thead>
@@ -149,12 +147,13 @@
                               echo "$es->estadoAprobacion";
                               if ($es->estadoAprobacion=="R"){
                                       ?> 
-                                          <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#motRechazo"  onclick="ventana_motivoRechazo(<?php echo $es->idEscribano ?>)"><i  title="Motivo Rechazo del Escribano" href="#motRechazo" >Motivo</i></button></a>
+                                         <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#motRechazo"  onclick="ventana_motivoRechazo(<?php echo $es->idEscribano ?>)"><i  title="Motivo Rechazo del Escribano" href="#motRechazo" >Motivo</i></button></a>
                                       <?php
                               }
                           } 
                             ?></td>
-                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo ""; else echo "$es->email"; ?></td>
+                            <tr data-href='www.google.com.ar'>
+                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo ""; else echo "$es->email"; ?></td></tr>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->telefono==null) echo ""; else echo "$es->telefono"; ?></td>
                           
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>

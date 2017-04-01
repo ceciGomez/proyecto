@@ -19,9 +19,9 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 ?>
 
 <body>
-  <div class="login">
+  <div id="login">
 	<img src="<?php echo base_url('images/logo_administrador.png'); ?>" />
-		<?=form_open(base_url().'index.php/c_login_administrador/new_user')?>
+		<div id="formulario">	<?=form_open(base_url().'index.php/c_login_administrador/new_user')?>
     <form method="post">
     	<!-- <input type="text" name="u" placeholder="Usuario" required="required" />
         <input type="password" name="p" placeholder="Contraseña" required="required" />
@@ -45,11 +45,8 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 		}
 		?>
     </form>
-
-  
-       
-    
-</div>
+  </div>      
+ </div>
   
     <script src="js/index.js"></script>
 
