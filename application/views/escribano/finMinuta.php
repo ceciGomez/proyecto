@@ -89,7 +89,7 @@ tr:hover{background-color:#f5f5f5;
        <div class="box-footer">
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarph">Agregar Ph</button>  
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarparcela" >Agregar Parcela</button> 
-        <button type="submit" class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</button>                         
+        <a  class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>                         
        </div>
        </form>
        </div>
