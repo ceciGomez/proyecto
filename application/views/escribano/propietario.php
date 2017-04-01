@@ -69,8 +69,8 @@
                             <td><?php echo $c->cuitCuil;?></td>    
                            <td><?php echo $c->direccion; ?></td>  
                             <td><?php echo $c->conyuge ;  ?></td>       
-                             <td style="display: none"><?php echo $c->empresa; ?></td>  
-                             <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
+                            <td style="display: none"><?php echo $c->empresa; ?></td>  
+                           <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
                               <td style="display: none"><?php 
                                 $date=new DateTime($c->fechaNac);
                                 $date_formated=$date->format('d/m/Y ');?></td>   
@@ -94,11 +94,11 @@
                               <th>Cuit/cuil</th>                
                               <th>Tipo de Propietario</th>     
                               <th>Porcentaje de Codominio</th>  
-                                <th>Dirección</th> 
-                                <th>Localidad</th> 
-                                <th>Fecha de Nacimiento</th>
-                                <th>Sexo</th>
-                                <th>Conyuge</th>
+                               <th>Dirección</th> 
+                               <th>Localidad</th> 
+                               <th>Fecha de Nacimiento</th>
+                               <th>Sexo</th>
+                              <th>Conyuge</th>
                               
                           </tr>
                         </thead>
@@ -152,7 +152,7 @@
    <section class="content">
       <div class="box box-default">
          <div class="box-header with-border">
-           <?=form_open(base_url().'index.php/C_escribano/registrarPropietario')?>
+           <?=form_open(base_url().'index.php/C_escribano/crearPropietario')?>
             <form method="post">
             <div class="box-body">
                <div class="row">
