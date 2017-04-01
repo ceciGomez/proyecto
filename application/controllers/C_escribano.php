@@ -355,8 +355,6 @@ class C_escribano extends CI_Controller {
         /*Si elije agregar otro propietario asigna TRUE a $exito para que setee los campos de propietario*/
         if($this->input->post('minuta') == "agregarpropietario") {
                	$exito=TRUE;
-		}else{
-			$this->registrarPropietario();
 		}
 
 			if($this->input->post() && !$exito){
