@@ -154,7 +154,7 @@
    <section class="content">
       <div class="box box-default">
          <div class="box-header with-border">
-           <?=form_open(base_url().'index.php/C_escribano/crearPropietario')?>
+           <?=form_open(base_url().'index.php/C_escribano/registrarPropietario')?>
             <form method="post">
             <div class="box-body">
                <div class="row">
