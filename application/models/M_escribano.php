@@ -395,7 +395,6 @@ function insertarMinuta(){
 	$fechaIngresoSys = date('Y-m-d H:i:s');
 	$order = "insert into minuta (idEscribano,fechaIngresoSys) values ('$idEscribano','$fechaIngresoSys')";
 		if($this->session->userdata('otraParcela')==FALSE) {
-		var_dump('entra minuta');
     $this->db->query($order);
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
@@ -427,7 +426,6 @@ function insertarMinuta(){
     $año = $this->session->userdata('año');
     $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
     if($this->session->userdata('otraParcela') ==FALSE || $this->session->userdata('otroPh')==FALSE  ) {
-      var_dump('entra parcela');
     $this->db->query($order2);
     /*preparo para insertar una relacion*/
     $idParcela = ($this->db->insert_id());   

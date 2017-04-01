@@ -70,6 +70,7 @@ tr:hover{background-color:#f5f5f5;
             <tr>
               <th>Apellido y Nombre</th>
               <th>Tipo propietario</th>
+               <th>Porcentaje condominio</th>
              </tr>
             </thead>
             <tbody>            
@@ -79,7 +80,8 @@ tr:hover{background-color:#f5f5f5;
               foreach ($propietarios as $value) :?>
                <tr class="item_row">
                <td><?php echo $value['nombreyapellido']; ?></td>
-                 <td> <?php echo $value['tipo_propietario']; ?></td>       
+                 <td> <?php echo $value['tipo_propietario']; ?></td>    
+                <td> <?php echo $value['porcentaje_condominio']; ?></td>      
                </tr>
              <?php endforeach;?>
         </tbody>
