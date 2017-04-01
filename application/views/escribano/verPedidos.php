@@ -41,8 +41,8 @@
                         <input type="hidden" value= '<?php echo $this->session->flashdata('noti_si')["estadoPedido"]; ?>' id="estado"> 
                         <select id="estadoPedido">
                             <option value=""></option>
-                            <option value="P">P</option>
-                            <option value="C">C</option>
+                            <option value="P">Pendiente</option>
+                            <option value="C">Contestado</option>
                  
                         </select>
                          </div>

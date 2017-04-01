@@ -37,8 +37,8 @@
                            <input type="hidden" value= '<?php echo $this->session->flashdata('noti_si')["estadoPedido"]; ?>' id="estado"> 
                            <select id="estadoPedido">
                               <option value=""></option>
-                              <option value="P">P</option>
-                              <option value="C">C</option>
+                              <option value="P">Pendiente</option>
+                              <option value="C">Contestado</option>
                            </select>
                         </div>
                      </div>
@@ -89,7 +89,7 @@
                               
                               echo "$escribano->nomyap";}
                               ?> </td>
-                           <td>  <?php  echo $si->estadoPedido; ?> </td>
+                           <td>  <?php  echo $si->descEstadoPedido; ?> </td>
                            <td>  <?php  echo $si->nomyap; ?> </td>
                            <td>  <?php  echo $si->descripcion; ?> </td>
                            <td>  <?php  echo $si->rtaPedido; ?> </td>
