@@ -23,9 +23,9 @@
                      <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
                      <select id="segunEstado">
                         <option value=""></option>
-                        <option value="P">P</option>
-                        <option value="A">A</option>
-                        <option value="R">R</option>
+                        <option value="P">Pendiente</option>
+                        <option value="A">Aceptado</option>
+                        <option value="R">Rechazado</option>
                      </select>
                   </div>
                </div>
@@ -77,7 +77,7 @@
                            <td data-order="<?php echo $mi["fechaIngresoSys"]; ?>">  <?php  echo "$date_formated"; ?></td>
                            <td data-oder="<?php echo $mi["fechaEdicion"]; ?>">  <?php  echo "$date_formated2"; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
-                           <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
+                           <td>  <?php  echo $mi['descEstadoMinuta']; ?> </td>
                         </tr>
                         <?php
                            }

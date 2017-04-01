@@ -1,5 +1,3 @@
-
-
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
    <!-- Content Header (Page header) -->
@@ -12,15 +10,10 @@
          <h3  align="center">Gestión de Escribanos</h3>
         <section >
          
-
                <!-- TO DO List -->
           <div class="box box-primary">
             <div class="box-header">
-                
-
-
-               
-                 <label>Filtrar Escribanos por :</label>
+                <label>Filtrar Escribanos por :</label>
                
                 <div class="box-body" style="background-color: lightblue;">
                      
@@ -56,9 +49,9 @@
                             <input type="hidden" value= '<?php echo $this->session->flashdata('noti_esc')["estado"]; ?>' id="estado"> 
                             <select id="segunEstado">
                                  <option value=""></option>
-                                <option value="P">P</option>
-                                <option value="A">A</option>
-                                <option value="R">R</option>
+                                <option value="P">Pendiente</option>
+                                <option value="A">Aceptado</option>
+                                <option value="R">Rechazado/option>
                                
                             </select>
                           </div>
@@ -146,7 +139,7 @@
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->usuario==null) echo ""; else echo "$es->usuario"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php   if($es->estadoAprobacion==null) echo "";else {
-                              echo "$es->estadoAprobacion";
+                              echo "$es->descEstado";
                               if ($es->estadoAprobacion=="R"){
                                       ?> 
                                           <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#motRechazo"  onclick="ventana_motivoRechazo(<?php echo $es->idEscribano ?>)"><i  title="Motivo Rechazo del Escribano" href="#motRechazo" >Motivo</i></button></a>
@@ -154,7 +147,7 @@
                               }
                           } 
                             ?></td>
-                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo ""; else echo "$es->email"; ?></td>
+                           <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo "";  ?><a href="mailto:<?php echo "$es->email" ?>"><?php echo "$es->email" ?></a></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->telefono==null) echo ""; else echo "$es->telefono"; ?></td>
                           
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>
@@ -299,19 +292,9 @@
                       </div>
                     </div>
                   </div>
-                   </div>
+                   </div>                       
 
-
-
-
-
-               
-
-                
-
-
-                  <script type="text/javascript">
-
+                 <script type="text/javascript">
                    
                    $(document).ready(function(){
 
@@ -380,18 +363,14 @@
                       document.getElementById('escribanos_filter').style.display='none';
 
                          $( "#escribanos" ).show();  
-                       
-                       
-
-                    
+                                             
+                  
                     } );
 
                      //filtra por estados
                       
-                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
-                     
-                     
-
+                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente               
+                                         
                     idEsc='';
                     idUsr='';
                          function ventana_acep( idEscribano,idUsuario){
@@ -435,10 +414,8 @@
                    function ventana_eli (idEscribano){
                       idEsc=idEscribano;
                      
-                   }
-                   
-
-                   
+                   }                  
+                
                   //eliminar escribano de la bd
 
                    function eliminar( ){
@@ -447,26 +424,18 @@
             });
                   }
 
-
-
-
-
                      //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
                             $('#fechaRegistracion').datepicker();
                         });
 
-
-
          </script>
-
+   
            
           </div>
-          <!-- /.box -->
+          <!-- /.box -->     
 
-       
-
-        </section>
+       </section>
         <!-- /.Left col -->
       
       </div>
