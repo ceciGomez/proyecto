@@ -81,8 +81,8 @@
            </tbody>
           </table>
           <?php 
-          var_dump($this->session->userdata('propietario'));
-          if(!$this->session->userdata('propietario')==""&& $this->session->userdata('propietario')!=null) {?>
+      
+          if((!$this->session->userdata('propietario')=="") &&($this->session->userdata('propietario'))){?>
         </div>
         <br>
         <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h3>
