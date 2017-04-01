@@ -400,8 +400,6 @@ function insertarMinuta(){
     $idMinuta = $this->db->insert_id();    
     $this->session->set_userdata('idMinuta',$idMinuta); 
 }
-	
-
 
 	$idMinuta=$this->session->userdata('idMinuta');
     $idLocalidad = $this->session->userdata('localidades');

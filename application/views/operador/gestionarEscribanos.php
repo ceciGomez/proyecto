@@ -437,18 +437,7 @@
                         });
 
          </script>
-        <script type="text/javascript">
-              $(document).ready(function() {
-
-    $('#escribanos tr').click(function() {
-        var href = $(this).find("a").attr("href");
-        if(href) {
-            window.location = href;
-        }
-    });
-
-});
-        </script>
+   
            
           </div>
           <!-- /.box -->     
