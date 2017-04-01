@@ -41,7 +41,7 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
 		if($this->session->flashdata('usuario_incorrecto'))
 		{
 		?>
-			<p><?=$this->session->flashdata('usuario_incorrecto')?></p>
+			<p style="color:white"><?=$this->session->flashdata('usuario_incorrecto')?></p>
 		<?php
 		}
 		?>

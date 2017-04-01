@@ -69,8 +69,8 @@
                             <td><?php echo $c->cuitCuil;?></td>    
                            <td><?php echo $c->direccion; ?></td>  
                             <td><?php echo $c->conyuge ;  ?></td>       
-                             <td style="display: none"><?php echo $c->empresa; ?></td>  
-                             <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
+                            <td style="display: none"><?php echo $c->empresa; ?></td>  
+                           <td style="display: none"><?php echo $c->idLocalidad; ?></td>    
                               <td style="display: none"><?php 
                                 $date=new DateTime($c->fechaNac);
                                 $date_formated=$date->format('d/m/Y ');?></td>   
@@ -80,7 +80,9 @@
             <?php endforeach; ?>
            </tbody>
           </table>
-          <?php if($this->session->userdata('propietario')!=null) {?>
+          <?php 
+      
+          if((!$this->session->userdata('propietario')=="") &&($this->session->userdata('propietario'))){?>
         </div>
         <br>
         <h3 align="center">Propietarios Adquirientes o Tramitientes de la minuta Actual</h3>
@@ -94,11 +96,11 @@
                               <th>Cuit/cuil</th>                
                               <th>Tipo de Propietario</th>     
                               <th>Porcentaje de Codominio</th>  
-                                <th>Dirección</th> 
-                                <th>Localidad</th> 
-                                <th>Fecha de Nacimiento</th>
-                                <th>Sexo</th>
-                                <th>Conyuge</th>
+                               <th>Dirección</th> 
+                               <th>Localidad</th> 
+                               <th>Fecha de Nacimiento</th>
+                               <th>Sexo</th>
+                              <th>Conyuge</th>
                               
                           </tr>
                         </thead>
@@ -254,7 +256,6 @@
                              </div>
                          <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
                             </div>
-                         <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
                       </div>
                       <input type="hidden" name="idPersonaSelect" id="idPersonaSelect" />
 
@@ -472,10 +473,10 @@
                                            "defaultContent": "<button>Click!</button>"
                                                 } ],
                                 "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sLengthMenu":     "Mostrar _MENU_ Personas",
                             "sZeroRecords":    "No se encontraron resultados",
                             "sEmptyTable":     "Ningúna persona encontrada",
-                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfo":           "Mostrando personas del _START_ al 5 de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -567,24 +568,17 @@
                     //para que solo busque por personas u organizaciones
                dtable.column('6').search($('input:radio[name=propietario]:checked').val()).draw();
                       });
-                    
-            
-                  if ( $("#propietarios_subidos").length > 0 ) {
+         
                  
-                    var dtable=$('#propietarios_subidos').DataTable(
+                    var dtable2=$('#propietarios_subidos').DataTable(
                         {
                            autoWidht:false,
                              language: {
-                              "columnDefs": [ {
-                                     "targets": -1,
-                                         "data": null,
-                                           "defaultContent": "<button>Click!</button>"
-                                                } ],
-                                "sProcessing":     "Procesando...",
-                            "sLengthMenu":     "Mostrar _MENU_ Escribanos",
+                            "sProcessing":     "Procesando...",
+                            "sLengthMenu":     "Mostrar _MENU_ Personas",
                             "sZeroRecords":    "No se encontraron resultados",
                             "sEmptyTable":     "Ningúna persona encontrada",
-                            "sInfo":           "Mostrando Escribanos del _START_ al 5 de un total de _TOTAL_ registros",
+                            "sInfo":           "Mostrando Personas del _START_ al 5 de un total de _TOTAL_ registros",
                             "sInfoEmpty":      "Mostrando registros del 0 al 0 de un total de 0 registros",
                             "sInfoFiltered":   "(filtrado de un total de _MAX_ registros)",
                             "sInfoPostFix":    "",
@@ -600,18 +594,20 @@
                               }},
                                 } ) ;
                                 $( "#propietarios_subidos" ).show();              
-                  ;};
+                
                       //cargar las localidades y departamentos del post
                        localidadPost=document.getElementById("localidadPost").value ;
               
                         departamentoPost=document.getElementById("departamentoPost").value;
             
                          $("#departamentos option[value="+ departamentoPost +"]").attr("selected",true);
+
                        $("#localidades option[value="+localidadPost +"]").attr("selected",true);
 
+                      
 
-
-                      } );    
+                      
+                       } );   
                   pos="";     
                 function ventanaEliminarProp(posicion){
                     pos=posicion;

@@ -525,13 +525,16 @@ class C_operador extends CI_Controller {
 	}
 
 	public function contestar_pedido (){
+			$datetime_variable = new DateTime();
+			$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 			$idPedido=$_POST["idPedido"];
 			$rtaPedido=$_POST["rtaPedido"];
 			$idUsuario=$_POST["idUsuario"];
       		$data = array(
                'rtaPedido' => $rtaPedido,
                 'estadoPedido'=>"C",
-                'idUsuario'=>$idUsuario
+                'idUsuario'=>$idUsuario,
+                'fechaRta' => $datetime_formatted
             );
 
 		$this->db->where('idPedido', $idPedido);
