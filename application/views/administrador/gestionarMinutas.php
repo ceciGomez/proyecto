@@ -43,7 +43,8 @@
                      <tbody >
                         <?php 
                            foreach ($minutas as $mi){ 
-                             $date_formated=$mi["fechaIngresoSys"];
+                           
+                               $date_formated=$mi["fechaIngresoSys"];
                                   
                             if($mi["fechaEdicion"]!=null){
                               $date2=new DateTime($mi["fechaEdicion"]);
@@ -51,7 +52,14 @@
                            }else {
                             $date_formated2="";}
                            ?>
-
+                        <?php 
+                           /*
+                           $this->db->from('estadominuta');
+                           $this->db->where('idMinuta', $mi->idMinuta); 
+                           $this->db->order_by('idEstadoMinuta', 'DESC');
+                           $estadoMinuta= $this->db->get()->row();
+                           */
+                               ?>
                         <tr>
                            <td>
                               <a class="btn btn-sm " > <button  class="btn btn-warning"  data-toggle="modal" href="#Detalles" title="Detalles" onclick="ventana_det(<?php echo $mi ["idMinuta"] ; ?>,<?php echo $mi ["idEscribano"] ; ?>)"><i class="fa fa-book"></i></button></a>
@@ -64,10 +72,10 @@
                               <?php  
                                  };
                                  ?>
-                              <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>
+                              <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>                                                        
                            </td>
-                           <td data-order="<?php  echo $mi["fechaIngresoSys"];?>">  <?php  echo "$date_formated"; ?></td>
-                           <td  data-order="<?php  echo $mi["fechaEdicion"];?>">  <?php  echo "$date_formated2"; ?></td>
+                           <td data-order="<?php echo $mi["fechaIngresoSys"]; ?>">  <?php  echo "$date_formated"; ?></td>
+                           <td data-oder="<?php echo $mi["fechaEdicion"]; ?>">  <?php  echo "$date_formated2"; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
                            <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
                         </tr>
@@ -109,13 +117,16 @@
                         <div class="modal-body" id="det" >
                         </div>
                         <div class="modal-footer">
-                             
+                          
                         <form style="display:inline; "  action="<?php echo base_url()?>index.php/c_administrador/imprimirMinuta"  method="post" accept-charset="utf-8"  >
                          <input type="hidden"  id="resg_idMinuta" name="resg_idMinuta"> 
                         <button    type="submit" class="btn btn-primary">Imprimir</button> 
 
-                          </form>    
+                          </form>              
+                     
+                      
                            <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                            </div>
                         </div>
                      </div>
                   </div>
@@ -125,7 +136,7 @@
                      <div class="modal-content">
                         <div class="modal-header">
                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                           <h3 class="modal-title" style="color:white" >Estados de la Minuta</h3>
+                           <h3 class="modal-title" style="color:white" >Estados de la  Minuta</h3>
                         </div>
                         <div class="modal-body">
                            <label>
@@ -202,7 +213,8 @@
                    var dtable=$('#min').DataTable(
                        {
                           autoWidht:false,
-                          "order": [[ 1, "desc" ]],
+                         "order": [[ 1, "desc" ]],
+
                             language: {
                                "sProcessing":     "Procesando...",
                            "sLengthMenu":     "Mostrar _MENU_ Minutas",
@@ -222,7 +234,8 @@
                                "sNext":     "Siguiente",
                                "sPrevious": "Anterior"
                              }},
-                               } );                         
+                               } );
+                          
                   
                    //para el filtrado
                     $('.filter').on('keyup change', function () {
@@ -260,13 +273,12 @@
                            .find("option:contains(P)")
                            .prop("selected", true);
                            dtable.column('4').search(String('P')).draw();
-                  
                      };
                          
+                  
                      var dtable2=$('#estados_mim').DataTable(
                        {
                           autoWidht:false,
-                  
                   
                             language: {
                                "sProcessing":     "Procesando...",
@@ -290,12 +302,11 @@
                                } );
                          document.getElementById('estados_min_filter').style.display='none';
                   
-                  
                    } );
-                   
+                                  
                   
                    function ventana_det(idMinuta,idEscribano){
-                     document.getElementById('resg_idMinuta').value=idMinuta;
+                document.getElementById('resg_idMinuta').value=idMinuta;
                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                      $("#det").html(data);
                   
@@ -314,47 +325,45 @@
                   }
                   
                     idEstMin='';
-                    idUsr='';
                   
-                   function ventana_acep(idMinuta,idEstadoMinuta,idUsuario){
+                    idUsr='',
+                           function ventana_acep(idMinuta,idEstadoMinuta,idUsuario){
+                             idUsr=idUsuario;
                    idEstMin=idEstadoMinuta;
-                   idUsr=idUsuario;
                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                      $("#acep_min").html(data);
                   });
                   }
                   
                   function ventana_rech(idMinuta,idEstadoMinuta,idUsuario){
-                  idEstMin=idUsuario;
-                   idUsr=idUsuario;
-                   
+                  idUsr=idUsuario;
+                  idEstMin=idEstadoMinuta;
                    $.post("<?=base_url()?>index.php/c_administrador/detalles_minuta",{idMinuta:idMinuta}, function(data){
                      $("#rech_min").html(data);
                   });
                   }
                   
                   function aceptar( ){
-                   $.post("<?=base_url()?>index.php/c_administrador/aceptar_min",{idEstadoMinuta:idEstMin,idUsuario:idUsr}, function(data){
+                   $.post("<?=base_url()?>index.php/c_administrador/aceptarMin",{idEstadoMinuta:idEstMin,idUsuario:idUsr}, function(data){
                     
                   });
                   }
-                                     
-                  function rechazar( ){
-
-                    var motivoRechazo=document.getElementById('motivoRechazo').value;
-                    console.log(idUsuario);
                     
-                   $.post("<?=base_url()?>index.php/c_administrador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
+                  
+                  function rechazar( ){
+                    var motivoRechazo=document.getElementById('motivoRechazo').value;
+                   $.post("<?=base_url()?>index.php/c_administrador/rechazarMin",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                      
                   });
-                  }
-
-                                                 
+                   }
+                  
+          
+                  
                      //visualizar el calendario en el input fecha
-                        $( document ).ready(function() {
+                    $( document ).ready(function() {
                            $('#fechaEdicion').datepicker();
-                       });
-                
+                       });                 
+                  
                </script>
             </div>
             <!-- /.box -->
@@ -367,3 +376,4 @@
 </div>
 <!-- /.content-wrapper -->
 
+  

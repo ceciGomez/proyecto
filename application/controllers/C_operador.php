@@ -300,7 +300,7 @@ class C_operador extends CI_Controller {
 		
      	}
 
-		  public function rechazar_min	(){
+		  public function rechazarMin	(){
 		      		$idEstadoMinuta=$_POST["idEstadoMinuta"];
 		      		$motivoRechazo=$_POST["motivoRechazo"];
 		      		$idUsuario=$_POST["idUsuario"];
@@ -319,7 +319,7 @@ class C_operador extends CI_Controller {
 
 		      }
 
-		   public function aceptar_min(){
+		   public function aceptarMin(){
 				$idEstadoMinuta=$_POST["idEstadoMinuta"];
 				$idUsuario=$_POST["idUsuario"];
 				$datetime_variable = new DateTime();
