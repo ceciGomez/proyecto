@@ -525,7 +525,12 @@ function insertarMinuta(){
 			$query= $this->db->query("
 					SELECT m.idMinuta as idMinuta, idEscribano, 
 		concat(substring(fechaIngresoSys, 9, 2), '/' ,substring(fechaIngresoSys, 6, 2) , '/', substring(fechaIngresoSys, 1, 4)) as	fechaIngresoSys, fechaEdicion, 
-					x.idEstadoMinuta as idEstadoMinuta, em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
+					x.idEstadoMinuta as idEstadoMinuta, 
+					case 
+					when em.estadoMinuta = 'R' then 'Rechazada'
+					when em.estadoMinuta = 'P' then 'Pendiente'
+					when em.estadoMinuta = 'A' then 'Aprobada' else 'Sin estado' end as descEstadoMinuta,
+					em.estadoMinuta as estadoMinuta, em.motivoRechazo as motivoRechazo, em.idUsuario as idUsuario
 					from minuta m inner join 
 					(select idMinuta, max(idEstadoMinuta)  as idEstadoMinuta from estadominuta group by idMinuta) as x
 					on x.idMinuta = m.idMinuta left join estadominuta em 
