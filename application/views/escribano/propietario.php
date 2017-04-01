@@ -256,7 +256,6 @@
                              </div>
                          <input type="text" class="form-control pull-right" placeholder="dd/mm/aaaa" name="fecha_nacimiento" <?php echo "value='$fecha_nacimiento'" ?> id="fecha_nacimiento">
                             </div>
-                         <div style="color:red;" ><p><?=form_error('fecha_nacimiento')?></p></div>
                       </div>
                       <input type="hidden" name="idPersonaSelect" id="idPersonaSelect" />
 
