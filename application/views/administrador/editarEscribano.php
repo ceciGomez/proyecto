@@ -125,11 +125,7 @@ return patron.test(te);
                               <input type="text" value="<?php echo $escribano->matricula ?>" name="matricula" id="matricula" placeholder="Matricula" onkeypress="return NumbersOnly(event)" maxlength="8">
                           </div>
                        
-
-
-                        
-                          
-                         
+                     
                           <div class="col-md-3">
                              <label>DNI :</label><br>
                               <input type="text" value="<?php echo $escribano->dni ?>" name="dni" id="dni" placeholder="DNI" placeholder="DNI" onkeypress="return NumbersOnly(event);" maxlength="8" >
@@ -143,9 +139,9 @@ return patron.test(te);
                             <input type="hidden" value= '<?php echo $escribano->estadoAprobacion ?>' id="estado"> 
                             <select name="estadoAprobacion" id="estadoAprobacion"  >
                                  <option value=""></option>
-                                <option value="P">P</option>
-                                <option value="A">A</option>
-                                <option value="R">R</option>
+                                <option value="P">Pendiente</option>
+                                <option value="A">Aprobado</option>
+                                <option value="R">Rechazado</option>
                                
                             </select>
                           </div>
