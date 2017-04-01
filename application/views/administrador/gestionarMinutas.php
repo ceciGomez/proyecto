@@ -77,7 +77,7 @@
                            <td data-order="<?php echo $mi["fechaIngresoSys"]; ?>">  <?php  echo "$date_formated"; ?></td>
                            <td data-oder="<?php echo $mi["fechaEdicion"]; ?>">  <?php  echo "$date_formated2"; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
-                           <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
+                           <td>  <?php  echo $mi['descEstadoMinuta']; ?> </td>
                         </tr>
                         <?php
                            }
