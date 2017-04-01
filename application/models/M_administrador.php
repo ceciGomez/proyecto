@@ -153,7 +153,13 @@ class M_administrador extends CI_Model
 					    
 					    substring(p.descripcion, 1, 46) as descripcion,
 					    substring(p.rtaPedido, 1, 46) as rtaPedido,
-					    p.estadoPedido,p.idEscribano, u.nomyap  
+					    p.estadoPedido,
+					    case 
+					     when p.estadoPedido = 'P' then 'Pendiente'
+					     when p.estadoPedido = 'C' then 'Contestado'
+					     else '' end as descEstadoPedido,
+
+					    p.idEscribano, u.nomyap  
 					 FROM pedidos p left join usuariosys u on p.idUsuario = u.idUsuario "
 
 

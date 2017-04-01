@@ -9,22 +9,22 @@ table, th, td {
     border: 1px solid black;
 }
 .propietario th {
-    background-color: #3B4EC9;
+    background-color: #8000FF;
     color: white;
-    height: 50px;
+    height: 25px;
 }
 .relacion th {
-    background-color: #4CAF50;
-    color: white;
-    height: 50px;
+    background-color: #E3CEF6;
+    color: black;
+    height: 25px;
 }
 .parcela  th {
-    background-color: #04142B;
-    color: white;
-  width: 500px;
+    background-color: #9F81F7;
+    color: black;
+  width: 175px;
 }
 #motivoRechazo{
-    border: 5px solid black;
+    border: 2px solid red;
     margin:20px;
     padding: 20px;
 }
@@ -53,16 +53,18 @@ table, th, td {
                 <div id="motivoRechazo">
                   <?php echo $motivoRechazo ?>
                 </div>
+                
+             
+
+
                 <br>
-                <br>
-                <h4>Fecha de Ingreso de la Minuta: <?php echo $fechaInscMinuta ;?></h4>
-                <br>
+                <h4>Fecha de Ingreso de la Minuta: <?php echo $fechaInscMinuta;?></h4>
+                
                 <br>
                 
                 <div class="box-body" >
              
-                <br>
-
+                
                   
 
                 <?php 
@@ -277,8 +279,8 @@ table, th, td {
                      <table>
                         <caption ><h3 align="center" >Propietario N° <?php  echo $nroPropietario ?> del PH N° <?php echo $nroRelacion ?> de la Parcela N°<?php echo $nroParcela ?></h3></caption>
                      
-                     <thead>
-                       <tr class="propietario">
+                     <thead >
+                       <tr class="propietario" >
                          <th>Porcentaje de Condominio</th>
                          <th>Propietario</th>
                          <th>Tipo</th>
