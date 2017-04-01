@@ -154,7 +154,7 @@
                               }
                           } 
                             ?></td>
-                           <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo "";  ?><a href="#"><?php echo "$es->email" ?></a></td>
+                           <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->email==null) echo "";  ?><a href="mailto:<?php echo "$es->email" ?>"><?php echo "$es->email" ?></a></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->telefono==null) echo ""; else echo "$es->telefono"; ?></td>
                           
                            <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->direccion==null) echo ""; else echo "$es->direccion"; ?></td>
@@ -299,19 +299,9 @@
                       </div>
                     </div>
                   </div>
-                   </div>
+                   </div>                       
 
-
-
-
-
-               
-
-                
-
-
-                  <script type="text/javascript">
-
+                 <script type="text/javascript">
                    
                    $(document).ready(function(){
 
@@ -380,18 +370,14 @@
                       document.getElementById('escribanos_filter').style.display='none';
 
                          $( "#escribanos" ).show();  
-                       
-                       
-
-                    
+                                             
+                  
                     } );
 
                      //filtra por estados
                       
-                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente                  
-                     
-                     
-
+                         //en caso de que haga click en alguna notificacion filtra por idminuta y estado pendiente               
+                                         
                     idEsc='';
                     idUsr='';
                          function ventana_acep( idEscribano,idUsuario){
@@ -435,10 +421,8 @@
                    function ventana_eli (idEscribano){
                       idEsc=idEscribano;
                      
-                   }
-                   
-
-                   
+                   }                  
+                
                   //eliminar escribano de la bd
 
                    function eliminar( ){
@@ -447,26 +431,29 @@
             });
                   }
 
-
-
-
-
                      //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
                             $('#fechaRegistracion').datepicker();
                         });
 
-
-
          </script>
+        <script type="text/javascript">
+              $(document).ready(function() {
 
+    $('#escribanos tr').click(function() {
+        var href = $(this).find("a").attr("href");
+        if(href) {
+            window.location = href;
+        }
+    });
+
+});
+        </script>
            
           </div>
-          <!-- /.box -->
+          <!-- /.box -->     
 
-       
-
-        </section>
+       </section>
         <!-- /.Left col -->
       
       </div>
