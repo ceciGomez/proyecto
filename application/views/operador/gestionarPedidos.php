@@ -212,9 +212,11 @@
                   
                     function contestar(){
                   var rtaPedido=document.getElementById('rtaPedido').value;
-                  
+                   if (rtaPedido =="") {alert ("Falta ingresar Respuesta");}
+                    else{ 
+
                    $.post("<?=base_url()?>index.php/c_operador/contestar_pedido",{idPedido:idPed,rtaPedido:rtaPedido,idUsuario:idUsr}, function(data){
-                  });
+                  });}
                   }
                   
                </script>
