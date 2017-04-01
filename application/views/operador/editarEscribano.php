@@ -143,9 +143,9 @@ return patron.test(te);
                             <input type="hidden" value= '<?php echo $escribano->estadoAprobacion ?>' id="estado"> 
                             <select name="estadoAprobacion" id="estadoAprobacion"  >
                                  <option value=""></option>
-                                <option value="P">P</option>
-                                <option value="A">A</option>
-                                <option value="R">R</option>
+                                <option value="P">Pendiente</option>
+                                <option value="A">Aceptado</option>
+                                <option value="R">Rechazado</option>
                                
                             </select>
                           </div>

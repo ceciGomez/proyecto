@@ -399,9 +399,9 @@ function insertarMinuta(){
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
     $this->session->set_userdata('idMinuta',$idMinuta); 
+    $order2 = "insert into estadominuta (idMinuta, estadoMinuta) values ('$idMinuta','P')";
+    $this->db->query($order2);
 }
-	
-
 
 	$idMinuta=$this->session->userdata('idMinuta');
     $idLocalidad = $this->session->userdata('localidades');
@@ -424,9 +424,9 @@ function insertarMinuta(){
     $folio = $this->session->userdata('folio');
     $finca = $this->session->userdata('finca');
     $año = $this->session->userdata('año');
-    $order2 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
+    $order3 = "insert into parcela (idLocalidad,circunscripcion, seccion, chacra, quinta, fraccion, manzana, parcela, superficie, partida, tipoPropiedad, planoAprobado, fechaPlanoAprobado, descripcion, idMinuta, nroMatriculaRPI, fechaMatriculaRPI, tomo, folio, finca, año) values ('$idLocalidad','$circunscripcion','$seccion','$chacra','$quinta','$fraccion','$manzana','$parcela','$superficie','$partida','$tipoPropiedad','$planoAprobado','$fechaPlanoAprobado','$descripcion','$idMinuta','$nroMatriculaRPI','$fechaMatriculaRPI','$tomo','$folio','$finca','$año')";
     if($this->session->userdata('otraParcela') ==FALSE || $this->session->userdata('otroPh')==FALSE  ) {
-    $this->db->query($order2);
+    $this->db->query($order3);
     /*preparo para insertar una relacion*/
     $idParcela = ($this->db->insert_id());   
     $this->session->set_userdata('idParcela',$idParcela);
@@ -440,14 +440,14 @@ function insertarMinuta(){
     $fecha_plano_aprobado = $this->session->userdata('fecha_plano_aprobado');
     $porcentaja_ucuf = $this->session->userdata('porcentaja_ucuf');
     $poligonos = $this->session->userdata('poligonos');
-    $order3 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_Escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
-    $this->db->query($order3);
+    $order4 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_Escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
+    $this->db->query($order4);
     /*preparo para insertar propietarios*/
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order4 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
-    	$this->db->query($order4);
+    	$order5 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$this->db->query($order5);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
     	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, '$value[porcentaje_condominio]', '$value[tipo_propietario]')";
