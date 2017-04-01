@@ -12,10 +12,25 @@ class M_operador extends CI_Model
 
 	public function getEscribanos(){
 
-		$escribanos =$this->db->get("usuarioescribano")->result();
-		return $escribanos;
-	}
+		try {
+			$query = $this->db->query("
 
+				select case 
+					when estadoAprobacion = 'P' then 0
+					when estadoAprobacion = 'A' then 1
+					when estadoAprobacion = 'R' then 2 else 3 end
+				as id, u.*
+				from usuarioescribano u
+			
+
+				order by id asc
+
+				");
+			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
 
 
 	public function actualizarEscribano($escribano,$id)

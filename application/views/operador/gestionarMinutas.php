@@ -77,7 +77,7 @@
                            <td data-order="<?php echo $mi["fechaIngresoSys"]; ?>">  <?php  echo "$date_formated"; ?></td>
                            <td data-oder="<?php echo $mi["fechaEdicion"]; ?>">  <?php  echo "$date_formated2"; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
-                           <td>  <?php  echo $mi['estadoMinuta']; ?> </td>
+                           <td>  <?php  echo $mi['descEstadoMinuta']; ?> </td>
                         </tr>
                         <?php
                            }
@@ -344,7 +344,7 @@
                   }
                   
                   function aceptar( ){
-                   $.post("<?=base_url()?>index.php/c_operador/aceptar_min",{idEstadoMinuta:idEstMin,idUsuario:idUsr}, function(data){
+                   $.post("<?=base_url()?>index.php/c_operador/aceptarMin",{idEstadoMinuta:idEstMin,idUsuario:idUsr}, function(data){
                     
                   });
                   }
@@ -352,7 +352,7 @@
                   
                   function rechazar( ){
                     var motivoRechazo=document.getElementById('motivoRechazo').value;
-                   $.post("<?=base_url()?>index.php/c_operador/rechazar_min",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
+                   $.post("<?=base_url()?>index.php/c_operador/rechazarMin",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
                      
                   });
                    }
