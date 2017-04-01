@@ -335,6 +335,7 @@ class C_escribano extends CI_Controller {
 			redirect(base_url().'index.php/c_login_escribano');
 		}
 
+		
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
 		$data["notificaciones_si"]=$this->notificaciones_si();
@@ -344,14 +345,20 @@ class C_escribano extends CI_Controller {
 		$data['hizo_post']=$hizo_post;
 		$data['titulo'] = 'Bienvenido Escribano';
 		
-        // var_dump($this->input->post('idPersonaSelect'));
+
          if ($this->input->post('idPersonaSelect')==NULL) {
          	$this->session->set_userdata('idPersonaSelect', $this->input->post('idPersonaSelect'));
          }else{
-
          	$this->session->set_userdata('idPersonaSelect', NULL);
-
         }
+
+        /*Si elije agregar otro propietario asigna TRUE a $exito para que setee los campos de propietario*/
+        if($this->input->post('minuta') == "agregarpropietario") {
+               	$exito=TRUE;
+		}else{
+			$this->registrarPropietario();
+		}
+
 			if($this->input->post() && !$exito){
 			//seteo los demas input segun lo que ingreso anteriormente
 			$data['propietario'] = $this->input->post('propietario');	
@@ -510,8 +517,7 @@ function checkPost(){
     
 		if($this->input->post('finminuta') == "agregarph") { 
     			$this->session->unset_userdata('datos_ph');
-    			$this->session->unset_userdata('propietario');
-    			
+    			$this->session->unset_userdata('propietario');    			
     			$this->crearRelacion(FALSE, TRUE, TRUE);
     		}else{
     			$this->session->unset_userdata('datos_parcela');
