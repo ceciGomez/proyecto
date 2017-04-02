@@ -320,7 +320,6 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-        var_dump($this->session->userdata('datos_ph'));
 		
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
