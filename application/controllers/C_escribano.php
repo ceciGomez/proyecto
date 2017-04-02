@@ -1131,11 +1131,6 @@ function checkPost(){
 		$this->load->view('escribano/editarMinuta',$data);
 		$this->load->view('templates/pie',$data);
 	
-	
-		
-
-
-
 	}
 
 		public function editarParcela($idParcela,$exito=FALSE, $hizo_post=FALSE)
@@ -1236,15 +1231,6 @@ function checkPost(){
 
 			    $this->form_validation->set_rules('seccion', 'seccion', 'required',array('required' => 'Debes ingresar una sección ') );
 
-			    $this->form_validation->set_rules('chacra', 'chacra', 'required',array('required' => 'Debes ingresar una chacra ','is_unique'=>'Ya existe un escribano con el DNI ingresado') );
-
-			    $this->form_validation->set_rules('quinta', 'quinta', 'required',array('required' => 'Debes ingresar una quinta ','is_unique'=>'Ya existe un escribano con el Nro de Matrícula') );
-
-			    $this->form_validation->set_rules('fraccion', 'fraccion', 'required',array('required' => 'Debes ingresar una fracción ','is_unique'=>'Ya existe un escribano con el Correo ingresado') );
-
-			    $this->form_validation->set_rules('manzana', 'manzana', 'required',array('required' => 'Debes ingresar una manzana ') );
-
-			    $this->form_validation->set_rules('parcela', 'parcela', 'required',array('required' => 'Debes seleccionar una parcela ') );
 
 			    $this->form_validation->set_rules('superficie', 'superficie', 'required',array('required' => 'Debes seleccionar una superficie') );
 
@@ -1402,19 +1388,9 @@ function checkPost(){
 				$hizo_post=TRUE;
 
 				 $this->load->helper(array('form', 'url'));
-                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
-                 if($this->input->post('ph')=='noph'){
+                 //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)              
 			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
-			    }else{
- 			    $this->form_validation->set_rules('fecha_escritura', 'fecha_escritura', 'required',array('required' => 'Debes ingresar una fecha de escritura') );
-			    $this->form_validation->set_rules('nro_ucuf', 'nro_ucuf', 'required',array('required' => 'Debes ingresar un número ') );
-				$this->form_validation->set_rules('tipo_ucuf', 'tipo_ucuf','required|callback_check_tipoucuf');
-				$this->form_validation->set_message('check_tipoucuf', 'Debes seleccionar un tipo');
-			    $this->form_validation->set_rules('plano_aprobado', 'plano_aprobado', 'required',array('required' => 'Debes ingresar un nro de plano ') );
-			    $this->form_validation->set_rules('fecha_plano_aprobado', 'fecha_plano_aprobado', 'required',array('required' => 'Debes ingresar una fecha ') );
-			    $this->form_validation->set_rules('porcentaje_ucuf', 'porcentaje_ucuf', 'required',array('required' => 'Debes ingresar un porcentaje ') );
-			    $this->form_validation->set_rules('poligonos', 'poligonos', 'required',array('required' => 'Debes ingresar un poligono ') );}
-
+			
 			   
 			if($this->form_validation->run() == FALSE)
 			{	
@@ -1539,9 +1515,6 @@ function checkPost(){
 			  	    $this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required') ;
 			  	    $this->form_validation->set_rules('sexo_combobox', 'sexo_combobox', 'required',array('required' => 'Debes seleccionar tipo de sexo ') );
 					$this->form_validation->set_rules('dni', 'dni','required',array('required' => 'Debes ingresar un dni ') );
-					/*$this->form_validation->set_rules('conyuge', 'conyuge','required',array('required' => 'Debes ingresar un conyuge ') );*/
-					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
-			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
 			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
   					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
 					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');
@@ -1551,8 +1524,6 @@ function checkPost(){
   					$this->form_validation->set_rules('tipo_propietario', 'tipo_propietario', 'required');
  			   		$this->form_validation->set_rules('nombreyapellido', 'nombreyapellido', 'required',array('required' => 'Debes ingresar un nombre y apellido') );
 			   		$this->form_validation->set_rules('cuit', 'cuit', 'required',array('required' => 'Debes ingresar un cuit ') );
-					$this->form_validation->set_rules('direccion', 'direccion','required',array('required' => 'Debes ingresar una direccion ') );
-			   		$this->form_validation->set_rules('fecha_nacimiento', 'fecha_nacimiento', 'required',array('required' => 'Debes ingresar una fecha ') );
 			   		$this->form_validation->set_rules('departamentos','departamentos','required|callback_check_departamento');
   					$this->form_validation->set_message('check_departamento', 'Debes seleccionar un departamento');
 					$this->form_validation->set_rules('localidades','localidades','required|callback_check_localidad');

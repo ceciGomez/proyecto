@@ -673,7 +673,45 @@
             $('#fecha_nacimiento').datepicker();
         });      
     </script>
+     <script>
+      $("#sexo_combobox").on("focusout", function () {
+        if($("#dni").val()!="" ){
+        var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==20){
+          $("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==27){
+          $("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+          $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }}
+         });
 
+    </script>
+    <!--Toma el valor del campo dni y lo agrega al campo CUIT-->
+    <script>
+      $("#dni").on("focusout", function () {
+        if($("#dni").val()!=""  && $("#sexo_combobox").val()!=0 ){
+        var business =$("#sexo_combobox").val().charAt(0)*5 + $("#sexo_combobox").val().charAt(1)*4 + $("#dni").val().charAt(0)*3 + $("#dni").val().charAt(1)*2 + $("#dni").val().charAt(2)*7 + $("#dni").val().charAt(3)*6
+                        +$("#dni").val().charAt(4)*5 + $("#dni").val().charAt(5)*4 + $("#dni").val().charAt(6)*3 + $("#dni").val().charAt(7)*2 ;
+        if((business%11)==0){
+            $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ 0);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==20){
+          $("#cuil").val(23+" "+$("#dni").val()+ " "+ 9);
+       }else if((business%11)==1 && $("#sexo_combobox").val()==27){
+          $("#cuil").val(23+" "+$("#dni").val()+ " "+ 4);
+       }
+       else{
+          $("#cuil").val( $("#sexo_combobox").val()+" "+$("#dni").val()+ " "+ (11-(business%11)));
+       }} else {
+        $("#cuil").val("");
+       }     
+         });
+
+    </script>
      
 
 
