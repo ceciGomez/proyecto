@@ -511,7 +511,6 @@ function checkPost(){
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		
-       var_dump($post_string);
 		if($post_string=="Seleccione localidad"){
   			return FALSE;}
   		else{
