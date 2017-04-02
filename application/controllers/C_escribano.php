@@ -265,7 +265,6 @@ class C_escribano extends CI_Controller {
      public function registrarRelacion(){
 
 				$hizo_post=TRUE;
-
 				 $this->load->helper(array('form', 'url'));
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
                  
@@ -294,11 +293,9 @@ class C_escribano extends CI_Controller {
 
 				);
 
-				 	$array = array();
-					$this->session->set_userdata('datos_ph',$array); 
-					$ph_anterior =  $this->session->userdata('datos_ph');
-					array_push($ph_anterior, $datos_ph);
-					$this->session->set_userdata('datos_ph', $ph_anterior);
+				 
+					$this->session->set_userdata($datos_ph);
+
 				 /*
 				 if($this->session->userdata('datos_ph')) {
 				 	$ph_anterior =  $this->session->userdata('datos_ph');
@@ -325,7 +322,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-
+        var_dump($this->session->userdata('datos_ph'));
 		
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
