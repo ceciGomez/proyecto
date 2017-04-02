@@ -353,16 +353,16 @@ class C_administrador extends CI_Controller {
 
 	public function detalles_esc(){
 			$idEscribano=$_POST["idEscribano"];
-			$esc=$this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();
-			 echo " <tr>
-                          <td>$esc->nomyap</td>  
-                        	<td>  $esc->usuario</td>
+			$esc = $this->M_administrador->getUnEscribano2($idEscribano);
+			echo " <tr>
+                            <td> $esc->nomyap</td>  
+                        	<td> $esc->usuario</td>
                             <td> $esc->dni</td>
-                            <td>  $esc->matricula</td>
+                            <td> $esc->matricula</td>
                             <td> $esc->direccion</td>
                             <td> $esc->email</td>
                             <td> $esc->telefono</td>
-                            <td>$esc->estadoAprobacion</td>
+                            <td>$esc->descEstadoAp</td>
                        </tr>
                          "; 
                          }
