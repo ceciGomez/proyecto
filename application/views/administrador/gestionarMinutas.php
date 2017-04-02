@@ -178,7 +178,7 @@
                         </div>
                         <div class="modal-footer">
                            <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                           <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                           <a href="<?=base_url()?>index.php/c_administrador/gestionarMinutas "  class="btn btn-primary" onclick="aceptar()">Aceptar</a>
                         </div>
                      </div>
                   </div>
@@ -201,7 +201,7 @@
                         </div>
                         <div class="modal-footer">
                            <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                           <a href="" class="btn btn-primary" onclick="rechazar()">Aceptar</a>
+                           <a  href="<?=base_url()?>index.php/c_administrador/gestionarMinutas " class="btn btn-primary" onclick="rechazar()">Aceptar</a>
                         </div>
                      </div>
                   </div>

@@ -64,15 +64,15 @@ table, th, td {
                 
                 <div class="box-body" >
              
-                
+                  <a  href="<?=base_url()?>index.php/c_escribano/nuevaParcela/ " title="Agregar  Parcela" ><button class="btn btn-info">Agregar Parcela</button></a> 
                   
 
                 <?php 
                 $nroParcela=0;
                 foreach ($parcelas as $parcela){ 
-                 $nroParcela=$nroParcela+1;
-                              $date=new DateTime($parcela->fechaPlanoAprobado);
-                      $date_formated=$date->format('d/m/Y ');
+                $nroParcela=$nroParcela+1;
+                $date=new DateTime($parcela->fechaPlanoAprobado);
+                $date_formated=$date->format('d/m/Y ');
                 $fecha_planoAprobado=$date_formated;
 
                 $date2=new DateTime($parcela->fechaMatriculaRPI);
@@ -143,8 +143,10 @@ table, th, td {
                  </table>
                  <br>
                      <a  href="<?=base_url()?>index.php/c_escribano/editarParcela/<?php echo $parcela->idParcela?> " title="Editar  Parcela" ><button class="btn btn-success">Editar Parcela</button></a> 
-                       <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarParcela/<?php echo  $parcela->idParcela ?>" >Eliminar Parcela</a>
-                   
+                     
+                       <a class="btn btn-danger" data-toggle="modal" href="#eliminarParcela" title="Eliminar Parcela" onclick="ventana_eliminarParcela(<?php echo  $parcela->idParcela  ?>) ">Eliminar Parcela</a>
+                   <br>
+                     <a  href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo $parcela->idParcela ?> " title="Agregar" ><button class="btn btn-info">Agregar</button></a> 
                  <br>
                  <br>
                
@@ -156,7 +158,12 @@ table, th, td {
                       $nroRelacion=$nroRelacion+1;
                         ?>
                         <table>
-                        <caption ><h3 align="center" >PH N° <?php echo $nroRelacion ?> de la Parcela N°<?php echo $nroParcela ?></h3></caption>
+                        <?php if ($relacion->nroUfUc!=null){
+                                                  ?>
+                         <caption ><h3 align="center" >PH N° <?php echo $nroRelacion ?> de la Parcela N°<?php echo $nroParcela ?></h3></caption>
+                        <?php }else {?>
+                        <caption ><h3 align="center" >Escritura N° <?php echo $nroRelacion ?> de la Parcela N°<?php echo $nroParcela ?></h3></caption>
+                        <?php } ?>
                           <thead>
                           <tr class="relacion">
                              
@@ -189,7 +196,7 @@ table, th, td {
                                 }
                                  ?>
                               </td>
-                              <?php if($relacion->poligonos!=null){ ?>
+                              <?php if($relacion->nroUfUc!=null){ ?>
                               <td> <?php if ($relacion->nroUfUc==null) {
 
                                   echo "";
@@ -261,11 +268,11 @@ table, th, td {
 
                         </table>
                          <br>
-                    <a  href="<?=base_url()?>index.php/c_escribano/editarPH/<?php echo $relacion->idRelacion?> " title="Editar PH" ><button class="btn btn-success">Editar PH</button></a> 
-                     <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPH/<?php echo  $relacion->idRelacion ?>" >Eliminar PH</a>
+                    <a  href="<?=base_url()?>index.php/c_escribano/editarPH/<?php echo $relacion->idRelacion?> " title="Editar PH" ><button class="btn btn-success">Editar </button></a> 
+
+                   <a class="btn btn-danger" data-toggle="modal" href="#eliminarPH" title="Eliminar " onclick="ventana_eliminarPH(<?php echo  $relacion->idRelacion  ?>) ">Eliminar </a>                   <br>
                    <br>
-                   <br>
-                 
+                    <a  href="<?=base_url()?>index.php/c_escribano/nuevoPropietario/<?php echo $relacion->idRelacion ?> " title="Nuevo Propietario" ><button class="btn btn-info">Nuevo Propietario</button></a> 
                         <br>
                         <br>
                      <?php 
@@ -392,7 +399,7 @@ table, th, td {
                        </table>
                        <br>
                           <a  href="<?=base_url()?>index.php/c_escribano/editarPropietario/<?php echo $propietario->id?> " title="Editar Propietario" ><button class="btn btn-success">Editar Propietario</button></a> 
-                            <a class="btn btn-danger" href="<?=base_url()?>index.php/c_escribano/eliminarPropietario/<?php echo  $propietario->id ?>" >Eliminar Propietario</a>
+                            <a class="btn btn-danger" data-toggle="modal" href="#eliminarPropietario" title="Eliminar Propietario" onclick="ventana_eliminarPropietario(<?php echo  $propietario->id  ?>) ">Eliminar Propietario</a>
                        <br>
                        <br>                 
                     <?php }
@@ -400,16 +407,96 @@ table, th, td {
                     } ?>
                 </div>
                 <div align="center">
-                    <a  href="<?=base_url()?>index.php/c_escribano/finalizarEdicion/<?php echo $idMinutaEditar ?> " title="Finalizar Edición Minuta" ><button class="btn btn-success">Finalizar Edición Minuta</button></a> 
+                
+                  <a class="btn btn-success" data-toggle="modal" href="#finalizarEdicionMinuta"title="Finalizar Edición Minuta" onclick="ventana_finalizarEdicionMinuta(<?php echo  $idMinutaEditar ?>) ">Finalizar Edición Minuta</a>
+                  
                 </div>
                   </div>    
 
                 </div>   
 
              
+                  <div class="modal" id="eliminarPropietario">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar propietario</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar eliminar al Propietario</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarPropietario()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
+
+                     <div class="modal" id="eliminarPH">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar PH</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar eliminar la Propiedad Horizontal</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarPH()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
              
+               <div class="modal" id="eliminarParcela">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Eliminar Parcela</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar eliminar la Parcela</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarParcela()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
           
 
+               <div class="modal" id="finalizarEdicionMinuta">
+                      <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                         <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal">&times;</button>
+                          <h3 class="modal-title" style="color:white"> Finalizar Edición Minuta</h3>
+                         </div>
+                         <div class="modal-body">
+                         <h3> Confirmar Finalizar Edición Minuta</h3>
+                        
+
+                         <div class="modal-footer">
+                          <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
+                          <a    href="<?=base_url()?>index.php/c_escribano/verMinutas "  class="btn btn-primary" onclick="finalizarEdicionMinuta()">Aceptar</a>
+                         </div>
+                      </div>
+                    </div>
+                  </div>
+                   </div>
+          
                 
 
 
@@ -433,6 +520,59 @@ table, th, td {
   <!-- /.content-wrapper -->
 
  <script type="text/javascript">
-   
+ idProp='';
+ function ventana_eliminarPropietario(idPropietario){
+    console.log(idPropietario);
+    idProp=idPropietario;
+ }
+
+ idRel='';
+ function ventana_eliminarPH(idRelacion){
+  console.log(idRelacion);
+  idRel=idRelacion;
+ }
+
+idPar='';
+function ventana_eliminarParcela(idParcela){
+  console.log(idParcela);
+  idPar=idParcela;
+}
+
+function eliminarPropietario(){
+    $.post("<?=base_url()?>index.php/c_escribano/eliminarPropietario",{idPropietario:idProp}, function(data){
+                      
+
+            });
+                
+}
+
+function eliminarPH(){
+   $.post("<?=base_url()?>index.php/c_escribano/eliminarPH",{idRelacion:idRel}, function(data){
+                      
+                    
+            });
+}
+
+function eliminarParcela(){
+   $.post("<?=base_url()?>index.php/c_escribano/eliminarParcela",{idParcela:idPar}, function(data){
+                      
+                    
+            });
+}
+
+idMin='';
+function ventana_finalizarEdicionMinuta(idMinuta){
+idMin=idMinuta;
+ 
+}
+
+   function finalizarEdicionMinuta (){
+
+             $.post("<?=base_url()?>index.php/c_escribano/finalizarEdicion",{idMinuta:idMin}, function(data){
+                      
+                    
+            });
+
+   }
 
  </script>
