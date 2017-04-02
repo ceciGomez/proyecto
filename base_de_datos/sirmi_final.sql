@@ -431,15 +431,15 @@ CREATE TABLE `usuarioescribano` (
 --
 
 INSERT INTO `usuarioescribano` (`idEscribano`, `nomyap`, `usuario`, `contraseña`, `fechaReg`, `dni`, `telefono`, `direccion`, `email`, `matricula`, `estadoAprobacion`, `idLocalidad`, `idUsuario`, `motivoRechazo`, `foto`, `baja`) VALUES
-(1, 'Andrea Moreno', 'amoreno', 'b4d978e9eb36fadf5f38a3ec64c1da8b', '2017-02-22 00:14:47', 12457897, 303456, 'Arbo y Blanco 550', 'amoreno@arnet.com.ar', 12345, NULL, 4, 1, NULL, '', NULL),
-(2, 'Fabricio Acosta', 'facosta', '57bae1643a29f9bc182508da65822ed1b840da24', '2017-02-22 00:14:47', 15889966, 303459, 'J. D. Perón 1445', 'facosta@google.com', 4587, NULL, 6, 2, NULL, '', NULL),
-(3, 'Margarita Sosa', 'msosa', 'f3842765018418f92434c2e601661adea6cb22b9', '2017-02-22 00:14:47', 13889966, 303457, 'Av. Alvear 45', 'msosa@hotmail.com', 4587, NULL, 1, 2, NULL, '', NULL),
-(4, 'DARIO NUNIEZ', 'GERMANNZ3', 'bf0980b4c067c7b9dd83efd2c7fec7316eeecbbe', '2017-02-22 00:14:47', 33939195, 0, NULL, 'GERMAN.NZ03@GMAIL.COM', 303456, 'p', 1, NULL, '', '', NULL),
-(5, 'CARLOS NELSON ACOSTA', 'HOLA123', 'c49868c59d03dc485ba93e03aa1dc1f7922a582c', '2017-02-22 00:14:47', 33564787, 0, NULL, 'HOLA@GMAIL.COM', 45645, 'p', 1, NULL, '', '', NULL),
-(6, 'LUIS ALBERTO ZACARIAS', 'lzaca', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2017-02-22 00:14:47', 25789654, 2147483647, '-', 'lzaca@hotmail.com', 889878, 'R', 6, NULL, 'PRUEBA\n', '', NULL),
-(8, 'PEDRO AZNAR', 'paznar', '882af4d7a33af52b5653ddcae036aee2be8f0568', '2017-02-22 00:14:47', 1823564, 2147483647, 'PERON 1233', 'paznar@gmail.com', 124598, 'P', 6, NULL, '', '', NULL),
-(9, 'CARLOS YORIK', 'cyorik', '0edce019660e99cfd4cb1c15acc00bca05d7d1f5', '2017-02-22 00:14:47', 457896, 2147483647, 'AS123', 'YORIK@GMAIL.COM', 456987, 'P', 6, NULL, '', '', NULL),
-(10, 'escri', 'escribano', 'b985651180f215acd5b8e34fabfa0a1174d71970', '2017-03-07 21:54:38', NULL, NULL, NULL, NULL, 8549, 'A', NULL, NULL, NULL, '', NULL);
+(1, 'Andrea Moreno', 'amoreno', 'b4d978e9eb36fadf5f38a3ec64c1da8b', '2017-02-22 03:14:47', 12457897, 303456, 'Arbo y Blanco 550', 'amoreno@arnet.com.ar', 12345, 'P', 4, 1, NULL, 'user.png', '0'),
+(2, 'Fabricio Acosta', 'facosta', '57bae1643a29f9bc182508da65822ed1b840da24', '2017-02-22 03:14:47', 15889966, 303459, 'J. D. Perón 1445', 'facosta@google.com', 4587, 'R', 6, 2, 'Matricula no existente en la Universidad de escribanos', 'user.png', '0'),
+(3, 'Margarita Sosa', 'maria sosa', 'f3842765018418f92434c2e601661adea6cb22b9', '2017-02-22 03:14:47', 13889966, 303457, 'Av. Alvear 45', 'msosa@hotmail.com', 4587, 'P', 1, 2, NULL, 'user.png', '0'),
+(4, 'DARIO NUNIEZ', 'GERMANNZ3', 'bf0980b4c067c7b9dd83efd2c7fec7316eeecbbe', '2017-02-22 03:14:47', 33939195, 0, NULL, 'GERMAN.NZ03@GMAIL.COM', 303456, 'P', 1, NULL, '', 'user.png', '0'),
+(5, 'CARLOS NELSON ACOSTA', 'HOLA123', 'c49868c59d03dc485ba93e03aa1dc1f7922a582c', '2017-02-22 03:14:47', 33564787, 0, NULL, 'HOLA@GMAIL.COM', 45645, 'R', 1, NULL, 'No es escribano', 'user.png', '1'),
+(6, 'LUIS ALBERTO ZACARIAS', 'lzacaqqq', '7c4a8d09ca3762af61e59520943dc26494f8941b', '2017-02-22 03:14:47', 25789654, 2147483647, '-', 'lzaca@hotmail.com', 889878, 'R', 6, NULL, 'preubapreubapreubapreubapreubapreubapreubapreubapreuba', 'user.png', '0'),
+(8, 'PEDRO AZNAR', 'paznar', '882af4d7a33af52b5653ddcae036aee2be8f0568', '2017-02-22 03:14:47', 1823564, 2147483647, 'PERON 1233', 'paznar@gmail.com', 124598, 'A', 6, NULL, '', 'user.png', '0'),
+(9, 'CARLOS YORIK', 'cyorik', '0edce019660e99cfd4cb1c15acc00bca05d7d1f5', '2017-02-22 03:14:47', 457896, 2147483647, 'AS123', 'YORIK@GMAIL.COM', 456987, 'A', 6, NULL, '', 'user.png', '0'),
+(10, 'escri', 'escribano', 'b985651180f215acd5b8e34fabfa0a1174d71970', '2017-03-08 00:54:38', NULL, NULL, NULL, NULL, 8549, 'A', NULL, NULL, NULL, 'user.png', '0');
 
 -- --------------------------------------------------------
 
@@ -468,17 +468,36 @@ CREATE TABLE `usuariosys` (
 --
 
 INSERT INTO `usuariosys` (`idUsuario`, `nomyap`, `usuario`, `contraseña`, `fechaReg`, `dni`, `telefono`, `direccion`, `email`, `idLocalidad`, `tipoUsuario`, `foto`, `baja`) VALUES
-(1, 'pablo lopez', 'plopez', 'fe8cf3a963df912ad60c5db8e7f73d404607a10e', '2017-02-22 00:14:07', 21112211, 3034561, 'Frondizi 500', 'plopez@gmail.com', 5, 'O', NULL, NULL),
-(2, 'Lucas Vallejos', 'lvallejos', '368d292d0839d209380b6531c2b266d8994ff893', '2017-02-22 00:14:07', 33559988, 303456, 'Arturo Illia 123', 'lvallejos@hotmail.com', 2, 'O', NULL, NULL),
-(3, 'Ana Medina', 'amedina', 'c2219aefa93c5d46c81f1f739ff06f9dd0637664', '2017-02-22 00:14:07', 12558878, 303457, 'Monteagudo 23', 'amedina@hotmail.com', 3, 'A', NULL, NULL),
-(4, 'operador', 'operador', '9d24de3ac7b5fbbe776a6d90fe25a7e3c74a29cc', '2017-02-22 00:14:07', 36737373, 7373737, 'chaco 171', 'operador@gmail.com', 1, 'O', NULL, NULL),
-(5, 'admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2017-02-22 00:14:07', 28288828, 227227, 'chaco 8282', 'administrador@gmail.com', 1, 'A', NULL, NULL),
-(6, 'pablo aranda', 'paranda', 'paranda', '0000-00-00 00:00:00', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', NULL, NULL),
-(7, 'pablo aranda2', 'paranda2', 'paranda2', '2017-02-24 21:25:15', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', NULL, NULL);
+(1, 'pablo lopez', 'plopez', 'b2a85d6fa6272112db3ac069746079b7bdf7cded', '2017-02-22 03:14:07', 21112211, 3034561, 'Frondizi 500', 'plopez@gmail.com', 5, 'O', 'user.png', '0'),
+(2, 'Lucas Vallejos', 'lvallejos', '368d292d0839d209380b6531c2b266d8994ff893', '2017-02-22 03:14:07', 33559988, 303456, 'Arturo Illia 123', 'lvallejos@hotmail.com', 2, 'O', 'user.png', '1'),
+(3, 'Ana Medina', 'amedina', 'c2219aefa93c5d46c81f1f739ff06f9dd0637664', '2017-02-22 03:14:07', 12558878, 303457, 'Monteagudo 23', 'amedina@hotmail.com', 3, 'A', 'user.png', '1'),
+(4, 'operador', 'operador', '9d24de3ac7b5fbbe776a6d90fe25a7e3c74a29cc', '2017-02-22 03:14:07', 36737373, 7373737, 'chaco 171', 'operador@gmail.com', 1, 'O', 'user.png', '0'),
+(5, 'admin', 'admin', 'd033e22ae348aeb5660fc2140aec35850c4da997', '2017-02-22 03:14:07', 28288828, 227227, 'chaco 8282', 'administrador@gmail.com', 1, 'A', 'user.png', '0'),
+(6, 'pablo aranda', 'paranda', 'paranda', '2017-01-01 00:00:00', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', 'user.png', '0'),
+(7, 'pablo aranda2', 'paranda2', 'paranda2', '2017-02-25 00:25:15', 33998877, 303456, 'liniers200', 'paranda@gmail.com', 1, 'O', 'user.png', '0');
 
 --
 -- Índices para tablas volcadas
 --
+
+--
+-- Indices de la tabla `usuariosys`
+--
+ALTER TABLE `usuariosys`
+  ADD PRIMARY KEY (`idUsuario`),
+  ADD KEY `idLocalidad` (`idLocalidad`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+
+--
+-- Filtros para la tabla `usuariosys`
+--
+ALTER TABLE `usuariosys`
+  ADD CONSTRAINT `usuariosys_ibfk_1` FOREIGN KEY (`idLocalidad`) REFERENCES `localidad` (`idLocalidad`);
+
 
 --
 -- Indices de la tabla `departamento`
@@ -563,16 +582,7 @@ ALTER TABLE `usuarioescribano`
   ADD KEY `idLocalidad` (`idLocalidad`),
   ADD KEY `idUsuario` (`idUsuario`);
 
---
--- Indices de la tabla `usuariosys`
---
-ALTER TABLE `usuariosys`
-  ADD PRIMARY KEY (`idUsuario`),
-  ADD KEY `idLocalidad` (`idLocalidad`);
 
---
--- AUTO_INCREMENT de las tablas volcadas
---
 
 --
 -- AUTO_INCREMENT de la tabla `departamento`
