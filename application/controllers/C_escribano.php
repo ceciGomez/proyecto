@@ -191,11 +191,9 @@ class C_escribano extends CI_Controller {
 					'partida' =>$this->input->post('partida'),					
 					'tipoPropiedad' => $this->input->post('tipoPropiedad'),
 					'planoAprobado' => $this->input->post('planoAprobado'),
-/*					'fechaPlanoAprobado' => $this->input->post('fechaPlanoAprobado'),
-*/					'descripcion' => $this->input->post('descripcion'),										
+					'descripcion' => $this->input->post('descripcion'),										
 					'nroMatriculaRPI' => $this->input->post('nroMatriculaRPI'),
-/*					'fechaMatriculaRPI' => $this->input->post('fechaMatriculaRPI'),
-*/					'departamentos' => $this->input->post('departamentos'),
+			  		'departamentos' => $this->input->post('departamentos'),
 					'localidades' => $this->input->post('localidades'),
 					'tomo' => $this->input->post('tomo'),
 					'folio' => $this->input->post('folio'),
@@ -426,7 +424,6 @@ class C_escribano extends CI_Controller {
 
 			} else{
 
-                /*si es empresa tomo el cuil*/   
                if($this->input->post('propietario')=='P')   { 
 				    $datos_propietario= array (
 					$date1=str_replace('/','-',$this->input->post('fecha_nacimiento')),
@@ -514,8 +511,8 @@ function checkPost(){
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		
-
-		if($post_string==""){
+       var_dump($post_string);
+		if($post_string=="Seleccione localidad"){
   			return FALSE;}
   		else{
   	   return TRUE;
