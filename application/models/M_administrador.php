@@ -101,7 +101,11 @@ class M_administrador extends CI_Model
 	{
 		try {
 			$query = $this->db->query("
-				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv
+				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv,
+				case 
+				when estadoAprobacion = 'P' then 'Pendiente'
+				when estadoAprobacion = 'R' then 'Rechazado'
+				when estadoAprobacion = 'A' then 'Aprobado' else '' end as descEstadoAp
 				FROM usuarioescribano u inner join localidad  l
 				on  l.idLocalidad = u.idLocalidad
 				inner join departamento d
@@ -111,6 +115,29 @@ class M_administrador extends CI_Model
 				WHERE idEscribano = $idEscribano
 				");
 			return $query->result();
+		} catch (Exception $e) {
+			return false;
+		}
+	}
+	public function getUnEscribano2($idEscribano)
+	{
+		try {
+			$query = $this->db->query("
+				SELECT u.nomyap, u.usuario, u.fechaReg, u.email, u.dni, u.direccion, u.telefono, l.nombre  as nombreLocalidad, d.nombre as nombreDpto, p.nombre as nombreProv,
+				case 
+				when estadoAprobacion = 'P' then 'Pendiente'
+				when estadoAprobacion = 'R' then 'Rechazado'
+				when estadoAprobacion = 'A' then 'Aprobado' else '' end as descEstadoAp,
+				matricula
+				FROM usuarioescribano u inner join localidad  l
+				on  l.idLocalidad = u.idLocalidad
+				inner join departamento d
+				on d.idDepartamento = l.idDepartamento
+				inner join provincia p
+				on p.idProvincia = d.idProvincia
+				WHERE idEscribano = $idEscribano
+				");
+			return $query->row();
 		} catch (Exception $e) {
 			return false;
 		}
