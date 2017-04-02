@@ -433,20 +433,21 @@ function insertarMinuta(){
 		}
 
     $idParcela = $this->session->userdata('idParcela');
-  	$fecha_Escritura = $this->session->userdata('fecha_Escritura');
+  	$fecha_escritura = $this->session->userdata('fecha_escritura');
     $nro_ucuf = $this->session->userdata('nro_ucuf');
     $tipo_ucuf = $this->session->userdata('tipo_ucuf');
     $plano_aprobado = $this->session->userdata('plano_aprobado');
     $fecha_plano_aprobado = $this->session->userdata('fecha_plano_aprobado');
+    var_dump($fecha_escritura);
     $porcentaja_ucuf = $this->session->userdata('porcentaja_ucuf');
     $poligonos = $this->session->userdata('poligonos');
-    $order4 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_Escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
+    $order4 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
     $this->db->query($order4);
     /*preparo para insertar propietarios*/
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order5 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$order5 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]','$value[fecha_nacimiento]')";
     	$this->db->query($order5);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
