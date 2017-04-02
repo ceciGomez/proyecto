@@ -1607,7 +1607,8 @@ function checkPost(){
 
 			}
 
-		public function finalizarEdicion($idMinuta){
+		public function finalizarEdicion(){
+			$idMinuta=$_POST['idMinuta'];
 			$datetime_variable = new DateTime();
 				$datetime_formatted = date_format($datetime_variable, 'Y-m-d H:i:s');
 
@@ -1623,22 +1624,37 @@ function checkPost(){
 
     public  function nuevaParcela(){
 
+		
+    			$this->session->unset_userdata('datos_parcela');
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario');
+    			 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+    			  $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+               $this->crearParcela(FALSE, TRUE, TRUE);
+
      }
 
-    public function nuevoPH(){
-
+    public function nuevoPH($idParcela){
+    			$this->session->unset_userdata('datos_ph');
+    			$this->session->unset_userdata('propietario'); 
+    			 $this->session->set_userdata('idParcela',$idParcela);   			
+    			$this->crearRelacion(FALSE, TRUE, TRUE);
+    	
     }
        public function nuevoPropietario(){
-
+       		$this->crearPropietario(FALSE, TRUE, TRUE);
     }
-    public function eliminarPH($idRelacion){
-    			
+    public function eliminarPH(){
+    					$idRelacion=$_POST['idRelacion'];
     					$this->db->delete('propietario', array('idRelacion' => $idRelacion)); 
+    					$this->db->delete('relacion', array('idRelacion' => $idRelacion)); 
     					$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     			
     }
-       public function eliminarParcela($idParcela){
+       public function eliminarParcela(){
+       			$idParcela=$_POST['idParcela'];
+
        		   	$relaciones=$this->db->get_where('relacion ', array('idParcela'=>$idParcela))->result();
 
        						foreach ($relaciones as $r) {
@@ -1646,15 +1662,15 @@ function checkPost(){
 
        						}
        						$this->db->delete('relacion', array('idParcela' => $idParcela)); 
-       							$this->db->delete('parcela', array('idParcela' => $idParcela)); 
+       						$this->db->delete('parcela', array('idParcela' => $idParcela)); 
        						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
-    public function eliminarPropietario($idPropietario){
-
+    public function eliminarPropietario(){
+    				$idPropietario=$_POST['idPropietario'];
     					$this->db->delete('propietario', array('id' => $idPropietario)); 
 
-    						$this->editarMinuta($this->session->userdata('idMinutaEditar'));
+    					$this->editarMinuta($this->session->userdata('idMinutaEditar'));
 
     }
 
