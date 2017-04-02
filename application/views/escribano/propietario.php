@@ -278,7 +278,7 @@
                                <select class="form-control select2 localidades" id="localidades" name="localidades" style="width: 100%;">   
                                   <option value="">Seleccione localidad</option>  
                                   </select>
-                             <div style="color:red;" ><p><?=form_error('localidad')?></p></div>
+                             <div style="color:red;" ><p><?=form_error('localidades')?></p></div>
                          </div>
                </div>
             </div>

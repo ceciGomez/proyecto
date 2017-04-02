@@ -53,14 +53,11 @@ tr:hover{background-color:#f5f5f5;
             </thead>
             <tbody>            
        
-            <?php 
-              $datosph = $this->session->userdata('datos_ph');             
-              foreach ($datosph as $val) :?>
                <tr class="item_row">
-               <td><?php echo $val['fecha_escritura'];  ?></td>
-                 <td> <?php echo $val['fecha_plano_aprobado'];  ?></td>       
+               <td><?php $this->session->userdata('fecha_escritura');  ?></td>
+                 <td> <?php $this->session->userdata('fecha_plano_aprobado');  ?></td>       
                </tr>
-             <?php endforeach;?>
+             
         </tbody>
        </table>
        <!-- Tabla para mostrar propietarios -->

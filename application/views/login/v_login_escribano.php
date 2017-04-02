@@ -5,6 +5,7 @@
   <title>Login Escribano</title>
   
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link rel="icon" type="image/ico"  href="<?=base_url('images/favicon.ico')?>">
 
 
 <link rel="stylesheet" href="<?=base_url()?>assets/css/style_login.css">
@@ -50,7 +51,7 @@ $submit = array('name' => 'submit', 'value' => 'Iniciar sesión', 'title' => 'In
   </div>    
 </div>
   
-    <script src="js/index.js"></script>
+ 
 
 </body>
 </html>
