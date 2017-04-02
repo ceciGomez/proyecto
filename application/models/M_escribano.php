@@ -446,7 +446,7 @@ function insertarMinuta(){
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
     foreach ($propietarios as $value) {
-    	$order5 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]',$value[fecha_nacimiento])";
+    	$order5 = "insert into persona (empresa, apynom, cuitCuil, dni, direccion, idLocalidad, conyuge, fechaNac) values ('$value[propietario]','$value[nombreyapellido]', '$value[cuit_cuil]','$value[dni]','$value[direccion]',$idLocalidad, '$value[conyuge]','$value[fecha_nacimiento]')";
     	$this->db->query($order5);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
