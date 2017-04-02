@@ -473,7 +473,7 @@ class C_escribano extends CI_Controller {
 
 					/*verifica si presionó boton agregar propietario o guardar*/ 
 					if($this->input->post('minuta') == "agregar") { 
-    						$this->crearPropietario(FALSE,FALSE);
+    						$this->crearPropietario(TRUE,FALSE);
 
 					} else {
    					    $this->M_escribano->insertarMinuta();
@@ -511,7 +511,6 @@ function checkPost(){
 
     //verifica que haya seleccionado alguna localidad
 	function check_localidad($post_string){		
-       var_dump($post_string);
 		if($post_string=="Seleccione localidad"){
   			return FALSE;}
   		else{
