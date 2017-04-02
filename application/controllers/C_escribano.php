@@ -176,8 +176,8 @@ class C_escribano extends CI_Controller {
 
 					$date1=str_replace('/','-',$this->input->post('fechaPlanoAprobado')),
 					$date2=str_replace('/','-',$this->input->post('fechaMatriculaRPI')),
-					$date=new DateTime($date1),
-					$date=new DateTime($date2),
+					$date1=new DateTime($date1),
+					$date2=new DateTime($date2),
                	  'fechaPlanoAprobado' =>$date1->format('Y-m-d '),
               	   'fechaMatriculaRPI' =>$date2->format('Y-m-d '),
 					'circunscripcion' => $this->input->post('circunscripcion'),
@@ -265,7 +265,6 @@ class C_escribano extends CI_Controller {
      public function registrarRelacion(){
 
 				$hizo_post=TRUE;
-
 				 $this->load->helper(array('form', 'url'));
                  //set_reules(nombre del campo, mensaje a mostrar, reglas de validacion)
                  
@@ -278,22 +277,25 @@ class C_escribano extends CI_Controller {
 			} else{
                   
 				$datos_ph= array (
+
+					$date1=str_replace('/','-',$this->input->post('fecha_escritura')),
+					$date2=str_replace('/','-',$this->input->post('fecha_plano_aprobado')),
+					$date1=new DateTime($date1),
+					$date2=new DateTime($date2),
+               	    'fecha_escritura' => $date1->format('Y-m-d '),
+               	    'fecha_plano_aprobado' =>$date2->format('Y-m-d '),
 					'ph' => $this->input->post('ph'),
-					'fecha_escritura' => $this->input->post('fecha_escritura'),
 					'nro_ucuf' => $this->input->post('nro_ucuf'),
 					'tipo_ucuf' => $this->input->post('tipo_ucuf'),
 					'plano_aprobado' => $this->input->post('plano_aprobado'),
-					'fecha_plano_aprobado' => $this->input->post('fecha_plano_aprobado'),
 					'porcentaje_ucuf' => $this->input->post('porcentaje_ucuf'),
 					'poligonos' => $this->input->post('poligonos'), 
 
 				);
 
-				 	$array = array();
-					$this->session->set_userdata('datos_ph',$array); 
-					$ph_anterior =  $this->session->userdata('datos_ph');
-					array_push($ph_anterior, $datos_ph);
-					$this->session->set_userdata('datos_ph', $ph_anterior);
+				 
+					$this->session->set_userdata($datos_ph);
+
 				 /*
 				 if($this->session->userdata('datos_ph')) {
 				 	$ph_anterior =  $this->session->userdata('datos_ph');
@@ -320,7 +322,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-
+        var_dump($this->session->userdata('datos_ph'));
 		
 		$data["notificaciones_ma"]=$this->notificaciones_ma();
 		$data["notificaciones_mr"]=$this->notificaciones_mr();
@@ -426,7 +428,10 @@ class C_escribano extends CI_Controller {
 
                 /*si es empresa tomo el cuil*/   
                if($this->input->post('propietario')=='P')   { 
-				$datos_propietario= array (
+				    $datos_propietario= array (
+					$date1=str_replace('/','-',$this->input->post('fecha_nacimiento')),
+					$date1=new DateTime($date1),
+               	    'fecha_nacimiento' => $date1->format('Y-m-d '),
 					'propietario' => $this->input->post('propietario'),
 					'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
@@ -436,10 +441,12 @@ class C_escribano extends CI_Controller {
 					'cuit_cuil' => $this->input->post('cuil'),
 					'direccion' => $this->input->post('direccion'),
 					'conyuge' => $this->input->post('conyuge'),
-					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
 					'localidad' => $this->input->post('localidades'),	);
 			    }else{
-			    		$datos_propietario= array (
+			    	$datos_propietario= array (
+			    	$date1=str_replace('/','-',$this->input->post('fecha_nacimiento')),
+					$date1=new DateTime($date1),
+               	    'fecha_nacimiento' => $date1->format('Y-m-d '),		
 			    	'propietario' => $this->input->post('propietario'),		
 			    	'tipo_propietario' => $this->input->post('tipo_propietario'),
 					'porcentaje_condominio' => $this->input->post('porcentaje_condominio'),
@@ -449,7 +456,6 @@ class C_escribano extends CI_Controller {
 					'cuit_cuil' => $this->input->post('cuit'),
 					'direccion' => $this->input->post('direccion'),
 					'conyuge' => $this->input->post('conyuge'),
-					'fecha_nacimiento' => $this->input->post('fecha_nacimiento'),
 					'localidad' => $this->input->post('localidades'),	);
 				}
 				 /*$this->session->set_userdata($datos_propietario);*/
@@ -501,8 +507,7 @@ function checkPost(){
     		}else{
     			$this->session->unset_userdata('datos_parcela');
     			$this->session->unset_userdata('datos_ph');
-    			$this->session->unset_userdata('propietario');
-    		
+    			$this->session->unset_userdata('propietario');    		
                $this->crearParcela(FALSE, TRUE, TRUE);
 }
 }
