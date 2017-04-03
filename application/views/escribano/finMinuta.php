@@ -54,8 +54,8 @@ tr:hover{background-color:#f5f5f5;
             <tbody>            
        
                <tr class="item_row">
-               <td><?php $this->session->userdata('fecha_escritura');  ?></td>
-                 <td> <?php $this->session->userdata('fecha_plano_aprobado');  ?></td>       
+               <td><?php echo $this->session->userdata('fecha_escritura');  ?></td>
+                 <td> <?php echo $this->session->userdata('fecha_plano_aprobado');  ?></td>       
                </tr>
              
         </tbody>
