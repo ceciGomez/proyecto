@@ -399,8 +399,11 @@ function insertarMinuta(){
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
     $this->session->set_userdata('idMinuta',$idMinuta); 
-    $order2 = "insert into estadominuta (idMinuta, estadoMinuta) values ('$idMinuta','P')";
+    if ((!$this->session->userdata('editandoMinuta'))&&(!$this->session->userdata('editandoMinuta')!='') ) {
+    	$order2 = "insert into estadominuta (idMinuta, estadoMinuta) values ('$idMinuta','P')";
     $this->db->query($order2);
+    }
+    
 }
 
 	$idMinuta=$this->session->userdata('idMinuta');

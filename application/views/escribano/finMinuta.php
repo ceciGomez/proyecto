@@ -84,16 +84,26 @@ tr:hover{background-color:#f5f5f5;
         </tbody>
        </table>
        <div class="box-footer">
+          <?php 
+
+           if(  ($this->session->userdata('editandoMinuta'))&&  ($this->session->userdata('editandoMinuta')!='') ){
+            ?> 
+               <a href="<?=base_url()?>index.php/c_escribano/nuevaParcela/ "  class="btn btn-primary" title="Volver a agregar Parcela" name="volverEditar" value="nuevaParcela" >Agregar Parcela</a> 
+
+                <a href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo $this->session->userdata('idParcela')?> "  class="btn btn-primary" title="Volver a agregar Parcela" name="volverEditar" value="nuevo PH" >Agregar PH</a> 
+
+              <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $this->session->userdata('idMinutaEditar')?> "  class="btn btn-primary" title="Volver a editar Minuta" name="volverEditar" value="seguirEditandoMinuta" >Volver a editar Minuta</a> 
+               
+            <?php  
+             $this->session->unset_userdata('propietario')?> 
+             }else{
+            ?>      
+
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarph">Agregar Ph</button>  
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarparcela" >Agregar Parcela</button> 
+        <?php } ?>
         <a  class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>    
-           <?php 
-           if(  $this->session->userdata('editandoMinuta')&&  $this->session->userdata('editandoMinuta')!='' ){
-            ?> 
-              <button href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $this->session->userdata('idMinutaEditar')?> "  class="btn btn-primary" title="Volver a editar Minuta" name="volverEditar" value="seguirEditandoMinuta" >Volver a editar Minuta</button> 
-            <?php  
-           }
-            ?>                   
+                     
        </div>
        </form>
        </div>
