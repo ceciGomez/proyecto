@@ -443,7 +443,7 @@
                        if ($('input:radio[name=propietario]:checked').val()=='O') {
                         document.getElementById("cuit").value = data[3]; 
                       }else { document.getElementById("cuil").value = data[3]; };
-                     document.getElementById("cuit").value = data[3]; 
+          
                      document.getElementById("direccion").value = data[4]; 
                     document.getElementById("conyuge").value = data[5]; 
                   
