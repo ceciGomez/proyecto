@@ -356,8 +356,8 @@
                     if (motivoRechazo =="") {alert ("Falta ingresar Motivo");}
                     else{ 
                    $.post("<?=base_url()?>index.php/c_operador/rechazarMin",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
-                     
-                  });}
+                     });
+                  window.location.reload();}
                    }
                   
           
