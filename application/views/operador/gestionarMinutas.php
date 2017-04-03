@@ -16,16 +16,16 @@
                      <label>Fecha Ingreso :</label>
                      <input type="text" data-provide="datepicker"   id="fechaIngreso" placeholder="dd/mm/aaaa"  class='filter' data-column-index='1'> 
                      <label>Fecha Edición :</label>
-                     <input type='text' data-provide="datepicker"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
+                     <input type='text' data-provide="datepicker" id="fechaEdicion"  placeholder="dd/mm/aaaa" class='filter' data-column-index='2'>
                      <label>Minuta :</label>
                      <input type='text' id="nroMinuta" value='<?php echo $this->session->flashdata('noti_min')["idMinuta"]; ?>' class='filter' data-column-index='3'> 
                      <label>Estado :</label>
                      <input type="hidden" value= '<?php echo $this->session->flashdata('noti_min')["estado"]; ?>' id="estado"> 
                      <select id="segunEstado">
                         <option value=""></option>
-                        <option value="P">Pendiente</option>
-                        <option value="A">Aceptado</option>
-                        <option value="R">Rechazado</option>
+                        <option value="Pendiente">Pendiente</option>
+                        <option value="Aprobada">Aprobada</option>
+                        <option value="Rechazada">Rechazada</option>
                      </select>
                   </div>
                </div>
@@ -43,14 +43,19 @@
                      <tbody >
                         <?php 
                            foreach ($minutas as $mi){ 
-                           
-                               $date_formated=$mi["fechaIngresoSys"];
-                                  
+                                 $date=str_replace('/','-',$mi["fechaIngresoSys"]);
+                                 $date=new DateTime($date);
+                               $date_formated=$date->format('Y-m-d ');
+
+                                
                             if($mi["fechaEdicion"]!=null){
-                              $date2=new DateTime($mi["fechaEdicion"]);
-                             $date_formated2=$date2->format('d/m/Y ');
+                               $date2=str_replace('/','-',$mi["fechaEdicion"]);
+                              $date2=new DateTime($date2);
+                             $date_formated2=$date2->format('Y-m-d ');
+                             $fechaEdicion=$date2->format('d/m/Y ');
                            }else {
-                            $date_formated2="";}
+                             $date_formated2="";
+                             $fechaEdicion='';}
                            ?>
                         <?php 
                            /*
@@ -74,10 +79,21 @@
                                  ?>
                               <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>                                                        
                            </td>
-                           <td data-order="<?php echo $mi["fechaIngresoSys"]; ?>">  <?php  echo "$date_formated"; ?></td>
-                           <td data-oder="<?php echo $mi["fechaEdicion"]; ?>">  <?php  echo "$date_formated2"; ?></td>
+                           <td data-order="<?php echo "$date_formated"; ?>">  <?php  echo  $mi["fechaIngresoSys"]; ?></td>
+                           <td data-oder="<?php echo "$date_formated2"; ?>">  <?php  echo $fechaEdicion; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
-                           <td>  <?php  echo $mi['descEstadoMinuta']; ?> </td>
+                           <td
+                            <?php 
+                            switch  ($mi['descEstadoMinuta']){
+                              case "Aprobada":echo "data-order='1'";
+                              break;
+                              case "Rechazada":echo "data-order='2'";
+                              break;
+                              case "Pendiente":echo "data-order='3'"; 
+                              break;
+                            }
+                              ?>
+                           >  <?php  echo $mi['descEstadoMinuta']; ?> </td>
                         </tr>
                         <?php
                            }
@@ -125,7 +141,7 @@
                           </form>              
                      
                       
-                           <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                           <a  class="btn btn-default" data-dismiss="modal">Cerrar</a>
                             </div>
                         </div>
                      </div>
@@ -159,7 +175,7 @@
                            </table >
                         </div>
                         <div class="modal-footer">
-                           <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                           <a  data-dismiss="modal" class="btn btn-primary" >Aceptar</a>
                         </div>
                      </div>
                   </div>
@@ -201,7 +217,7 @@
                         </div>
                         <div class="modal-footer">
                            <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                           <a  href="<?=base_url()?>index.php/c_operador/gestionarMinutas " class="btn btn-primary" onclick="rechazar()" >Aceptar</a>
+                           <a  class="btn btn-primary" onclick="rechazar()" >Aceptar</a>
                         </div>
                      </div>
                   </div>
@@ -213,7 +229,7 @@
                    var dtable=$('#min').DataTable(
                        {
                           autoWidht:false,
-                         "order": [[ 1, "desc" ]],
+                         "order": [[ 4, "des" ],[ 1, "desc" ]],
 
                             language: {
                                "sProcessing":     "Procesando...",
@@ -356,15 +372,22 @@
                     if (motivoRechazo =="") {alert ("Falta ingresar Motivo");}
                     else{ 
                    $.post("<?=base_url()?>index.php/c_operador/rechazarMin",{idEstadoMinuta:idEstMin,motivoRechazo:motivoRechazo,idUsuario:idUsr}, function(data){
-                     
-                  });}
+                     });
+                  window.location.reload();}
                    }
                   
           
                   
                      //visualizar el calendario en el input fecha
                     $( document ).ready(function() {
-                           $('#fechaEdicion').datepicker();
+                           $('#fechaEdicion').datepicker({
+                             autoclose: true
+                           });
+                       });             
+                        $( document ).ready(function() {
+                           $('#fechaIngreso').datepicker({
+                             autoclose: true
+                           });
                        });                 
                   
                </script>
@@ -374,8 +397,3 @@
          <!-- /.Left col -->
       </div>
       <!-- /.row (main row) -->
-   </section>
-   <!-- /.content -->
-</div>
-<!-- /.content-wrapper -->
-

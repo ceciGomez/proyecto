@@ -110,6 +110,7 @@
                             <?php  foreach ($escribanos as $es){ 
                               $date=new DateTime($es->fechaReg);
                               $date_formated=$date->format('d/m/Y ');
+                                $fechaReg=$date->format('Y-m-d ');
                               
                               $localidad=$this->db->get_where('localidad', array('idLocalidad'=>$es->idLocalidad))->row();
                            
@@ -133,7 +134,7 @@
                                   <a class="btn btn-sm " >  <button class="btn btn-info" data-toggle="modal"  href="#Eliminar"  onclick="ventana_eli(<?php echo $es->idEscribano; ?>)"><i class="fa fa-remove" title="Eliminar Escribano" href="#Eliminar" ></i></button></a>
                               
                            </td>
-                            <td data-order="<?php echo $es->fechaReg ?>" style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
+                            <td data-order="<?php echo $fechaReg ?>" style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  echo "$date_formated"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->dni==null) echo "";else echo "$es->dni"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php   if($es->nomyap==null) echo "";else echo "$es->nomyap"; ?></td>
                             <td style=<?php if ($es->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php   if($es->matricula==null) echo "";else  echo "$es->matricula"; ?></td>
@@ -441,7 +442,10 @@
 
                      //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
-                            $('#fechaRegistracion').datepicker();
+                            $('#fechaRegistracion').datepicker(
+                              {
+                                 autoclose: true
+                              });
                         });
 
 
@@ -460,9 +464,6 @@
       </div>
       <!-- /.row (main row) -->
 
-    </section>
-    <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
  

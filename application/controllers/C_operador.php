@@ -162,8 +162,24 @@ class C_operador extends CI_Controller {
 
 
 	public function detalles_esc(){
+
 			$idEscribano=$_POST["idEscribano"];
-			$esc = $this->M_administrador->getUnEscribano2($idEscribano);
+			 $esc= $this->db->get_where('usuarioescribano', array('idEscribano'=>$idEscribano))->row();;
+			switch ($esc->estadoAprobacion) {
+				case 'P':$estadoAprobacion="Pendiente";
+					# code...
+					break;
+					case 'A':$estadoAprobacion="Aprobado";
+					# code...
+					break;
+					case 'R':$estadoAprobacion="Rechazado";
+					# code...
+					break;
+
+				default:$estadoAprobacion='';
+					# code...
+					break;
+			}
 			echo " <tr>
                             <td> $esc->nomyap</td>  
                         	<td> $esc->usuario</td>
@@ -172,7 +188,7 @@ class C_operador extends CI_Controller {
                             <td> $esc->direccion</td>
                             <td> $esc->email</td>
                             <td> $esc->telefono</td>
-                            <td>$esc->descEstadoAp</td>
+                            <td>$estadoAprobacion</td>
                        </tr>
                          "; 
                          }
@@ -371,9 +387,16 @@ class C_operador extends CI_Controller {
 		foreach ($estadoMinuta as $e) {
 			$idUsuario=$e->idUsuario;
 			if ($idUsuario!=null){
+				if($e->fechaEstado==null){
+					$fechaEstado=='';
+				}else{
+					 $date=new DateTime($e->fechaEstado);
+                    $fechaEstado=$date->format('d/m/Y ');
+				}
+				 
 			$usuario=$this->db->get_where('usuariosys', array('idUsuario'=>$idUsuario))->row();
 				 echo " <tr>
-				 		    <td>  $e->fechaEstado</td>
+				 		    <td>  $fechaEstado</td>
   							<td>  $e->estadoMinuta</td>
                             <td> $e->motivoRechazo</td>
  							<td> $usuario->nomyap</td>
@@ -432,9 +455,8 @@ class C_operador extends CI_Controller {
 
 	
 	public function notificaciones_mp(){
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "P"); 
-                        return( $this->db->get()->result()); 
+					
+                        return( $this->M_escribano->getMinutasxEstado('P')); 
 
 	}
 		public function notificaciones_ep(){

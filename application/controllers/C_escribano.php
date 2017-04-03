@@ -35,15 +35,16 @@ class C_escribano extends CI_Controller {
 		
 		}	
 		
-	public function crearParcela($exito=FALSE, $hizo_post=FALSE, $otra_Parcela=FALSE)
+	public function crearParcela($exito=FALSE, $hizo_post=FALSE, $otra_Parcela=FALSE,$editandoMinuta=FALSE)
 	{
   					
-
 		if($this->session->userdata('perfil') == FALSE || $this->session->userdata('perfil') != 'escribano')
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-
+		if (!$editandoMinuta) {
+			$this->session->unset_userdata('editandoMinuta');
+		}
 		if($otra_Parcela == TRUE){
 			$this->session->set_userdata('otraParcela',TRUE);
     			$this->session->set_userdata('otroPh',FALSE);
@@ -121,7 +122,7 @@ class C_escribano extends CI_Controller {
 
 	
 	public function registrarParcela()	{
-					$this->session->unset_userdata('editandoMinuta'); 
+				
 				$hizo_post=TRUE;
 
 			    $this->load->helper(array('form', 'url'));
@@ -790,27 +791,15 @@ function checkPost(){
 
 	public function notificaciones_ma(){
 		$idEscribano=$this->session->userdata('idEscribano');
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "A"); 
-                          $this->db->where('minuta.idEscribano', $idEscribano); 
-                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
-                          $this->db->order_by('idEstadoMinuta', 'DESC');
-                         $this->db->limit(10);
+						
 
-                  return( $this->db->get()->result()); 
+                  return( $this->M_escribano->getMinutasxEstadoxisEscribano('A',$idEscribano)); 
 
 	}
 
 	public function notificaciones_mr(){
 				$idEscribano=$this->session->userdata('idEscribano');
-
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "R"); 
-                         $this->db->where('minuta.idEscribano', $idEscribano); 
-                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
-                         $this->db->order_by('idEstadoMinuta', 'DESC');
-                          $this->db->limit(10);
-                        return( $this->db->get()->result()); 
+ 			 return( $this->M_escribano->getMinutasxEstadoxisEscribano('R',$idEscribano)); 
 
 	}
 		public function notificaciones_si(){
@@ -1599,9 +1588,9 @@ function checkPost(){
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
        			 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
-    		$this->session->set_userdata('editandoMinuta','0'); 
+    		$this->session->set_userdata('editandoMinuta','s'); 
     			
-               $this->crearParcela(FALSE, TRUE, TRUE);
+               $this->crearParcela(FALSE, TRUE, TRUE,TRUE);
 
      }
 
@@ -1635,9 +1624,10 @@ function checkPost(){
 				$this->session->set_userdata($datos_parcela);
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario'); 
-    			 $this->session->set_userdata('idParcela',$idParcela);   			
+    			 $this->session->set_userdata('idParcela',$idParcela); 
+    			  $this->session->set_userdata('editandoMinuta','s'); 
+  			
     			$this->crearRelacion(FALSE, TRUE, TRUE);
-    			$this->session->set_userdata('editandoMinuta','0'); 
     	
     }
        public function nuevoPropietario($idRelacion){
@@ -1689,7 +1679,8 @@ function checkPost(){
 				);
        		$this->session->set_userdata($datos_ph);
        		$this->session->unset_userdata('propietario');
-       			$this->session->set_userdata('editandoMinuta','0'); 
+       		   $this->session->set_userdata('editandoMinuta','s'); 
+
        		$this->crearPropietario(FALSE, TRUE, TRUE);
        	
     }
