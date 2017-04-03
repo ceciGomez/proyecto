@@ -121,7 +121,7 @@ class C_escribano extends CI_Controller {
 
 	
 	public function registrarParcela()	{
-
+					$this->session->unset_userdata('editandoMinuta'); 
 				$hizo_post=TRUE;
 
 			    $this->load->helper(array('form', 'url'));
@@ -1598,21 +1598,100 @@ function checkPost(){
     			$this->session->unset_userdata('datos_parcela');
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
-    			 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
-    			  $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+       			 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+    		$this->session->set_userdata('editandoMinuta','0'); 
+    			
                $this->crearParcela(FALSE, TRUE, TRUE);
 
      }
 
     public function nuevoPH($idParcela){
+    			$parcela=$this->db->get_where('parcela ', array('idParcela'=>$idParcela))->row();
+				$datos_parcela= array (
+
+					
+               	  'fechaPlanoAprobado' =>$parcela->fechaPlanoAprobado,
+              	   'fechaMatriculaRPI' =>$parcela->fechaMatriculaRPI,
+					'circunscripcion' => $parcela->circunscripcion,
+					'seccion' => $parcela->seccion,
+					'chacra' => $parcela->chacra,
+					'quinta' => $parcela->quinta,
+					'fraccion' => $parcela->fraccion,
+					'manzana' => $parcela->manzana,
+					'parcela' =>  $parcela->parcela,
+					'superficie' =>  $parcela->superficie, 
+					'partida' =>$parcela->partida,					
+					'tipoPropiedad' => $parcela->tipoPropiedad,
+					'planoAprobado' => $parcela->planoAprobado,
+					'descripcion' => $parcela->descripcion,										
+					'nroMatriculaRPI' => $parcela->nroMatriculaRPI,
+					'localidades' => $parcela->idLocalidad,
+					'tomo' =>$parcela->tomo,
+					'folio' =>$parcela->folio,
+					'finca' =>$parcela->finca,
+					'año' => $parcela->año,		
+				);
+
+				$this->session->set_userdata($datos_parcela);
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario'); 
     			 $this->session->set_userdata('idParcela',$idParcela);   			
     			$this->crearRelacion(FALSE, TRUE, TRUE);
+    			$this->session->set_userdata('editandoMinuta','0'); 
     	
     }
-       public function nuevoPropietario(){
+       public function nuevoPropietario($idRelacion){
+       		 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+
+       		$relacion=$this->db->get_where('relacion', array('idRelacion'=>$idRelacion))->row();
+
+       		$idParcela=$relacion->idParcela;
+       		 $parcela=$this->db->get_where('parcela', array('idParcela'=>$idParcela))->row();
+
+       		 $datos_parcela= array (
+
+					
+               	  'fechaPlanoAprobado' =>$parcela->fechaPlanoAprobado,
+              	   'fechaMatriculaRPI' =>$parcela->fechaMatriculaRPI,
+					'circunscripcion' => $parcela->circunscripcion,
+					'seccion' => $parcela->seccion,
+					'chacra' => $parcela->chacra,
+					'quinta' => $parcela->quinta,
+					'fraccion' => $parcela->fraccion,
+					'manzana' => $parcela->manzana,
+					'parcela' =>  $parcela->parcela,
+					'superficie' =>  $parcela->superficie, 
+					'partida' =>$parcela->partida,					
+					'tipoPropiedad' => $parcela->tipoPropiedad,
+					'planoAprobado' => $parcela->planoAprobado,
+					'descripcion' => $parcela->descripcion,										
+					'nroMatriculaRPI' => $parcela->nroMatriculaRPI,
+					'localidades' => $parcela->idLocalidad,
+					'tomo' =>$parcela->tomo,
+					'folio' =>$parcela->folio,
+					'finca' =>$parcela->finca,
+					'año' => $parcela->año,		
+				);
+
+				$this->session->set_userdata($datos_parcela);
+
+       		$datos_ph= array (
+
+					
+               	    'fecha_escritura' => $relacion->fechaEscritura,
+               	   
+					'nro_ucuf' => $relacion->nroUfUc,
+					'tipo_ucuf' =>  $relacion->tipoUfUc,
+					'plano_aprobado' => $relacion->planoAprobado,
+					'porcentaje_ucuf' => $relacion->porcentajeUfUc,
+					'poligonos' => $relacion->poligonos, 
+
+				);
+       		$this->session->set_userdata($datos_ph);
+       		$this->session->unset_userdata('propietario');
+       			$this->session->set_userdata('editandoMinuta','0'); 
        		$this->crearPropietario(FALSE, TRUE, TRUE);
+       	
     }
     public function eliminarPH(){
     					$idRelacion=$_POST['idRelacion'];

@@ -86,7 +86,14 @@ tr:hover{background-color:#f5f5f5;
        <div class="box-footer">
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarph">Agregar Ph</button>  
         <button type="submit" class="btn btn-primary" name="finminuta" value="agregarparcela" >Agregar Parcela</button> 
-        <a  class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>                         
+        <a  class="btn btn-primary" name="finminuta" href="<?=base_url()?>index.php/c_escribano/verMinutas" >Ver Minutas</a>    
+           <?php 
+           if(  $this->session->userdata('editandoMinuta')&&  $this->session->userdata('editandoMinuta')!='' ){
+            ?> 
+              <button href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $this->session->userdata('idMinutaEditar')?> "  class="btn btn-primary" title="Volver a editar Minuta" name="volverEditar" value="seguirEditandoMinuta" >Volver a editar Minuta</button> 
+            <?php  
+           }
+            ?>                   
        </div>
        </form>
        </div>
