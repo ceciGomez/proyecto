@@ -146,7 +146,8 @@ table, th, td {
                      
                        <a class="btn btn-danger" data-toggle="modal" href="#eliminarParcela" title="Eliminar Parcela" onclick="ventana_eliminarParcela(<?php echo  $parcela->idParcela  ?>) ">Eliminar Parcela</a>
                    <br>
-                     <a  href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo $parcela->idParcela ?> " title="Agregar" ><button class="btn btn-info">Agregar</button></a> 
+                   <br>
+                     <a  href="<?=base_url()?>index.php/c_escribano/nuevoPH/<?php echo $parcela->idParcela ?> " title="Agregar" ><button class="btn btn-info">Agregar PH</button></a> 
                  <br>
                  <br>
                

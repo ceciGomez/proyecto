@@ -121,7 +121,7 @@ class C_escribano extends CI_Controller {
 
 	
 	public function registrarParcela()	{
-
+					$this->session->unset_userdata('editandoMinuta'); 
 				$hizo_post=TRUE;
 
 			    $this->load->helper(array('form', 'url'));
@@ -1599,6 +1599,7 @@ function checkPost(){
     			$this->session->unset_userdata('datos_ph');
     			$this->session->unset_userdata('propietario');
        			 $this->session->set_userdata('idMinuta',$this->session->userdata('idMinutaEditar')); 
+    		$this->session->set_userdata('editandoMinuta','0'); 
     			
                $this->crearParcela(FALSE, TRUE, TRUE);
 
@@ -1636,6 +1637,7 @@ function checkPost(){
     			$this->session->unset_userdata('propietario'); 
     			 $this->session->set_userdata('idParcela',$idParcela);   			
     			$this->crearRelacion(FALSE, TRUE, TRUE);
+    			$this->session->set_userdata('editandoMinuta','0'); 
     	
     }
        public function nuevoPropietario($idRelacion){
@@ -1687,7 +1689,9 @@ function checkPost(){
 				);
        		$this->session->set_userdata($datos_ph);
        		$this->session->unset_userdata('propietario');
+       			$this->session->set_userdata('editandoMinuta','0'); 
        		$this->crearPropietario(FALSE, TRUE, TRUE);
+       	
     }
     public function eliminarPH(){
     					$idRelacion=$_POST['idRelacion'];
