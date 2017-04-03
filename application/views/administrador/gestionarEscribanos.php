@@ -460,9 +460,6 @@
       </div>
       <!-- /.row (main row) -->
 
-    </section>
-    <!-- /.content -->
-  </div>
   <!-- /.content-wrapper -->
 
  
