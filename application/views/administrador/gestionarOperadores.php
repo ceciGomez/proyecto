@@ -114,8 +114,9 @@
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php if($op->nomyap==null)echo " ";else echo "$op->nomyap";  ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->usuario==null)echo " ";else echo "$op->usuario"; ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >  <?php  if($op->telefono==null)echo " ";else echo "$op->telefono";  ?></td>
-                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->email==null)echo " ";else echo "$op->email";  ?></td>
-                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->direccion==null)echo " "; else echo "$op->direccion";  ?></td>
+                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?> >                            <?php   if($op->email==null) echo "";  ?>
+                           <a href="mailto:<?php echo "$op->email" ?>"><?php echo "$op->email" ?></a>
+                             </td>                             <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($op->direccion==null)echo " "; else echo "$op->direccion";  ?></td>
                              <td style=<?php if ($op->baja=='1') echo "'color:red;'";else echo"' '" ;?>>  <?php  if($localidad==null) echo " ";else echo "$localidad->nombre";  ?></td>
                           
                            
