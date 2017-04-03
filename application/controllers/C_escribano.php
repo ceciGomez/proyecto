@@ -25,7 +25,7 @@ class C_escribano extends CI_Controller {
 		$data['minutasRechazadas'] = $this->M_escribano->getMinutasRechazadas( $this->session->userdata('idEscribano'));
 		$data['cantM_rechazadas'] = $this->M_escribano->getCantMinutasRechazadas( $this->session->userdata('idEscribano'));
 		$idEscri = $this->session->userdata('idEscribano');
-		$unEscribano=$this->M_escribano->getUnEscribano(10);
+		$unEscribano=$this->M_escribano->getUnEscribano($idEscri);
 		$data['escribano']=$unEscribano;
 		//var_dump($this->session->userdata('usuario'));
 		$this->load->view('templates/cabecera_escribano',$data);
