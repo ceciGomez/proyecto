@@ -91,7 +91,7 @@ return patron.test(te);
    });
 
    //Para seleccionar la provincia y localidad que tiene el escribano
-
+   if ( idLocalidad=document.getElementById("idLocalidad")) {
       idLocalidad=document.getElementById("idLocalidad").value;
        console.log(idLocalidad);
        $.post("<?=base_url()?>index.php/c_administrador/obtenerProvincia_x_idLoc",{idLocalidad:idLocalidad}, function(data){
@@ -106,6 +106,7 @@ return patron.test(te);
 
                   });
         });
+     }
 });
 
 </script>
@@ -276,6 +277,7 @@ return patron.test(te);
    {
       <?php if ($hizo_post) {  ?>
       $("#Registro").modal("show");
+      console.log('vino por aca')
     <?php } ?>
    });
 </script> 

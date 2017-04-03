@@ -168,8 +168,8 @@
                                                          
 
                             </td>
-                            <td>  <?php  echo $date_formated; ?></td>
-                            <td>  <?php  echo $date_formated2; ?></td>
+                            <td data-order="<?php echo $pa->fechaIngresoSys ?>" >  <?php  echo $date_formated; ?></td>
+                            <td  data-order="<?php echo $pa->fechaEscritura ?>">  <?php  echo $date_formated2; ?></td>
                             <td>   <?php  if($pa->circunscripcion==null) echo "";else   echo $pa->circunscripcion; ?> </td>
                             <td>   <?php  if($pa->seccion==null) echo "";else echo  $pa->seccion; ?> </td>
                             <td>   <?php  if( $pa->chacra==null) echo "";else echo   $pa->chacra; ?> </td>

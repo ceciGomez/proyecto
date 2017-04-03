@@ -455,9 +455,8 @@ class C_operador extends CI_Controller {
 
 	
 	public function notificaciones_mp(){
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "P"); 
-                        return( $this->db->get()->result()); 
+					
+                        return( $this->M_escribano->getMinutasxEstado('P')); 
 
 	}
 		public function notificaciones_ep(){
