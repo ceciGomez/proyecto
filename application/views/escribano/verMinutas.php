@@ -40,9 +40,7 @@
                   </div>
                   </div>
                <!-- /.box-header -->
-               <div align="right" class="box-tools">
-                  <a class="btn btn-primary" href="<?=base_url().'index.php/c_escribano/crearParcela'?>" >Registrar Nueva Minuta</a>
-               </div>
+               
                <div class="box-body table-responsive no-padding">
                   <table id="min"  class="table-bordered" style="display: none">
                      <thead>
