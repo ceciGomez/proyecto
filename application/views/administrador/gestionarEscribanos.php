@@ -441,7 +441,10 @@
 
                      //visualizar el calendario en el input fecha
                          $( document ).ready(function() {
-                            $('#fechaRegistracion').datepicker();
+                            $('#fechaRegistracion').datepicker(
+                              {
+                                 autoclose: true
+                              });
                         });
 
 
