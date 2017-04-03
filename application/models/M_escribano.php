@@ -399,7 +399,7 @@ function insertarMinuta(){
     /*preparo para insertar una parcela*/
     $idMinuta = $this->db->insert_id();    
     $this->session->set_userdata('idMinuta',$idMinuta); 
-    if ((!$this->session->userdata('editandoMinuta'))&&(!$this->session->userdata('editandoMinuta')!='') ) {
+    if ((!$this->session->userdata('editandoMinuta'))||(!$this->session->userdata('editandoMinuta')!='') ) {
     	$order2 = "insert into estadominuta (idMinuta, estadoMinuta) values ('$idMinuta','P')";
     $this->db->query($order2);
     }
@@ -443,8 +443,11 @@ function insertarMinuta(){
     $fecha_plano_aprobado = $this->session->userdata('fecha_plano_aprobado');
     $porcentaja_ucuf = $this->session->userdata('porcentaja_ucuf');
     $poligonos = $this->session->userdata('poligonos');
+    if ((!$this->session->userdata('noInsertarPH'))||(!$this->session->userdata('noInsertarPH')!='') ) {
     $order4 = "insert into relacion (idParcela,fechaEscritura, nroUfUc, tipoUfUc, planoAprobado, fechaPlanoAprobado, porcentajeUfUc, poligonos) values ('$idParcela','$fecha_escritura','$nro_ucuf','$tipo_ucuf','$plano_aprobado','$fecha_plano_aprobado','$porcentaja_ucuf','$poligonos')";
     $this->db->query($order4);
+}
+
     /*preparo para insertar propietarios*/
     $idRelacion = ($this->db->insert_id());
     $propietarios = $this->session->userdata('propietario');
@@ -453,9 +456,14 @@ function insertarMinuta(){
     	$this->db->query($order5);
     	$idPersona = ($this->db->insert_id());
     	/*preparo para insertar propietario*/
+    	 if ((!$this->session->userdata('noInsertarPH'))||(!$this->session->userdata('noInsertarPH')!='') ) {
     	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, '$value[porcentaje_condominio]', '$value[tipo_propietario]')";
     	$this->db->query($insertar_propietario);
-
+    }else{
+    	$idRelacion=$this->session->userdata('idRelacionEditar');
+    	$insertar_propietario = "insert into propietario (idRelacion,idPersona, porcentajeCondominio, tipoPropietario) values ($idRelacion,$idPersona, '$value[porcentaje_condominio]', '$value[tipo_propietario]')";
+    	$this->db->query($insertar_propietario);
+    }
     }
     $this->session->set_userdata('otroPh',FALSE);
     $this->session->set_userdata('otraParcela', FALSE);

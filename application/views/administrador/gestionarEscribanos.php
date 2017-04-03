@@ -50,9 +50,9 @@
                             <input type="hidden" value= '<?php echo $this->session->flashdata('noti_esc')["estado"]; ?>' id="estado"> 
                             <select id="segunEstado">
                                  <option value=""></option>
-                                <option value="P">Pendiente</option>
-                                <option value="A">Aprobado</option>
-                                <option value="R">Rechazado</option>
+                                <option value="Pendiente">Pendiente</option>
+                                <option value="Aceptado">Aceptado</option>
+                                <option value="Rechazado">Rechazado</option>
                                
                             </select>
                           </div>

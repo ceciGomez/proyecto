@@ -37,8 +37,11 @@ tr:hover{background-color:#f5f5f5;
             <tbody>           
           <tr>
           <th> Tipo propiedad</th><td> <?php echo $this->session->userdata('tipoPropiedad'); ?> </td>
-          <th> Departamento</th><td> <?php echo $this->session->userdata('departamentos'); ?> </td>
-          <th> Localidad</th><td> <?php echo $this->session->userdata('localidades'); ?> </td>
+          <th> Circunscripción</th><td> <?php echo $this->session->userdata('circunscripcion'); ?> </td>
+           <th> Sección</th><td> <?php echo $this->session->userdata('seccion'); ?> </td>
+            <th> Superficie</th><td> <?php echo $this->session->userdata('superficie'); ?> </td>
+            <th> Partida</th><td> <?php echo $this->session->userdata('partida'); ?> </td>
+          <th> Tomo</th><td> <?php echo $this->session->userdata('tomo'); ?> </td>
         </tr>
         </tbody>
        </table>
@@ -95,7 +98,7 @@ tr:hover{background-color:#f5f5f5;
               <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $this->session->userdata('idMinutaEditar')?> "  class="btn btn-primary" title="Volver a editar Minuta" name="volverEditar" value="seguirEditandoMinuta" >Volver a editar Minuta</a> 
                
             <?php  
-             $this->session->unset_userdata('propietario')?> 
+             $this->session->unset_userdata('propietario');
              }else{
             ?>      
 

@@ -169,7 +169,7 @@ table, th, td {
                           <tr class="relacion">
                              
                              <th>Fecha Escritura</th>
-                               <?php if($relacion->poligonos!=null){ ?>
+                               <?php if($relacion->nroUfUc!=null){ ?>
                              <th>Número Unidad Funcinal</th>
                              <th>Tipo Unidad Funcional</th>
                              <th>Plano Aprobado</th>
@@ -430,7 +430,7 @@ table, th, td {
 
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarPropietario()">Aceptar</a>
+                          <a class="btn btn-primary" onclick="eliminarPropietario()" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " >Aceptar</a>
                          </div>
                       </div>
                     </div>
@@ -445,12 +445,12 @@ table, th, td {
                           <h3 class="modal-title" style="color:white"> Eliminar PH</h3>
                          </div>
                          <div class="modal-body">
-                         <h3> Confirmar eliminar la Propiedad Horizontal</h3>
+                         <h3> Confirmar eliminar la Escritura</h3>
                         
 
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarPH()">Aceptar</a>
+                          <a class="btn btn-primary" onclick="eliminarPH()"  href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> ">Aceptar</a>
                          </div>
                       </div>
                     </div>
@@ -470,7 +470,7 @@ table, th, td {
 
                          <div class="modal-footer">
                           <a href="" class="btn btn-default" data-dismiss="modal">Cancelar</a>
-                          <a href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> " class="btn btn-primary" onclick="eliminarParcela()">Aceptar</a>
+                          <a  class="btn btn-primary" onclick="eliminarParcela()" href="<?=base_url()?>index.php/c_escribano/editarMinuta/<?php echo $idMinutaEditar?> ">Aceptar</a>
                          </div>
                       </div>
                     </div>

@@ -44,6 +44,7 @@ class C_escribano extends CI_Controller {
 		}
 		if (!$editandoMinuta) {
 			$this->session->unset_userdata('editandoMinuta');
+				$this->session->unset_userdata('noInsertarPH'); 
 		}
 		if($otra_Parcela == TRUE){
 			$this->session->set_userdata('otraParcela',TRUE);
@@ -216,7 +217,7 @@ class C_escribano extends CI_Controller {
 		{
 			redirect(base_url().'index.php/c_login_escribano');
 		}
-
+			$this->session->unset_userdata('propietario'); 
          /*Variables para evitar que inserte una minuta y parcela cuando quiere agregar otro ph*/
 		if($otro_ph==TRUE){
 			$this->session->set_userdata('otroPh',TRUE);
@@ -1578,6 +1579,12 @@ function checkPost(){
 			);
 
 			$this->db->insert('estadominuta', $data); 
+			
+			$datoMin=array(
+			'fechaEdicion'=>$datetime_formatted
+			 );
+			$this->db->where('idMinuta', $idMinuta);
+			$this->db->update('minuta', $datoMin);
 			$this->verMinutas();
 		}
 
@@ -1620,6 +1627,9 @@ function checkPost(){
 					'finca' =>$parcela->finca,
 					'año' => $parcela->año,		
 				);
+
+				$this->session->set_userdata('otraParcela',TRUE);
+    			
 
 				$this->session->set_userdata($datos_parcela);
     			$this->session->unset_userdata('datos_ph');
@@ -1678,9 +1688,13 @@ function checkPost(){
 
 				);
        		$this->session->set_userdata($datos_ph);
+       		$this->session->set_userdata('idRelacionEditar',$idRelacion);
        		$this->session->unset_userdata('propietario');
        		   $this->session->set_userdata('editandoMinuta','s'); 
-
+       			
+       			$this->session->set_userdata('otraParcela',TRUE); 
+       			$this->session->set_userdata('noInsertarPH','s'); 
+       		
        		$this->crearPropietario(FALSE, TRUE, TRUE);
        	
     }

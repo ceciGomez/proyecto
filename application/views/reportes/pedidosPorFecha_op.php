@@ -22,12 +22,12 @@
                        <div class="row">
                       <div class="col-md-3">
                           <label>Fecha Pedido desde :</label><br>
-                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"   > 
+                        <input type="text"   id="fechaPedidoDesde" name="fechaPedidoDesde" data-provide="datepicker" placeholder="dd/mm/yyyy"  required> 
                       </div>
 
                        <div class="col-md-3">
                           <label>Fecha Pedido hasta :</label><br>
-                        <input type="text"   id="fechaPedidoHasta" name="fechaPedidoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" > 
+                        <input type="text"   id="fechaPedidoHasta" name="fechaPedidoHasta" data-provide="datepicker" placeholder="dd/mm/yyyy" required> 
                       </div>
               
                 </div> 
