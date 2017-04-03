@@ -790,27 +790,15 @@ function checkPost(){
 
 	public function notificaciones_ma(){
 		$idEscribano=$this->session->userdata('idEscribano');
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "A"); 
-                          $this->db->where('minuta.idEscribano', $idEscribano); 
-                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
-                          $this->db->order_by('idEstadoMinuta', 'DESC');
-                         $this->db->limit(10);
+						
 
-                  return( $this->db->get()->result()); 
+                  return( $this->M_escribano->getMinutasxEstadoxisEscribano('A',$idEscribano)); 
 
 	}
 
 	public function notificaciones_mr(){
 				$idEscribano=$this->session->userdata('idEscribano');
-
-						$this->db->from('estadominuta');
-                         $this->db->where('estadoMinuta', "R"); 
-                         $this->db->where('minuta.idEscribano', $idEscribano); 
-                         $this->db->join('minuta', 'estadominuta.idMinuta = minuta.idMinuta','left');
-                         $this->db->order_by('idEstadoMinuta', 'DESC');
-                          $this->db->limit(10);
-                        return( $this->db->get()->result()); 
+ 			 return( $this->M_escribano->getMinutasxEstadoxisEscribano('R',$idEscribano)); 
 
 	}
 		public function notificaciones_si(){
