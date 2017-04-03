@@ -52,8 +52,10 @@
                                $date2=str_replace('/','-',$mi["fechaEdicion"]);
                               $date2=new DateTime($date2);
                              $date_formated2=$date2->format('Y-m-d ');
+                             $fechaEdicion=$date2->format('d/m/Y ');
                            }else {
-                            $date_formated2="";}
+                             $date_formated2="";
+                             $fechaEdicion='';}
                            ?>
                         <?php 
                            /*
@@ -78,7 +80,7 @@
                               <a class="btn btn-sm " > <button class="btn btn-success" data-toggle="modal" href="#Estados" title="Estados" onclick="ventana_estados(<?php echo $mi ['idMinuta']; ?>)"  ><i class="fa fa-th-list"></i></button></a>                                                        
                            </td>
                            <td data-order="<?php echo "$date_formated"; ?>">  <?php  echo  $mi["fechaIngresoSys"]; ?></td>
-                           <td data-oder="<?php echo "$date_formated2"; ?>">  <?php  echo  $mi["fechaEdicion"]; ?></td>
+                           <td data-oder="<?php echo "$date_formated2"; ?>">  <?php  echo $fechaEdicion; ?></td>
                            <td>  <?php  echo $mi ['idMinuta']; ?> </td>
                            <td
                             <?php 
@@ -139,7 +141,7 @@
                           </form>              
                      
                       
-                           <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
+                           <a  class="btn btn-default" data-dismiss="modal">Cerrar</a>
                             </div>
                         </div>
                      </div>
@@ -173,7 +175,7 @@
                            </table >
                         </div>
                         <div class="modal-footer">
-                           <a href="" class="btn btn-primary" onclick="aceptar()">Aceptar</a>
+                           <a  data-dismiss="modal" class="btn btn-primary" >Aceptar</a>
                         </div>
                      </div>
                   </div>
