@@ -201,7 +201,7 @@
                         </div>
                         <div class="modal-footer">
                            <a href="" class="btn btn-default" data-dismiss="modal">Cerrar</a>
-                           <a  href="<?=base_url()?>index.php/c_operador/gestionarMinutas " class="btn btn-primary" onclick="rechazar()" >Aceptar</a>
+                           <a  class="btn btn-primary" onclick="rechazar()" >Aceptar</a>
                         </div>
                      </div>
                   </div>
